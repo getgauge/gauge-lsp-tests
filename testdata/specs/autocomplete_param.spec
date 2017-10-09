@@ -1,6 +1,6 @@
 Specification Heading
 =====================
-table: /testdata/autocomplete/csv.csv
+table: /testdata/csv.csv
 Gauge LSP 2
 -----------
 * one "something"
