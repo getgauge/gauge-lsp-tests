@@ -7,7 +7,7 @@ var path = require('path');
 var assert = require('assert');
 var cwd = process.cwd();
 
-async function startGaugeDaemon(store,projectPath){    
+async function startGaugeDaemon(store,projectPath){
     var absProjectPath = path.join(cwd,projectPath);
     console.log(absProjectPath)
     

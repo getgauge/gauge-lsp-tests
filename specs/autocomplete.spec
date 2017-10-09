@@ -1,7 +1,5 @@
 Specification Heading
 =====================
-table: /testdata/csv.csv
-
 * start gauge daemon for project "testdata"
 Steps list for autcomplete
 --------------------------

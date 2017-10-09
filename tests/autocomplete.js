@@ -48,10 +48,10 @@ step("autocomplete at line <lineNumber> character <characterNumber> should give 
 });
 
 step("start gauge daemon for project <relativePath>",async function(relativePath){
-  var gauge_daemon = await daemon.startGaugeDaemon(scenarioStore,relativePath);
+  await daemon.startGaugeDaemon(scenarioStore,relativePath);
 });
 
-function handleStepsResponse(responseMessage){    
+function handleStepsResponse(responseMessage){   
   if(responseMessage.result){
     for(var index=0; index< responseMessage.result.items.length;index++){
       var item = responseMessage.result.items[index]
