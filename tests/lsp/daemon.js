@@ -8,7 +8,7 @@ var cwd = process.cwd();
 
 async function startGaugeDaemon(store,projectPath){    
     var absProjectPath = cwd+projectPath;    
-    const gauge_daemon = spawn('gauge', ['daemon', '--lsp',"--dir="+absProjectPath]);
+    const gauge_daemon = spawn('gauge', ['daemon', '--lsp']);
     var reader = new rpc.StreamMessageReader(gauge_daemon.stdout);
     var writer = new rpc.StreamMessageWriter(gauge_daemon.stdin);
 

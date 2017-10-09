@@ -1,9 +1,9 @@
 "use strict";
 
 var assert = require('assert');
-//const rpc = require('vscode-jsonrpc');
+const rpc = require('vscode-jsonrpc');
 
-//var daemon = require('./lsp/daemon');
+var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 
@@ -14,31 +14,6 @@ var responseType = {
   Function: 3,
   Variable: 4
 }
-
-const { spawn } = require('child_process');
-const rpc = require('vscode-jsonrpc');
-var assert = require('assert');
-
-var cwd = process.cwd();
-
-async function startGaugeDaemon(store,projectPath){    
-    var absProjectPath = cwd+projectPath;    
-    const gauge_daemon = spawn('gauge', ['daemon', '--lsp',"--dir="+absProjectPath]);
-    var reader = new rpc.StreamMessageReader(gauge_daemon.stdout);
-    var writer = new rpc.StreamMessageWriter(gauge_daemon.stdin);
-
-    assert.ok(gauge_daemon.connected,"gauge daemon should be connected")
-
-    let connection = rpc.createMessageConnection(reader,writer);
-    connection.listen();
-
-    var uri = absProjectPath.replace(":","%3A")
-    store.put("connection", connection);
-    store.put("reader",reader);    
-    store.put("projectUri", uri);
-
-    console.log(absProjectPath)
-};
 
 step("open file <filePath> <contents>",async function(filePath,contents){  
   var content = table.tableToArray(contents).join("\n")
@@ -73,7 +48,7 @@ step("autocomplete at line <lineNumber> character <characterNumber> should give 
 });
 
 step("start gauge daemon for project <relativePath>",async function(relativePath){
-  var gauge_daemon = await startGaugeDaemon(scenarioStore,relativePath);
+  var gauge_daemon = await daemon.startGaugeDaemon(scenarioStore,relativePath);
 });
 
 function handleStepsResponse(responseMessage){    
