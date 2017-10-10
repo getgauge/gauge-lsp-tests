@@ -6,10 +6,10 @@ var path = require('path');
 
 var assert = require('assert');
 var cwd = process.cwd();
+var timer = require('../util/timer');
 
 async function startGaugeDaemon(store,projectPath){
     var absProjectPath = path.join(cwd,projectPath);
-    console.log(absProjectPath)
     
     const gauge_daemon = spawn('gauge', ['daemon', '--lsp','--dir='+absProjectPath]);
     var reader = new rpc.StreamMessageReader(gauge_daemon.stdout);
@@ -23,7 +23,7 @@ async function startGaugeDaemon(store,projectPath){
     store.put("reader",reader);    
     store.put("projectUri", uri);
 
-    console.log(absProjectPath)
+    timer.sleep(1000)
 };
 
 module.exports = {startGaugeDaemon:startGaugeDaemon};

@@ -8,6 +8,7 @@ var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 
 var table = require('./util/table');
+var timer = require('./util/timer');
 var scenarioStore = gauge.dataStore.scenarioStore;
 var expectedSteps = [];
 var responseType = {
@@ -33,6 +34,8 @@ step("autocomplete at line <lineNumber> character <characterNumber> should give 
   await request.autocomplete(position,
     scenarioStore,
     handleParameterResponse);
+  
+  timer.sleep(1000);
 });
 
 step("autocomplete at line <lineNumber> character <characterNumber> should give steps <expectedResult>",async function(lineNumber,characterNumber,expectedResult){  
@@ -45,13 +48,16 @@ step("autocomplete at line <lineNumber> character <characterNumber> should give 
   await request.autocomplete(position,
     scenarioStore,
     handleStepsResponse);
+
+  timer.sleep(1000);    
 });
 
 step("start gauge daemon for project <relativePath>",async function(relativePath){
   await daemon.startGaugeDaemon(scenarioStore,relativePath);
 });
 
-function handleStepsResponse(responseMessage){   
+function handleStepsResponse(responseMessage){  
+  console.log('step response') 
   if(responseMessage.result){
     for(var index=0; index< responseMessage.result.items.length;index++){
       var item = responseMessage.result.items[index]
@@ -65,6 +71,7 @@ function handleStepsResponse(responseMessage){
 }
 
 function handleParameterResponse(responseMessage){  
+  console.log('parameter response')   
   if(responseMessage.result){
     for(var index=0; index< responseMessage.result.items.length;index++){      
       var item = responseMessage.result.items[index]

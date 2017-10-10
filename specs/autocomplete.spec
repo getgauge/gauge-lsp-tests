@@ -1,6 +1,6 @@
-Specification Heading
-=====================
-* start gauge daemon for project "testdata"
+Autocomplete
+============
+* start gauge daemon for project "testdata\\autocomplete"
 Steps list for autcomplete
 --------------------------
 * open file "\\specs\\autocomplete_step.spec" 
