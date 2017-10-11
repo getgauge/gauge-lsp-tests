@@ -2,9 +2,7 @@
 
 const rpc = require('vscode-jsonrpc');
 
-async function autocomplete(position, store, responseHandler) {
-  var fileUri = store.get("fileUri");
-
+async function autocomplete(position, fileUri, connection) {
   var messageParams =
     {
       "textDocument":
@@ -17,17 +15,9 @@ async function autocomplete(position, store, responseHandler) {
     };
   var request = new rpc.RequestType('textDocument/completion')
 
-  var connection = store.get("connection");
   connection.sendRequest(request, messageParams, null);
-}
-
-async function initialize(store) {
-  var request = new rpc.RequestType('general/initialize')
-  var connection = store.get("connection");
-  connection.sendRequest(request, {}, null);
 }
 
 module.exports = {
   autocomplete: autocomplete,
-  initialize: initialize
 };  

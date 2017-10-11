@@ -41,10 +41,8 @@ step("open file <filePath> and handle diagnostics for content <contents>", async
     {
       path: filePath,
       content: content,
-    }, store)
-  var reader = store.get("reader");
-  reader.listen(async (data) => await handleDiagnosticsResponse(data).catch((e) => {done(e)}));
-  done();
+    }, daemon.connection(), daemon.projectUri())
+  daemon.handle(handleDiagnosticsResponse, done);
 });
 
 step("diagnostics should contain error <errorList>", async function (errorList) {
