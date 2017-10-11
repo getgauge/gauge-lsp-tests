@@ -6,24 +6,49 @@ var path = require('path');
 
 var assert = require('assert');
 var cwd = process.cwd();
-var timer = require('../util/timer');
+var request = require('./requests/request');
 
-async function startGaugeDaemon(store,projectPath){
-    var absProjectPath = path.join(cwd,projectPath);
-    
-    const gauge_daemon = spawn('gauge', ['daemon', '--lsp','--dir='+absProjectPath]);
-    var reader = new rpc.StreamMessageReader(gauge_daemon.stdout);
-    var writer = new rpc.StreamMessageWriter(gauge_daemon.stdin);
+var state = {}
 
-    let connection = rpc.createMessageConnection(reader,writer);
+async function startGaugeDaemon(projectPath) {
+    var absProjectPath = path.join(cwd, projectPath);
+
+    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + absProjectPath]);
+    state.reader = new rpc.StreamMessageReader(state.gaugeDaemon.stdout);
+    state.writer = new rpc.StreamMessageWriter(state.gaugeDaemon.stdin);
+
+    let connection = rpc.createMessageConnection(state.reader, state.writer);
     connection.listen();
-
-    var uri = absProjectPath.replace(":","%3A")
-    store.put("connection", connection);
-    store.put("reader",reader);    
-    store.put("projectUri", uri);
-
-    timer.sleep(1000)
+    state.connection = connection;
+    state.projectUri = absProjectPath.replace(":", "%3A");
 };
 
-module.exports = {startGaugeDaemon:startGaugeDaemon};
+function connection() {
+    if (!state.gaugeDaemon)
+        throw ("Gauge Daemon not initialized");
+    if (!state.connection)
+        throw ("Gauge Daemon connection not available")
+    return state.connection;
+}
+
+function projectUri() {
+    if (!state.gaugeDaemon)
+        throw ("Gauge Daemon not initialized");
+    return state.projectUri;
+}
+
+function handle(handler, done) {
+    if (!state.gaugeDaemon)
+        throw ("Gauge Daemon not initialized");
+    if (!state.reader)
+        throw ("Gauge Daemon Stream reader not available")
+    state.reader.listen(async (data) => await handler(data).catch((e) => { done(e) }));
+    done();
+}
+
+module.exports = {
+    startGaugeDaemon: startGaugeDaemon,
+    handle: handle,
+    connection: connection,
+    projectUri: projectUri
+};
