@@ -2,7 +2,7 @@
 
 const rpc = require('vscode-jsonrpc');
 
-async function openFile(file,store,responseHandler){
+async function openFile(file,store){
     var uri = store.get('projectUri')
     var fileUri = uri+file.path;
     
@@ -16,10 +16,6 @@ async function openFile(file,store,responseHandler){
         "languageId":"markdown",
         "version":1,
         "text":file.content}});
-    if(responseHandler){
-      var reader = store.get("reader");
-      reader.listen(responseHandler);
-    }
   }
   
 module.exports = {openFile:openFile};    

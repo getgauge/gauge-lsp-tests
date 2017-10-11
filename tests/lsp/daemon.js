@@ -6,7 +6,7 @@ var path = require('path');
 
 var assert = require('assert');
 var cwd = process.cwd();
-var timer = require('../util/timer');
+var request = require('./requests/request');
 
 async function startGaugeDaemon(store,projectPath){
     var absProjectPath = path.join(cwd,projectPath);
@@ -22,8 +22,6 @@ async function startGaugeDaemon(store,projectPath){
     store.put("connection", connection);
     store.put("reader",reader);    
     store.put("projectUri", uri);
-
-    timer.sleep(1000)
 };
 
 module.exports = {startGaugeDaemon:startGaugeDaemon};
