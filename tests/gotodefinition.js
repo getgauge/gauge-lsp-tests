@@ -42,11 +42,15 @@ async function handleDefinitionResponse(resp,done) {
         },
         "uri": path.join(daemon.projectUri() , definitionDetail[uriIndex])
         };
+
+        String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
     
-        console.log("response Message"+JSON.stringify(responseMessage.uri));
-        console.log("result"+ JSON.stringify(result.uri));
-        // assert.equal(responseMessage.uri,result.uri)
-        // assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
+        var responseUri = responseMessage.uri.replace("file:///","").replaceAll("/","\\");
+        assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
+        assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
     }    
 }
 

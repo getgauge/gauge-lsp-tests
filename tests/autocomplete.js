@@ -39,7 +39,7 @@ async function handleStepsResponse(responseMessage) {
             if (item.kind != responseType.Function)
                 continue;
             assert.equal(item.kind, responseType.Function);
-            assert.ok(expectedSteps.indexOf(item.label) > -1, JSON.stringify(item));
+            assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
         }
     }
 }

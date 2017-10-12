@@ -11,11 +11,11 @@ Goto definition of concepts
    |============================  |
    |A Concept with definition     |
    |-------------------------     |
-   |* Concept1                    |
+   |* Concept2                    |
    |A Concept without a definition|
    |------------------------------|
    |* undefined Concept           |
-* goto definition of "Concept1" at "4" and "4" should give details 
+* goto definition of "Concept2" at "4" and "4" should give details 
 
    |uri                       |line|range_start|range_end|
    |--------------------------|----|-----------|---------|
