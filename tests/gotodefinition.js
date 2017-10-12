@@ -21,7 +21,11 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
     daemon.handle(handleDefinitionResponse, done);     
 });
 
-async function handleDefinitionResponse(resp,done) {
+async function handleDefinitionResponse(resp) {
+    if(resp.message){
+        var messageIndex = definitionDetails.headers.cells.indexOf('message')        
+        assert.equal(resp.message,definitionDetails[0][messageIndex])        
+    }
     if(resp.result){
         var responseMessage = resp.result
         

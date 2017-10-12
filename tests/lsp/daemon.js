@@ -13,7 +13,8 @@ var state = {}
 async function startGaugeDaemon(projectPath) {
     var absProjectPath = path.join(cwd, projectPath);
 
-    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + absProjectPath]);
+    console.log(absProjectPath)
+    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + absProjectPath],{cwd:absProjectPath});
     state.reader = new rpc.StreamMessageReader(state.gaugeDaemon.stdout);
     state.writer = new rpc.StreamMessageWriter(state.gaugeDaemon.stdin);
 

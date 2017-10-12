@@ -35,4 +35,8 @@ Goto definition of undefined concepts
    |A Concept without a definition|
    |------------------------------|
    |* undefined Concept           |
-* goto definition of concept "undefined Concept" should give error "Step implementation not found"
+* goto definition of "undefined Concept" at "7" and "4" should give details 
+
+   |message                   |
+   |--------------------------|
+   |Step implementation not found for step : undefined Concept|

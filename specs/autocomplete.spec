@@ -16,7 +16,7 @@ Steps list for autcomplete
    |* two                |
    |* start one          |
 * autocomplete at line "4" character "7" should give steps 
-
+            
    |label                    |
    |-------------------------|
    |one                      |
