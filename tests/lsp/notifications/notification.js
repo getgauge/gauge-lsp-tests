@@ -1,11 +1,11 @@
 "use strict";
 
-const rpc = require('vscode-jsonrpc');
+const rpc = require("vscode-jsonrpc");
 
 async function openFile(file, connection, projectUri) {
   var fileUri = projectUri + file.path;
 
-  var notification = new rpc.NotificationType('textDocument/didOpen')
+  var notification = new rpc.NotificationType("textDocument/didOpen");
 
   connection.sendNotification(notification,
     {

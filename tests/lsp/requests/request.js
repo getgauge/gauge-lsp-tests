@@ -1,6 +1,6 @@
 "use strict";
 
-const rpc = require('vscode-jsonrpc');
+const rpc = require("vscode-jsonrpc");
 
 async function autocomplete(position, fileUri, connection) {
   var messageParams =
@@ -13,7 +13,7 @@ async function autocomplete(position, fileUri, connection) {
         "character": parseInt(position.characterNumber)
       }
     };
-  var request = new rpc.RequestType('textDocument/completion')
+  var request = new rpc.RequestType("textDocument/completion");
 
   connection.sendRequest(request, messageParams, null);
 }

@@ -11,4 +11,4 @@ gauge install js
 
 # Execution
 * npm install
-* gauge run specs
+* npm test

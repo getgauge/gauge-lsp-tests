@@ -1,49 +1,49 @@
 "use strict";
 
-var assert = require('assert');
-const rpc = require('vscode-jsonrpc');
+var assert = require("assert");
 
-var daemon = require('./lsp/daemon');
-var notification = require('./lsp/notifications/notification');
-var request = require('./lsp/requests/request');
+var daemon = require("./lsp/daemon");
+var notification = require("./lsp/notifications/notification");
+var request = require("./lsp/requests/request");
 
-var table = require('./util/table');
+var table = require("./util/table");
 var expectedSteps = [];
 var responseType = {
   Function: 3,
   Variable: 4
-}
+};
 
 var currentFilePath;
+var expectedParameters;
 
 step("open file <filePath> <contents>", async function (filePath, contents) {
-  var content = table.tableToArray(contents).join("\n")
+  var content = table.tableToArray(contents).join("\n");
   currentFilePath = filePath;
   await notification.openFile(
     {
       path: filePath,
       content: content
-    }, daemon.connection(), daemon.projectUri())
+    }, daemon.connection(), daemon.projectUri());
 });
 
 step("autocomplete at line <lineNumber> character <characterNumber> should give parameters <expectedResult>", async function (lineNumber, characterNumber, expectedResult, done) {
-  expectedParameters = table.tableToArray(expectedResult)
+  expectedParameters = table.tableToArray(expectedResult);
   var position = {
     lineNumber: lineNumber,
     characterNumber: characterNumber
-  }
+  };
   await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
 
   daemon.handle(handleParameterResponse, done);
 });
 
 step("autocomplete at line <lineNumber> character <characterNumber> should give steps <expectedResult>", async function (lineNumber, characterNumber, expectedResult, done) {
-  expectedSteps = table.tableToArray(expectedResult)
+  expectedSteps = table.tableToArray(expectedResult);
 
   var position = {
     lineNumber: lineNumber,
     characterNumber: characterNumber
-  }
+  };
   await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
 
   daemon.handle(handleStepsResponse, done);
@@ -56,12 +56,12 @@ step("start gauge daemon for project <relativePath>", async function (relativePa
 async function handleStepsResponse(responseMessage) {
   if (responseMessage.result) {
     for (var index = 0; index < responseMessage.result.items.length; index++) {
-      var item = responseMessage.result.items[index]
+      var item = responseMessage.result.items[index];
 
       if (item.kind != responseType.Function)
-        continue
+        continue;
       assert.equal(item.kind, responseType.Function);
-      assert.ok(expectedSteps.indexOf(item.label) > -1, JSON.stringify(item))
+      assert.ok(expectedSteps.indexOf(item.label) > -1, JSON.stringify(item));
     }
   }
 }
@@ -69,10 +69,10 @@ async function handleStepsResponse(responseMessage) {
 async function handleParameterResponse(responseMessage) {
   if (responseMessage.result) {
     for (var index = 0; index < responseMessage.result.items.length; index++) {
-      var item = responseMessage.result.items[index]
+      var item = responseMessage.result.items[index];
       if (item.kind != responseType.Variable)
-        continue
-      assert.ok(expectedParameters.indexOf(item.label) > -1, "item label not found " + item.label)
+        continue;
+      assert.ok(expectedParameters.indexOf(item.label) > -1, "item label not found " + item.label);
     }
   }
 }
