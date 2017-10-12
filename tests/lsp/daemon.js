@@ -42,7 +42,11 @@ function handle(handler, done) {
         throw ("Gauge Daemon not initialized");
     if (!state.reader)
         throw ("Gauge Daemon Stream reader not available")
-    state.reader.listen(async (data) => await handler(data).catch((e) => { done(e) }));
+    state.reader.listen(async (data) => await responseHandler(handler,data,done));
+}
+
+async function responseHandler(handler,data,done){
+    await handler(data).catch((e) => { done(e) })
     done();
 }
 

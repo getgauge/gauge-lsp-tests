@@ -1,7 +1,9 @@
 Diagnostics
 ===========
-* start gauge daemon for project "testdata\\parse-errors"
+|head|
+|a|
 
+* start gauge daemon for project "testdata\\parse-errors"
 Multiple Spec Headings
 ----------------------
 * diagnostics should contain error 
@@ -22,7 +24,6 @@ Multiple Spec Headings
    |--------     |
    |* one        |
    |* two        |
-
 Spec without elements
 ---------------------
 * diagnostics should contain error 

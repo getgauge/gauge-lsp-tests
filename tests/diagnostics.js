@@ -7,10 +7,9 @@ var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
-var store = gauge.dataStore.scenarioStore;
 var expectedErrors = {}
 
-async function handleDiagnosticsResponse(responseMessage) {
+async function handleDiagnosticsResponse(responseMessage) {  
   var lineIndex = expectedErrors.headers.cells.indexOf('line')
   var rangeStartIndex = expectedErrors.headers.cells.indexOf('range_start')
   var rangeEndIndex = expectedErrors.headers.cells.indexOf('range_end')
