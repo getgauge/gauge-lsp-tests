@@ -19,7 +19,6 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
 
     definitionDetails = details    
     daemon.handle(handleDefinitionResponse, done);     
-    sleep(1000);   
 });
 
 async function handleDefinitionResponse(resp,done) {
@@ -51,11 +50,5 @@ async function handleDefinitionResponse(resp,done) {
         var responseUri = responseMessage.uri.replace("file:///","").replaceAll("/","\\");
         assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
         assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
-    }    
+    }
 }
-
-function sleep(ms) {  
-  var dt = new Date();  
-  dt.setTime(dt.getTime() + ms);  
-  while (new Date().getTime() < dt.getTime()); 
-} 
