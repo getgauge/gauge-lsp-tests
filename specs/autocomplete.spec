@@ -16,7 +16,7 @@ Steps list for autcomplete
    |* two                |
    |* start one          |
 * autocomplete at line "4" character "7" should give steps 
-            
+
    |label                    |
    |-------------------------|
    |one                      |
@@ -52,3 +52,20 @@ Parameter list for autocomplete
    |another  |static |
    |parameter|static |
    |one      |dynamic|
+
+Tag list for autocomplete
+-------------------------
+* open file "\\specs\\autocomplete_param.spec" 
+
+   |Heading                             |
+   |------------------------------------|
+   |Specification Heading               |
+   |=====================               |
+   |table:/testdata/autocomplete/csv.csv|
+   |Gauge LSP 2                         |
+   |---------------------               |
+   |* one "something"                   |
+   |* start "s"                         |
+   |* two "another" "parameter"         |
+   |* start one <one>                   |
+* todo autocomplete for tags

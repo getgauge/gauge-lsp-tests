@@ -1,8 +1,5 @@
 Diagnostics
 ===========
-|head|
-|a|
-
 * start gauge daemon for project "testdata\\parse-errors"
 Multiple Spec Headings
 ----------------------

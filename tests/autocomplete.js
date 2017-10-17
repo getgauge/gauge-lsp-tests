@@ -32,24 +32,28 @@ step('autocomplete at line <lineNumber> character <characterNumber> should give 
     await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
     daemon.handle(handleStepsResponse, done);
 });
+
 async function handleStepsResponse(responseMessage) {
-    if (responseMessage.result) {
-        for (var index = 0; index < responseMessage.result.items.length; index++) {
-            var item = responseMessage.result.items[index];
-            if (item.kind != responseType.Function)
-                continue;
-            assert.equal(item.kind, responseType.Function);
-            assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
-        }
+    if (!responseMessage.result)
+    return
+    
+    for (var index = 0; index < responseMessage.result.items.length; index++) {
+        var item = responseMessage.result.items[index];
+        if (item.kind != responseType.Function)
+            continue;
+        assert.equal(item.kind, responseType.Function);
+        assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
     }
 }
+
 async function handleParameterResponse(responseMessage) {
-    if (responseMessage.result) {
-        for (var index = 0; index < responseMessage.result.items.length; index++) {
-            var item = responseMessage.result.items[index];
-            if (item.kind != responseType.Variable)
-                continue;
-            assert.ok(expectedParameters.indexOf(item.label) > -1, 'item label not found ' + item.label);
-        }
+    if (!responseMessage.result)
+    return
+
+    for (var index = 0; index < responseMessage.result.items.length; index++) {
+        var item = responseMessage.result.items[index];
+        if (item.kind != responseType.Variable)
+            continue;
+        assert.ok(expectedParameters.indexOf(item.label) > -1, 'item label not found ' + item.label);
     }
 }

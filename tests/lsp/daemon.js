@@ -11,17 +11,14 @@ var request = require('./requests/request');
 var state = {}
 
 async function startGaugeDaemon(projectPath) {
-    var absProjectPath = path.join(cwd, projectPath);
-
-    console.log(absProjectPath)
-    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + absProjectPath],{cwd:absProjectPath});
+    state.projectPath = path.join(cwd, projectPath);
+    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + state.projectPath],{cwd:state.projectPath});
     state.reader = new rpc.StreamMessageReader(state.gaugeDaemon.stdout);
     state.writer = new rpc.StreamMessageWriter(state.gaugeDaemon.stdin);
 
     let connection = rpc.createMessageConnection(state.reader, state.writer);
     connection.listen();
     state.connection = connection;
-    state.projectUri = absProjectPath.replace(":", "%3A");
 };
 
 function connection() {
@@ -35,7 +32,13 @@ function connection() {
 function projectUri() {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
-    return state.projectUri;
+    return state.projectPath.replace(":", "%3A");
+}
+
+function projectPath() {
+    if (!state.gaugeDaemon)
+        throw ("Gauge Daemon not initialized");
+    return state.projectPath;
 }
 
 function handle(handler, done) {
@@ -55,5 +58,6 @@ module.exports = {
     startGaugeDaemon: startGaugeDaemon,
     handle: handle,
     connection: connection,
-    projectUri: projectUri
+    projectUri: projectUri,
+    projectPath: projectPath    
 };
