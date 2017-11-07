@@ -3,7 +3,6 @@ os:
 
 language: node_js
 node_js:
-  - "iojs"
   - "12"
 
 before_install:
