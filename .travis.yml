@@ -11,6 +11,7 @@ before_install:
 
 install:
   - npm install
+  - brew install gauge
   - gauge install js
   - gauge install html-report
 
