@@ -3,7 +3,7 @@ os:
 
 language: node_js
 node_js:
-  - "12"
+  - "0.12"
 
 before_install:
   - nvm install 0.12
