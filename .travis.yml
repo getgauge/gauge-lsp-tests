@@ -1,0 +1,15 @@
+os:
+  - osx
+
+language: node_js
+
+before_install:
+  - brew update
+
+install:
+  - brew install gauge
+  - gauge install js
+  - gauge install html-report
+
+script:
+  - gauge run specs
