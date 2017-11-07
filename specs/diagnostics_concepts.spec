@@ -59,4 +59,20 @@ Concept Heading can have only dynamic parameters
    |Heading           |
    |------------------|
    |# Concept "static"|
-   
+
+Table does'nt belong to any step
+--------------------------------
+* diagnostics should contain error 
+
+   |line|range_start|range_end|severity|message                         |
+   |----|-----------|---------|--------|--------------------------------|
+   |1   |0          |7        |1       |Table doesn't belong to any step|
+
+* open file "\\specs\\concepts\\tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
+
+   |Heading  |
+   |---------|
+   |# Concept|
+   |\|table\||
+   |\|one\|  |
+   |* step1  |
