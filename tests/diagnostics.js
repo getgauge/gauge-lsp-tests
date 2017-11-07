@@ -14,9 +14,23 @@ async function handleDiagnosticsResponse(responseMessage) {
   
   for (var rowIndex = 0; rowIndex < expectedErrors.length; rowIndex++) {
     var expectedError = expectedErrors[rowIndex]
-    assert.deepEqual(responseMessage.params.diagnostics[rowIndex], expectedError, 
-      JSON.stringify(responseMessage.params.diagnostics[rowIndex]) + " not equal to " 
-      + JSON.stringify(expectedError));
+    assert.deepEqual(responseMessage.params.diagnostics[rowIndex].range, expectedError.range, 
+      JSON.stringify(responseMessage.params.diagnostics[rowIndex].range) + " not equal to " 
+      + JSON.stringify(expectedError.range));
+    
+    if(expectedError.severity)
+    {
+      assert.equal(responseMessage.params.diagnostics[rowIndex].severity, expectedError.severity, 
+        JSON.stringify(responseMessage.params.diagnostics[rowIndex].severity) + " not equal to " 
+        + JSON.stringify(expectedError.severity));        
+    }
+
+    if(expectedError.message)
+    {
+      assert.equal(responseMessage.params.diagnostics[rowIndex].message, expectedError.message, 
+        JSON.stringify(responseMessage.params.diagnostics[rowIndex].message) + " not equal to " 
+        + JSON.stringify(expectedError.message));        
+    }
   }
 }
 
