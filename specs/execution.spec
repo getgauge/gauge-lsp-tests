@@ -1,9 +1,9 @@
 Execution
 =========
-* start gauge daemon for project "testdata\\execution"
+* start gauge daemon for project "testdata/execution"
 Execute Scenario
 ----------------
-* open file "\\specs\\execution_scenario.spec" 
+* open file "/specs/execution_scenario.spec" 
 
    |Heading              |
    |---------------------|

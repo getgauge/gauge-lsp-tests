@@ -1,9 +1,9 @@
 Autocomplete
 ============
-* start gauge daemon for project "testdata\\autocomplete"
+* start gauge daemon for project "testdata/autocomplete"
 Steps list for autcomplete
 --------------------------
-* open file "\\specs\\autocomplete_step.spec" 
+* open file "/specs/autocomplete_step.spec" 
 
    |Heading              |
    |---------------------|
@@ -30,7 +30,7 @@ Steps list for autcomplete
 
 Parameter list for autocomplete
 -------------------------------
-* open file "\\specs\\autocomplete_param.spec" 
+* open file "/specs/autocomplete_param.spec" 
 
    |Heading                             |
    |------------------------------------|
@@ -55,7 +55,7 @@ Parameter list for autocomplete
 
 Tag list for autocomplete
 -------------------------
-* open file "\\specs\\autocomplete_param.spec" 
+* open file "/specs/autocomplete_param.spec" 
 
    |Heading                             |
    |------------------------------------|

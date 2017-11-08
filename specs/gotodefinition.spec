@@ -1,9 +1,9 @@
 Goto definition
 ===============
-* start gauge daemon for project "testdata\\gotodefinition"
+* start gauge daemon for project "testdata/gotodefinition"
 Goto definition of concepts
 ---------------------------
-* open file "\\specs\\invoke_concepts.spec" 
+* open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
    |------------------------------|
@@ -23,7 +23,7 @@ Goto definition of concepts
 
 Goto definition of undefined element
 ------------------------------------
-* open file "\\specs\\invoke_concepts.spec" 
+* open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
    |------------------------------|
@@ -43,7 +43,7 @@ Goto definition of undefined element
 
 Goto definition of a step should give the implementation file details
 ---------------------------------------------------------------------
-* open file "\\specs\\invoke_concepts.spec" 
+* open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
    |------------------------------|
