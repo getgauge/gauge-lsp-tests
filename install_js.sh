@@ -4,4 +4,4 @@ GAUGE_DOWNLOAD_URL="https://bintray.com/gauge/gauge-js/download_file?file_path=$
 
 wget -O jsnightly.zip $GAUGE_DOWNLOAD_URL
 
-/bin/bash gauge install js -f ./jsnightly.zip
+gauge install js -f ./jsnightly.zip
