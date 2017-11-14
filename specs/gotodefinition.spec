@@ -3,6 +3,7 @@ Goto definition
 * start gauge daemon for project "testdata/gotodefinition"
 Goto definition of concepts
 ---------------------------
+* to fix
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |

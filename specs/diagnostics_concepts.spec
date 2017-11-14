@@ -17,6 +17,7 @@ Concepts should have atleast one step
 
 Step not in a concept
 ---------------------
+* to fix
 * diagnostics should contain error 
 
    |line|range_start|range_end|severity|message                                     |
@@ -60,8 +61,9 @@ Concept Heading can have only dynamic parameters
    |------------------|
    |# Concept "static"|
 
-Table does'nt belong to any step
+Table doesn't belong to any step
 --------------------------------
+* to fix
 * diagnostics should contain error 
 
    |line|range_start|range_end|severity|message                         |
