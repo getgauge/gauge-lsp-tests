@@ -7,7 +7,7 @@ Multiple Spec Headings
 
    |line|range_start|range_end|severity|message                                  |
    |----|-----------|---------|--------|-----------------------------------------|
-   |2   |0          |3        |1       |Multiple spec headings found in same file|
+   |2   |0          |10000        |1       |Multiple spec headings found in same file|
 
 * open file "/specs/multipleSpecHeadings.spec" and handle diagnostics for content 
 
@@ -27,7 +27,7 @@ Spec without elements
 
    |line|range_start|range_end|severity|message                        |
    |----|-----------|---------|--------|-------------------------------|
-   |0   |0          |12       |1       |Spec does not have any elements|
+   |0   |0          |10000       |1       |Spec does not have any elements|
 
 * open file "/specs/specWithoutElements.spec" and handle diagnostics for content 
 
@@ -42,7 +42,7 @@ Tear down three underscore
 
    |line|range_start|range_end|severity|message                                                  |
    |----|-----------|---------|--------|---------------------------------------------------------|
-   |4   |0          |2        |1       |Teardown should have at least three underscore characters|
+   |4   |0          |10000        |1       |Teardown should have at least three underscore characters|
 
 * open file "/specs/tearDownThreeUnderscore.spec" and handle diagnostics for content 
 
@@ -61,7 +61,7 @@ Without scenario heading
 
    |line|range_start|range_end|severity|message                                            |
    |----|-----------|---------|--------|---------------------------------------------------|
-   |2   |0          |0        |1       |Scenario heading should have at least one character|
+   |2   |0          |10000        |1       |Scenario heading should have at least one character|
    |2   |0          |0        |1       |Scenario should have atleast one step              |
 
 * open file "/specs/withoutScenarioHeading.spec" and handle diagnostics for content 
@@ -78,7 +78,7 @@ Without spec heading
 
    |line|range_start|range_end|severity|message                        |
    |----|-----------|---------|--------|-------------------------------|
-   |0   |0          |0        |1       |Spec does not have any elements|
+   |0   |0          |10000        |1       |Spec does not have any elements|
 
 * open file "/specs/withoutSpecHeading.spec" and handle diagnostics for content 
 

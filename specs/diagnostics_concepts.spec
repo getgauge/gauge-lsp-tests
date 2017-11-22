@@ -7,7 +7,7 @@ Concepts should have atleast one step
 
    |line|range_start|range_end|severity|message                             |
    |----|-----------|---------|--------|------------------------------------|
-   |0   |0          |9        |1       |Concept should have atleast one step|
+   |0   |0          |10000        |1       |Concept should have atleast one step|
 
 * open file "/specs/concepts/conceptShouldHaveOneStep.cpt" and handle diagnostics for content 
 
@@ -22,7 +22,7 @@ Step not in a concept
 
    |line|range_start|range_end|severity|message                                     |
    |----|-----------|---------|--------|--------------------------------------------|
-   |0   |0          |7        |1       |Step is not defined inside a concept heading|
+   |0   |0          |10000        |1       |Step is not defined inside a concept heading|
 
 * open file "/specs/concepts/stepNotInConcept.cpt" and handle diagnostics for content 
 
@@ -39,7 +39,7 @@ Scenario heading not allowed in concept
 
    |line|range_start|range_end|severity|message                                        |
    |----|-----------|---------|--------|-----------------------------------------------|
-   |0   |0          |18       |1       |Scenario Heading is not allowed in concept file|
+   |0   |0          |10000       |1       |Scenario Heading is not allowed in concept file|
 
 * open file "/specs/concepts/stepNotInConcept.cpt" and handle diagnostics for content 
 
@@ -53,7 +53,7 @@ Concept Heading can have only dynamic parameters
 
    |line|range_start|range_end|severity|message                                         |
    |----|-----------|---------|--------|------------------------------------------------|
-   |0   |0          |18       |1       |Concept heading can have only Dynamic Parameters|
+   |0   |0          |10000       |1       |Concept heading can have only Dynamic Parameters|
 
 * open file "/specs/concepts/headingToHaveOnlyDynamicParams.cpt" and handle diagnostics for content 
 
@@ -68,7 +68,7 @@ Table doesn't belong to any step
 
    |line|range_start|range_end|severity|message                         |
    |----|-----------|---------|--------|--------------------------------|
-   |1   |0          |7        |1       |Table doesn't belong to any step|
+   |1   |0          |10000        |1       |Table doesn't belong to any step|
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 
