@@ -5,12 +5,14 @@ var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
+var path = require('path');
+
 var expectedSteps = [];
 var responseType = {
     Function: 3,
     Variable: 4
 };
-
+  
 step('autocomplete at line <lineNumber> character <characterNumber> should give parameters <expectedResult>', async function (lineNumber, characterNumber, expectedResult, done) {
     expectedParameters = table.tableToArray(expectedResult);
     var position = {
@@ -18,8 +20,7 @@ step('autocomplete at line <lineNumber> character <characterNumber> should give 
         characterNumber: characterNumber
     };
 
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-    await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
+    await request.autocomplete(position, gauge.dataStore.scenarioStore.get('currentFileUri'), daemon.connection());
     daemon.handle(handleParameterResponse, done);
 });
 step('autocomplete at line <lineNumber> character <characterNumber> should give steps <expectedResult>', async function (lineNumber, characterNumber, expectedResult, done) {
@@ -28,8 +29,7 @@ step('autocomplete at line <lineNumber> character <characterNumber> should give 
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-    await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
+    await request.autocomplete(position, gauge.dataStore.scenarioStore.get('currentFileUri'), daemon.connection());
     daemon.handle(handleStepsResponse, done);
 });
 

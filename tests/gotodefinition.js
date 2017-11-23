@@ -10,11 +10,9 @@ var table = require('./util/table');
 var definitionDetails;
 
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details,done){
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-    
     await request.goto_definition(
         {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-        path.join(daemon.projectUri() , currentFilePath), 
+        gauge.dataStore.scenarioStore.get('currentFileUri'), 
         daemon.connection());  
 
     definitionDetails = details    
@@ -45,12 +43,12 @@ async function handleDefinitionResponse(resp) {
         },
         "uri": path.join(daemon.projectUri() , definitionDetail[uriIndex])
         };
-
+    
         String.prototype.replaceAll = function(search, replacement) {
             var target = this;
             return target.replace(new RegExp(search, 'g'), replacement);
         };
-    
+        
         var responseUri = responseMessage.uri.replace("file:///","").replaceAll("/","\\");
         assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
         assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      

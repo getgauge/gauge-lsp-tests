@@ -1,6 +1,7 @@
 "use strict";
+var daemon = require('../daemon');
 
-async function buildExpectedRange(givenResult){
+async function buildExpectedRange(givenResult,uri){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -11,13 +12,19 @@ async function buildExpectedRange(givenResult){
 
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
     var expectedError = givenResult.rows[rowIndex].cells
-
+      
     var result = await buildRange(expectedError[lineIndex],
       expectedError[rangeStartIndex],
       expectedError[rangeEndIndex],
       expectedError[severityIndex],
       expectedError[messageIndex]);
 
+      String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+      };    
+
+      expectedError.uri = uri;
       expectedResult.push(result)
     }
   return expectedResult
