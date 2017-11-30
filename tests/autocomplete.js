@@ -20,7 +20,8 @@ step('autocomplete at line <lineNumber> character <characterNumber> should give 
         characterNumber: characterNumber
     };
 
-    await request.autocomplete(position, gauge.dataStore.scenarioStore.get('currentFileUri'), daemon.connection());
+    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
+    await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
     daemon.handle(handleParameterResponse, done);
 });
 step('autocomplete at line <lineNumber> character <characterNumber> should give steps <expectedResult>', async function (lineNumber, characterNumber, expectedResult, done) {
@@ -29,7 +30,8 @@ step('autocomplete at line <lineNumber> character <characterNumber> should give 
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-    await request.autocomplete(position, gauge.dataStore.scenarioStore.get('currentFileUri'), daemon.connection());
+    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
+    await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
     daemon.handle(handleStepsResponse, done);
 });
 

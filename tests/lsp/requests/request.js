@@ -24,12 +24,12 @@ async function request(position, fileUri, connection,requestType) {
   connection.sendRequest(request, messageParams, null);
 }
 
-async function goto_definition(position, fileUri, connection) {
+async function gotoDefinition(position, fileUri, connection) {
   request(position,fileUri,connection,'textDocument/definition')
 }
 
 module.exports = {
   autocomplete: autocomplete,
-  goto_definition:goto_definition,
+  gotoDefinition:gotoDefinition,
   codeLens:codeLens
 };  

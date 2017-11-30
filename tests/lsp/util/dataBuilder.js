@@ -55,7 +55,6 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
   
     expectedResult.push(result)
   }
-
   return expectedResult
 }
 
