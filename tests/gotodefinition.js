@@ -10,7 +10,7 @@ var table = require('./util/table');
 var definitionDetails;
 
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details,done){
-    await request.goto_definition(
+    await request.gotoDefinition(
         {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
         gauge.dataStore.scenarioStore.get('currentFileUri'), 
         daemon.connection());  
