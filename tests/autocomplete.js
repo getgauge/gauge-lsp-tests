@@ -10,7 +10,8 @@ var path = require('path');
 var expectedSteps = [];
 var responseType = {
     Function: 3,
-    Variable: 4
+    Variable: 4,
+    Parameter:6
 };
   
 step('autocomplete at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
@@ -27,12 +28,13 @@ async function (lineNumber, characterNumber,element, expectedResult, done) {
         daemon.handle(handleStepsResponse, done);    
         return
     }
-    if("parameters"==element)
+    if(("parameters"==element)||("tags"==element))
     {
-        expectedParameters = table.tableToArray(expectedResult);    
-        daemon.handle(handleParameterResponse, done);
+        expectedElements = table.tableToArray(expectedResult);    
+        daemon.handle(handleAutocompleteResponse, done);
         return
     }
+
     throw new Error("unknown type "+element)
 });
 
@@ -43,27 +45,28 @@ async function handleStepsResponse(responseMessage) {
     
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
+        
         if (item.kind != responseType.Function)
             continue;
             
-        assert.equal(item.kind, responseType.Function);
         assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
     }
 
     console.log("step response validating "+ responseMessage.result.items.length+"items")    
 }
 
-async function handleParameterResponse(responseMessage) {
+async function handleAutocompleteResponse(responseMessage) {
     if (!responseMessage.result)
     return
-     
-    assert.equal(expectedParameters.length,responseMessage.result.items.length,"number of parameters expected"+expectedParameters.length+" and actual parameters "+responseMessage.result.items.length+" should be the same")
-    
+         
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
         
-        if (item.kind != responseType.Variable)
+        if (item.kind != responseType.Parameter)
             continue;
-        assert.ok(expectedParameters.indexOf(item.label) > -1, 'item label not found ' + item.label);
-    }    
+            
+        assert.ok(expectedElements.indexOf(item.label) > -1, 'item label not found ' + item.label);
+    }
+    
+    assert.equal(expectedElements.length,responseMessage.result.items.length,"number of parameters expected"+expectedElements.length+" and actual parameters "+responseMessage.result.items.length+" should be the same")    
 }

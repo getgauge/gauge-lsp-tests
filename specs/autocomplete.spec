@@ -45,27 +45,36 @@ Parameter list for autocomplete
    |* start one <one>                   |
 * autocomplete at line "5" character "7" should give "parameters" 
 
-   |label    |detail|
-   |---------|------|
-   |something|6     |
-   |s        |6     |
-   |another  |6     |
-   |parameter|6     |
-   |one      |7     |
+   |label    |detail |
+   |---------|-------|
+   |something|static |
+   |s        |static |
+   |another  |static |
+   |parameter|static |
+   |one      |dynamic|
 
 Tag list for autocomplete
 -------------------------
-* open file "/specs/autocomplete_param.spec" 
+* open file "/specs/someTags/toautocomplete.spec" 
 
-   |Heading                             |
-   |------------------------------------|
-   |Specification Heading               |
-   |=====================               |
-   |table:/testdata/autocomplete/csv.csv|
-   |Gauge LSP 2                         |
-   |---------------------               |
-   |* one "something"                   |
-   |* start "s"                         |
-   |* two "another" "parameter"         |
-   |* start one <one>                   |
-* todo autocomplete for tags
+   |Heading              |
+   |---------------------|
+   |Specification Heading|
+   |=====================|
+   |Gauge LSP 2          |
+   |-----------          |
+   |tags:                |
+   |* one "something"    |
+
+* autocomplete at line "4" character "7" should give "tags" 
+
+   |label         |
+   |--------------|
+   |next line1    |
+   |next line2    |
+   |ScenarioLevel1|
+   |ScenarioLevel2|
+   |specLevel     |
+   |SpecLevel1    |
+   |SpecLevel2    |
+   |with space    |
