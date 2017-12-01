@@ -51,7 +51,6 @@ Parameter list for autocomplete
    |s        |static |
    |another  |static |
    |parameter|static |
-   |one      |dynamic|
 
 Tag list for autocomplete
 -------------------------
