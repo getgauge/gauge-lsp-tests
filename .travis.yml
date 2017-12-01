@@ -20,4 +20,5 @@ install:
   - ./install_js.sh
 
 script:
+  - gauge version
   - gauge run specs
