@@ -28,8 +28,8 @@ Steps list for autcomplete
    |two <another> <parameter>|
    |start one <one>          |
 
-Parameter list for autocomplete
--------------------------------
+Static Parameter list for autocomplete
+--------------------------------------
 * open file "/specs/autocomplete_param.spec" 
 
    |Heading                             |
@@ -45,12 +45,33 @@ Parameter list for autocomplete
    |* start one <one>                   |
 * autocomplete at line "5" character "7" should give "parameters" 
 
-   |label    |detail |
-   |---------|-------|
-   |something|static |
-   |s        |static |
-   |another  |static |
-   |parameter|static |
+   |label    |detail|
+   |---------|------|
+   |something|static|
+   |s        |static|
+   |another  |static|
+   |parameter|static|
+
+Dynamic Parameter list for autocomplete
+---------------------------------------
+* open file "/specs/autocomplete_param.spec" 
+
+   |Heading                             |
+   |------------------------------------|
+   |Specification Heading               |
+   |=====================               |
+   |table:/testdata/autocomplete/csv.csv|
+   |Gauge LSP 2                         |
+   |---------------------               |
+   |* one "something"                   |
+   |* start "s"                         |
+   |* two "another" "parameter"         |
+   |* start one <one>                   |
+* autocomplete at line "8" character "13" should give "parameters" 
+
+   |label|detail |
+   |-----|-------|
+   |one  |dynamic|
 
 Tag list for autocomplete
 -------------------------
