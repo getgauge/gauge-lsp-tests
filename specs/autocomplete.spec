@@ -20,13 +20,13 @@ Steps list for autcomplete
    |label                    |
    |-------------------------|
    |one                      |
-   |start                    |
    |two                      |
-   |start one                |
    |one <something>          |
    |start <s>                |
-   |two <another> <parameter>|
    |start one <one>          |
+   |start one                |
+   |two <another> <parameter>|
+   |start                    |
 
 Static Parameter list for autocomplete
 --------------------------------------

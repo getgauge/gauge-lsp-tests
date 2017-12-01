@@ -10,7 +10,6 @@ var path = require('path');
 var expectedSteps = [];
 var responseType = {
     Function: 3,
-    Variable: 4,
     Parameter:6
 };
   
@@ -39,34 +38,26 @@ async function (lineNumber, characterNumber,element, expectedResult, done) {
 });
 
 async function handleStepsResponse(responseMessage) {
-    if (!responseMessage.result)
-    return
-
-    
-    for (var index = 0; index < responseMessage.result.items.length; index++) {
-        var item = responseMessage.result.items[index];
-        
-        if (item.kind != responseType.Function)
-            continue;
-            
-        assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
-    }
-
-    console.log("step response validating "+ responseMessage.result.items.length+"items")    
+    await processAutocompleteResponse(responseMessage, expectedSteps, responseType.Function)
 }
 
 async function handleAutocompleteResponse(responseMessage) {
+    await processAutocompleteResponse(responseMessage, expectedElements, responseType.Parameter)
+}
+
+async function processAutocompleteResponse(responseMessage,expected, kind){
     if (!responseMessage.result)
     return
          
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
         
-        if (item.kind != responseType.Parameter)
+        if (item.kind != kind)
             continue;
             
-        assert.ok(expectedElements.indexOf(item.label) > -1, 'item label not found ' + item.label);
+        assert.ok(expected.indexOf(item.label) > -1, 'item label not found ' + item.label);
     }
     
-    assert.equal(expectedElements.length,responseMessage.result.items.length,"number of parameters expected"+expectedElements.length+" and actual parameters "+responseMessage.result.items.length+" should be the same")    
+    assert.equal(expected.length,responseMessage.result.items.length,"expected "
+    +expected.length+" actual "+responseMessage.result.items.length)    
 }

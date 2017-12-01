@@ -13,7 +13,7 @@ var path = require('path');
 
 async function handleDiagnosticsResponse(responseMessage) {  
   
-  var expectedErrors =gauge.dataStore.scenarioStore.get('expectedErrors');
+  var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
 
   if(!String.prototype.replaceAll){
     String.prototype.replaceAll = function(search, replacement) {
@@ -24,27 +24,27 @@ async function handleDiagnosticsResponse(responseMessage) {
 
   var responseUri = responseMessage.params.uri.replace("file:///","").replaceAll("/","\\");
   
-  for (var rowIndex = 0; rowIndex < expectedErrors.length; rowIndex++) {
-    var expectedError = expectedErrors[rowIndex]
+  for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
+    var expectedDiagnostic = expectedDiagnostics[rowIndex]
 
-    if(responseUri==expectedError.uri)
+    if(responseUri==expectedDiagnostic.uri)
     {  
-      assert.deepEqual(responseMessage.params.diagnostics[rowIndex].range, expectedError.range, 
+      assert.deepEqual(responseMessage.params.diagnostics[rowIndex].range, expectedDiagnostic.range, 
         JSON.stringify(responseMessage.params.diagnostics[rowIndex].range) + " not equal to " 
-        + JSON.stringify(expectedError.range));
+        + JSON.stringify(expectedDiagnostic.range));
       
-      if(expectedError.severity)
+      if(expectedDiagnostic.severity)
       {
-        assert.equal(responseMessage.params.diagnostics[rowIndex].severity, expectedError.severity, 
+        assert.equal(responseMessage.params.diagnostics[rowIndex].severity, expectedDiagnostic.severity, 
           JSON.stringify(responseMessage.params.diagnostics[rowIndex].severity) + " not equal to " 
-          + JSON.stringify(expectedError.severity));        
+          + JSON.stringify(expectedDiagnostic.severity));        
       }
 
-      if(expectedError.message)
+      if(expectedDiagnostic.message)
       {
-        assert.equal(responseMessage.params.diagnostics[rowIndex].message, expectedError.message, 
+        assert.equal(responseMessage.params.diagnostics[rowIndex].message, expectedDiagnostic.message, 
           JSON.stringify(responseMessage.params.diagnostics[rowIndex].message) + " not equal to " 
-          + JSON.stringify(expectedError.message));        
+          + JSON.stringify(expectedDiagnostic.message));        
       }
     }
   }
@@ -65,7 +65,7 @@ step("diagnostics should contain error for <filePath> <errorList>", async functi
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
     
     var result = await builder.buildExpectedRange(errorList,currentFileUri);
-    gauge.dataStore.scenarioStore.put('expectedErrors',result)
+    gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });
 
 step("diagnostics should contain circular reference error at line <line> start index <startIndex> end index <endIndex> severity <severity> in concept <concept>",async function(line,startIndex,endIndex,severity,filePath){
@@ -76,6 +76,6 @@ step("diagnostics should contain circular reference error at line <line> start i
   var result = buildExpectedResult(line,
     startIndex,endIndex,severity,message);
 
-    expectedErrors.push(expectedError)
+    expectedDiagnostics.push(expectedDiagnostic)
   
 })

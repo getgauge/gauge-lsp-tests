@@ -1,4 +1,4 @@
-Execution
+Code Lens
 =========
 * start gauge daemon for project "testdata/execution"
 Execute Scenario

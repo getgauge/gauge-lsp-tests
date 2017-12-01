@@ -11,20 +11,20 @@ async function buildExpectedRange(givenResult,uri){
   var messageIndex = givenResult.headers.cells.indexOf('message')
 
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
-    var expectedError = givenResult.rows[rowIndex].cells
+    var expectedDiagnostic = givenResult.rows[rowIndex].cells
       
-    var result = await buildRange(expectedError[lineIndex],
-      expectedError[rangeStartIndex],
-      expectedError[rangeEndIndex],
-      expectedError[severityIndex],
-      expectedError[messageIndex]);
+    var result = await buildRange(expectedDiagnostic[lineIndex],
+      expectedDiagnostic[rangeStartIndex],
+      expectedDiagnostic[rangeEndIndex],
+      expectedDiagnostic[severityIndex],
+      expectedDiagnostic[messageIndex]);
 
       String.prototype.replaceAll = function(search, replacement) {
         var target = this;
         return target.replace(new RegExp(search, 'g'), replacement);
       };    
 
-      expectedError.uri = uri;
+      expectedDiagnostic.uri = uri;
       expectedResult.push(result)
     }
   return expectedResult
@@ -42,15 +42,15 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
   var argumentsIndex = givenResult.headers.cells.indexOf('arguments')
 
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
-    var expectedError = givenResult.rows[rowIndex].cells
+    var expectedDiagnostic = givenResult.rows[rowIndex].cells
 
-    var result = await buildRange(expectedError[lineIndex],
-    expectedError[rangeStartIndex],
-    expectedError[rangeEndIndex]);
+    var result = await buildRange(expectedDiagnostic[lineIndex],
+      expectedDiagnostic[rangeStartIndex],
+      expectedDiagnostic[rangeEndIndex]);
 
-    result.command = await buildCommand(expectedError[titleIndex],
-      expectedError[commandIndex],
-      expectedError[argumentsIndex],
+    result.command = await buildCommand(expectedDiagnostic[titleIndex],
+      expectedDiagnostic[commandIndex],
+      expectedDiagnostic[argumentsIndex],
       projectPath,filePath);
   
     expectedResult.push(result)
