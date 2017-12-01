@@ -15,7 +15,7 @@ Steps list for autcomplete
    |* start              |
    |* two                |
    |* start one          |
-* autocomplete at line "4" character "7" should give steps 
+* autocomplete at line "4" character "7" should give "steps" 
 
    |label                    |
    |-------------------------|
@@ -43,15 +43,15 @@ Parameter list for autocomplete
    |* start "s"                         |
    |* two "another" "parameter"         |
    |* start one <one>                   |
-* autocomplete at line "6" character "9" should give parameters 
+* autocomplete at line "5" character "7" should give "parameters" 
 
-   |label    |detail |
-   |---------|-------|
-   |something|static |
-   |s        |static |
-   |another  |static |
-   |parameter|static |
-   |one      |dynamic|
+   |label    |detail|
+   |---------|------|
+   |something|6     |
+   |s        |6     |
+   |another  |6     |
+   |parameter|6     |
+   |one      |7     |
 
 Tag list for autocomplete
 -------------------------

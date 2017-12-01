@@ -13,49 +13,57 @@ var responseType = {
     Variable: 4
 };
   
-step('autocomplete at line <lineNumber> character <characterNumber> should give parameters <expectedResult>', async function (lineNumber, characterNumber, expectedResult, done) {
-    expectedParameters = table.tableToArray(expectedResult);
-    var position = {
-        lineNumber: lineNumber,
-        characterNumber: characterNumber
-    };
-
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-    await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
-    daemon.handle(handleParameterResponse, done);
-});
-step('autocomplete at line <lineNumber> character <characterNumber> should give steps <expectedResult>', async function (lineNumber, characterNumber, expectedResult, done) {
-    expectedSteps = table.tableToArray(expectedResult);
+step('autocomplete at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
+async function (lineNumber, characterNumber,element, expectedResult, done) {
     var position = {
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
-    daemon.handle(handleStepsResponse, done);
+    if("steps"==element)
+    {
+        expectedSteps = table.tableToArray(expectedResult);
+        daemon.handle(handleStepsResponse, done);    
+        return
+    }
+    if("parameters"==element)
+    {
+        expectedParameters = table.tableToArray(expectedResult);    
+        daemon.handle(handleParameterResponse, done);
+        return
+    }
+    throw new Error("unknown type "+element)
 });
 
 async function handleStepsResponse(responseMessage) {
     if (!responseMessage.result)
     return
+
     
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
         if (item.kind != responseType.Function)
             continue;
+            
         assert.equal(item.kind, responseType.Function);
         assert.ok(expectedSteps.indexOf(item.label) > -1, ("expected steps %s should contain %s",expectedSteps, JSON.stringify(item)));
     }
+
+    console.log("step response validating "+ responseMessage.result.items.length+"items")    
 }
 
 async function handleParameterResponse(responseMessage) {
     if (!responseMessage.result)
     return
-
+     
+    assert.equal(expectedParameters.length,responseMessage.result.items.length,"number of parameters expected"+expectedParameters.length+" and actual parameters "+responseMessage.result.items.length+" should be the same")
+    
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
+        
         if (item.kind != responseType.Variable)
             continue;
         assert.ok(expectedParameters.indexOf(item.label) > -1, 'item label not found ' + item.label);
-    }
+    }    
 }
