@@ -26,10 +26,10 @@ notifications:
   on_build_failure: true
   on_build_status_changed: true
 test_script:
-  - ps: >-
-    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-    &$gauge version
-    &$gauge run specs 
+- ps: >-
+  $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+  &$gauge version
+  &$gauge run specs 
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
