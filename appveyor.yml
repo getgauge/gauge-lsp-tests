@@ -1,0 +1,41 @@
+version: 1.0.{build}
+init:
+- ps: choco install gauge
+install:
+- ps: >-
+    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+
+    &$gauge install
+    &.\install_js.sh
+
+    sleep 30
+cache:
+- packages
+- '%APPDATA%\gauge\plugins'
+build: off
+notifications:
+- provider: Webhook
+  url: https://webhooks.gitter.im/e/68b514dcb2c08a6a5809
+  method: POST
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
+test_script:
+- ps: >-
+    $gauge=$env:ProgramFiles+"\gauge\bin\gauge.exe"
+
+    &$gauge run specs
+
+    echo "done!"
+artifacts:
+- path: ./reports/html-reportreport
+  name: gauge-reports
+- path: ./failure_reports/html-report
+  name: gauge-reports-failure
+on_finish:
+- ps: >-
+    # upload results to AppVeyor
+
+    $wc = New-Object 'System.Net.WebClient'
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\xml-report\result.xml))
