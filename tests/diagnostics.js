@@ -7,6 +7,7 @@ var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
+var assertion = require('./util/assertion');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 
@@ -26,27 +27,18 @@ async function handleDiagnosticsResponse(responseMessage) {
   
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
+    var diagnostic = responseMessage.params.diagnostics[rowIndex];
 
-    if(responseUri==expectedDiagnostic.uri)
-    {  
-      assert.deepEqual(responseMessage.params.diagnostics[rowIndex].range, expectedDiagnostic.range, 
-        JSON.stringify(responseMessage.params.diagnostics[rowIndex].range) + " not equal to " 
-        + JSON.stringify(expectedDiagnostic.range));
-      
-      if(expectedDiagnostic.severity)
-      {
-        assert.equal(responseMessage.params.diagnostics[rowIndex].severity, expectedDiagnostic.severity, 
-          JSON.stringify(responseMessage.params.diagnostics[rowIndex].severity) + " not equal to " 
-          + JSON.stringify(expectedDiagnostic.severity));        
-      }
+    if(responseUri!=expectedDiagnostic.uri)
+      continue
+    
+    await assertion.assertDeepEqualWithMessage(diagnostic.range, expectedDiagnostic.range)
+    
+    if(expectedDiagnostic.severity)
+      await assertion.assertEqualWithMessage(diagnostic.severity,expectedDiagnostic.severity)
 
-      if(expectedDiagnostic.message)
-      {
-        assert.equal(responseMessage.params.diagnostics[rowIndex].message, expectedDiagnostic.message, 
-          JSON.stringify(responseMessage.params.diagnostics[rowIndex].message) + " not equal to " 
-          + JSON.stringify(expectedDiagnostic.message));        
-      }
-    }
+    if(expectedDiagnostic.message)
+      await assertion.assertEqualWithMessage(diagnostic.message,expectedDiagnostic.message)
   }
 }
 
@@ -67,15 +59,3 @@ step("diagnostics should contain error for <filePath> <errorList>", async functi
     var result = await builder.buildExpectedRange(errorList,currentFileUri);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });
-
-step("diagnostics should contain circular reference error at line <line> start index <startIndex> end index <endIndex> severity <severity> in concept <concept>",async function(line,startIndex,endIndex,severity,filePath){
-  //  "Circular reference found in concept. "Concept1" => <projectDir>specsconceptscircularConceptReference.cpt:2"
-  var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-  
-  var message = ("Circular reference found in concept. <filename> => %s%s:<line>",concept,daemon.projectUri(),currentFilePath,line)
-  var result = buildExpectedResult(line,
-    startIndex,endIndex,severity,message);
-
-    expectedDiagnostics.push(expectedDiagnostic)
-  
-})

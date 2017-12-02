@@ -38,7 +38,9 @@ async function handleAutocompleteResponse(responseMessage) {
     if (!responseMessage.result)
     return
          
-    for (var index = 0; index < responseMessage.result.items.length; index++) {
+    var actualNumberOfItems = responseMessage.result.items.length;
+
+    for (var index = 0; index < actualNumberOfItems; index++) {
         var item = responseMessage.result.items[index];
         
         if (item.kind != expectedKind)
@@ -47,6 +49,6 @@ async function handleAutocompleteResponse(responseMessage) {
         assert.ok(expectedElements.indexOf(item.label) > -1, 'item label not found ' + item.label);
     }
     
-    assert.equal(expectedElements.length,responseMessage.result.items.length,"expected "
-    +expectedElements.length+" actual "+responseMessage.result.items.length)    
+    assert.equal(expectedElements.length,actualNumberOfItems,
+        "expected "+expectedElements.length+" actual "+actualNumberOfItems)    
 }
