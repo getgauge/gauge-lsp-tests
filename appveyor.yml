@@ -14,13 +14,6 @@ install:
   # install modules
   - ps: npm install
 
-test_script:
-  # Output useful info for debugging.
-  - node --version
-  - npm --version
-  # run tests
-  - npm test
-  - gauge version
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
@@ -33,7 +26,11 @@ notifications:
   on_build_failure: true
   on_build_status_changed: true
 test_script:
-- ps: >-
+  - ps: node --version
+  - ps: npm --version
+  # run tests
+  - ps: gauge version
+  - ps: >-
     $gauge=$env:ProgramFiles+"\gauge\bin\gauge.exe"
 
     &$gauge run specs
