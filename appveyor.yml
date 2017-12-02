@@ -5,8 +5,7 @@ version: 1.0.{build}
 init:
 - ps: choco install gauge
 install:
-  - ps: gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-  - ps: gauge install
+  - ps: gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe" &$gauge install
   - ps: sleep 30
   - ps: .\install_js.sh
   # Get the latest stable version of Node.js or io.js
@@ -30,12 +29,7 @@ test_script:
   - ps: npm --version
   # run tests
   - ps: gauge version
-  - ps: >-
-    $gauge=$env:ProgramFiles+"\gauge\bin\gauge.exe"
-
-    &$gauge run specs
-
-    echo "done!"
+  - ps: gauge=$env:ProgramFiles+"\gauge\bin\gauge.exe" &$gauge run specs
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
