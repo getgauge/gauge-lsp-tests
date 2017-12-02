@@ -5,7 +5,7 @@
   "scripts": {
     "test": "gauge run specs"
   },
-  "license": "MIT" ,
+  "license": "MIT",
   "dependencies": {
     "vscode-jsonrpc": "^3.4.1"
   },
