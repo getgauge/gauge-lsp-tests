@@ -12,8 +12,8 @@ init:
 install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+
     &$gauge install
-    sleep 10
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
@@ -28,7 +28,9 @@ notifications:
 test_script:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+
     &$gauge version
+
     &$gauge run specs 
 artifacts:
 - path: ./reports/html-reportreport
