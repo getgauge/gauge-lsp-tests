@@ -4,18 +4,16 @@ environment:
 version: 1.0.{build}
 init:
 - ps: choco install gauge
-install:
+- ps: Install-Product node $env:nodejs_version
+- ps: sleep 10
+- ps: npm install -g
+- ps: node version
+- ps: npm -version
 install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
     &$gauge install
     sleep 10
-  # Get the latest stable version of Node.js or io.js
-- ps: Install-Product node $env:nodejs_version
-- ps: sleep 10
-- ps: npm install -g
-    
-sleep 10
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
@@ -28,7 +26,7 @@ notifications:
   on_build_failure: true
   on_build_status_changed: true
 test_script:
-- ps: >-
+  - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
     &$gauge version
     &$gauge run specs 
