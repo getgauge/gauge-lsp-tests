@@ -1,7 +1,7 @@
 {
-  "name": "gauge-js-template",
+  "name": "gauge-lsp-tests",
   "version": "0.0.1",
-  "description": "Starter template for writing JavaScript tests for Gauge",
+  "description": "LSP tests for Gauge",
   "scripts": {
     "test": "gauge run specs"
   },

@@ -6,11 +6,11 @@ init:
 - ps: choco install gauge
 install:
   - ps: .\install_js.sh
+  - ps: sleep 30
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
-  # install modules
+  - ps: sleep 30
   - ps: npm install
-
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
