@@ -7,6 +7,7 @@ var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
+var builder = require('./lsp/util/dataBuilder');
 var stringExtension = require('./util/stringExtension');
 var definitionDetails;
 
@@ -44,9 +45,8 @@ async function handleDefinitionResponse(resp) {
         },
         "uri": path.join(daemon.projectUri() , definitionDetail[uriIndex])
         };
-            
-        var responseUri = responseMessage.uri.replace("file:///","")
-        responseUri = stringExtension.replaceAll("/","\\");
+
+        var responseUri = builder.getResponseUri(responseMessage.uri)
         
         assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
         assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      

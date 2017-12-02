@@ -1,5 +1,11 @@
 "use strict";
 var daemon = require('../daemon');
+var stringExtension = require('../../util/stringExtension')
+
+async function getResponseUri(original){
+  var intermediate = original.replace("file:///","")
+  return stringExtension.replaceAll(intermediate,"/","\\");
+}
 
 async function buildExpectedRange(givenResult,uri){
   var expectedResult = [];
@@ -87,5 +93,6 @@ async function buildRange(line,rangeStart,rangeEnd,severity,message){
     
 module.exports={
   buildExpectedRange:buildExpectedRange,
-  buildExpectedCodeLens:buildExpectedCodeLens
+  buildExpectedCodeLens:buildExpectedCodeLens,
+  getResponseUri:getResponseUri
 }
