@@ -6,7 +6,7 @@ init:
 - ps: choco install gauge
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
-- ps: npm uninstall -g
+- ps: npm uninstall
 - ps: npm install -g
 - ps: node version
 - ps: npm -version
