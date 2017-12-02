@@ -5,12 +5,12 @@ version: 1.0.{build}
 init:
 - ps: choco install gauge
 install:
-  - ps: .\install_js.sh
-  - ps: sleep 30
+  - ps: gauge config gauge_repository_url https://raw.githubusercontent.com/getgauge/gauge-nightly-repository/master/
+  - ps: gauge install
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   - ps: sleep 30
-  - ps: npm install
+  - ps: npm install -g
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
