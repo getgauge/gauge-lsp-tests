@@ -30,6 +30,7 @@ Steps list for autcomplete
 
 Static Parameter list for autocomplete
 --------------------------------------
+tags:windows
 * open file "/specs/autocomplete_param.spec" 
 
    |Heading                             |
@@ -54,6 +55,7 @@ Static Parameter list for autocomplete
 
 Dynamic Parameter list for autocomplete
 ---------------------------------------
+tags:windows
 * open file "/specs/autocomplete_param.spec" 
 
    |Heading                             |

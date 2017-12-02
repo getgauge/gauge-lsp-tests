@@ -21,4 +21,4 @@ install:
 
 script:
   - gauge version
-  - gauge run specs
+  - gauge run specs --tags=!windows
