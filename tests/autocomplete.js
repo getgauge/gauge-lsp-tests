@@ -7,7 +7,6 @@ var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var path = require('path');
 
-var expectedSteps = [];
 var responseType = {
     Function: 3,
     Parameter:6
@@ -21,43 +20,33 @@ async function (lineNumber, characterNumber,element, expectedResult, done) {
     };
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     await request.autocomplete(position, daemon.projectUri() + currentFilePath, daemon.connection());
+    expectedElements = table.tableToArray(expectedResult);
+    expectedKind = null;
+    
     if("steps"==element)
-    {
-        expectedSteps = table.tableToArray(expectedResult);
-        daemon.handle(handleStepsResponse, done);    
-        return
-    }
+        expectedKind = responseType.Function
     if(("parameters"==element)||("tags"==element))
-    {
-        expectedElements = table.tableToArray(expectedResult);    
-        daemon.handle(handleAutocompleteResponse, done);
-        return
-    }
+        expectedKind = responseType.Parameter        
 
-    throw new Error("unknown type "+element)
+    if(expectedKind)
+        daemon.handle(handleAutocompleteResponse, done);    
+    else
+        throw new Error("unknown type "+element)
 });
 
-async function handleStepsResponse(responseMessage) {
-    await processAutocompleteResponse(responseMessage, expectedSteps, responseType.Function)
-}
-
 async function handleAutocompleteResponse(responseMessage) {
-    await processAutocompleteResponse(responseMessage, expectedElements, responseType.Parameter)
-}
-
-async function processAutocompleteResponse(responseMessage,expected, kind){
     if (!responseMessage.result)
     return
          
     for (var index = 0; index < responseMessage.result.items.length; index++) {
         var item = responseMessage.result.items[index];
         
-        if (item.kind != kind)
+        if (item.kind != expectedKind)
             continue;
             
-        assert.ok(expected.indexOf(item.label) > -1, 'item label not found ' + item.label);
+        assert.ok(expectedElements.indexOf(item.label) > -1, 'item label not found ' + item.label);
     }
     
-    assert.equal(expected.length,responseMessage.result.items.length,"expected "
-    +expected.length+" actual "+responseMessage.result.items.length)    
+    assert.equal(expectedElements.length,responseMessage.result.items.length,"expected "
+    +expectedElements.length+" actual "+responseMessage.result.items.length)    
 }
