@@ -5,15 +5,11 @@ version: 1.0.{build}
 init:
 - ps: choco install gauge
 install:
-  # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
-  # install modules
   - npm install
   - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-
-    &$gauge install
-    
+    &$gauge install    
     sleep 30
 - ps: .\install_js.sh
 
