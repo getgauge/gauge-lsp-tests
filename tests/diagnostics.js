@@ -8,6 +8,7 @@ var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var assertion = require('./util/assertion');
+var stringExtension = require('./util/stringExtension');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 
@@ -16,14 +17,8 @@ async function handleDiagnosticsResponse(responseMessage) {
   
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
 
-  if(!String.prototype.replaceAll){
-    String.prototype.replaceAll = function(search, replacement) {
-      var target = this;
-      return target.replace(new RegExp(search, 'g'), replacement);
-    }  
-  }
-
-  var responseUri = responseMessage.params.uri.replace("file:///","").replaceAll("/","\\");
+  var responseUri = responseMessage.params.uri.replace("file:///","")
+  responseUri = stringExtension.replaceAll(responseUri,"/","\\");
   
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
