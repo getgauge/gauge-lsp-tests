@@ -1,13 +1,11 @@
 "use strict";
 
-var assert = require('assert');
 const rpc = require('vscode-jsonrpc');
-
 var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
-var assertion = require('./util/assertion');
+var assertionExtension = require('./util/assertionExtension');
 var stringExtension = require('./util/stringExtension');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
@@ -27,13 +25,13 @@ async function handleDiagnosticsResponse(responseMessage) {
     if(responseUri!=expectedDiagnostic.uri)
       continue
     
-    await assertion.assertDeepEqualWithMessage(diagnostic.range, expectedDiagnostic.range)
+    await assertionExtension.assertDeepEqual(diagnostic.range, expectedDiagnostic.range)
     
     if(expectedDiagnostic.severity)
-      await assertion.assertEqualWithMessage(diagnostic.severity,expectedDiagnostic.severity)
+      await assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
 
     if(expectedDiagnostic.message)
-      await assertion.assertEqualWithMessage(diagnostic.message,expectedDiagnostic.message)
+      await assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
   }
 }
 

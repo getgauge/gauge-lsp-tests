@@ -1,11 +1,11 @@
 'use strict';
-var assert = require('assert');
 const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var path = require('path');
+var assertionExtension = require('./util/assertionExtension');
 
 var responseType = {
     Function: 3,
@@ -46,9 +46,8 @@ async function handleAutocompleteResponse(responseMessage) {
         if (item.kind != expectedKind)
             continue;
             
-        assert.ok(expectedElements.indexOf(item.label) > -1, 'item label not found ' + item.label);
+        assertionExtension.assertContains(expectedElements,item.label)
     }
     
-    assert.equal(expectedElements.length,actualNumberOfItems,
-        "expected "+expectedElements.length+" actual "+actualNumberOfItems)    
+    assertionExtension.assertEqual(expectedElements.length,actualNumberOfItems)    
 }
