@@ -6,9 +6,9 @@ install:
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
     &$gauge install
-    &.\install_js.sh
-
+    
     sleep 30
+- ps: .\install_js.sh
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
