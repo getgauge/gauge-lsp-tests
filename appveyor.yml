@@ -8,11 +8,11 @@ init:
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
+- ps: .\installGaugeNightly.ps1
+
 install:
 - ps: >-
-    .\installGaugeNightly.sh
-
-    &$gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
     &$gauge config gauge_repository_url https://raw.githubusercontent.com/getgauge/gauge-nightly-repository/master/
 
