@@ -8,7 +8,12 @@ init:
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
-- ps: .\installGaugeNightly.ps1
+
+deploy:
+- provider: Script
+  script: .\installGaugeNightly.ps1
+  on:
+    branch: master
 
 install:
 - ps: >-
