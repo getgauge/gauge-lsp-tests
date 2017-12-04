@@ -36,6 +36,12 @@ step('Go to plugins page', async() => {
     await click('Plugins');
 });
 
+step("step1", async function() {
+});
+
+step("step2", async function() {
+});
+
 step('Display the official plugins', async() => {
     assert.ok(await text('Gauge Plugins').exists(intervalSecs(1), timeoutSecs(10)));
 

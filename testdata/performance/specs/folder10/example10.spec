@@ -9,6 +9,7 @@ To execute this specification, use
 
 Get Started
 -----------
+* Concept Heading1
 * Goto gauge
 * Display the sub title "Choose your OS & download"
 
@@ -16,6 +17,7 @@ Documentation
 -------------
 * Go to Gauge documentation page
 * Display the Gauge version
+* Concept Heading11
 
 Plugins
 -------

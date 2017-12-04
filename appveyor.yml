@@ -31,7 +31,7 @@ test_script:
 
     &$gauge version
 
-    &$gauge run specs 
+    &$gauge run specs --tags=!windows
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
