@@ -3,7 +3,7 @@ environment:
 
 version: 1.0.{build}
 init:
-- ps: choco install gauge
+- ps: .\installGaugeNightly.sh
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
 - ps: npm install npm@latest -g
@@ -12,6 +12,8 @@ init:
 install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
+
+    &$gauge config gauge_repository_url https://raw.githubusercontent.com/getgauge/gauge-nightly-repository/master/
 
     &$gauge install
 cache:
