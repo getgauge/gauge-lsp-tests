@@ -8,7 +8,9 @@ init:
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
-- ps: &".\installGaugeNightly.ps1" /S
+- ps: Write-Host 'This is PowerShell'
+  # batch commands start from cmd:
+  - cmd: .\installGaugeNightly.ps1
 
 install:
 - ps: >-
