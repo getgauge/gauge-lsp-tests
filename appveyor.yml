@@ -12,7 +12,7 @@ init:
 
     &Write-Host "Installing $($gauge_latest_nightly_version) from $($gauge_file_name)..."
 
-    && ".\$($gauge_file_name)" /S
+    &".\$($gauge_file_name)" /S
 
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
