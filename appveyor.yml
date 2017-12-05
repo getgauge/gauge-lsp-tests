@@ -3,14 +3,13 @@ environment:
 
 version: 1.0.{build}
 init:
+- ps: Write-Host 'This is PowerShell'
+- cmd: .\installGaugeNightly.ps1
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
-- ps: Write-Host 'This is PowerShell'
-  # batch commands start from cmd:
-  - cmd: .\installGaugeNightly.ps1
 
 install:
 - ps: >-
