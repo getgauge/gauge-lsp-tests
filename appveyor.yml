@@ -4,17 +4,15 @@ environment:
 version: 1.0.{build}
 init:
 - ps: >-
-  $gauge_latest_nightly_version=Invoke-WebRequest -Uri https://bintray.com/gauge/Gauge/Nightly/_latestVersion -MaximumRedirection 0 -ErrorAction Ignore -UseBasicParsing | %{$_.Headers.Location} | Split-Path -Leaf
+    $gauge_latest_nightly_version=Invoke-WebRequest -Uri https://bintray.com/gauge/Gauge/Nightly/_latestVersion -MaximumRedirection 0 -ErrorAction Ignore -UseBasicParsing | %{$_.Headers.Location} | Split-Path -Leaf
 
-  &$bit="x86_64"
-  
-  &$gauge_file_name="gauge-$($gauge_latest_nightly_version)-windows.$($bit).exe"
+    &$gauge_file_name="gauge-$($gauge_latest_nightly_version)-windows.x86_64.exe"
 
-  &Invoke-WebRequest -Uri "https://bintray.com/gauge/Gauge/download_file?file_path=windows%2F$gauge_file_name" -OutFile $gauge_file_name
+    &Invoke-WebRequest -Uri "https://bintray.com/gauge/Gauge/download_file?file_path=windows%2F$gauge_file_name" -OutFile $gauge_file_name
 
-  &Write-Host "Installing $($gauge_latest_nightly_version) from $($gauge_file_name)..."
+    &Write-Host "Installing $($gauge_latest_nightly_version) from $($gauge_file_name)..."
 
-  && ".\$($gauge_file_name)" /S
+    && ".\$($gauge_file_name)" /S
 
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
