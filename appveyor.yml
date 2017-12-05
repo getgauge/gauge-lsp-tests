@@ -3,22 +3,15 @@ environment:
 
 version: 1.0.{build}
 init:
-- ps: >-
-    $gauge_latest_nightly_version=Invoke-WebRequest -Uri https://bintray.com/gauge/Gauge/Nightly/_latestVersion -MaximumRedirection 0 -ErrorAction Ignore -UseBasicParsing | %{$_.Headers.Location} | Split-Path -Leaf
-
-    &$gauge_file_name="gauge-$($gauge_latest_nightly_version)-windows.x86_64.exe"
+- ps: choco install gauge
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
-
 install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-
-    &$gauge config gauge_repository_url https://raw.githubusercontent.com/getgauge/gauge-nightly-repository/master/
-
     &$gauge install
 cache:
 - packages
@@ -34,9 +27,7 @@ notifications:
 test_script:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-
     &$gauge version
-
     &$gauge run specs --tags=!windows
 artifacts:
 - path: ./reports/html-reportreport
@@ -46,7 +37,5 @@ artifacts:
 on_finish:
 - ps: >-
     # upload results to AppVeyor
-
     $wc = New-Object 'System.Net.WebClient'
-
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\xml-report\result.xml))
