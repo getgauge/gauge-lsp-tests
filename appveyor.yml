@@ -3,12 +3,12 @@ environment:
 
 version: 1.0.{build}
 init:
-- ps: choco install gauge
 - ps: Install-Product node $env:nodejs_version
 - ps: sleep 10
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
+- ps: .\installGaugeNightly.ps1
 install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
