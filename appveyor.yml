@@ -12,8 +12,10 @@ init:
 build_script:
 - ps: |
     .\installGaugeNightly.ps1
-    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-    &$gauge install
+    $env:Path = "c:\Program Files\Gauge\bin;C:\maven\apache-maven-3.3.9\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+    Write-Host "PATH : $($env:PATH)"
+    gauge install
+    gauge version
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
@@ -25,12 +27,7 @@ notifications:
   on_build_failure: true
   on_build_status_changed: true
 test_script:
-- ps: >-
-    $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-    
-    &$gauge version
-    
-    &$gauge run specs
+- ps: gauge run specs
 artifacts:
 - path: ./reports/html-reportreport
   name: gauge-reports
