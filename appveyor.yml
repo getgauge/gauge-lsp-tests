@@ -1,5 +1,5 @@
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8"
 
 version: 1.0.{build}
 init:
@@ -12,7 +12,7 @@ init:
 build_script:
 - ps: |
     .\installGaugeNightly.ps1
-    $env:Path = "c:\Program Files\Gauge\bin;C:\maven\apache-maven-3.3.9\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+    $env:Path = "c:\Program Files\Gauge\bin;" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
     Write-Host "PATH : $($env:PATH)"
     gauge install
     gauge version
