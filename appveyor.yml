@@ -12,9 +12,7 @@ init:
 build_script:
 - ps: |
     .\installGaugeNightly.ps1
-- ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
-
     &$gauge install
 cache:
 - packages
