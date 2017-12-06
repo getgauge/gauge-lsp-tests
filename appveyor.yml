@@ -8,9 +8,10 @@ init:
 - ps: npm install npm@latest -g
 - ps: node --version
 - ps: npm --version
+
+build_script:
 - ps: |
     .\installGaugeNightly.ps1
-install:
 - ps: >-
     $gauge=$env:ProgramFiles + "\gauge\bin\gauge.exe"
 
@@ -18,7 +19,6 @@ install:
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'
-build: off
 notifications:
 - provider: Webhook
   url: https://webhooks.gitter.im/e/68b514dcb2c08a6a5809
