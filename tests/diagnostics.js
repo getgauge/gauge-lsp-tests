@@ -44,7 +44,7 @@ step("open file <filePath> and handle diagnostics for content <contents>", async
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
     var currentFileUri = path.join(daemon.projectUri(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
-    
-    var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);
+
+    var result = await builder.buildExpectedRange(diagnosticsList,daemon.projectPath(),currentFileUri);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });

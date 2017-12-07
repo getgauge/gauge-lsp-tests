@@ -8,7 +8,7 @@ function getResponseUri(original){
   return intermediate.replaceAll("/","\\")
 }
 
-async function buildExpectedRange(givenResult,uri){
+async function buildExpectedRange(givenResult,projectPath,uri){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -24,8 +24,7 @@ async function buildExpectedRange(givenResult,uri){
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
       expectedDiagnostic[severityIndex],
-      expectedDiagnostic[messageIndex]);
-      result.uri = uri;
+      expectedDiagnostic[messageIndex],projectPath,uri);
       expectedResult.push(result)
     }
   return expectedResult
@@ -71,20 +70,26 @@ async function buildCommand(title,command,args,projectPath,filePath){
   return result;
 }
 
+function AddProjectAndFileUri(value,projectPath,filePath){
+  return value.replace('%project_uri%',projectPath)
+  .replace('%file_uri%',filePath)
+}
+
 async function buildPosition(line,index){
   return {"line": parseInt(line),
   "character": parseInt(index)}
 }
 
-async function buildRange(line,rangeStart,rangeEnd,severity,message){
+async function buildRange(line,rangeStart,rangeEnd,severity,message,projectPath,fileUri){
   var result = {}
   if(severity){
     result.severity = parseInt(severity)
   }
   if(message){
-    result.message = message
+    result.message = AddProjectAndFileUri(message,projectPath,fileUri)
   }
 
+  result.uri = fileUri
   result.range = {
     "start": await buildPosition(line,rangeStart),
     "end": await buildPosition(line,rangeEnd)

@@ -79,7 +79,6 @@ Table doesn't belong to any step
 
 Circular reference
 ------------------
-* to fix
 * diagnostics should contain diagnostics for "/specs/concepts/circularReference.cpt" 
 
    |line|range_start|range_end|severity|message                                                                         |
