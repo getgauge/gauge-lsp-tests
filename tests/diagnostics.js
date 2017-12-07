@@ -30,10 +30,10 @@ async function handleDiagnosticsResponse(responseMessage) {
     + JSON.stringify(expected));        
       
     if(expectedDiagnostic.severity)
-      await assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
+      assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
 
     if(expectedDiagnostic.message)
-      await assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
+      assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
   }
 }
 
