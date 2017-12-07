@@ -14,13 +14,14 @@ async function handleDiagnosticsResponse(responseMessage) {
   
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
   var responseUri = builder.getResponseUri(responseMessage.params.uri)
-  
+
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
     var diagnostic = responseMessage.params.diagnostics[rowIndex];
-    
-    console.log(responseUri)
-    console.log(expectedDiagnostic.uri)
+
+    if(expectedDiagnostic.uri.startsWith("/"))
+      expectedDiagnostic.uri = expectedDiagnostic.uri.substr(1)
+
     if(responseUri!=expectedDiagnostic.uri)
       continue
 
