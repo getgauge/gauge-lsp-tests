@@ -1,10 +1,11 @@
 "use strict";
+
 var daemon = require('../daemon');
 var stringExtension = require('../../util/stringExtension')
 
-async function getResponseUri(original){
-  var intermediate = original.replace("file:///","")
-  return stringExtension.replaceAll(intermediate,"/","\\");
+function getResponseUri(original){
+  var intermediate = original.replace("file:///","");
+  return intermediate.replaceAll("/","\\")
 }
 
 async function buildExpectedRange(givenResult,uri){
@@ -24,7 +25,7 @@ async function buildExpectedRange(givenResult,uri){
       expectedDiagnostic[rangeEndIndex],
       expectedDiagnostic[severityIndex],
       expectedDiagnostic[messageIndex]);
-      expectedDiagnostic.uri = uri;
+      result.uri = uri;
       expectedResult.push(result)
     }
   return expectedResult

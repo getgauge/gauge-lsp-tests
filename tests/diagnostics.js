@@ -5,6 +5,7 @@ var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
+var assert = require('assert');
 var assertionExtension = require('./util/assertionExtension');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
@@ -15,16 +16,19 @@ async function handleDiagnosticsResponse(responseMessage) {
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
 
   var responseUri = builder.getResponseUri(responseMessage.params.uri)
-  
+    
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
     var diagnostic = responseMessage.params.diagnostics[rowIndex];
-
+    
     if(responseUri!=expectedDiagnostic.uri)
       continue
-    
-    await assertionExtension.assertDeepEqual(diagnostic.range, expectedDiagnostic.range)
-    
+
+    var actual = diagnostic.range
+    var expected = expectedDiagnostic.range
+    assert.deepEqual(actual, expected, JSON.stringify(actual) + " not equal to " 
+    + JSON.stringify(expected));        
+      
     if(expectedDiagnostic.severity)
       await assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
 

@@ -16,6 +16,7 @@ build_script:
     Write-Host "PATH : $($env:PATH)"
     gauge version
     gauge install
+    gauge version
 cache:
 - packages
 - '%APPDATA%\gauge\plugins'

@@ -1,3 +1,5 @@
+"use strict"
+
 function tableToArray(table){
     var value = [];
     table.rows.forEach(function (row) {

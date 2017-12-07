@@ -1,3 +1,5 @@
+"use strict"
+
 var assert = require('assert')
 
 async function assertContains(expectedElements,element){
@@ -8,13 +10,6 @@ async function assertEqual(actual,expected) {
     JSON.stringify(actual) + " not equal to " 
     + JSON.stringify(expected));        
 }  
-  
-async function assertDeepEqual(actual,expected) {  
-assert.deepEqual(actual, expected, 
-    JSON.stringify(actual) + " not equal to " 
-    + JSON.stringify(expected));        
-}  
 
 module.exports = {assertEqual:assertEqual,
-assertDeepEqual:assertDeepEqual,
 assertContains:assertContains};  
