@@ -6,7 +6,7 @@ var path = require('path');
 
 function getResponseUri(original){
   var intermediate = original.replace("file:///","");
-  return intermediate.replaceAll("/","\\")
+  return intermediate.replaceAll("/",path.sep)
 }
 
 async function buildExpectedRange(givenResult,uri){
