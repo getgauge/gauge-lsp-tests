@@ -60,7 +60,7 @@ Dynamic Parameter list for autocomplete
    |------------------------------------|
    |Specification Heading               |
    |=====================               |
-   |table:/testdata/autocomplete/csv.csv|
+   |table:\\testdata\\autocomplete\\csv.csv|
    |Gauge LSP 2                         |
    |---------------------               |
    |* one "something"                   |
