@@ -72,7 +72,7 @@ async function buildCommand(title,command,args,projectPath,filePath){
 }
 
 function AddProjectAndFileUri(value,filePath){
-  return value.replace('%file_uri%',filePath)
+  return value.replace('%file_uri%',path.join("",filePath))
 }
 
 async function buildPosition(line,index){

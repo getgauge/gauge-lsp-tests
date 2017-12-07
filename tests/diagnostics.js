@@ -19,6 +19,8 @@ async function handleDiagnosticsResponse(responseMessage) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
     var diagnostic = responseMessage.params.diagnostics[rowIndex];
     
+    console.log(responseUri)
+    console.log(expectedDiagnostic.uri)
     if(responseUri!=expectedDiagnostic.uri)
       continue
 
