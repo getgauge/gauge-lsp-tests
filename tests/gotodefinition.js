@@ -10,6 +10,9 @@ var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 var definitionDetails;
 
+step("throw exception", async function() {
+	throw 'Unimplemented Step';
+});
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details,done){
     await request.gotoDefinition(
         {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
@@ -21,7 +24,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
 });
 
 async function handleDefinitionResponse(resp) {
-    gauge.message("validating definition response")
+    console.log("validating definition response")
     
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        

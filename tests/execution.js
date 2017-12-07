@@ -21,7 +21,7 @@ async function handleCodeLensDetails(responseMessage,done){
     if(!responseMessage.result)
     return;
     
-    gauge.message("validating codeLens response")
+    console.log("validating codeLens response")
     
     var expectedDetails = gauge.dataStore.scenarioStore.get('expectedDetails')    
 

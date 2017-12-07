@@ -3,13 +3,13 @@ Stub for unimplemented Steps
 * start gauge daemon for project "testdata/gotodefinition"
 Generate Code for Simple Unimplemented step
 -------------------------------------------
-* diagnostics should contain diagnostics for "/specs/concept_definition.spec" 
+* diagnostics should contain diagnostics for "/specs/concepts/concept.cpt" 
 
    |line|range_start|range_end|severity|message                      |code                                                                              |
    |----|-----------|---------|--------|-----------------------------|----------------------------------------------------------------------------------|
-   |2   |0          |10000    |1       |Step implementation not found|step(\"undefined Concept\", async function() {\n\tthrow 'Unimplemented Step';\n});|
+   |4   |0          |10000    |1       |Step implementation not found|step(\"one\", async function() {\n\tthrow 'Unimplemented Step';\n});|
 
-* open file "/specs/concept_definition.spec" and handle diagnostics for content 
+* open file "/specs/concepts/concept.cpt" and handle diagnostics for content 
 
    |Heading                       |
    |------------------------------|

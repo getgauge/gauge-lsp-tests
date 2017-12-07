@@ -84,7 +84,7 @@ Circular reference
    |line|range_start|range_end|severity|message                                                                         |
    |----|-----------|---------|--------|---------------------------------------------------------------|
    |1   |0          |10000    |1       |Circular reference found in concept. "Concept1" => %file_uri%:5|
-   |4   |0          |10000    |1       |Circular reference found in concept. "Concept2" => %file_uri%:2|
+   |4   |0          |0    |1       |Circular reference found in concept. "Concept2" => %file_uri%:2|
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 

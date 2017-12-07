@@ -35,10 +35,10 @@ async function (lineNumber, characterNumber,element, expectedResult, done) {
 });
 
 async function handleAutocompleteResponse(responseMessage) {
-    if (!responseMessage.result)
-    return
+    if (responseMessage.method=="textDocument/publishDiagnostics")
+        return        
          
-    gauge.message("validating autocomplete response")
+    console.log("validating autocomplete response")
     
     var actualNumberOfItems = responseMessage.result.items.length;
 

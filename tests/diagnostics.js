@@ -13,9 +13,8 @@ var path = require('path');
 async function handleDiagnosticsResponse(responseMessage) {  
   
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
-
   var responseUri = builder.getResponseUri(responseMessage.params.uri)
-    
+  
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
     var diagnostic = responseMessage.params.diagnostics[rowIndex];
@@ -23,7 +22,9 @@ async function handleDiagnosticsResponse(responseMessage) {
     if(responseUri!=expectedDiagnostic.uri)
       continue
 
-      gauge.message("validating diagnostic response")
+      gauge.dataStore.scenarioStore.put("expectedDiagnosticsValidated",true)
+      console.log("validating diagnostic response")
+              
       assert.equal(diagnostic.message, expectedDiagnostic.message, 
       JSON.stringify(diagnostic.message) + " not equal to " 
       + JSON.stringify(expectedDiagnostic.message));        
@@ -34,6 +35,11 @@ async function handleDiagnosticsResponse(responseMessage) {
         JSON.stringify(diagnostic.severity) + " not equal to " 
         + JSON.stringify(expectedDiagnostic.severity));        
     }
+  }
+
+  if(!gauge.dataStore.scenarioStore.get('expectedDiagnostics'))
+  {
+    throw new Error('reponse did not contain diagnostics for '+expectedDiagnostic.uri)    
   }
 }
 
