@@ -1,7 +1,9 @@
 # Gauge tests for Gauge LSP features
 [Subcutaneous](https://www.martinfowler.com/bliki/SubcutaneousTest.html) tests for the lsp feature of Gauge.
 
-[![Build Status](https://travis-ci.org/getgauge/gauge-lsp-tests.svg?branch=master)](https://travis-ci.org/getgauge/gauge-lsp-tests)
+Linux - [![Travis Build Status](https://travis-ci.org/getgauge/gauge-lsp-tests.svg?branch=master)](https://travis-ci.org/getgauge/gauge-lsp-tests)
+
+Windows - [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/uuny0gm4roj4tt7k?svg=true)](https://ci.appveyor.com/project/getgauge/gauge-lsp-tests)
 
 # Pre-requisites
 * Node-js
