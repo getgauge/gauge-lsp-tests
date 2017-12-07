@@ -6,7 +6,6 @@ var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var assert = require('assert');
-var assertionExtension = require('./util/assertionExtension');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 
@@ -23,11 +22,18 @@ async function handleDiagnosticsResponse(responseMessage) {
     
     if(responseUri!=expectedDiagnostic.uri)
       continue
-      
-    assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
-      
+
+      console.log("validating diagnostic response")
+      assert.equal(diagnostic.message, expectedDiagnostic.message, 
+      JSON.stringify(diagnostic.message) + " not equal to " 
+      + JSON.stringify(expectedDiagnostic.message));        
+        
     if(expectedDiagnostic.severity)
-      assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
+    {
+      assert.equal(diagnostic.severity, expectedDiagnostic.severity, 
+        JSON.stringify(diagnostic.severity) + " not equal to " 
+        + JSON.stringify(expectedDiagnostic.severity));        
+    }
   }
 }
 
@@ -45,6 +51,6 @@ step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", 
     var currentFileUri = path.join(daemon.projectUri(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
 
-    var result = await builder.buildExpectedRange(diagnosticsList,daemon.projectPath(),currentFileUri);
+    var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });

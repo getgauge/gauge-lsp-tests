@@ -82,9 +82,9 @@ Circular reference
 * diagnostics should contain diagnostics for "/specs/concepts/circularReference.cpt" 
 
    |line|range_start|range_end|severity|message                                                                         |
-   |----|-----------|---------|--------|--------------------------------------------------------------------------------|
-   |4   |0          |10000    |1       |Circular reference found in concept. "Concept2" =u003e %project_uri%%file_uri%:2|
-   |1   |0          |10000    |1       |Circular reference found in concept. "Concept2" =u003e %project_uri%%file_uri%:5|
+   |----|-----------|---------|--------|---------------------------------------------------------------|
+   |4   |0          |10000    |1       |Circular reference found in concept. "Concept2" => %file_uri%:2|
+   |1   |0          |10000    |1       |Circular reference found in concept. "Concept1" => %file_uri%:5|
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 

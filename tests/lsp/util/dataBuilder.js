@@ -8,7 +8,7 @@ function getResponseUri(original){
   return intermediate.replaceAll("/","\\")
 }
 
-async function buildExpectedRange(givenResult,projectPath,uri){
+async function buildExpectedRange(givenResult,uri){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -24,7 +24,7 @@ async function buildExpectedRange(givenResult,projectPath,uri){
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
       expectedDiagnostic[severityIndex],
-      expectedDiagnostic[messageIndex],projectPath,uri);
+      expectedDiagnostic[messageIndex],uri);
       expectedResult.push(result)
     }
   return expectedResult
@@ -46,7 +46,7 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
 
     var result = await buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
-      expectedDiagnostic[rangeEndIndex]);
+      expectedDiagnostic[rangeEndIndex],projectPath+filePath);
 
     result.command = await buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],
@@ -70,9 +70,8 @@ async function buildCommand(title,command,args,projectPath,filePath){
   return result;
 }
 
-function AddProjectAndFileUri(value,projectPath,filePath){
-  return value.replace('%project_uri%',projectPath)
-  .replace('%file_uri%',filePath)
+function AddProjectAndFileUri(value,filePath){
+  return value.replace('%file_uri%',filePath)
 }
 
 async function buildPosition(line,index){
@@ -80,13 +79,13 @@ async function buildPosition(line,index){
   "character": parseInt(index)}
 }
 
-async function buildRange(line,rangeStart,rangeEnd,severity,message,projectPath,fileUri){
+async function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
   var result = {}
   if(severity){
     result.severity = parseInt(severity)
   }
   if(message){
-    result.message = AddProjectAndFileUri(message,projectPath,fileUri)
+    result.message = AddProjectAndFileUri(message,fileUri).replace("%3A",":")
   }
 
   result.uri = fileUri

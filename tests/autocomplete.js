@@ -5,7 +5,7 @@ var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var path = require('path');
-var assertionExtension = require('./util/assertionExtension');
+var assert = require('assert')
 
 var responseType = {
     Function: 3,
@@ -38,6 +38,8 @@ async function handleAutocompleteResponse(responseMessage) {
     if (!responseMessage.result)
     return
          
+    console.log("validating autocomplete response")
+    
     var actualNumberOfItems = responseMessage.result.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {
@@ -46,8 +48,10 @@ async function handleAutocompleteResponse(responseMessage) {
         if (item.kind != expectedKind)
             continue;
             
-        assertionExtension.assertContains(expectedElements,item.label)
+        assert.ok(expectedElements.indexOf(item.label) > -1, 'element not found ' + item.label);    
     }
     
-    assertionExtension.assertEqual(expectedElements.length,actualNumberOfItems)    
+    assert.equal(actualNumberOfItems, expectedElements.length, 
+    JSON.stringify(actualNumberOfItems) + " not equal to " 
+    + JSON.stringify(expectedElements.length));            
 }
