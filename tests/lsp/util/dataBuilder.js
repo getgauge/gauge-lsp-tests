@@ -1,7 +1,8 @@
 "use strict";
 
 var daemon = require('../daemon');
-var stringExtension = require('../../util/stringExtension')
+var stringExtension = require('../../util/stringExtension');
+var path = require('path');
 
 function getResponseUri(original){
   var intermediate = original.replace("file:///","");
@@ -46,7 +47,7 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
 
     var result = await buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
-      expectedDiagnostic[rangeEndIndex],projectPath+filePath);
+      expectedDiagnostic[rangeEndIndex],path.join(projectPath,filePath));
 
     result.command = await buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],

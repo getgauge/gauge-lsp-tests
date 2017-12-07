@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 const rpc = require('vscode-jsonrpc');
-var path = require('path')
+var path = require('path');
 var daemon = require('./lsp/daemon');
 var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');

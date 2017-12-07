@@ -7,19 +7,20 @@ var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');
+var path = require('path');
 
 step('ensure code lens has details <details>', async function (details, done) {
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     var expectedDetails = await builder.buildExpectedCodeLens(details,daemon.projectPath(),currentFilePath);  
     
     gauge.dataStore.scenarioStore.put('expectedDetails',expectedDetails)
-    await request.codeLens(daemon.projectUri() + currentFilePath,daemon.connection())
+    await request.codeLens(path.join(daemon.projectUri() , currentFilePath),daemon.connection())
     daemon.handle(handleCodeLensDetails, done);    
 });
 
 async function handleCodeLensDetails(responseMessage,done){
     if(!responseMessage.result)
-    return;
+        return;
     
     console.log("validating codeLens response")
     
