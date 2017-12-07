@@ -21,7 +21,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
 });
 
 async function handleDefinitionResponse(resp) {
-    console.log("validating definition response")
+    gauge.message("validating definition response")
     
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        

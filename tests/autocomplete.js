@@ -38,7 +38,7 @@ async function handleAutocompleteResponse(responseMessage) {
     if (!responseMessage.result)
     return
          
-    console.log("validating autocomplete response")
+    gauge.message("validating autocomplete response")
     
     var actualNumberOfItems = responseMessage.result.items.length;
 

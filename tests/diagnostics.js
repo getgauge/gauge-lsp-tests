@@ -23,7 +23,7 @@ async function handleDiagnosticsResponse(responseMessage) {
     if(responseUri!=expectedDiagnostic.uri)
       continue
 
-      console.log("validating diagnostic response")
+      gauge.message("validating diagnostic response")
       assert.equal(diagnostic.message, expectedDiagnostic.message, 
       JSON.stringify(diagnostic.message) + " not equal to " 
       + JSON.stringify(expectedDiagnostic.message));        
