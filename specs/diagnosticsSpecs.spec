@@ -3,7 +3,7 @@ Diagnostics on spec file
 * start gauge daemon for project "testdata/parse-errors"
 Multiple Spec Headings
 ----------------------
-* diagnostics should contain error for "/specs/multipleSpecHeadings.spec" 
+* diagnostics should contain diagnostics for "/specs/multipleSpecHeadings.spec" 
 
    |line|range_start|range_end|severity|message                                  |
    |----|-----------|---------|--------|-----------------------------------------|
@@ -23,7 +23,7 @@ Multiple Spec Headings
    |* two        |
 Spec without elements
 ---------------------
-* diagnostics should contain error for "/specs/specWithoutElements.spec" 
+* diagnostics should contain diagnostics for "/specs/specWithoutElements.spec" 
 
    |line|range_start|range_end|severity|message                        |
    |----|-----------|---------|--------|-------------------------------|
@@ -38,7 +38,7 @@ Spec without elements
 
 Tear down three underscore
 --------------------------
-* diagnostics should contain error for "/specs/tearDownThreeUnderscore.spec"
+* diagnostics should contain diagnostics for "/specs/tearDownThreeUnderscore.spec"
 
    |line|range_start|range_end|severity|message                                                  |
    |----|-----------|---------|--------|---------------------------------------------------------|
@@ -57,7 +57,7 @@ Tear down three underscore
 
 Without scenario heading
 ------------------------
-* diagnostics should contain error for "/specs/withoutScenarioHeading.spec"
+* diagnostics should contain diagnostics for "/specs/withoutScenarioHeading.spec"
 
    |line|range_start|range_end|severity|message                                            |
    |----|-----------|---------|--------|---------------------------------------------------|
@@ -74,7 +74,7 @@ Without scenario heading
    |---------            |
 Without spec heading
 --------------------
-* diagnostics should contain error for "/specs/withoutSpecHeading.spec"
+* diagnostics should contain diagnostics for "/specs/withoutSpecHeading.spec"
 
    |line|range_start|range_end|severity|message                        |
    |----|-----------|---------|--------|-------------------------------|

@@ -2,7 +2,7 @@ Unimplemented Step diagnostics
 ==============================
 Code for Simple Unimplemented step
 ----------------------------------
-* diagnostics should contain 
+* diagnostics should contain diagnostics 
 
    |line|range_start|range_end|severity|message                                  |
    |----|-----------|---------|--------|-----------------------------------------|
