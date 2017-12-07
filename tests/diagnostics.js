@@ -23,17 +23,11 @@ async function handleDiagnosticsResponse(responseMessage) {
     
     if(responseUri!=expectedDiagnostic.uri)
       continue
-
-    var actual = diagnostic.range
-    var expected = expectedDiagnostic.range
-    assert.deepEqual(actual, expected, JSON.stringify(actual) + " not equal to " 
-    + JSON.stringify(expected));        
+      
+    assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
       
     if(expectedDiagnostic.severity)
       assertionExtension.assertEqual(diagnostic.severity,expectedDiagnostic.severity)
-
-    if(expectedDiagnostic.message)
-      assertionExtension.assertEqual(diagnostic.message,expectedDiagnostic.message)
   }
 }
 
