@@ -1,9 +1,9 @@
-Autocomplete
-============
-* start gauge daemon for project "testdata/autocomplete"
-Steps list for autcomplete
+Code completion
+===============
+* start gauge daemon for project "testdata/codecomplete"
+Steps list for codeomplete
 --------------------------
-* open file "/specs/autocomplete_step.spec" 
+* open file "/specs/codecomplete_step.spec" 
 
    |Heading              |
    |---------------------|
@@ -15,7 +15,7 @@ Steps list for autcomplete
    |* start              |
    |* two                |
    |* start one          |
-* autocomplete at line "4" character "7" should give "steps" 
+* codecomplete at line "4" character "7" should give "steps" 
 
    |label                    |
    |-------------------------|
@@ -28,22 +28,23 @@ Steps list for autcomplete
    |two <another> <parameter>|
    |start                    |
 
-Static Parameter list for autocomplete
+Static Parameter list for codecomplete
 --------------------------------------
-* open file "/specs/autocomplete_param.spec" 
+tags: parameter
+* open file "/specs/codecomplete_param.spec" 
 
    |Heading                             |
    |------------------------------------|
    |Specification Heading               |
    |=====================               |
-   |table:/testdata/autocomplete/csv.csv|
+   |table:/testdata/codecomplete/csv.csv|
    |Gauge LSP 2                         |
    |---------------------               |
    |* one "something"                   |
    |* start "s"                         |
    |* two "another" "parameter"         |
    |* start one <one>                   |
-* autocomplete at line "5" character "7" should give "parameters" 
+* codecomplete at line "5" character "7" should give "parameters" 
 
    |label    |detail|
    |---------|------|
@@ -52,30 +53,31 @@ Static Parameter list for autocomplete
    |another  |static|
    |parameter|static|
 
-Dynamic Parameter list for autocomplete
+Dynamic Parameter list for codecomplete
 ---------------------------------------
-* open file "/specs/autocomplete_param.spec" 
+tags: parameter
+* open file "/specs/codecomplete_param.spec" 
 
    |Heading                             |
    |------------------------------------|
    |Specification Heading               |
    |=====================               |
-   |table:\\testdata\\autocomplete\\csv.csv|
+   |table:\\testdata\\codecomplete\\csv.csv|
    |Gauge LSP 2                         |
    |---------------------               |
    |* one "something"                   |
    |* start "s"                         |
    |* two "another" "parameter"         |
    |* start one <one>                   |
-* autocomplete at line "8" character "13" should give "parameters" 
+* codecomplete at line "8" character "13" should give "parameters" 
 
    |label|detail |
    |-----|-------|
    |one  |dynamic|
 
-Tag list for autocomplete
+Tag list for codecomplete
 -------------------------
-* open file "/specs/someTags/toautocomplete.spec" 
+* open file "/specs/someTags/tocodecomplete.spec" 
 
    |Heading              |
    |---------------------|
@@ -86,7 +88,7 @@ Tag list for autocomplete
    |tags:                |
    |* one "something"    |
 
-* autocomplete at line "4" character "7" should give "tags" 
+* codecomplete at line "4" character "7" should give "tags" 
 
    |label         |
    |--------------|

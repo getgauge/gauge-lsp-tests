@@ -6,6 +6,10 @@ async function codeLens(fileUri, connection) {
   request(null,fileUri,connection,'textDocument/codeLens')
 }
 
+async function codecomplete(position, fileUri, connection) {
+  request(position,fileUri,connection,'textDocument/completion')
+}
+
 async function autocomplete(position, fileUri, connection) {
   request(position,fileUri,connection,'textDocument/completion')
 }
@@ -30,6 +34,7 @@ async function gotoDefinition(position, fileUri, connection) {
 
 module.exports = {
   autocomplete: autocomplete,
+  codecomplete: codecomplete,
   gotoDefinition:gotoDefinition,
   codeLens:codeLens
 };  
