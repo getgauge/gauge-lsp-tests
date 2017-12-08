@@ -9,10 +9,6 @@ var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 var definitionDetails;
-
-step("throw exception", async function() {
-	throw 'Unimplemented Step';
-});
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details,done){
     await request.gotoDefinition(
         {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},

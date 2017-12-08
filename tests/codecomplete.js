@@ -19,6 +19,7 @@ async function (lineNumber, characterNumber,element, expectedResult, done) {
         characterNumber: characterNumber
     };
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
+    
     await request.codecomplete(position, path.join(daemon.projectUri() , currentFilePath), daemon.connection());
     expectedElements = table.tableToArray(expectedResult);
     expectedKind = null;
