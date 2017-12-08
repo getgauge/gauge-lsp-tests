@@ -1,6 +1,6 @@
 Specification Heading
 =====================
-table: ./csv.csv
+table: csv.csv
 Gauge LSP 2
 -----------
 * one "something"
