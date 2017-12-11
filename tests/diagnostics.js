@@ -2,13 +2,12 @@
 
 const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
-var notification = require('./lsp/notifications/notification');
-var request = require('./lsp/requests/request');
+var request = require('./lsp/request');
 var table = require('./util/table');
 var assert = require('assert');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
-
+var notification = require('./lsp/notification');
 
 async function handleDiagnosticsResponse(responseMessage) {  
   

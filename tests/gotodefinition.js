@@ -4,8 +4,7 @@ var assert = require('assert');
 const rpc = require('vscode-jsonrpc');
 var path = require('path');
 var daemon = require('./lsp/daemon');
-var notification = require('./lsp/notifications/notification');
-var request = require('./lsp/requests/request');
+var request = require('./lsp/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details){

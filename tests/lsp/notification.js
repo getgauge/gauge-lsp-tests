@@ -4,10 +4,13 @@ const rpc = require('vscode-jsonrpc');
 var path = require('path')
 const uri = require('vscode-uri').default;
 
-async function openFile(file, connection, projectPathEncoded) {
+async function openFile(file, connection, projectPathEncoded,handler) {
   var fileUri = path.join(projectPathEncoded , file.path);
 
   var notification = new rpc.NotificationType('textDocument/didOpen')
+
+  if(handler!=null)
+    connection.onNotification(notification,handler)    
 
   return await connection.sendNotification(notification,
     {

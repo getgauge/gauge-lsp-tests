@@ -6,7 +6,7 @@ var path = require('path');
 
 var assert = require('assert');
 var cwd = process.cwd();
-var request = require('./requests/request');
+var request = require('./request');
 
 var state = {}
 

@@ -1,6 +1,6 @@
 var daemon = require('./lsp/daemon');
 var table = require('./util/table');
-var notification = require('./lsp/notifications/notification');
+var notification = require('./lsp/notification');
 
 step('open file <filePath> <contents>', async function (filePath, contents) {
     var content = table.tableToArray(contents).join('\n');

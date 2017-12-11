@@ -2,8 +2,7 @@
 var assert = require('assert');
 const rpc = require('vscode-jsonrpc');
 
-var notification = require('./lsp/notifications/notification');
-var request = require('./lsp/requests/request');
+var request = require('./lsp/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');

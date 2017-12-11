@@ -1,8 +1,7 @@
 'use strict';
 const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
-var notification = require('./lsp/notifications/notification');
-var request = require('./lsp/requests/request');
+var request = require('./lsp/request');
 var table = require('./util/table');
 var path = require('path');
 var assert = require('assert')
