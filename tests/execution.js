@@ -17,7 +17,7 @@ step('ensure code lens has details <details>', async function (details) {
     handleCodeLensDetails(response,expectedDetails)
 });
 
-async function handleCodeLensDetails(responseMessage,expectedDetails){
+function handleCodeLensDetails(responseMessage,expectedDetails){
     if(!responseMessage.result)
         return;
     

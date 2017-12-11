@@ -17,7 +17,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
     handleDefinitionResponse(response,details)
 });
 
-async function handleDefinitionResponse(resp,definitionDetails) {
+function handleDefinitionResponse(resp,definitionDetails) {
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        
@@ -42,7 +42,7 @@ async function handleDefinitionResponse(resp,definitionDetails) {
         "uri": path.join(daemon.projectUri() , definitionDetail[uriIndex])
         };
 
-        var responseUri = await builder.getResponseUri(responseMessage.uri)
+        var responseUri = builder.getResponseUri(responseMessage.uri)
         
         assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
         assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
