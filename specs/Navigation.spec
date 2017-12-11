@@ -1,8 +1,8 @@
-Goto definition
-===============
+Navigation
+==========
 * start gauge daemon for project "testdata/gotodefinition"
-Goto definition of concepts
----------------------------
+Navigate to the definition of a concept
+---------------------------------------
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
@@ -21,8 +21,8 @@ Goto definition of concepts
    |--------------------------|----|-----------|---------|
    |specs/concepts/concept.cpt|3   |0          |0        |
 
-Goto definition of undefined element
-------------------------------------
+Navigation of undefined element should give a suitable message
+--------------------------------------------------------------
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
@@ -41,8 +41,8 @@ Goto definition of undefined element
    |----------------------------------------------------------|
    |Step implementation not found for step : undefined Concept|
 
-Goto definition of a step should give the implementation file details
----------------------------------------------------------------------
+Navigation to the implementation of a step from the concept
+------------------------------------------------------------
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
