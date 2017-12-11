@@ -5,20 +5,15 @@ language: node_js
 node_js:
   - "node"
 env:
-  - GAUGE_TELEMETRY_ENABLED=false GAUGE_PREFIX=/tmp
+  - GAUGE_TELEMETRY_ENABLED=false GAUGE_PREFIX=/tmp screenshot_on_failure=false
 before_install:
   - npm install
-  - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
-      sh -e /etc/init.d/xvfb start;
-      sleep 3;
-    fi
   - curl -sSfL https://github.com/getgauge/gauge-tests/raw/master/install_latest_gauge_nightly.sh | bash
   - export PATH=$PATH:$GAUGE_PREFIX/bin
 
 install:
   - gauge config gauge_repository_url https://raw.githubusercontent.com/getgauge/gauge-nightly-repository/master/
-  - gauge install js
+  - gauge install
 
 script:
   - gauge version
