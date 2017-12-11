@@ -38,8 +38,6 @@ async function handleAutocompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
          
-    console.log("validating autocomplete response")
-    
     var actualNumberOfItems = responseMessage.result.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {

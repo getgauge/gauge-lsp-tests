@@ -39,8 +39,6 @@ async function handleCodecompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
          
-    console.log("validating codecomplete response")
-    
     var actualNumberOfItems = responseMessage.result.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {
