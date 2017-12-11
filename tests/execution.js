@@ -9,21 +9,18 @@ var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');
 var path = require('path');
 
-step('ensure code lens has details <details>', async function (details, done) {
+step('ensure code lens has details <details>', async function (details) {
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     var expectedDetails = await builder.buildExpectedCodeLens(details,daemon.projectPath(),currentFilePath);  
     
-    gauge.dataStore.scenarioStore.put('expectedDetails',expectedDetails)
-    await request.codeLens(path.join(daemon.projectUri() , currentFilePath),daemon.connection())
-    daemon.handle(handleCodeLensDetails, done);    
+    var response = await request.codeLens(path.join(daemon.projectUri() , currentFilePath),daemon.connection())
+    handleCodeLensDetails(response,expectedDetails)
 });
 
-async function handleCodeLensDetails(responseMessage,done){
+async function handleCodeLensDetails(responseMessage,expectedDetails){
     if(!responseMessage.result)
         return;
     
-    var expectedDetails = gauge.dataStore.scenarioStore.get('expectedDetails')    
-
     for (var rowIndex = 0; rowIndex < expectedDetails.length; rowIndex++) {
       var expectedDetail = expectedDetails[rowIndex]
       assert.deepEqual(responseMessage.result[rowIndex].range, expectedDetail.range);

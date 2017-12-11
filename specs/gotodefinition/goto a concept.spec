@@ -3,7 +3,7 @@ Goto a concept
 * start gauge daemon for project "testdata/gotodefinition"
 Go to the definition of a concept from the usage
 ------------------------------------------------------
-* open file "/specs/invoke_concepts.spec" 
+* open file "/specs/concept_definition.spec" 
 
    |Heading                       |
    |------------------------------|

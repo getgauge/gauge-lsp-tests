@@ -8,18 +8,16 @@ var notification = require('./lsp/notifications/notification');
 var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
-var definitionDetails;
-step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details,done){
-    await request.gotoDefinition(
+step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details){
+    var response = await request.gotoDefinition(
         {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-        gauge.dataStore.scenarioStore.get('currentFileUri'), 
+        path.join(daemon.projectUri(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
         daemon.connection());  
 
-    definitionDetails = details    
-    daemon.handle(handleDefinitionResponse, done);     
+    handleDefinitionResponse(response,details)
 });
 
-async function handleDefinitionResponse(resp) {
+async function handleDefinitionResponse(resp,definitionDetails) {
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        

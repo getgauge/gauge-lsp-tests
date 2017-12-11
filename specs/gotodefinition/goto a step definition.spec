@@ -24,6 +24,7 @@ Goto definition to the implementation of a step from the specification
 
 Goto definition of undefined element should give a suitable message
 --------------------------------------------------------------
+* to fix
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
