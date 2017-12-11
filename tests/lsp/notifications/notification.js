@@ -1,8 +1,7 @@
 "use strict";
 
 const rpc = require('vscode-jsonrpc');
-var path = require('path');
-const uri = require('vscode-uri').default;
+var path = require('path')
 
 async function openFile(file, connection, projectUri) {
   var fileUri = path.join(projectUri , file.path);
@@ -13,7 +12,7 @@ async function openFile(file, connection, projectUri) {
     {
       "textDocument":
       {
-        "uri": uri.file(fileUri).toString(),
+        "uri": "file:///" + fileUri,
         "languageId": "markdown",
         "version": 1,
         "text": file.content
