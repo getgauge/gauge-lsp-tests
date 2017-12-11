@@ -1,9 +1,6 @@
 Specification Heading
 =====================
-|HEADER|
-|------|
-|value|
-|value|
+table:csv.csv
 Scenario
 --------
 * step <HEADER>
