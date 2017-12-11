@@ -6,6 +6,7 @@ var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var path = require('path');
 var assert = require('assert')
+var expected = {}
 
 var responseType = {
     Function: 3,
@@ -13,44 +14,49 @@ var responseType = {
 };
   
 step('codecomplete at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
-async function (lineNumber, characterNumber,element, expectedResult, done) {
+async function (lineNumber, characterNumber,element, expectedResult) {    
+    expected = await buildExpectedElements(expectedResult,element)
+    if(expected.kind==null)
+        throw new Error("unknown type "+element)
+
+    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
+    
     var position = {
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     
-    await request.codecomplete(position, path.join(daemon.projectUri() , currentFilePath), daemon.connection());
-    expectedElements = table.tableToArray(expectedResult);
-    expectedKind = null;
-    
-    if("steps"==element)
-        expectedKind = responseType.Function
-    if(("parameters"==element)||("tags"==element))
-        expectedKind = responseType.Parameter        
-
-    if(expectedKind)
-        daemon.handle(handleCodecompleteResponse, done);    
-    else
-        throw new Error("unknown type "+element)
+    var responseMessage = await request.codecomplete(position, path.join(daemon.projectUri() , currentFilePath), daemon.connection());
+    handleAutocompleteResponse(responseMessage)
 });
 
-async function handleCodecompleteResponse(responseMessage) {
+async function buildExpectedElements(expectedResult,element){
+    elements = table.tableToArray(expectedResult);
+    kind = null;
+    
+    if("steps"==element)
+        kind = responseType.Function
+    if(("parameters"==element)||("tags"==element))
+        kind = responseType.Parameter
+    return {elements:elements,kind:kind}
+}
+
+async function handleAutocompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
          
-    var actualNumberOfItems = responseMessage.result.items.length;
+    var actualNumberOfItems = responseMessage.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {
-        var item = responseMessage.result.items[index];
+        var item = responseMessage.items[index];
         
-        if (item.kind != expectedKind)
+        if (item.kind != expected.Kind)
             continue;
             
-        assert.ok(expectedElements.indexOf(item.label) > -1, 'element not found ' + item.label);    
+        assert.ok(expected.elements.indexOf(item.label) > -1, 'element not found ' + item.label);    
     }
     
-    assert.equal(actualNumberOfItems, expectedElements.length, 
+    assert.equal(actualNumberOfItems, expected.elements.length, 
     JSON.stringify(actualNumberOfItems) + " not equal to " 
-    + JSON.stringify(expectedElements.length));            
+    + JSON.stringify(expected.elements.length));            
 }

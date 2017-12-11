@@ -8,7 +8,7 @@ async function openFile(file, connection, projectUri) {
 
   var notification = new rpc.NotificationType('textDocument/didOpen')
 
-  connection.sendNotification(notification,
+  return await connection.sendNotification(notification,
     {
       "textDocument":
       {

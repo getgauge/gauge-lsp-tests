@@ -26,7 +26,6 @@ async function handleDiagnosticsResponse(responseMessage) {
       continue
 
       gauge.dataStore.scenarioStore.put("expectedDiagnosticsValidated",true)
-      console.log("validating diagnostic response")
               
       assert.equal(diagnostic.message, expectedDiagnostic.message, 
       JSON.stringify(diagnostic.message) + " not equal to " 
