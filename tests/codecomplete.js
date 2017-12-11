@@ -15,7 +15,7 @@ var responseType = {
   
 step('codecomplete at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
 async function (lineNumber, characterNumber,element, expectedResult) {    
-    expected = await buildExpectedElements(expectedResult,element)
+    expected = buildExpectedElements(expectedResult,element)
     if(expected.kind==null)
         throw new Error("unknown type "+element)
 
@@ -25,12 +25,12 @@ async function (lineNumber, characterNumber,element, expectedResult) {
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-    
+
     var responseMessage = await request.codecomplete(position, path.join(daemon.projectUri() , currentFilePath), daemon.connection());
-    handleAutocompleteResponse(responseMessage)
+    verifyAutocompleteResponse(responseMessage)
 });
 
-async function buildExpectedElements(expectedResult,element){
+function buildExpectedElements(expectedResult,element){
     elements = table.tableToArray(expectedResult);
     kind = null;
     
@@ -41,7 +41,7 @@ async function buildExpectedElements(expectedResult,element){
     return {elements:elements,kind:kind}
 }
 
-async function handleAutocompleteResponse(responseMessage) {
+function verifyAutocompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
          
