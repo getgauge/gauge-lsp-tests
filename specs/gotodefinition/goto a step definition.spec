@@ -24,7 +24,6 @@ Goto definition to the implementation of a step from the specification
 
 Goto definition of undefined element should give a suitable message
 --------------------------------------------------------------
-* to fix
 * open file "/specs/invoke_concepts.spec" 
 
    |Heading                       |
@@ -39,6 +38,6 @@ Goto definition of undefined element should give a suitable message
    |* undefined Concept           |
 * goto definition of "undefined Concept" at "7" and "4" should give details 
 
-   |message                                                   |
+   |error                                                     |
    |----------------------------------------------------------|
    |Step implementation not found for step : undefined Concept|

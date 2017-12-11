@@ -70,12 +70,13 @@ Table doesn't belong to any step
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 
-   |Heading  |
-   |---------|
-   |# Concept|
-   |         |
-   |         |
-   |* step1  |
+    |Heading  |
+    |---------|
+    |# Concept|
+    |         |
+    |\|table\||
+    |\|one\|  |
+    |* step1  |
 
 Circular reference
 ------------------

@@ -9,12 +9,18 @@ var request = require('./lsp/requests/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details){
-    var response = await request.gotoDefinition(
-        {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-        path.join(daemon.projectUri(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
-        daemon.connection());  
-
-    handleDefinitionResponse(response,details)
+    try{
+        var response = await request.gotoDefinition(
+            {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
+            path.join(daemon.projectPathEncoded(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
+            daemon.connection());      
+        handleDefinitionResponse(response,details) 
+    }
+    catch(err){
+        var errorIndex = details.headers.cells.indexOf('error')   
+        if(errorIndex>=0)
+            assert.equal(err.message,details.rows[0].cells[errorIndex])
+    }
 });
 
 function handleDefinitionResponse(resp,definitionDetails) {
@@ -39,7 +45,7 @@ function handleDefinitionResponse(resp,definitionDetails) {
             },
             "end": { "line": parseInt(definitionDetail[lineIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
         },
-        "uri": path.join(daemon.projectUri() , definitionDetail[uriIndex])
+        "uri": path.join(daemon.projectPathEncoded() , definitionDetail[uriIndex])
         };
 
         var responseUri = builder.getResponseUri(responseMessage.uri)

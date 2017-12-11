@@ -29,7 +29,7 @@ function connection() {
     return state.connection;
 }
 
-function projectUri() {
+function projectPathEncoded() {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
     return state.projectPath.replace(":", "%3A");
@@ -58,6 +58,6 @@ module.exports = {
     startGaugeDaemon: startGaugeDaemon,
     handle: handle,
     connection: connection,
-    projectUri: projectUri,
+    projectPathEncoded: projectPathEncoded,
     projectPath: projectPath
 };
