@@ -1,6 +1,7 @@
 "use strict";
 
 const rpc = require('vscode-jsonrpc');
+const uri = require('vscode-uri').default;
 
 async function codeLens(fileUri, connection) {
   request(null,fileUri,connection,'textDocument/codeLens')
@@ -22,7 +23,7 @@ async function request(position, fileUri, connection,requestType) {
       "character": parseInt(position.characterNumber)
     }
   }
-  messageParams.textDocument = { "uri": "file:///" + fileUri };
+  messageParams.textDocument = { "uri": uri.file(fileUri).toString() };
   var request = new rpc.RequestType(requestType)
 
   connection.sendRequest(request, messageParams, null);
