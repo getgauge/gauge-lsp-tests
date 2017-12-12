@@ -8,6 +8,6 @@ step('step <param>',function(param){
 
 });
 
-step('step',function(param){
+step('step',function(){
     
-    });
+});
