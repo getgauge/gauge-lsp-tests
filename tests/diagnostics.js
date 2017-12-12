@@ -11,6 +11,7 @@ var notification = require('./lsp/notification');
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {  
   var responseUri = builder.getResponseUri(responseMessage.uri)
+  var expectedDiagnosticsValidated = false
 
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
@@ -19,7 +20,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     if(responseUri.toLowerCase()!=expectedDiagnostic.uri.toLowerCase())
       continue
 
-    gauge.dataStore.scenarioStore.put("expectedDiagnosticsValidated",true)
+    expectedDiagnosticsValidated = true
             
     assert.equal(diagnostic.message, expectedDiagnostic.message, 
     JSON.stringify(diagnostic.message) + " not equal to " 
@@ -33,7 +34,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     }
   }
 
-  if(!gauge.dataStore.scenarioStore.get('expectedDiagnosticsValidated'))
+  if(!expectedDiagnosticsValidated)
   {
     throw new Error('reponse did not contain diagnostics for '+expectedDiagnostic.uri)    
   }

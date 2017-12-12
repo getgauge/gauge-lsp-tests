@@ -35,11 +35,6 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function responseHandler(handler,data,done){
-    await handler(data).catch((e) => { done(e) })
-    done();
-}
-
 module.exports = {
     startGaugeDaemon: startGaugeDaemon,
     connection: connection,
