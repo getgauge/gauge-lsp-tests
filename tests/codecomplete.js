@@ -25,7 +25,7 @@ async function (lineNumber, characterNumber,element, expectedResult) {
         characterNumber: characterNumber
     };
 
-    var responseMessage = await request.codecomplete(position, path.join(daemon.projectPathEncoded() , currentFilePath), daemon.connection());
+    var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , currentFilePath), daemon.connection());
     verifyAutocompleteResponse(responseMessage)
 });
 

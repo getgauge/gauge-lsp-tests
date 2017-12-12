@@ -12,7 +12,7 @@ step('ensure code lens has details <details>', async function (details) {
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     var expectedDetails = await builder.buildExpectedCodeLens(details,daemon.projectPath(),currentFilePath);  
     
-    var response = await request.codeLens(path.join(daemon.projectPathEncoded() , currentFilePath),daemon.connection())
+    var response = await request.codeLens(path.join(daemon.projectPath() , currentFilePath),daemon.connection())
     handleCodeLensDetails(response,expectedDetails)
 });
 

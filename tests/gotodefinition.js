@@ -11,7 +11,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
     try{
         var response = await request.gotoDefinition(
             {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-            path.join(daemon.projectPathEncoded(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
+            path.join(daemon.projectPath(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
             daemon.connection());      
         handleDefinitionResponse(response,details) 
     }
@@ -44,7 +44,7 @@ function handleDefinitionResponse(resp,definitionDetails) {
             },
             "end": { "line": parseInt(definitionDetail[lineIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
         },
-        "uri": path.join(daemon.projectPathEncoded() , definitionDetail[uriIndex])
+        "uri": path.join(daemon.projectPath() , definitionDetail[uriIndex])
         };
 
         var responseUri = builder.getResponseUri(responseMessage.uri)

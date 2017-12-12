@@ -9,5 +9,5 @@ step('open file <filePath> <contents>', async function (filePath, contents) {
     await notification.openFile({
         path: filePath,
         content: content
-    }, daemon.connection(), daemon.projectPathEncoded());
+    }, daemon.connection(), daemon.projectPath());
 });

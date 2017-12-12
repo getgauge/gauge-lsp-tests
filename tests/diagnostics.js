@@ -18,17 +18,14 @@ async function handleDiagnosticsResponse(responseMessage) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
     var diagnostic = responseMessage.params.diagnostics[rowIndex];
 
-    if(expectedDiagnostic.uri.startsWith("/"))
-      expectedDiagnostic.uri = expectedDiagnostic.uri.substr(1)
-
-    if(responseUri!=expectedDiagnostic.uri)
+    if(responseUri.toLowerCase()!=expectedDiagnostic.uri.toLowerCase())
       continue
 
-      gauge.dataStore.scenarioStore.put("expectedDiagnosticsValidated",true)
-              
-      assert.equal(diagnostic.message, expectedDiagnostic.message, 
-      JSON.stringify(diagnostic.message) + " not equal to " 
-      + JSON.stringify(expectedDiagnostic.message));        
+    gauge.dataStore.scenarioStore.put("expectedDiagnosticsValidated",true)
+            
+    assert.equal(diagnostic.message, expectedDiagnostic.message, 
+    JSON.stringify(diagnostic.message) + " not equal to " 
+    + JSON.stringify(expectedDiagnostic.message));        
         
     if(expectedDiagnostic.severity)
     {
@@ -50,12 +47,12 @@ step("open file <filePath> and handle diagnostics for content <contents>", async
     {
       path: filePath,
       content: content,
-    }, daemon.connection(), daemon.projectPathEncoded())
+    }, daemon.connection(), daemon.projectPath())
   daemon.handle(handleDiagnosticsResponse, done);
 });
 
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
-    var currentFileUri = path.join(daemon.projectPathEncoded(), filePath);
+    var currentFileUri = path.join(daemon.projectPath(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
 
     var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);

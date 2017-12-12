@@ -3,10 +3,12 @@
 var daemon = require('../daemon');
 var stringExtension = require('../../util/stringExtension');
 var path = require('path');
+var uri = require('vscode-uri').default;
 
 function getResponseUri(original){
-  var intermediate = original.replace("file:///","");
-  return intermediate.replaceAll("/",path.sep)
+  return uri.parse(original).fsPath
+  // var intermediate = original.replace("file:///","");
+  // return intermediate.replaceAll("/",path.sep)
 }
 
 async function buildExpectedRange(givenResult,uri){
