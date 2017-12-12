@@ -5,7 +5,7 @@ Run Spec and Scenarios must be displayed for a Specification
 ------------------------------------------------------------
 * open file "/specs/simpleSpecification.spec" 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |Specification Heading|
    |=====================|
@@ -27,7 +27,7 @@ Run Spec, Scenarios and run in parallel must be displayed for a Specification wi
 ---------------------------------------------------------------------------------------------
 * open file "/specs/specWithTestCases.spec" 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |Specification Heading|
    |=====================|

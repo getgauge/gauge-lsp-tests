@@ -5,7 +5,7 @@ Goto definition to the implementation of a step from the specification
 ----------------------------------------------------------------------
 * open file "/specs/invoke_concepts.spec" 
 
-   |Heading                       |
+   |Content                       |
    |------------------------------|
    |Go to definition of concepts  |
    |============================  |
@@ -26,7 +26,7 @@ Goto definition of undefined element should give a suitable message
 --------------------------------------------------------------
 * open file "/specs/invoke_concepts.spec" 
 
-   |Heading                       |
+   |Content                       |
    |------------------------------|
    |Go to definition of concepts  |
    |============================  |

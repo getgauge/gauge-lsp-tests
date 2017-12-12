@@ -11,7 +11,7 @@ Multiple Spec Headings
 
 * open file "/specs/multipleSpecHeadings.spec" and handle diagnostics for content 
 
-   |Heading      |
+   |Content      |
    |-------------|
    |Spec Heading |
    |=============|
@@ -31,7 +31,7 @@ Spec without elements
 
 * open file "/specs/specWithoutElements.spec" and handle diagnostics for content 
 
-   |Heading      |
+   |Content      |
    |-------------|
    |Spec Heading |
    |=============|
@@ -46,7 +46,7 @@ Tear down three underscore
 
 * open file "/specs/tearDownThreeUnderscore.spec" and handle diagnostics for content 
 
-   |Heading       |
+   |Content       |
    |--------------|
    |# Spec Heading|
    |Scenario      |
@@ -66,7 +66,7 @@ Without scenario heading
 
 * open file "/specs/withoutScenarioHeading.spec" and handle diagnostics for content 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |Spec Heading         |
    |=====================|
@@ -82,7 +82,7 @@ Without spec heading
 
 * open file "/specs/withoutSpecHeading.spec" and handle diagnostics for content 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |                     |
    |=====================|

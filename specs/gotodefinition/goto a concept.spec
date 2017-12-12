@@ -5,7 +5,7 @@ Go to the definition of a concept from the usage
 ------------------------------------------------
 * open file "/specs/concept_definition.spec" 
 
-   |Heading   |
+   |Content   |
    |----------|
    |# Concept1|
    |* one     |

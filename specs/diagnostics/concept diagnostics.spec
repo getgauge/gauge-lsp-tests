@@ -11,7 +11,7 @@ Concepts should have atleast one step
 
 * open file "/specs/concepts/conceptShouldHaveOneStep.cpt" and handle diagnostics for content 
 
-   |Heading  |
+   |Content  |
    |---------|
    |# Concept|
 
@@ -25,7 +25,7 @@ Step not in a concept
 
 * open file "/specs/concepts/stepNotInConcept.cpt" and handle diagnostics for content 
 
-   |Heading          |
+   |Content          |
    |-----------------|
    |* step1          |
    |# Concept Heading|
@@ -42,7 +42,7 @@ Scenario heading not allowed in concept
 
 * open file "/specs/concepts/scenarioHeadingNotAllowed.cpt" and handle diagnostics for content 
 
-   |Heading           |
+   |Content           |
    |------------------|
    |##Scenario heading|
 
@@ -56,7 +56,7 @@ Concept Heading can have only dynamic parameters
 
 * open file "/specs/concepts/headingToHaveOnlyDynamicParams.cpt" and handle diagnostics for content 
 
-   |Heading           |
+   |Content           |
    |------------------|
    |# Concept "static"|
 
@@ -70,7 +70,7 @@ Table doesn't belong to any step
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 
-    |Heading  |
+    |Content  |
     |---------|
     |# Concept|
     |         |
@@ -90,7 +90,7 @@ Circular reference
 
 * open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
 
-   |Heading   |
+   |Content   |
    |----------|
    |# Concept1|
    |* Concept2|

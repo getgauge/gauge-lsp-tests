@@ -5,7 +5,7 @@ Steps list for codeomplete
 --------------------------
 * open file "/specs/codecomplete_step.spec" 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |Specification Heading|
    |=====================|

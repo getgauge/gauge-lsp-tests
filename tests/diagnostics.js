@@ -45,7 +45,7 @@ async function handleDiagnosticsResponse(responseMessage) {
 }
 
 step("open file <filePath> and handle diagnostics for content <contents>", async function (filePath, contents, done) {
-  var content = table.tableToArray(contents).join("\n");
+  var content = table.tableToArray(contents).Content.join("\n");
   await notification.openFile(
     {
       path: filePath,

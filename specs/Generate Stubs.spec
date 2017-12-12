@@ -11,7 +11,7 @@ Generate Code for Simple Unimplemented step
 
 * open file "/specs/concepts/concept.cpt" and handle diagnostics for content 
 
-   |Heading         |
+   |Content         |
    |----------------|
    |Generate stubs  |
    |==============  |

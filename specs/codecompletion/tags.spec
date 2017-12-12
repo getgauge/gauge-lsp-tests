@@ -5,7 +5,7 @@ Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tocodecomplete.spec" 
 
-   |Heading              |
+   |Content              |
    |---------------------|
    |Specification Heading|
    |=====================|

@@ -8,7 +8,7 @@ tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
 
-   |Heading                    |
+   |Content                    |
    |---------------------------|
    |Specification Heading      |
    |=====================      |
@@ -35,7 +35,7 @@ tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
 
-   |Heading                    |
+   |Content                    |
    |---------------------------|
    |Specification Heading      |
    |=====================      |

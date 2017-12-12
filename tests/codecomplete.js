@@ -52,10 +52,11 @@ function verifyAutocompleteResponse(responseMessage) {
         if (item.kind != expected.Kind)
             continue;
             
-        assert.ok(expected.elements.indexOf(item.label) > -1, 'element not found ' + item.label);    
+        assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);    
+        assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
     }
     
-    assert.equal(actualNumberOfItems, expected.elements.length, 
+    assert.equal(actualNumberOfItems, expected.elements.label.length, 
     JSON.stringify(actualNumberOfItems) + " not equal to " 
-    + JSON.stringify(expected.elements.length));            
+    + JSON.stringify(expected.elements.label.length));            
 }
