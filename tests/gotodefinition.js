@@ -16,6 +16,8 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
         handleDefinitionResponse(response,details) 
     }
     catch(err){
+        if(err.message=="Request Timeout")
+            throw new Error(err)
         var errorIndex = details.headers.cells.indexOf('error')   
         if(errorIndex>=0)
             assert.equal(err.message,details.rows[0].cells[errorIndex])
