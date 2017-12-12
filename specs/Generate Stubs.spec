@@ -8,13 +8,3 @@ Generate Code for Simple Unimplemented step
    |line|range_start|range_end|severity|message                      |code                                                                      |
    |----|-----------|---------|--------|-----------------------------|--------------------------------------------------------------------------|
    |4   |0          |10000    |1       |Step implementation not found|step("undefined step", async function() {ntthrow 'Unimplemented Step';n});|
-
-* open file "/specs/concepts/concept.cpt" and handle diagnostics for content 
-
-   |Content         |
-   |----------------|
-   |Generate stubs  |
-   |==============  |
-   |Scenario        |
-   |--------        |
-   |* undefined step|

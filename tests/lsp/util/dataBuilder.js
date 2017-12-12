@@ -11,7 +11,7 @@ function getResponseUri(original){
   // return intermediate.replaceAll("/",path.sep)
 }
 
-async function buildExpectedRange(givenResult,uri){
+function buildExpectedRange(givenResult,uri){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -23,7 +23,7 @@ async function buildExpectedRange(givenResult,uri){
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
     var expectedDiagnostic = givenResult.rows[rowIndex].cells
       
-    var result = await buildRange(expectedDiagnostic[lineIndex],
+    var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
       expectedDiagnostic[severityIndex],
@@ -33,7 +33,7 @@ async function buildExpectedRange(givenResult,uri){
   return expectedResult
 }  
 
-async function buildExpectedCodeLens(givenResult,projectPath,filePath){
+function buildExpectedCodeLens(givenResult,projectPath,filePath){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -47,11 +47,11 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
     var expectedDiagnostic = givenResult.rows[rowIndex].cells
 
-    var result = await buildRange(expectedDiagnostic[lineIndex],
+    var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],path.join(projectPath,filePath));
 
-    result.command = await buildCommand(expectedDiagnostic[titleIndex],
+    result.command = buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],
       expectedDiagnostic[argumentsIndex],
       projectPath,filePath);
@@ -61,7 +61,7 @@ async function buildExpectedCodeLens(givenResult,projectPath,filePath){
   return expectedResult
 }
 
-async function buildCommand(title,command,args,projectPath,filePath){
+function buildCommand(title,command,args,projectPath,filePath){
   var result = {}
 
   result.title = title
@@ -77,12 +77,12 @@ function AddProjectAndFileUri(value,filePath){
   return value.replace('%file_uri%',path.join("",filePath))
 }
 
-async function buildPosition(line,index){
+function buildPosition(line,index){
   return {"line": parseInt(line),
   "character": parseInt(index)}
 }
 
-async function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
+function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
   var result = {}
   if(severity){
     result.severity = parseInt(severity)
@@ -93,8 +93,8 @@ async function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
 
   result.uri = fileUri
   result.range = {
-    "start": await buildPosition(line,rangeStart),
-    "end": await buildPosition(line,rangeEnd)
+    "start": buildPosition(line,rangeStart),
+    "end": buildPosition(line,rangeEnd)
   };
   return result;
 }

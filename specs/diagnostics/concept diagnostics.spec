@@ -9,12 +9,6 @@ Concepts should have atleast one step
    |----|-----------|---------|--------|------------------------------------|
    |0   |0          |10000    |1       |Concept should have atleast one step|
 
-* open file "/specs/concepts/conceptShouldHaveOneStep.cpt" and handle diagnostics for content 
-
-   |Content  |
-   |---------|
-   |# Concept|
-
 Step not in a concept
 ---------------------
 * diagnostics should contain diagnostics for "/specs/concepts/stepNotInConcept.cpt" 
@@ -22,15 +16,6 @@ Step not in a concept
    |line|range_start|range_end|severity|message                                     |
    |----|-----------|---------|--------|--------------------------------------------|
    |0   |0          |10000    |1       |Step is not defined inside a concept heading|
-
-* open file "/specs/concepts/stepNotInConcept.cpt" and handle diagnostics for content 
-
-   |Content          |
-   |-----------------|
-   |* step1          |
-   |# Concept Heading|
-   |* step1          |
-   |* step2          |
 
 Scenario heading not allowed in concept
 ---------------------------------------
@@ -40,12 +25,6 @@ Scenario heading not allowed in concept
    |----|-----------|---------|--------|-----------------------------------------------|
    |0   |0          |10000    |1       |Scenario Heading is not allowed in concept file|
 
-* open file "/specs/concepts/scenarioHeadingNotAllowed.cpt" and handle diagnostics for content 
-
-   |Content           |
-   |------------------|
-   |##Scenario heading|
-
 Concept Heading can have only dynamic parameters
 ------------------------------------------------
 * diagnostics should contain diagnostics for "/specs/concepts/headingToHaveOnlyDynamicParams.cpt" 
@@ -54,12 +33,6 @@ Concept Heading can have only dynamic parameters
    |----|-----------|---------|--------|------------------------------------------------|
    |0   |0          |10000    |1       |Concept heading can have only Dynamic Parameters|
 
-* open file "/specs/concepts/headingToHaveOnlyDynamicParams.cpt" and handle diagnostics for content 
-
-   |Content           |
-   |------------------|
-   |# Concept "static"|
-
 Table doesn't belong to any step
 --------------------------------
 * diagnostics should contain diagnostics for "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" 
@@ -67,16 +40,6 @@ Table doesn't belong to any step
    |line|range_start|range_end|severity|message                         |
    |----|-----------|---------|--------|--------------------------------|
    |1   |0          |10000    |1       |Table doesn't belong to any step|
-
-* open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
-
-    |Content  |
-    |---------|
-    |# Concept|
-    |         |
-    |\|table\||
-    |\|one\|  |
-    |* step1  |
 
 Circular reference
 ------------------
@@ -87,13 +50,3 @@ Circular reference
    |----|-----------|---------|--------|---------------------------------------------------------------|
    |1   |0          |10000    |1       |Circular reference found in concept. "Concept1" => %file_uri%:5|
    |4   |0          |0    |1       |Circular reference found in concept. "Concept2" => %file_uri%:2|
-
-* open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics for content 
-
-   |Content   |
-   |----------|
-   |# Concept1|
-   |* Concept2|
-   |          |
-   |# Concept2|
-   |* Concept1|

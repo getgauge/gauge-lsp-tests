@@ -9,14 +9,12 @@ var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 var notification = require('./lsp/notification');
 
-async function handleDiagnosticsResponse(responseMessage) {  
-  
-  var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
-  var responseUri = builder.getResponseUri(responseMessage.params.uri)
+async function handleDiagnosticsResponse(responseMessage,expectedDiagnostics) {  
+  var responseUri = builder.getResponseUri(responseMessage.uri)
 
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
-    var diagnostic = responseMessage.params.diagnostics[rowIndex];
+    var diagnostic = responseMessage.diagnostics[rowIndex];
 
     if(responseUri.toLowerCase()!=expectedDiagnostic.uri.toLowerCase())
       continue
@@ -35,7 +33,7 @@ async function handleDiagnosticsResponse(responseMessage) {
     }
   }
 
-  if(!gauge.dataStore.scenarioStore.get('expectedDiagnostics'))
+  if(!gauge.dataStore.scenarioStore.get('expectedDiagnosticsValidated'))
   {
     throw new Error('reponse did not contain diagnostics for '+expectedDiagnostic.uri)    
   }
@@ -48,13 +46,18 @@ step("open file <filePath> and handle diagnostics for content <contents>", async
       path: filePath,
       content: content,
     }, daemon.connection(), daemon.projectPath())
-  daemon.handle(handleDiagnosticsResponse, done);
+
 });
 
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
     var currentFileUri = path.join(daemon.projectPath(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
 
-    var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);
-    gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
+    var result = builder.buildExpectedRange(diagnosticsList,currentFileUri);
+
+    daemon.connection().onNotification(new rpc.NotificationType("textDocument/publishDiagnostics"), (res) => {
+      handleDiagnosticsResponse(res,result)
+      done();
+      });
+  
 });
