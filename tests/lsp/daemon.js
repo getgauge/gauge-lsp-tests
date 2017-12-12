@@ -18,13 +18,10 @@ async function startGaugeDaemon(projectPath,responseHandler) {
 
     let connection = rpc.createMessageConnection(state.reader, state.writer);
 
-    if(responseHandler)
-    {
-        console.log("************")
-        connection.onNotification(new rpc.NotificationType("textDocument/publishDiagnostics"), responseHandler);          
-    }
-
     connection.listen();
+    await connection.sendRequest(new rpc.RequestType("initialize"), { "processId": process.pid, "rootPath": state.projectPath, "rootUri": vscodeUri.file(state.projectPath).toString(), "capabilities": { "workspace": { "applyEdit": true, "didChangeConfiguration": { "dynamicRegistration": true }, "didChangeWatchedFiles": { "dynamicRegistration": true }, "symbol": { "dynamicRegistration": true }, "executeCommand": { "dynamicRegistration": true } }, "textDocument": { "synchronization": { "dynamicRegistration": true, "willSave": true, "willSaveWaitUntil": true, "didSave": true }, "completion": { "dynamicRegistration": true, "completionItem": { "snippetSupport": true, "commitCharactersSupport": true } }, "hover": { "dynamicRegistration": true }, "signatureHelp": { "dynamicRegistration": true }, "definition": { "dynamicRegistration": true }, "references": { "dynamicRegistration": true }, "documentHighlight": { "dynamicRegistration": true }, "documentSymbol": { "dynamicRegistration": true }, "codeAction": { "dynamicRegistration": true }, "codeLens": { "dynamicRegistration": true }, "formatting": { "dynamicRegistration": true }, "rangeFormatting": { "dynamicRegistration": true }, "onTypeFormatting": { "dynamicRegistration": true }, "rename": { "dynamicRegistration": true }, "documentLink": { "dynamicRegistration": true } } }, "trace": "off" }, null);
+    connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
+    await connection.sendNotification(new rpc.NotificationType("initialized"), {});
     state.connection = connection;
 };
 
