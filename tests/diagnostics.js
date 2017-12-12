@@ -9,7 +9,7 @@ var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 var notification = require('./lsp/notification');
 
-async function handleDiagnosticsResponse(responseMessage,expectedDiagnostics) {  
+async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {  
   var responseUri = builder.getResponseUri(responseMessage.uri)
 
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
@@ -39,16 +39,6 @@ async function handleDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   }
 }
 
-step("open file <filePath> and handle diagnostics for content <contents>", async function (filePath, contents, done) {
-  var content = table.tableToArray(contents).Content.join("\n");
-  await notification.openFile(
-    {
-      path: filePath,
-      content: content,
-    }, daemon.connection(), daemon.projectPath())
-
-});
-
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
     var currentFileUri = path.join(daemon.projectPath(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
@@ -56,7 +46,7 @@ step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", 
     var result = builder.buildExpectedRange(diagnosticsList,currentFileUri);
 
     daemon.connection().onNotification(new rpc.NotificationType("textDocument/publishDiagnostics"), (res) => {
-      handleDiagnosticsResponse(res,result)
+      verifyDiagnosticsResponse(res,result)
       done();
       });
   

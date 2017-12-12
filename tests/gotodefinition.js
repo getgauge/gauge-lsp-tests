@@ -13,7 +13,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
             {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
             path.join(daemon.projectPath(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
             daemon.connection());      
-        handleDefinitionResponse(response,details) 
+        verifyDefinitionResponse(response,details) 
     }
     catch(err){
         if(err.message=="Request Timeout")
@@ -24,7 +24,7 @@ step('goto definition of <element> at <lineNumber> and <characterNumber> should 
     }
 });
 
-function handleDefinitionResponse(resp,definitionDetails) {
+function verifyDefinitionResponse(resp,definitionDetails) {
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        
