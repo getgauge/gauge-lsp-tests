@@ -8,21 +8,28 @@ var request = require('./lsp/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
 step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details){
-    try{
+    try
+    {
         var response = await request.gotoDefinition(
             {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
             path.join(daemon.projectPath(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
-            daemon.connection());      
-        verifyDefinitionResponse(response,details) 
+            daemon.connection());
+    
+        verifyDefinitionResponse(response,details)     
     }
-    catch(err){
-        if(err.message=="Request Timeout")
-            throw new Error(err)
-        var errorIndex = details.headers.cells.indexOf('error')   
-        if(errorIndex>=0)
-            assert.equal(err.message,details.rows[0].cells[errorIndex])
+    catch(err)
+    {
+        verifyRejection(err,details)
     }
 });
+
+function verifyRejection(err,details){
+    var errorIndex = details.headers.cells.indexOf('error')
+    if(errorIndex>=0)
+        assert.equal(err.message,details.rows[0].cells[errorIndex])
+    else
+        throw new Error('error not expected '+err)
+}
 
 function verifyDefinitionResponse(resp,definitionDetails) {
     if(resp.message){

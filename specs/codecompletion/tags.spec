@@ -4,16 +4,6 @@ Tag completion
 Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tocodecomplete.spec" 
-
-   |Content              |
-   |---------------------|
-   |Specification Heading|
-   |=====================|
-   |Gauge LSP 2          |
-   |-----------          |
-   |tags:                |
-   |* one "something"    |
-
 * codecomplete at line "4" character "7" should give "tags" 
 
    |label         |

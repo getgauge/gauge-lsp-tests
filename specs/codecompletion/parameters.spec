@@ -7,18 +7,6 @@ Static Parameter list for codecomplete
 tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
-
-   |Content                    |
-   |---------------------------|
-   |Specification Heading      |
-   |=====================      |
-   |table:csv.csv              |
-   |Gauge LSP 2                |
-   |---------------------      |
-   |* one "something"          |
-   |* start "s"                |
-   |* two "another" "parameter"|
-   |* start one <one>          |
 * codecomplete at line "5" character "7" should give "parameters" 
 
    |label    |detail|
@@ -34,18 +22,6 @@ Dynamic Parameter list for codecomplete
 tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
-
-   |Content                    |
-   |---------------------------|
-   |Specification Heading      |
-   |=====================      |
-   |table:csv.csv              |
-   |Gauge LSP 2                |
-   |---------------------      |
-   |* one "something"          |
-   |* start "s"                |
-   |* two "another" "parameter"|
-   |* start one <one>          |
 * codecomplete at line "8" character "13" should give "parameters" 
 
    |label|detail |

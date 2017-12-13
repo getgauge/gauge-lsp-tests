@@ -36,11 +36,12 @@ async function request(position, fileUri, connection,requestType) {
 }
 
 async function gotoDefinition(position, fileUri, connection) {
-  try{
+//  try{
     return await request(position,fileUri,connection,'textDocument/definition')
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  // } catch (error) {
+  //   console.log("herere**************"+error)
+  //   return Promise.reject(error);
+  // }
 }
 
 module.exports = {

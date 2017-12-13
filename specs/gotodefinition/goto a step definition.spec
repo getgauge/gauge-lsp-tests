@@ -3,19 +3,7 @@ Goto a step definition
 * start gauge daemon for project "testdata/gotodefinition"
 Goto definition to the implementation of a step from the specification
 ----------------------------------------------------------------------
-* open file "/specs/invoke_concepts.spec" 
-
-   |Content                       |
-   |------------------------------|
-   |Go to definition of concepts  |
-   |============================  |
-   |A Concept with definition     |
-   |-------------------------     |
-   |* Concept2                    |
-   |A Concept without a definition|
-   |------------------------------|
-   |* undefined Concept           |
-   |* step1                       |
+* open file "/specs/concept_definition.spec" 
 * goto definition of "step1" at "8" and "4" should give details 
 
    |uri                         |line|range_start|range_end|
@@ -24,18 +12,7 @@ Goto definition to the implementation of a step from the specification
 
 Goto definition of undefined element should give a suitable message
 --------------------------------------------------------------
-* open file "/specs/invoke_concepts.spec" 
-
-   |Content                       |
-   |------------------------------|
-   |Go to definition of concepts  |
-   |============================  |
-   |A Concept with definition     |
-   |-------------------------     |
-   |* Concept2                    |
-   |A Concept without a definition|
-   |------------------------------|
-   |* undefined Concept           |
+* open file "/specs/concept_definition.spec" 
 * goto definition of "undefined Concept" at "7" and "4" should give details 
 
    |error                                                     |

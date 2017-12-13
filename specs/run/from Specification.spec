@@ -26,19 +26,6 @@ Run Spec and Scenarios must be displayed for a Specification
 Run Spec, Scenarios and run in parallel must be displayed for a Specification with test cases
 ---------------------------------------------------------------------------------------------
 * open file "/specs/specWithTestCases.spec" 
-
-   |Content              |
-   |---------------------|
-   |Specification Heading|
-   |=====================|
-   |\|HEADER\|           |
-   |\|------\|           |
-   |\|value \|           |
-   |\|value \|           |
-   |Scenario             |
-   |--------             |
-   |* step <HEADER>      |
-
 * ensure code lens has details 
 
    |title                    |line|range_start|range_end|command      |arguments                |
