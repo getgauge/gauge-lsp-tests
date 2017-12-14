@@ -4,28 +4,31 @@ const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
 var request = require('./lsp/request');
 var table = require('./util/table');
+var file = require('./util/fileExtension');
 var assert = require('assert');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 var notification = require('./lsp/notification');
 
-async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {  
-  var responseUri = builder.getResponseUri(responseMessage.uri)
-  var expectedDiagnosticsValidated = false
+async function verifyDiagnosticsResponse(responseMessage) {  
+  var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
+  var responseUri = builder.getResponseUri(responseMessage.params.uri)
 
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
-    var diagnostic = responseMessage.diagnostics[rowIndex];
 
-    if(responseUri.toLowerCase()!=expectedDiagnostic.uri.toLowerCase())
+    if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
       continue
 
-    expectedDiagnosticsValidated = true
-            
-    assert.equal(diagnostic.message, expectedDiagnostic.message, 
-    JSON.stringify(diagnostic.message) + " not equal to " 
-    + JSON.stringify(expectedDiagnostic.message));        
+    var allDiagnosticsForFile = responseMessage.params.diagnostics.filter(function(elem, i, array) {
+      return elem.message == expectedDiagnostic.message;
+    });              
+
+    if(allDiagnosticsForFile.length==0)
+      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))
         
+    console.log("here")
+    var diagnostic = allDiagnosticsForFile[0]
     if(expectedDiagnostic.severity)
     {
       assert.equal(diagnostic.severity, expectedDiagnostic.severity, 
@@ -33,22 +36,22 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
         + JSON.stringify(expectedDiagnostic.severity));        
     }
   }
-
-  if(!expectedDiagnosticsValidated)
-  {
-    throw new Error('reponse did not contain diagnostics for '+expectedDiagnostic.uri)    
-  }
 }
 
+step("open file <filePath> and handle diagnostics for content <contents>", async function (filePath, contents, done) {
+  var content = table.tableToArray(contents).content;
+  await notification.openFile(
+    {
+      path: filePath,
+      content: content,
+    }, daemon.connection(), daemon.projectPath())
+  daemon.handle(verifyDiagnosticsResponse, done);
+});
+
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
-    var currentFileUri = path.join(daemon.projectPath(), filePath);
+    var currentFileUri = file.getPath(daemon.projectPath(), filePath);
     gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
 
-    var result = builder.buildExpectedRange(diagnosticsList,currentFileUri);
-
-    daemon.connection().onNotification(new rpc.NotificationType("textDocument/publishDiagnostics"), (res) => {
-      verifyDiagnosticsResponse(res,result)
-      done();
-      });
-  
+    var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);
+    gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });

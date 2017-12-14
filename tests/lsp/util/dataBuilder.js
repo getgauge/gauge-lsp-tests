@@ -7,8 +7,6 @@ var uri = require('vscode-uri').default;
 
 function getResponseUri(original){
   return uri.parse(original).fsPath
-  // var intermediate = original.replace("file:///","");
-  // return intermediate.replaceAll("/",path.sep)
 }
 
 function buildExpectedRange(givenResult,uri){
