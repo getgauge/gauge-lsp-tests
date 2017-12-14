@@ -7,12 +7,12 @@ var daemon = require('./lsp/daemon');
 var request = require('./lsp/request');
 var table = require('./util/table');
 var builder = require('./lsp/util/dataBuilder');
-step('goto definition of <element> at <lineNumber> and <characterNumber> should give details <details>',async function(element,lineNumber,characterNumber,details){
+step('goto definition of <element> in <file> at <lineNumber> and <characterNumber> should give details <details>',async function(element,file,lineNumber,characterNumber,details){
     try
     {
         var response = await request.gotoDefinition(
             {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-            path.join(daemon.projectPath(),gauge.dataStore.scenarioStore.get('currentFilePath')), 
+            path.join(daemon.projectPath(),file), 
             daemon.connection());
     
         verifyDefinitionResponse(response,details)     
