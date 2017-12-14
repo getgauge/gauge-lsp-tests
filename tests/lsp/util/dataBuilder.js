@@ -2,6 +2,7 @@
 
 var daemon = require('../daemon');
 var stringExtension = require('../../util/stringExtension');
+var file = require('../../util/fileExtension');
 var path = require('path');
 var uri = require('vscode-uri').default;
 
@@ -17,6 +18,7 @@ function buildExpectedRange(givenResult,uri){
   var rangeEndIndex = givenResult.headers.cells.indexOf('range_end')
   var severityIndex = givenResult.headers.cells.indexOf('severity')
   var messageIndex = givenResult.headers.cells.indexOf('message')
+  var uriIndex = givenResult.headers.cells.indexOf("uri")
 
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
     var expectedDiagnostic = givenResult.rows[rowIndex].cells
@@ -25,7 +27,7 @@ function buildExpectedRange(givenResult,uri){
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
       expectedDiagnostic[severityIndex],
-      expectedDiagnostic[messageIndex],uri);
+      expectedDiagnostic[messageIndex],expectedDiagnostic[uriIndex]);
       expectedResult.push(result)
     }
   return expectedResult
@@ -89,7 +91,7 @@ function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
     result.message = AddProjectAndFileUri(message,fileUri).replace("%3A",":")
   }
 
-  result.uri = fileUri
+  result.uri = file.getPath(daemon.projectPath(), fileUri)
   result.range = {
     "start": buildPosition(line,rangeStart),
     "end": buildPosition(line,rangeEnd)

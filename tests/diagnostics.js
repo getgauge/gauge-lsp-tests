@@ -18,16 +18,21 @@ async function verifyDiagnosticsResponse(responseMessage) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
 
     if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
-      continue
-
+    {
+      //console.log(responseUri+" is not "+expectedDiagnostic.uri)
+      continue  
+    }
     var allDiagnosticsForFile = responseMessage.params.diagnostics.filter(function(elem, i, array) {
-      return elem.message == expectedDiagnostic.message;
+      return elem.message === expectedDiagnostic.message;
     });              
 
     if(allDiagnosticsForFile.length==0)
-      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))
+    {
+      console.log(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))
+      assert.fail(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))            
+    }
         
-    console.log("here")
+    console.log("validated "+expectedDiagnostic.message)
     var diagnostic = allDiagnosticsForFile[0]
     if(expectedDiagnostic.severity)
     {
@@ -38,20 +43,18 @@ async function verifyDiagnosticsResponse(responseMessage) {
   }
 }
 
-step("open file <filePath> and handle diagnostics for content <contents>", async function (filePath, contents, done) {
-  var content = table.tableToArray(contents).content;
+step("open file <filePath> and handle diagnostics", async function (filePath, done) {
+  const content = file.parseContent(path.join(daemon.projectPath(), filePath))
   await notification.openFile(
     {
       path: filePath,
       content: content,
     }, daemon.connection(), daemon.projectPath())
-  daemon.handle(verifyDiagnosticsResponse, done);
+
+  await daemon.handle(verifyDiagnosticsResponse, done);    
 });
 
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
-    var currentFileUri = file.getPath(daemon.projectPath(), filePath);
-    gauge.dataStore.scenarioStore.put('currentFileUri', currentFileUri);        
-
-    var result = await builder.buildExpectedRange(diagnosticsList,currentFileUri);
+    var result = await builder.buildExpectedRange(diagnosticsList);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
 });

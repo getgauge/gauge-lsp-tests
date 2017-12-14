@@ -1,88 +1,17 @@
 Diagnostics on spec file
 ========================
 * start gauge daemon for project "testdata/parse-errors"
-Multiple Spec Headings
+Get all parse errors
 ----------------------
 * diagnostics should contain diagnostics for "/specs/multipleSpecHeadings.spec" 
 
-   |line|range_start|range_end|severity|message                                  |
-   |----|-----------|---------|--------|-----------------------------------------|
-   |1   |0          |10000    |1       |Multiple spec headings found in same file|
+   |line|range_start|range_end|severity|message                                                  |uri                                |
+   |----|-----------|---------|--------|---------------------------------------------------------|-----------------------------------|
+   |1   |0          |10000    |1       |Multiple spec headings found in same file                |/specs/multipleSpecHeadings.spec   |
+   |0   |0          |10000    |1       |Spec does not have any elements                          |/specs/specWithoutElements.spec    |
+   |5   |0          |10000    |1       |Teardown should have at least three underscore characters|/specs/tearDownThreeUnderscore.spec|
+   |2   |0          |10000    |1       |Scenario heading should have at least one character      |/specs/withoutScenarioHeading.spec |
+   |1   |0          |10000    |1       |Scenario should have atleast one step                    |/specs/withoutScenarioHeading.spec |
+   |0   |0          |10000    |1       |Spec does not have any elements                          |"/specs/withoutSpecHeading.spec    |
 
-* open file "/specs/multipleSpecHeadings.spec" and handle diagnostics for content 
-
-   |Content      |
-   |-------------|
-   |Spec Heading |
-   |=============|
-   |One          |
-   |====         |
-   |Scenario     |
-   |--------     |
-   |* one        |
-   |* two        |
-Spec without elements
----------------------
-* diagnostics should contain diagnostics for "/specs/specWithoutElements.spec" 
-
-   |line|range_start|range_end|severity|message                        |
-   |----|-----------|---------|--------|-------------------------------|
-   |0   |0          |10000    |1       |Spec does not have any elements|
-
-* open file "/specs/specWithoutElements.spec" and handle diagnostics for content 
-
-   |Heading      |
-   |-------------|
-   |Spec Heading |
-   |=============|
-
-Tear down three underscore
---------------------------
-* diagnostics should contain diagnostics for "/specs/tearDownThreeUnderscore.spec" 
-
-   |line|range_start|range_end|severity|message                                                  |
-   |----|-----------|---------|--------|---------------------------------------------------------|
-   |5   |0          |10000    |1       |Teardown should have at least three underscore characters|
-
-* open file "/specs/tearDownThreeUnderscore.spec" and handle diagnostics for content 
-
-   |Heading       |
-   |--------------|
-   |# Spec Heading|
-   |Scenario      |
-   |--------      |
-   |* one         |
-   |__            |
-   |* two         |
-
-Without scenario heading
-------------------------
-* diagnostics should contain diagnostics for "/specs/withoutScenarioHeading.spec" 
-
-   |line|range_start|range_end|severity|message                                            |
-   |----|-----------|---------|--------|---------------------------------------------------|
-   |2   |0          |10000    |1       |Scenario heading should have at least one character|
-   |1   |0          |10000    |1       |Scenario should have atleast one step              |
-
-* open file "/specs/withoutScenarioHeading.spec" and handle diagnostics for content 
-
-   |Heading              |
-   |---------------------|
-   |Spec Heading         |
-   |=====================|
-   |                     |
-   |---------            |
-Without spec heading
---------------------
-* diagnostics should contain diagnostics for "/specs/withoutSpecHeading.spec" 
-
-   |line|range_start|range_end|severity|message                        |
-   |----|-----------|---------|--------|-------------------------------|
-   |0   |0          |10000    |1       |Spec does not have any elements|
-
-* open file "/specs/withoutSpecHeading.spec" and handle diagnostics for content 
-
-   |Heading              |
-   |---------------------|
-   |                     |
-   |=====================|
+* open file "/specs/multipleSpecHeadings.spec" and handle diagnostics

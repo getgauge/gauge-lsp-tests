@@ -39,7 +39,7 @@ function projectPath() {
     return state.projectPath;
 }
 
-function handle(handler, done) {
+async function handle(handler, done) {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
     if (!state.reader)

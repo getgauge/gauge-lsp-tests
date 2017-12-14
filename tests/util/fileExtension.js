@@ -1,6 +1,7 @@
 var vscodeUri = require('vscode-uri').default
 var path = require('path')
 var cwd = process.cwd();
+var fs = require('fs');
 
 function getFullPath(relativePath, file){
     if(file)
@@ -14,5 +15,10 @@ function getPath(path1, file){
     return vscodeUri.file(path1).path;
 }
 
+function parseContent(file) {
+    return fs.readFileSync(file, "utf-8");
+}
+
 module.exports={getFullPath:getFullPath,
-getPath:getPath}
+getPath:getPath,
+parseContent:parseContent}
