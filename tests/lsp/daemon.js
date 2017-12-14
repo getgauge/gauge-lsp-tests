@@ -39,17 +39,17 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function handle(handler, done) {
+async function handle(handler,verifyAllDone, done) {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
     if (!state.reader)
         throw ("Gauge Daemon Stream reader not available")
-    state.reader.listen(async (data) => await responseHandler(handler,data,done));
+    state.reader.listen(async (data) => await responseHandler(handler,data,verifyAllDone,done));
 }
 
-async function responseHandler(handler,data,done){
+async function responseHandler(handler,data,verifyAllDone,done){
     await handler(data).catch((e) => { done(e) })
-    done();
+    verifyAllDone(done);
 }
 
 module.exports = {

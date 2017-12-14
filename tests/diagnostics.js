@@ -12,6 +12,9 @@ var notification = require('./lsp/notification');
 
 async function verifyDiagnosticsResponse(responseMessage) {  
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
+
+  if(expectedDiagnostics==null)
+    return
   var responseUri = builder.getResponseUri(responseMessage.params.uri)
 
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
@@ -24,13 +27,11 @@ async function verifyDiagnosticsResponse(responseMessage) {
       return elem.message === expectedDiagnostic.message;
     });              
 
+    expectedDiagnostic.isValidated = true
+    
     if(allDiagnosticsForFile.length==0)
-    {
-      console.log(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))
-      assert.fail(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))            
-    }
-        
-    console.log("validated "+expectedDiagnostic.message)
+      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))      
+    
     var diagnostic = allDiagnosticsForFile[0]
     if(expectedDiagnostic.severity)
     {
@@ -39,10 +40,26 @@ async function verifyDiagnosticsResponse(responseMessage) {
         + JSON.stringify(expectedDiagnostic.severity));        
     }
   }
+
+  gauge.dataStore.scenarioStore.put('expectedDiagnostics',expectedDiagnostics)  
+}
+
+async function verifyAllDone(done){
+  var expectedDiagnostics = gauge.dataStore.scenarioStore.get('expectedDiagnostics',expectedDiagnostics)
+  if(expectedDiagnostics==null)
+    done()
+  var validated = expectedDiagnostics.filter(function(elem, i, array) {
+    return elem.isValidated;
+  });
+  
+  if(validated.length == expectedDiagnostics.length)
+  {
+    done()    
+  }
 }
 
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList,done) {
     var result = await builder.buildExpectedRange(diagnosticsList);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
-    await daemon.handle(verifyDiagnosticsResponse, done);        
+    await daemon.handle(verifyDiagnosticsResponse,verifyAllDone, done);        
 });
