@@ -1,6 +1,6 @@
 Diagnostics on spec file
 ========================
-* start gauge daemon for project "testdata/parse-errors"
+* start gauge daemon for project "testdata/parse-errors-specs"
 Get all parse errors
 ----------------------
 * diagnostics should contain diagnostics for "/specs/multipleSpecHeadings.spec" 
@@ -13,5 +13,3 @@ Get all parse errors
    |2   |0          |10000    |1       |Scenario heading should have at least one character      |/specs/withoutScenarioHeading.spec |
    |1   |0          |10000    |1       |Scenario should have atleast one step                    |/specs/withoutScenarioHeading.spec |
    |0   |0          |10000    |1       |Spec does not have any elements                          |"/specs/withoutSpecHeading.spec    |
-
-* open file "/specs/multipleSpecHeadings.spec" and handle diagnostics

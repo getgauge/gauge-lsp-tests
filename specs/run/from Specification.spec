@@ -4,18 +4,6 @@ Run from Specification
 Run Spec and Scenarios must be displayed for a Specification
 ------------------------------------------------------------
 * open file "/specs/simpleSpecification.spec" 
-
-   |Content              |
-   |---------------------|
-   |Specification Heading|
-   |=====================|
-   |Gauge LSP 2          |
-   |---------------------|
-   |* one                |
-   |* start              |
-   |* two                |
-   |* start one          |
-
 * ensure code lens has details 
 
    |title       |line|range_start|range_end|command      |arguments                |

@@ -18,10 +18,8 @@ async function verifyDiagnosticsResponse(responseMessage) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
 
     if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
-    {
-      //console.log(responseUri+" is not "+expectedDiagnostic.uri)
       continue  
-    }
+
     var allDiagnosticsForFile = responseMessage.params.diagnostics.filter(function(elem, i, array) {
       return elem.message === expectedDiagnostic.message;
     });              
@@ -43,18 +41,8 @@ async function verifyDiagnosticsResponse(responseMessage) {
   }
 }
 
-step("open file <filePath> and handle diagnostics", async function (filePath, done) {
-  const content = file.parseContent(path.join(daemon.projectPath(), filePath))
-  await notification.openFile(
-    {
-      path: filePath,
-      content: content,
-    }, daemon.connection(), daemon.projectPath())
-
-  await daemon.handle(verifyDiagnosticsResponse, done);    
-});
-
-step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList) {
+step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList,done) {
     var result = await builder.buildExpectedRange(diagnosticsList);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
+    await daemon.handle(verifyDiagnosticsResponse, done);        
 });

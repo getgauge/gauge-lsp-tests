@@ -1,6 +1,6 @@
 Diagnostics on concept file
 ===========================
-* start gauge daemon for project "testdata/parse-errors"
+* start gauge daemon for project "testdata/parse-errors-concepts"
 Get all parse errors
 -----------------------------
 * diagnostics should contain diagnostics for "/specs/concepts/conceptShouldHaveOneStep.cpt" 
@@ -13,8 +13,6 @@ Get all parse errors
    |0   |0          |10000    |1       |Concept heading can have only Dynamic Parameters|/specs/concepts/headingToHaveOnlyDynamicParams.cpt|
    |1   |0          |10000    |1       |Table doesn't belong to any step                |/specs/concepts/tableDoesNotBelongToAnyStep.cpt   |
 
-* open file "/specs/concepts/conceptShouldHaveOneStep.cpt" and handle diagnostics
-
 Circular reference
 ------------------
 * List of errors should be asserted irrespective of the order
@@ -24,5 +22,3 @@ Circular reference
    |----|-----------|---------|--------|---------------------------------------------------------------|--|
    |1   |0          |10000    |1       |Circular reference found in concept. "Concept1" => %file_uri%:5|/specs/concepts/circularReference.cpt|
    |4   |0          |0        |1       |Circular reference found in concept. "Concept2" => %file_uri%:2|/specs/concepts/circularReference.cpt|
-
-* open file "/specs/concepts/tableDoesNotBelongToAnyStep.cpt" and handle diagnostics
