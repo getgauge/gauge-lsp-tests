@@ -27,7 +27,7 @@ async function (lineNumber, characterNumber,element, expectedResult) {
 
     try{
         var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , currentFilePath), daemon.connection());
-        verifyAutocompleteResponse(responseMessage)        
+        verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
@@ -54,11 +54,9 @@ function verifyAutocompleteResponse(responseMessage) {
     for (var index = 0; index < actualNumberOfItems; index++) {
         var item = responseMessage.items[index];
         
-        if (item.kind != expected.Kind)
-            continue;
-            
         assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);    
-        assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
+        if(expected.elements.detail)
+            assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
     }
     
     assert.equal(actualNumberOfItems, expected.elements.label.length, 

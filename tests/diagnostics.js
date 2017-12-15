@@ -29,6 +29,7 @@ async function verifyDiagnosticsResponse(responseMessage) {
     });              
 
     expectedDiagnostic.isValidated = true
+    gauge.message("validated "+expectedDiagnostic.message)
     
     if(allDiagnosticsForFile.length==0)
       throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))      
