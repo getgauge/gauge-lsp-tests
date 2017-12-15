@@ -25,9 +25,14 @@ async function (lineNumber, characterNumber,element, expectedResult) {
         characterNumber: characterNumber
     };
 
-    var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , currentFilePath), daemon.connection());
-    verifyAutocompleteResponse(responseMessage)
-});
+    try{
+        var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , currentFilePath), daemon.connection());
+        verifyAutocompleteResponse(responseMessage)        
+    }
+    catch(err){
+        assert.fail("erro not expected "+err)
+    }
+}); 
 
 function buildExpectedElements(expectedResult,element){
     elements = table.tableToArray(expectedResult);

@@ -26,7 +26,7 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
 function verifyRejection(err,details){
     var errorIndex = details.headers.cells.indexOf('error')
     if(errorIndex>=0)
-        assert.equal(err.message,details.rows[0].cells[errorIndex])
+        assert.equal(err.message,details.rows[0].cells[errorIndex])        
     else
         throw new Error('error not expected '+err)
 }

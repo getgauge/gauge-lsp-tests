@@ -8,8 +8,13 @@ step('open file <filePath>', async function (filePath) {
     const content = file.parseContent(path.join(daemon.projectPath(), filePath))
     gauge.dataStore.scenarioStore.put('currentFilePath', filePath);
     
-    await notification.openFile({
-        path: filePath,
-        content: content
-    }, daemon.connection(), daemon.projectPath());
+    try{
+        await notification.openFile({
+            path: filePath,
+            content: content
+        }, daemon.connection(), daemon.projectPath());    
+    }
+    catch(err){
+        assert.fail("error not expected "+err)
+    }
 });

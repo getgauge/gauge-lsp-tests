@@ -12,8 +12,13 @@ step('ensure code lens has details <details>', async function (details) {
     var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     var expectedDetails = builder.buildExpectedCodeLens(details,daemon.projectPath(),currentFilePath);  
     
-    var response = await request.codeLens(path.join(daemon.projectPath() , currentFilePath),daemon.connection())
-    handleCodeLensDetails(response,expectedDetails)
+    try{
+        var response = await request.codeLens(path.join(daemon.projectPath() , currentFilePath),daemon.connection())
+        handleCodeLensDetails(response,expectedDetails)    
+    }
+    catch(err){
+        assert.fail("error not expected "+err)
+    }
 });
 
 function handleCodeLensDetails(responseMessage,expectedDetails){

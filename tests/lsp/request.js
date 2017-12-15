@@ -4,19 +4,11 @@ const rpc = require('vscode-jsonrpc');
 const uri = require('vscode-uri').default;
 
 async function codeLens(fileUri, connection) {
-  try{
-    return await request(null,fileUri,connection,'textDocument/codeLens')    
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  return await request(null,fileUri,connection,'textDocument/codeLens')    
 }
 
 async function codecomplete(position, fileUri, connection) {
-  try{
-    return await request(position,fileUri,connection,'textDocument/completion')
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  return await request(position,fileUri,connection,'textDocument/completion')
 }
 
 async function request(position, fileUri, connection,requestType) {
@@ -36,12 +28,7 @@ async function request(position, fileUri, connection,requestType) {
 }
 
 async function gotoDefinition(position, fileUri, connection) {
-//  try{
   return await request(position,fileUri,connection,'textDocument/definition')
-  // } catch (error) {
-  //   console.log("herere**************"+error)
-  //   return Promise.reject(error);
-  // }
 }
 
 module.exports = {
