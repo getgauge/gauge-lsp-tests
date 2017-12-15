@@ -9,14 +9,15 @@ var assert = require('assert');
 var builder = require('./lsp/util/dataBuilder');
 var path = require('path');
 var notification = require('./lsp/notification');
+var fs = require('fs');
 
-async function verifyDiagnosticsResponse(responseMessage) {  
+async function verifyDiagnosticsResponse(responseMessage) {
   var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
 
   if(expectedDiagnostics==null)
     return
-  var responseUri = builder.getResponseUri(responseMessage.params.uri)
-  if(responseMessage.params.diagnostics==null)
+  var responseUri = builder.getResponseUri(responseMessage.uri)
+  if(responseMessage.diagnostics==null)
     return
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
@@ -24,7 +25,7 @@ async function verifyDiagnosticsResponse(responseMessage) {
     if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
       continue  
 
-    var allDiagnosticsForFile = responseMessage.params.diagnostics.filter(function(elem, i, array) {
+    var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
       return elem.message === expectedDiagnostic.message;
     });              
 
@@ -32,7 +33,7 @@ async function verifyDiagnosticsResponse(responseMessage) {
     gauge.message("validated "+expectedDiagnostic.message)
     
     if(allDiagnosticsForFile.length==0)
-      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage.params))      
+      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))      
     
     var diagnostic = allDiagnosticsForFile[0]
     if(expectedDiagnostic.severity)
@@ -53,18 +54,38 @@ async function verifyAllDone(done){
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
   });
-  
+
   if(validated.length == expectedDiagnostics.length)
   {
     done()    
   }
 }
 
-step("verify diagnostics <diagnosticsList>", async function (diagnosticsList,done) {
+step("open file <fileName> and verify diagnostics <diagnosticsList>", async function (fileName, diagnosticsList,done) {
   var result = await builder.buildExpectedRange(diagnosticsList);
   gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
   try{
-    await daemon.handle(verifyDiagnosticsResponse, done,verifyAllDone);              
+    daemon.connection().onNotification("textDocument/publishDiagnostics", (res) => {
+      try {
+        verifyDiagnosticsResponse(res);
+        verifyAllDone(done);
+      } catch(e) {
+        console.log(e);
+      }
+    });
+
+    try{
+      fileName = path.join(daemon.projectPath(), fileName);
+      const content = file.parseContent(fileName)
+        await notification.openFile({
+            path: fileName,
+            content: content
+        }, daemon.connection(), daemon.projectPath());
+    }
+    catch(err){
+        throw new Error("unable to open file "+err)
+    }
+
   }
   catch(err){
     throw new Error("unable to verify Diagnostics response "+err)

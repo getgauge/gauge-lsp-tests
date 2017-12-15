@@ -3,7 +3,7 @@ Stub for unimplemented Steps
 * start gauge daemon for project "testdata/generatestubs"
 Generate Code for Simple Unimplemented step
 -------------------------------------------
-* verify diagnostics
+* open file "/specs/concept_definition.spec" and verify diagnostics
 
    |line|range_start|range_end|severity|message                      |code                                                                         |uri                           |
    |----|-----------|---------|--------|-----------------------------|-----------------------------------------------------------------------------|------------------------------|

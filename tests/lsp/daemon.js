@@ -35,9 +35,9 @@ function sleep(milliseconds) {
   }
   
 async function stopGaugeDaemon(done){
-    state.connection.sendRequest(new rpc.RequestType("shutdown")) 
-    sleep(500)       
-    state.connection.sendNotification(new rpc.RequestType("exit"))    
+    await state.connection.sendRequest(new rpc.RequestType("shutdown"), undefined)
+    state.connection.sendNotification(new rpc.RequestType("exit"));
+    state.connection.dispose();
 }
 
 function connection() {
@@ -54,26 +54,9 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function handle(handler, done,verifyAllDone) {
-    if (!state.gaugeDaemon)
-        throw ("Gauge Daemon not initialized");
-    if (!state.reader)
-        throw ("Gauge Daemon Stream reader not available")
-    state.reader.listen(async (data) => await responseHandler(handler,data,done,verifyAllDone));
-}
-
-async function responseHandler(handler,data,done,verifyAllDone){
-    await handler(data).catch((e) => { done(e) })
-    if(verifyAllDone)
-        verifyAllDone(done);
-    else
-        done()
-}
-
 module.exports = {
     startGaugeDaemon: startGaugeDaemon,
     stopGaugeDaemon:stopGaugeDaemon,
     connection: connection,
-    projectPath: projectPath,
-    handle:handle
+    projectPath: projectPath
 };

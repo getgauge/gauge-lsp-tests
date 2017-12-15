@@ -3,7 +3,7 @@ Diagnostics on spec file
 * start gauge daemon for project "testdata/parse-errors-specs"
 Get all parse errors
 ----------------------
-* verify diagnostics
+* open file "/specs/multipleSpecHeadings.spec" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                                  |uri                                |
    |----|-----------|---------|--------|---------------------------------------------------------|-----------------------------------|
