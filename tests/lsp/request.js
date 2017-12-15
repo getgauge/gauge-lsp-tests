@@ -37,7 +37,6 @@ async function request(position, fileUri, connection,requestType) {
 
 async function gotoDefinition(position, fileUri, connection) {
 //  try{
-  console.log(fileUri)
   return await request(position,fileUri,connection,'textDocument/definition')
   // } catch (error) {
   //   console.log("herere**************"+error)
