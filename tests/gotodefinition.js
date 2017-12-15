@@ -32,6 +32,8 @@ function verifyRejection(err,details){
 }
 
 function verifyDefinitionResponse(resp,definitionDetails) {
+    if(resp==null)
+        assert.fail("response message should not be null ")
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        
