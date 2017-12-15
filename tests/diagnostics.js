@@ -59,13 +59,13 @@ async function verifyAllDone(done){
   }
 }
 
-step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList,done) {
-    var result = await builder.buildExpectedRange(diagnosticsList);
-    gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
-    try{
-      await daemon.handle(verifyDiagnosticsResponse, done,verifyAllDone);              
-    }
-    catch(err){
-      throw new Error("unable to verify Diagnostics response "+err)
-    }
+step("verify diagnostics <diagnosticsList>", async function (diagnosticsList,done) {
+  var result = await builder.buildExpectedRange(diagnosticsList);
+  gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
+  try{
+    await daemon.handle(verifyDiagnosticsResponse, done,verifyAllDone);              
+  }
+  catch(err){
+    throw new Error("unable to verify Diagnostics response "+err)
+  }
 });
