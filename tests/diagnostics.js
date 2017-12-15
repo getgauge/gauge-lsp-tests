@@ -63,9 +63,9 @@ step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", 
     var result = await builder.buildExpectedRange(diagnosticsList);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
     try{
-      await daemon.handle(verifyDiagnosticsResponse,verifyAllDone, done);              
+      await daemon.handle(verifyDiagnosticsResponse, done,verifyAllDone);              
     }
     catch(err){
-      assert.fail("error not expected "+err)
+      throw new Error("unable to verify Diagnostics response "+err)
     }
 });

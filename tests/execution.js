@@ -17,7 +17,7 @@ step('ensure code lens has details <details>', async function (details) {
         handleCodeLensDetails(response,expectedDetails)    
     }
     catch(err){
-        assert.fail("error not expected "+err)
+        throw new Error("unable to verify code lens details "+err)
     }
 });
 

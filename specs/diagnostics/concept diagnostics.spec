@@ -12,3 +12,5 @@ Get all parse errors
    |0   |0          |10000    |1       |Scenario Heading is not allowed in concept file |/specs/concepts/scenarioHeadingNotAllowed.cpt     |
    |0   |0          |10000    |1       |Concept heading can have only Dynamic Parameters|/specs/concepts/headingToHaveOnlyDynamicParams.cpt|
    |1   |0          |10000    |1       |Table doesn't belong to any step                |/specs/concepts/tableDoesNotBelongToAnyStep.cpt   |
+___
+* stop gauge daemon

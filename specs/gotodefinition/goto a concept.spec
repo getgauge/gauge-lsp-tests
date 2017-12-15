@@ -9,3 +9,5 @@ Go to the definition of a concept from the usage
    |uri                       |line|range_start|range_end|
    |--------------------------|----|-----------|---------|
    |specs/concepts/concept.cpt|3   |0          |0        |
+___
+* stop gauge daemon

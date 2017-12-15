@@ -16,3 +16,5 @@ Steps list for codeomplete
    |start one                |
    |two <another> <parameter>|
    |start                    |
+___
+* stop gauge daemon

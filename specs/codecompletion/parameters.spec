@@ -27,3 +27,5 @@ tags: parameter
    |label|detail |
    |-----|-------|
    |one  |dynamic|
+___
+* stop gauge daemon

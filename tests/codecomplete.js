@@ -30,7 +30,7 @@ async function (lineNumber, characterNumber,element, expectedResult) {
         verifyAutocompleteResponse(responseMessage)        
     }
     catch(err){
-        assert.fail("erro not expected "+err)
+        throw new Error("unable to verify Auto complete response "+err)
     }
 }); 
 

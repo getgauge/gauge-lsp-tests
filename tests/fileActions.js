@@ -15,6 +15,6 @@ step('open file <filePath>', async function (filePath) {
         }, daemon.connection(), daemon.projectPath());    
     }
     catch(err){
-        assert.fail("error not expected "+err)
+        throw new Error("unable to open file "+err)
     }
 });
