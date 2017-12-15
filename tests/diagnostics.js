@@ -16,7 +16,8 @@ async function verifyDiagnosticsResponse(responseMessage) {
   if(expectedDiagnostics==null)
     return
   var responseUri = builder.getResponseUri(responseMessage.params.uri)
-
+  if(responseMessage.params.diagnostics==null)
+    return
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
 
@@ -61,5 +62,10 @@ async function verifyAllDone(done){
 step("diagnostics should contain diagnostics for <filePath> <diagnosticsList>", async function (filePath,diagnosticsList,done) {
     var result = await builder.buildExpectedRange(diagnosticsList);
     gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
-    await daemon.handle(verifyDiagnosticsResponse,verifyAllDone, done);        
+    try{
+      await daemon.handle(verifyDiagnosticsResponse,verifyAllDone, done);              
+    }
+    catch(err){
+      assert.fail("error not expected "+err)
+    }
 });
