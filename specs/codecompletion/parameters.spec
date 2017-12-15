@@ -7,7 +7,7 @@ Static Parameter list for codecomplete
 tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
-* codecomplete at line "5" character "7" should give "parameters" 
+* codecomplete in "/specs/codecomplete_param.spec" at line "5" character "7" should give "parameters" 
 
    |label    |detail|
    |---------|------|
@@ -22,7 +22,7 @@ Dynamic Parameter list for codecomplete
 tags: parameter
 
 * open file "/specs/codecomplete_param.spec" 
-* codecomplete at line "8" character "13" should give "parameters" 
+* codecomplete in "/specs/codecomplete_param.spec" at line "8" character "13" should give "parameters" 
 
    |label|detail |
    |-----|-------|

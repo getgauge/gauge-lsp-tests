@@ -26,14 +26,17 @@ function buildExpectedRange(givenResult,uri){
     var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
+      path.join(daemon.projectPath(), expectedDiagnostic[uriIndex]),
       expectedDiagnostic[severityIndex],
-      expectedDiagnostic[messageIndex],expectedDiagnostic[uriIndex]);
+      expectedDiagnostic[messageIndex]);
+
       expectedResult.push(result)
     }
-  return expectedResult
+
+    return expectedResult
 }  
 
-function buildExpectedCodeLens(givenResult,projectPath,filePath){
+function buildExpectedCodeLens(givenResult){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -43,18 +46,20 @@ function buildExpectedCodeLens(givenResult,projectPath,filePath){
   var titleIndex = givenResult.headers.cells.indexOf('title')
   var commandIndex = givenResult.headers.cells.indexOf('command')
   var argumentsIndex = givenResult.headers.cells.indexOf('arguments')
+  var filePathIndex = givenResult.headers.cells.indexOf('uri')
 
   for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
     var expectedDiagnostic = givenResult.rows[rowIndex].cells
 
     var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
-      expectedDiagnostic[rangeEndIndex],path.join(projectPath,filePath));
+      expectedDiagnostic[rangeEndIndex],
+      path.join(daemon.projectPath(),expectedDiagnostic[filePathIndex]));
 
     result.command = buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],
       expectedDiagnostic[argumentsIndex],
-      projectPath,filePath);
+      daemon.projectPath(),expectedDiagnostic[filePathIndex]);
   
     expectedResult.push(result)
   }
@@ -67,14 +72,14 @@ function buildCommand(title,command,args,projectPath,filePath){
   result.title = title
   result.command = command
   result.arguments = [];
-  result.arguments.push(args.replace('%project_uri%',projectPath)
-  .replace('%file_uri%',filePath))
+  result.arguments.push(args.replace('%project_path%',projectPath)
+  .replace('%file_path%',filePath))
 
   return result;
 }
 
 function AddProjectAndFileUri(value,filePath){
-  return value.replace('%file_uri%',path.join("",filePath))
+  return value.replace('%project_path%%file_path%',path.join("",filePath))
 }
 
 function buildPosition(line,index){
@@ -82,16 +87,17 @@ function buildPosition(line,index){
   "character": parseInt(index)}
 }
 
-function buildRange(line,rangeStart,rangeEnd,severity,message,fileUri){
+function buildRange(line,rangeStart,rangeEnd,filePath,severity,message){
   var result = {}
+  
   if(severity){
     result.severity = parseInt(severity)
   }
   if(message){
-    result.message = AddProjectAndFileUri(message,fileUri).replace("%3A",":")
+    result.message = AddProjectAndFileUri(message,filePath).replace("%3A",":")
   }
 
-  result.uri = file.getPath(daemon.projectPath(), fileUri)
+  result.uri = file.getPath(filePath)
   result.range = {
     "start": buildPosition(line,rangeStart),
     "end": buildPosition(line,rangeEnd)

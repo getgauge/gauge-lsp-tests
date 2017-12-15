@@ -4,7 +4,7 @@ Steps code completion
 Steps list for codeomplete
 --------------------------
 * open file "/specs/codecomplete_step.spec" 
-* codecomplete at line "4" character "7" should give "steps" 
+* codecomplete in "/specs/codecomplete_step.spec" at line "4" character "7" should give "steps" 
 
    |label                    |
    |-------------------------|

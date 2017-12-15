@@ -11,14 +11,12 @@ var path = require('path');
 var notification = require('./lsp/notification');
 var fs = require('fs');
 
-async function verifyDiagnosticsResponse(responseMessage) {
-  var expectedDiagnostics =gauge.dataStore.scenarioStore.get('expectedDiagnostics');
-
-  if(expectedDiagnostics==null)
-    return
+async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   var responseUri = builder.getResponseUri(responseMessage.uri)
+
   if(responseMessage.diagnostics==null)
     return
+    
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
 
@@ -62,12 +60,11 @@ async function verifyAllDone(done){
 }
 
 step("open file <fileName> and verify diagnostics <diagnosticsList>", async function (fileName, diagnosticsList,done) {
-  var result = await builder.buildExpectedRange(diagnosticsList);
-  gauge.dataStore.scenarioStore.put('expectedDiagnostics',result)
+  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList);
   try{
     daemon.connection().onNotification("textDocument/publishDiagnostics", (res) => {
       try {
-        verifyDiagnosticsResponse(res);
+        verifyDiagnosticsResponse(res,expectedDiagnostics);
         verifyAllDone(done);
       } catch(e) {
         console.log(e);

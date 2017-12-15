@@ -12,13 +12,11 @@ var responseType = {
     Parameter:6
 };
   
-step('codecomplete at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
-async function (lineNumber, characterNumber,element, expectedResult) {    
+step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
+async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
     expected = buildExpectedElements(expectedResult,element)
     if(expected.kind==null)
         throw new Error("unknown type "+element)
-
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
     
     var position = {
         lineNumber: lineNumber,
@@ -26,7 +24,7 @@ async function (lineNumber, characterNumber,element, expectedResult) {
     };
 
     try{
-        var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , currentFilePath), daemon.connection());
+        var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , filePath), daemon.connection());
         verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){

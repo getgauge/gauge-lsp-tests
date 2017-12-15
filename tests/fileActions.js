@@ -6,7 +6,6 @@ var path = require('path')
 
 step('open file <filePath>', async function (filePath) {
     const content = file.parseContent(path.join(daemon.projectPath(), filePath))
-    gauge.dataStore.scenarioStore.put('currentFilePath', filePath);
     
     try{
         await notification.openFile({

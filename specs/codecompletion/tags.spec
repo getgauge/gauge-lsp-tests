@@ -4,7 +4,7 @@ Tag completion
 Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tocodecomplete.spec" 
-* codecomplete at line "4" character "7" should give "tags" 
+* codecomplete in "/specs/someTags/tocodecomplete.spec" at line "4" character "7" should give "tags" 
 
    |label         |
    |--------------|

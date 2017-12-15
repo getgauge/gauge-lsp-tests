@@ -8,12 +8,11 @@ var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');
 var path = require('path');
 
-step('ensure code lens has details <details>', async function (details) {
-    var currentFilePath = gauge.dataStore.scenarioStore.get('currentFilePath');
-    var expectedDetails = builder.buildExpectedCodeLens(details,daemon.projectPath(),currentFilePath);  
+step('ensure code lens has details for <file> <details>', async function (file,details) {
+    var expectedDetails = builder.buildExpectedCodeLens(details);  
     
     try{
-        var response = await request.codeLens(path.join(daemon.projectPath() , currentFilePath),daemon.connection())
+        var response = await request.codeLens(path.join(daemon.projectPath() , file),daemon.connection())
         handleCodeLensDetails(response,expectedDetails)    
     }
     catch(err){
