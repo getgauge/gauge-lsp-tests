@@ -10,7 +10,7 @@ function getResponseUri(original){
   return uri.parse(original).fsPath
 }
 
-function buildExpectedRange(givenResult,uri){
+function buildExpectedRange(givenResult,projectPath){
   var expectedResult = [];
   
   var lineIndex = givenResult.headers.cells.indexOf('line')
@@ -26,7 +26,7 @@ function buildExpectedRange(givenResult,uri){
     var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
-      path.join(daemon.projectPath(), expectedDiagnostic[uriIndex]),
+      path.join(projectPath, expectedDiagnostic[uriIndex]),
       expectedDiagnostic[severityIndex],
       expectedDiagnostic[messageIndex]);
 

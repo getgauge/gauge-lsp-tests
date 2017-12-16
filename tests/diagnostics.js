@@ -13,9 +13,6 @@ var fs = require('fs');
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   var responseUri = builder.getResponseUri(responseMessage.uri)
-
-  if(responseMessage.diagnostics==null)
-    return
     
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
@@ -45,46 +42,19 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   gauge.dataStore.scenarioStore.put('expectedDiagnostics',expectedDiagnostics)  
 }
 
-async function verifyAllDone(done){
+async function verifyAllDone(){
   var expectedDiagnostics = gauge.dataStore.scenarioStore.get('expectedDiagnostics',expectedDiagnostics)
   if(expectedDiagnostics==null)
-    done()
+    return true
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
   });
 
   if(validated.length == expectedDiagnostics.length)
-  {
-    done()    
-  }
+    return true
 }
 
-step("open file <fileName> and verify diagnostics <diagnosticsList>", async function (fileName, diagnosticsList,done) {
-  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList);
-  try{
-    daemon.connection().onNotification("textDocument/publishDiagnostics", (res) => {
-      try {
-        verifyDiagnosticsResponse(res,expectedDiagnostics);
-        verifyAllDone(done);
-      } catch(e) {
-        console.log(e);
-      }
-    });
-
-    try{
-      fileName = path.join(daemon.projectPath(), fileName);
-      const content = file.parseContent(fileName)
-        await notification.openFile({
-            path: fileName,
-            content: content
-        }, daemon.connection(), daemon.projectPath());
-    }
-    catch(err){
-        throw new Error("unable to open file "+err)
-    }
-
-  }
-  catch(err){
-    throw new Error("unable to verify Diagnostics response "+err)
-  }
+step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList,projectPath);
+  await daemon.startGaugeDaemon(projectPath,verifyDiagnosticsResponse,verifyAllDone,done)
 });

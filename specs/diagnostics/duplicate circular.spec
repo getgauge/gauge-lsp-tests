@@ -1,9 +1,8 @@
 Duplicate diagnostics
 =====================
-* start gauge daemon for project "testdata/parse-errors-circular"
 Get all parse errors
 -----------------------------
-* open file "/specs/concepts/duplicateConcepts.cpt" and verify diagnostics
+* open "testdata/parse-errors-circular" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                                                                     |uri                                               |
    |----|-----------|---------|--------|--------------------------------------------------------------------------------------------|--------------------------------------------------|

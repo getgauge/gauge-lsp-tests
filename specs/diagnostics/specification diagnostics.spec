@@ -1,9 +1,8 @@
 Diagnostics on spec file
 ========================
-* start gauge daemon for project "testdata/parse-errors-specs"
 Get all parse errors
 ----------------------
-* open file "/specs/multipleSpecHeadings.spec" and verify diagnostics
+* open "testdata/parse-errors-specs" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                                  |uri                                |
    |----|-----------|---------|--------|---------------------------------------------------------|-----------------------------------|

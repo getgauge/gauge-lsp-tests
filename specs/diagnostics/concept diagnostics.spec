@@ -1,9 +1,8 @@
 Diagnostics on concept file
 ===========================
-* start gauge daemon for project "testdata/parse-errors-concepts"
 Get all parse errors
 -----------------------------
-* open file "/specs/concepts/conceptShouldHaveOneStep.cpt" and verify diagnostics
+* open "testdata/parse-errors-concepts" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                         |uri                                               |
    |----|-----------|---------|--------|------------------------------------------------|--------------------------------------------------|
