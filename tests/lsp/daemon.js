@@ -22,12 +22,13 @@ async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyI
     connection.listen();
     await connection.sendRequest(new rpc.RequestType("initialize"), { "processId": process.pid, "rootPath": state.projectPath, "rootUri": vscodeUri.file(state.projectPath).toString(), "capabilities": { "workspace": { "applyEdit": true, "didChangeConfiguration": { "dynamicRegistration": true }, "didChangeWatchedFiles": { "dynamicRegistration": true }, "symbol": { "dynamicRegistration": true }, "executeCommand": { "dynamicRegistration": true } }, "textDocument": { "synchronization": { "dynamicRegistration": true, "willSave": true, "willSaveWaitUntil": true, "didSave": true }, "completion": { "dynamicRegistration": true, "completionItem": { "snippetSupport": true, "commitCharactersSupport": true } }, "hover": { "dynamicRegistration": true }, "signatureHelp": { "dynamicRegistration": true }, "definition": { "dynamicRegistration": true }, "references": { "dynamicRegistration": true }, "documentHighlight": { "dynamicRegistration": true }, "documentSymbol": { "dynamicRegistration": true }, "codeAction": { "dynamicRegistration": true }, "codeLens": { "dynamicRegistration": true }, "formatting": { "dynamicRegistration": true }, "rangeFormatting": { "dynamicRegistration": true }, "onTypeFormatting": { "dynamicRegistration": true }, "rename": { "dynamicRegistration": true }, "documentLink": { "dynamicRegistration": true } } }, "trace": "off" }, null);
     connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});        
+    listenerForPublishDiagnostics(connection)
+    if(listener)
+    addListenerPublishDiagnostics(listener,expectedDiagnostics,verifyIfDone,done)
+
     await connection.sendNotification(new rpc.NotificationType("initialized"), {});
     state.connection = connection;
 
-    listenerForPublishDiagnostics()
-    if(listener)
-        addListenerPublishDiagnostics(listener,expectedDiagnostics,verifyIfDone,done)
 };
 
 async function addListenerPublishDiagnostics(listener,expectedDiagnostics,verifyIfDone,done){
@@ -42,9 +43,9 @@ async function removeListenerPublishDiagnostics(id){
     //todo remove the one that matches the id
 }    
 
-async function listenerForPublishDiagnostics(){
+async function listenerForPublishDiagnostics(connection){
     try{
-        connection().onNotification("textDocument/publishDiagnostics", (res) => {
+        connection.onNotification("textDocument/publishDiagnostics", (res) => {
           try {
             handlerForDiagnosticResponse(res)
           } catch(e) {
@@ -60,7 +61,7 @@ async function listenerForPublishDiagnostics(){
 async function handlerForDiagnosticResponse(res){
     for(var i=0;i<listeners.length;i++){
         listeners[i].listener(res,listeners[i].expectedDiagnostics)
-        if(listeners[i].verifyIfDone())
+        if(await listeners[i].verifyIfDone())
         {
             listeners[i].done()
             removeListenerPublishDiagnostics(listeners[i].id)            

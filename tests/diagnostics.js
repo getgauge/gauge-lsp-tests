@@ -25,7 +25,6 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     });              
 
     expectedDiagnostic.isValidated = true
-    console.log("validated "+expectedDiagnostic.message)
     
     if(allDiagnosticsForFile.length==0)
       throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))      
@@ -45,13 +44,13 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
 async function verifyAllDone(){
   var expectedDiagnostics = gauge.dataStore.scenarioStore.get('expectedDiagnostics',expectedDiagnostics)
   if(expectedDiagnostics==null)
-    return true
+    return true    
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
   });
 
   if(validated.length == expectedDiagnostics.length)
-    return true
+    return true  
 }
 
 step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
