@@ -17,3 +17,17 @@ step('open file <filePath>', async function (filePath) {
         throw new Error("unable to open file "+err)
     }
 });
+
+step('open file <filePath> with content <content>', async function (filePath,beforeFormatFile) {
+    const content = file.parseContent(path.join(daemon.projectPath(), beforeFormatFile))
+    
+    try{
+        await notification.openFile({
+            path: filePath,
+            content: content
+        }, daemon.connection(), daemon.projectPath());    
+    }
+    catch(err){
+        throw new Error("unable to open file "+err)
+    }
+});

@@ -1,7 +1,6 @@
 "use strict";
 
 var assert = require('assert');
-const rpc = require('vscode-jsonrpc');
 var path = require('path');
 var daemon = require('./lsp/daemon');
 var request = require('./lsp/request');
@@ -11,7 +10,9 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
     try
     {
         var response = await request.gotoDefinition(
-            {lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
+            {
+                lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
+            },
             path.join(daemon.projectPath(),file), 
             daemon.connection());
     

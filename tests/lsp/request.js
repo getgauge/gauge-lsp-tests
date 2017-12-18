@@ -4,14 +4,14 @@ const rpc = require('vscode-jsonrpc');
 const uri = require('vscode-uri').default;
 
 async function codeLens(fileUri, connection) {
-  return await request(null,fileUri,connection,'textDocument/codeLens')    
+  return await request(fileUri,connection,'textDocument/codeLens')    
 }
 
 async function codecomplete(position, fileUri, connection) {
-  return await request(position,fileUri,connection,'textDocument/completion')
+  return await request(fileUri,connection,'textDocument/completion',position)
 }
 
-async function request(position, fileUri, connection,requestType) {
+async function request(fileUri, connection,requestType,position,options) {
   var messageParams = {}
   if(position){
     messageParams.position = {
@@ -19,6 +19,10 @@ async function request(position, fileUri, connection,requestType) {
       "character": parseInt(position.characterNumber)
     }
   }
+
+  if(options)
+    messageParams.options = options
+  
   messageParams.textDocument = { 
     "uri": uri.file(fileUri).toString().replace('%25','%')
   };
@@ -28,11 +32,19 @@ async function request(position, fileUri, connection,requestType) {
 }
 
 async function gotoDefinition(position, fileUri, connection) {
-  return await request(position,fileUri,connection,'textDocument/definition')
+  return await request(fileUri,connection,'textDocument/definition',position)
+}
+
+async function formatFile(fileUri, connection) {  
+  return await request(fileUri,connection,'textDocument/formatting',null,{
+    "tabSize":4,
+    "insertSpaces":true
+  })  
 }
 
 module.exports = {
   codecomplete: codecomplete,
   gotoDefinition:gotoDefinition,
-  codeLens:codeLens
+  codeLens:codeLens,
+  formatFile:formatFile
 };  
