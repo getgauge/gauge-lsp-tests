@@ -13,10 +13,10 @@ var fs = require('fs');
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   var responseUri = builder.getResponseUri(responseMessage.uri)
-    
+      
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex]
-
+   
     if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
       continue  
 
@@ -25,7 +25,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     });              
 
     expectedDiagnostic.isValidated = true
-    gauge.message("validated "+expectedDiagnostic.message)
+    console.log("validated "+expectedDiagnostic.message)
     
     if(allDiagnosticsForFile.length==0)
       throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))      
@@ -55,6 +55,6 @@ async function verifyAllDone(){
 }
 
 step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList,projectPath);
-  await daemon.startGaugeDaemon(projectPath,verifyDiagnosticsResponse,verifyAllDone,done)
+  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
+  await daemon.startGaugeDaemon(projectPath,verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
 });
