@@ -20,6 +20,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
       continue  
 
+    gauge.message("verified "+responseUri)
     var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
       return elem.message === expectedDiagnostic.message;
     });              

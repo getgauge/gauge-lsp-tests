@@ -41,6 +41,7 @@ function verifyDefinitionResponse(resp,definitionDetails) {
     }
     else
     {
+        gauge.message("verify definition")
         var responseMessage = resp    
         var lineIndex = definitionDetails.headers.cells.indexOf('line')
         var lineEndIndex = definitionDetails.headers.cells.indexOf('line_end')

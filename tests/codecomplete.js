@@ -46,7 +46,6 @@ function buildExpectedElements(expectedResult,element){
 function verifyAutocompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
-         
     var actualNumberOfItems = responseMessage.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {
@@ -56,6 +55,8 @@ function verifyAutocompleteResponse(responseMessage) {
         if(expected.elements.detail)
             assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
     }
+
+    gauge.message("verify code complete")     
     
     assert.equal(actualNumberOfItems, expected.elements.label.length, 
     JSON.stringify(actualNumberOfItems) + " not equal to " 

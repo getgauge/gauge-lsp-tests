@@ -23,5 +23,6 @@ async function verifyFormattedDetails(actual,expected){
         }
       }
 
+    gauge.message("verify format details")
     assert.equal(actual[0].newText,expected.replaceAll("\r\n","\n"))
 }

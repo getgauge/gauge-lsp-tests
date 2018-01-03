@@ -18,7 +18,7 @@ Run Spec, Scenarios and run in parallel must be displayed for a Specification wi
 
    |title                    |line           |range_start|range_end|command      |arguments                  |uri                          |
    |-------------------------|---------------|-----------|---------|-------------|---------------------------|-----------------------------|
-   |Run Scenario             |6              |0          |12       |gauge.execute|%project_path%%file_path%:3|/specs/specWithTestCases.spec|
+   |Run Scenario             |3              |0          |12       |gauge.execute|%project_path%%file_path%:3|/specs/specWithTestCases.spec|
    |Run Spec\|Run in parallel|0              |0          |8        |gauge.execute|%project_path%%file_path%  |/specs/specWithTestCases.spec|
 ___
 * stop gauge daemon

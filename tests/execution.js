@@ -21,11 +21,12 @@ step('ensure code lens has details for <file> <details>', async function (file,d
 });
 
 function handleCodeLensDetails(responseMessage,expectedDetails){
-    if(!responseMessage.result)
-        return;
+    console.log(JSON.stringify(responseMessage))
     
     for (var rowIndex = 0; rowIndex < expectedDetails.length; rowIndex++) {
       var expectedDetail = expectedDetails[rowIndex]
-      assert.deepEqual(responseMessage.result[rowIndex].range, expectedDetail.range);
+      gauge.message(expectedDetail)
+
+      assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }  
 }
