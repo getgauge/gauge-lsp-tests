@@ -39,10 +39,14 @@ function verifyDefinitionResponse(resp,definitionDetails) {
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        
     }
-    if(resp.result){
-        var responseMessage = resp.result
-        
+    else
+    {
+        var responseMessage = resp    
         var lineIndex = definitionDetails.headers.cells.indexOf('line')
+        var lineEndIndex = definitionDetails.headers.cells.indexOf('line_end')
+        if(lineEndIndex==-1)
+            lineEndIndex = lineIndex
+
         var rangeStartIndex = definitionDetails.headers.cells.indexOf('range_start')
         var rangeEndIndex = definitionDetails.headers.cells.indexOf('range_end')
         var uriIndex = definitionDetails.headers.cells.indexOf('uri')
@@ -54,7 +58,7 @@ function verifyDefinitionResponse(resp,definitionDetails) {
             "line": parseInt(definitionDetail[lineIndex]),
             "character": parseInt(definitionDetail[rangeStartIndex])
             },
-            "end": { "line": parseInt(definitionDetail[lineIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
+            "end": { "line": parseInt(definitionDetail[lineEndIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
         },
         "uri": path.join(daemon.projectPath() , definitionDetail[uriIndex])
         };
