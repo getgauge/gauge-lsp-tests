@@ -58,3 +58,8 @@ step("open <projectPath> and verify diagnostics <diagnosticsList>", async functi
   var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
   await daemon.startGaugeDaemon(projectPath,verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
 });
+
+step("get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
+  await daemon.startGaugeDaemon(projectPath,verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
+});

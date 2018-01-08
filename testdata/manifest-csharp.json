@@ -1,5 +1,5 @@
 {
-  "Language": "js",
+  "Language": "csharp",
   "Plugins": [
     "html-report"
   ]

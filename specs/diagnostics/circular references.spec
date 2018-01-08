@@ -1,5 +1,5 @@
-Duplicate diagnostics
-=====================
+Circular references
+===================
 Get all parse errors
 -----------------------------
 * open "testdata/parse-errors-circular" and verify diagnostics

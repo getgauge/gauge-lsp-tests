@@ -19,6 +19,11 @@ function parseContent(file) {
     return fs.readFileSync(file, "utf-8");
 }
 
+function copyFile(from, to){
+    fs.createReadStream(from).pipe(fs.createWriteStream(to));
+}
+
 module.exports={getFullPath:getFullPath,
 getPath:getPath,
-parseContent:parseContent}
+parseContent:parseContent,
+copyFile:copyFile}

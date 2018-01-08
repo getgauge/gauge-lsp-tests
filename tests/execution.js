@@ -21,11 +21,9 @@ step('ensure code lens has details for <file> <details>', async function (file,d
 });
 
 function handleCodeLensDetails(responseMessage,expectedDetails){
-    console.log(JSON.stringify(responseMessage))
-    
     for (var rowIndex = 0; rowIndex < expectedDetails.length; rowIndex++) {
       var expectedDetail = expectedDetails[rowIndex]
-      gauge.message(expectedDetail)
+      gauge.message("verify code lens details")
 
       assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }  
