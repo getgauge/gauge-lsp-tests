@@ -1,11 +1,7 @@
 Steps code completion
 =====================
 
-   |language|
-   |--------|
-   |js      |
-
-* start gauge daemon for project "testdata/codecomplete" in language <language>
+* start gauge daemon for project "testdata/codecomplete" in language specified
 Steps list for codeomplete
 --------------------------
 * open file "/specs/codecomplete_step.spec"

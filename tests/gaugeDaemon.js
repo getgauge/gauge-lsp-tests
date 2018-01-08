@@ -2,9 +2,12 @@ var daemon = require('./lsp/daemon');
 var file = require('./util/fileExtension')
 var path = require('path')
 var fs = require('fs');
+var propertyReader = require('properties-reader');
 
-step("start gauge daemon for project <relativePath> in language <language>", async function(relativePath,language) {
-    file.copyFile(path.join("testdata","manifest-"+language+".json"),path.join(relativePath,"manifest.json"))
+step("start gauge daemon for project <relativePath> in language specified", async function(relativePath) {
+    var properties = propertyReader(file.getFullPath("env/default/user.properties"));
+    var property = properties._properties.language;
+    file.copyFile(path.join("testdata","manifest-"+property+".json"),path.join(relativePath,"manifest.json"))
 
     try{
         await daemon.startGaugeDaemon(relativePath);        

@@ -1,11 +1,7 @@
 Find usages
 ===========
 
-   |language|
-   |--------|
-   |js      |
-
-* start gauge daemon for project "testdata/find-usages" in language <language>
+* start gauge daemon for project "testdata/find-usages" in language specified
 
 Should find usages
 ------------------
