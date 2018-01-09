@@ -11,6 +11,15 @@ var file = require('../util/fileExtension')
 var state = {}
 var listeners = []
 var listenerId = 0;
+var propertyReader = require('properties-reader');
+
+async function startGaugeDaemonWithLanguage(relativePath,listener,expectedDiagnostics,verifyIfDone,done){
+    var properties = propertyReader(file.getFullPath("env/default/user.properties"));
+    var property = properties._properties.language;
+    
+    file.copyFile(path.join("testdata","manifest-"+property+".json"),path.join(relativePath,"manifest.json"))
+    await startGaugeDaemon(relativePath,listener,expectedDiagnostics,verifyIfDone,done)
+}
 
 async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyIfDone,done) {
     state.projectPath = file.getFullPath(projectPath);
@@ -90,6 +99,7 @@ function projectPath() {
 }
 
 module.exports = {
+    startGaugeDaemonWithLanguage:startGaugeDaemonWithLanguage,
     startGaugeDaemon: startGaugeDaemon,
     stopGaugeDaemon:stopGaugeDaemon,
     connection: connection,
