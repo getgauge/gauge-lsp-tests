@@ -5,8 +5,6 @@ Find usages
 
 Should find usages
 ------------------
-* open file "/tests/step_implementation.js"
-
 * ensure code lens has details for "/tests/step_implementation.js" 
 
    |title         |line|range_start|range_end|command             |arguments                                            |uri                          |

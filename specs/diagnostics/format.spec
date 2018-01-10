@@ -1,5 +1,5 @@
-Run from Specification
-======================
+Format
+============
 * start gauge daemon for project "testdata/format"
 Should format a Specification
 -----------------------------
