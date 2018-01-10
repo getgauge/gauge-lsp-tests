@@ -2,8 +2,10 @@
 
 const { spawn } = require('child_process');
 var path = require('path');
+
 var languageClient = require('./languageclient')
 var file = require('../util/fileExtension')
+
 var state = {}
 
 function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done){

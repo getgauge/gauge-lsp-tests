@@ -1,7 +1,4 @@
 var daemon = require('./lsp/daemon');
-var file = require('./util/fileExtension')
-var path = require('path')
-var fs = require('fs');
 
 step('start gauge daemon for project <relativePath>', async function (relativePath) {
     try{

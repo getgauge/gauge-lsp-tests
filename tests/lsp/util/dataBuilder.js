@@ -1,7 +1,6 @@
 "use strict";
 
 var daemon = require('../daemon');
-var stringExtension = require('../../util/stringExtension');
 var file = require('../../util/fileExtension');
 var path = require('path');
 var uri = require('vscode-uri').default;
@@ -54,7 +53,7 @@ function buildExpectedCodeLens(givenResult){
     var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
-      path.join(daemon.projectPath(),expectedDiagnostic[filePathIndex]));
+      daemon.filePath(expectedDiagnostic[filePathIndex]));
 
     result.command = buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],

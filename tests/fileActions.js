@@ -1,7 +1,8 @@
+var assert = require('assert');
+
 var daemon = require('./lsp/daemon');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
-var assert = require('assert');
 
 step('open file <relativeFilePath>', async function (relativeFilePath) {
     const filePath = daemon.filePath(relativeFilePath)

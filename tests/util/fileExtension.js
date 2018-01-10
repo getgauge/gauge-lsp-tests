@@ -1,5 +1,6 @@
 var vscodeUri = require('vscode-uri').default
 var path = require('path')
+
 var cwd = process.cwd();
 var fs = require('fs');
 
@@ -30,6 +31,7 @@ function copyFile(from, to){
 module.exports={
     getUri:getUri,
     getFullPath:getFullPath,
-getPath:getPath,
-parseContent:parseContent,
-copyFile:copyFile}
+    getPath:getPath,
+    parseContent:parseContent,
+    copyFile:copyFile
+}

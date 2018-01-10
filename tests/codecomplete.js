@@ -2,7 +2,6 @@
 var daemon = require('./lsp/daemon');
 var languageclient = require('./lsp/languageclient');
 var table = require('./util/table');
-var path = require('path');
 var assert = require('assert')
 var expected = {}
 
@@ -23,7 +22,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     };
 
     try{
-        var responseMessage = await languageclient.codecomplete(position, path.join(daemon.projectPath() , filePath), daemon.connection());
+        var responseMessage = await languageclient.codecomplete(position, daemon.filePath(filePath), daemon.connection());
         verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){

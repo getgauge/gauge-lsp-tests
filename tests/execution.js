@@ -1,5 +1,6 @@
 'use strict';
 var assert = require('assert');
+
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');

@@ -2,6 +2,7 @@
 const rpc = require('vscode-jsonrpc');
 const vscodeUri = require('vscode-uri').default;
 var path = require('path')
+
 const file = require('../util/fileExtension')
 const _request = require('./request')
 

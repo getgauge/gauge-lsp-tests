@@ -1,8 +1,9 @@
 "use strict";
 
+var assert = require('assert');
+
 var daemon = require('./lsp/daemon');
 var file = require('./util/fileExtension');
-var assert = require('assert');
 var builder = require('./lsp/util/dataBuilder');
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
