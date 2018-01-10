@@ -11,12 +11,10 @@ var file = require('../util/fileExtension')
 var state = {}
 var listeners = []
 var listenerId = 0;
-var propertyReader = require('properties-reader');
+var properties;
 
 async function startGaugeDaemonWithLanguage(relativePath,listener,expectedDiagnostics,verifyIfDone,done){
-    var properties = propertyReader(file.getFullPath("env/default/user.properties"));
-    var property = properties._properties.language;
-    
+    var property = process.env.language;
     file.copyFile(path.join("testdata","manifest-"+property+".json"),path.join(relativePath,"manifest.json"))
     await startGaugeDaemon(relativePath,listener,expectedDiagnostics,verifyIfDone,done)
 }
@@ -55,9 +53,15 @@ return {
     }
 }
 
-async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyIfDone,done) {
+async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyIfDone,done) {    
     state.projectPath = file.getFullPath(projectPath);
-    state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + state.projectPath, "-l", "debug"],{cwd:state.projectPath});
+
+    var use_working_directory = process.env.use_working_directory;
+    console.log("use wd "+use_working_directory)
+    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+
+    console.log("args used to start gauge"+args)
+    state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     state.reader = new rpc.StreamMessageReader(state.gaugeDaemon.stdout);
     state.writer = new rpc.StreamMessageWriter(state.gaugeDaemon.stdin);
 

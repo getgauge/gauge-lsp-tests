@@ -1,10 +1,7 @@
 Goto a step definition
 ======================
-   |language|
-   |--------|
-   |js      |
 
-* start gauge daemon for project "testdata/gotodefinition" in language <language>
+* start gauge daemon for project "testdata/gotodefinition" in language specified
 Goto definition to the implementation of a step from the specification
 ----------------------------------------------------------------------
 * open file "/specs/concept_definition.spec"
