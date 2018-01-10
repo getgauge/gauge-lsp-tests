@@ -2,24 +2,19 @@
 
 const rpc = require('vscode-jsonrpc');
 var path = require('path')
-const uri = require('vscode-uri').default;
+const file = require('../util/fileExtension')
 
-async function openFile(file, connection, projectPath,handler) {
-  var fileUri = path.join(projectPath , file.path);
-
+async function openFile(filePath,content, connection) {
   var notification = new rpc.NotificationType('textDocument/didOpen')
-
-  if(handler!=null)
-    connection.onNotification(notification,handler)    
 
   return await connection.sendNotification(notification,
     {
       "textDocument":
       {
-        "uri": uri.file(fileUri).toString().replace('%25','%'),
+        "uri": file.getUri(filePath),
         "languageId": "markdown",
         "version": 1,
-        "text": file.content
+        "text": content
       }
     });
 }

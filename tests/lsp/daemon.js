@@ -57,10 +57,8 @@ async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyI
     state.projectPath = file.getFullPath(projectPath);
 
     var use_working_directory = process.env.use_working_directory;
-    console.log("use wd "+use_working_directory)
     var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
-    console.log("args used to start gauge"+args)
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     state.reader = new rpc.StreamMessageReader(state.gaugeDaemon.stdout);
     state.writer = new rpc.StreamMessageWriter(state.gaugeDaemon.stdin);
@@ -132,6 +130,10 @@ function connection() {
     return state.connection;
 }
 
+function filePath(relativePath){
+    return path.join(projectPath() , relativePath);
+}
+
 function projectPath() {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
@@ -143,5 +145,6 @@ module.exports = {
     startGaugeDaemon: startGaugeDaemon,
     stopGaugeDaemon:stopGaugeDaemon,
     connection: connection,
-    projectPath: projectPath
+    projectPath: projectPath,
+    filePath:filePath
 };

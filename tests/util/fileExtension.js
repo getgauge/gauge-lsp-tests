@@ -3,6 +3,10 @@ var path = require('path')
 var cwd = process.cwd();
 var fs = require('fs');
 
+function getUri(filePath){
+    return vscodeUri.file(filePath).toString().replace('%25','%')
+}
+
 function getFullPath(relativePath, file){
     if(file)
         return vscodeUri.file(path.join(cwd, relativePath,file)).fsPath;
@@ -23,7 +27,9 @@ function copyFile(from, to){
     fs.createReadStream(from).pipe(fs.createWriteStream(to));
 }
 
-module.exports={getFullPath:getFullPath,
+module.exports={
+    getUri:getUri,
+    getFullPath:getFullPath,
 getPath:getPath,
 parseContent:parseContent,
 copyFile:copyFile}
