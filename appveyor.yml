@@ -31,12 +31,16 @@ test_script:
 - ps: npm install
 - ps: gauge run specs
 artifacts:
-- path: ./reports/html-reportreport
+- path: ./reports/html-report
   name: gauge-reports
+- path: ./logs
+  name: gauge-logs
 - path: ./failure_reports/html-report
   name: gauge-reports-failure
 on_finish:
 - ps: >-
     # upload results to AppVeyor
     $wc = New-Object 'System.Net.WebClient'
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\xml-report\result.xml))
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/gauge-lsp-tests-xml/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\xml-report\result.xml))
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/gauge-lsp-tests-html/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\html-report\index.html))
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/gauge-lsp-tests-logs/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\logs))

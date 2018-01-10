@@ -10,7 +10,7 @@ async function shutDown(){
     state.connection.sendNotification(new rpc.RequestType("exit"));
 }
 
-async function initialize(process,execPath,listener,expectedDiagnostics,verifyIfDone,done){
+async function initialize(process,execPath){
     var reader = new rpc.StreamMessageReader(process.stdout);
     var writer = new rpc.StreamMessageWriter(process.stdin);
 
@@ -25,9 +25,6 @@ async function initialize(process,execPath,listener,expectedDiagnostics,verifyIf
 
     listenerForNotification("textDocument/publishDiagnostics",connection)
     
-    if(listener)
-        registerOnNotification(listener,expectedDiagnostics,verifyIfDone,done)
-
     await connection.sendNotification(new rpc.NotificationType("initialized"), {});
     state.connection = connection
     return connection
@@ -64,7 +61,7 @@ async function handlerForDiagnosticResponse(res){
     }
 }
 
-async function registerOnNotification(listener,expectedDiagnostics,verifyIfDone,done){
+function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done){
     var id = listenerId
     listeners.push({id:listenerId, listener:listener, expectedDiagnostics:expectedDiagnostics,verifyIfDone:verifyIfDone,done:done})
     listenerId++
@@ -108,5 +105,6 @@ function getInitializeParams(projectPath,process) {
 module.exports = {
     initialize:initialize,
     getInitializeParams,getInitializeParams,
+    registerForNotification:registerForNotification,
     shutDown:shutDown
 }

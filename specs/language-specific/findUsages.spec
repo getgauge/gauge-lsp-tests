@@ -1,7 +1,7 @@
 Find usages
 ===========
 
-* start gauge daemon for project "testdata/find-usages" in language specified
+* start gauge daemon for project "testdata/find-usages"
 
 Should find usages
 ------------------

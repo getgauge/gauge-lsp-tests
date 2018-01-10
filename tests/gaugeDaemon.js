@@ -3,16 +3,6 @@ var file = require('./util/fileExtension')
 var path = require('path')
 var fs = require('fs');
 
-step("start gauge daemon for project <relativePath> in language specified", async function(relativePath) {
-    try{
-        await daemon.startGaugeDaemonWithLanguage(relativePath);        
-    }
-    catch(err){
-        throw new Error("unable to start gauge daemon "+err)
-    }    
-
-});
-
 step('start gauge daemon for project <relativePath>', async function (relativePath) {
     try{
         await daemon.startGaugeDaemon(relativePath);        
