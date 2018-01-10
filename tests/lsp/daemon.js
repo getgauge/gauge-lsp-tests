@@ -21,6 +21,40 @@ async function startGaugeDaemonWithLanguage(relativePath,listener,expectedDiagno
     await startGaugeDaemon(relativePath,listener,expectedDiagnostics,verifyIfDone,done)
 }
 
+// Return the parameters used to initialize a client - you may want to extend capabilities
+function getInitializeParams(projectPath,process) {
+return {
+    processId: process.pid,
+    rootPath: projectPath,
+    rootUri: vscodeUri.file(state.projectPath).toString(),
+    capabilities: { 
+    workspace: { 
+        applyEdit: true, 
+        didChangeConfiguration: { dynamicRegistration: true }, 
+        didChangeWatchedFiles: { dynamicRegistration: true }, 
+        symbol: { dynamicRegistration: true }, 
+        executeCommand: { dynamicRegistration: true } }, 
+        textDocument: { 
+            synchronization: { dynamicRegistration: true, willSave: true, willSaveWaitUntil: true, didSave: true }, 
+            completion: { dynamicRegistration: true, completionItem: { snippetSupport: true, commitCharactersSupport: true } }, 
+            hover: { dynamicRegistration: true }, signatureHelp: { dynamicRegistration: true }, 
+            definition: { dynamicRegistration: true }, 
+            references: { dynamicRegistration: true }, 
+            documentHighlight: { dynamicRegistration: true }, documentSymbol: { dynamicRegistration: true }, 
+            codeAction: { dynamicRegistration: true }, 
+            codeLens: { dynamicRegistration: true }, 
+            formatting: { dynamicRegistration: true }, 
+            rangeFormatting: { dynamicRegistration: true }, 
+            onTypeFormatting: { dynamicRegistration: true }, 
+            rename: { dynamicRegistration: true }, 
+            documentLink: { dynamicRegistration: true } 
+        } 
+    },
+    trace: "off", 
+    experimental: {}
+    }
+}
+
 async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyIfDone,done) {
     state.projectPath = file.getFullPath(projectPath);
     state.gaugeDaemon = spawn('gauge', ['daemon', '--lsp', '--dir=' + state.projectPath, "-l", "debug"],{cwd:state.projectPath});
@@ -29,7 +63,9 @@ async function startGaugeDaemon(projectPath,listener,expectedDiagnostics,verifyI
 
     let connection = rpc.createMessageConnection(state.reader, state.writer);    
     connection.listen();
-    await connection.sendRequest(new rpc.RequestType("initialize"), { "processId": process.pid, "rootPath": state.projectPath, "rootUri": vscodeUri.file(state.projectPath).toString(), "capabilities": { "workspace": { "applyEdit": true, "didChangeConfiguration": { "dynamicRegistration": true }, "didChangeWatchedFiles": { "dynamicRegistration": true }, "symbol": { "dynamicRegistration": true }, "executeCommand": { "dynamicRegistration": true } }, "textDocument": { "synchronization": { "dynamicRegistration": true, "willSave": true, "willSaveWaitUntil": true, "didSave": true }, "completion": { "dynamicRegistration": true, "completionItem": { "snippetSupport": true, "commitCharactersSupport": true } }, "hover": { "dynamicRegistration": true }, "signatureHelp": { "dynamicRegistration": true }, "definition": { "dynamicRegistration": true }, "references": { "dynamicRegistration": true }, "documentHighlight": { "dynamicRegistration": true }, "documentSymbol": { "dynamicRegistration": true }, "codeAction": { "dynamicRegistration": true }, "codeLens": { "dynamicRegistration": true }, "formatting": { "dynamicRegistration": true }, "rangeFormatting": { "dynamicRegistration": true }, "onTypeFormatting": { "dynamicRegistration": true }, "rename": { "dynamicRegistration": true }, "documentLink": { "dynamicRegistration": true } } }, "trace": "off" }, null);
+    const initializeParams = getInitializeParams(state.projectPath, process);
+
+    await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
     connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});        
     listenerForPublishDiagnostics(connection)
     if(listener)
