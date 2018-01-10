@@ -1,7 +1,7 @@
 Goto a step definition
 ======================
 
-* start gauge daemon for project "testdata/gotodefinition"
+* start gauge daemon for project "data/gotodefinition"
 Goto definition to the implementation of a step from the specification
 ----------------------------------------------------------------------
 * open file "/specs/concept_definition.spec"

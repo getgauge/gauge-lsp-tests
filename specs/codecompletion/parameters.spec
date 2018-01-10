@@ -1,6 +1,6 @@
 Parameter code completion
 =========================
-* start gauge daemon for project "testdata/codecomplete"
+* start gauge daemon for project "data/codecomplete"
 Static Parameter list for codecomplete
 --------------------------------------
 

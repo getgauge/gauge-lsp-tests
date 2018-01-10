@@ -1,15 +1,9 @@
 "use strict";
 
-const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
-var request = require('./lsp/request');
-var table = require('./util/table');
 var file = require('./util/fileExtension');
 var assert = require('assert');
 var builder = require('./lsp/util/dataBuilder');
-var path = require('path');
-var notification = require('./lsp/notification');
-var fs = require('fs');
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   var responseUri = builder.getResponseUri(responseMessage.uri)

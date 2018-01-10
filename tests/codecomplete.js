@@ -1,7 +1,6 @@
 'use strict';
-const rpc = require('vscode-jsonrpc');
 var daemon = require('./lsp/daemon');
-var request = require('./lsp/request');
+var languageclient = require('./lsp/languageclient');
 var table = require('./util/table');
 var path = require('path');
 var assert = require('assert')
@@ -24,7 +23,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     };
 
     try{
-        var responseMessage = await request.codecomplete(position, path.join(daemon.projectPath() , filePath), daemon.connection());
+        var responseMessage = await languageclient.codecomplete(position, path.join(daemon.projectPath() , filePath), daemon.connection());
         verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){

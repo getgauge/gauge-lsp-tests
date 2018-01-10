@@ -1,11 +1,11 @@
 Format
 ============
-* start gauge daemon for project "testdata/format"
+* start gauge daemon for project "data/format"
 Should format a Specification
 -----------------------------
 * To fix
 * open file "/specs/toBeFormatted.spec" with content "/specs/beforeFormat.spec"
-* format file "/specs/toBeFormatted.spec" and ensure formatted contents are <file:testdata/format/specs/afterFormat.spec>
+* format file "/specs/toBeFormatted.spec" and ensure formatted contents are <file:data/format/specs/afterFormat.spec>
 
 Should format a Concept
 -----------------------

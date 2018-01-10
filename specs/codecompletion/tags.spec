@@ -1,6 +1,6 @@
 Tag completion
 ===============
-* start gauge daemon for project "testdata/codecomplete"
+* start gauge daemon for project "data/codecomplete"
 Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tocodecomplete.spec" 

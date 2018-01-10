@@ -12,7 +12,7 @@ function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done)
 
 async function startGaugeDaemon(projectPath) {    
     var property = process.env.language;
-    file.copyFile(path.join("testdata","manifest-"+property+".json"),path.join(projectPath,"manifest.json"))
+    file.copyFile(path.join("data","manifest-"+property+".json"),path.join(projectPath,"manifest.json"))
     state.projectPath = file.getFullPath(projectPath);
 
     var use_working_directory = process.env.use_working_directory;

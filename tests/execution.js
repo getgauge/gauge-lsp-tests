@@ -1,18 +1,14 @@
 'use strict';
 var assert = require('assert');
-const rpc = require('vscode-jsonrpc');
-
-var request = require('./lsp/request');
-var table = require('./util/table');
+var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var daemon = require('./lsp/daemon');
-var path = require('path');
 
 step('ensure code lens has details for <file> <details>', async function (file,details) {
     var expectedDetails = builder.buildExpectedCodeLens(details);  
     
     try{
-        var response = await request.codeLens(path.join(daemon.projectPath() , file),daemon.connection())
+        var response = await languageclient.codeLens(daemon.filePath(file) ,daemon.connection())
         handleCodeLensDetails(response,expectedDetails)    
     }
     catch(err){

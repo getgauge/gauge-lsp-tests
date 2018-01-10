@@ -1,6 +1,10 @@
 "use strict";
 const rpc = require('vscode-jsonrpc');
 const vscodeUri = require('vscode-uri').default;
+var path = require('path')
+const file = require('../util/fileExtension')
+const _request = require('./request')
+
 var state = {}
 var listeners = []
 var listenerId = 0;
@@ -9,6 +13,41 @@ async function shutDown(){
     await state.connection.sendRequest(new rpc.RequestType("shutdown"), undefined)
     state.connection.sendNotification(new rpc.RequestType("exit"));
 }
+
+async function codeLens(fileUri, connection) {
+    return await _request.request(fileUri,connection,'textDocument/codeLens')    
+}
+  
+async function codecomplete(position, fileUri, connection) {
+    return await _request.request(fileUri,connection,'textDocument/completion',position)
+}
+  
+async function gotoDefinition(position, fileUri, connection) {
+    return await _request.request(fileUri,connection,'textDocument/definition',position)
+}
+  
+async function formatFile(fileUri, connection) {  
+    return await _request.request(fileUri,connection,'textDocument/formatting',null,{
+        "tabSize":4,
+        "insertSpaces":true
+    })  
+}
+  
+
+async function openFile(filePath,content, connection) {
+    var notification = new rpc.NotificationType('textDocument/didOpen')
+
+    return await state.connection.sendNotification(notification,
+    {
+        "textDocument":
+        {
+            "uri": file.getUri(filePath),
+            "languageId": "markdown",
+            "version": 1,
+            "text": content
+        }
+    });
+}  
 
 async function initialize(process,execPath){
     var reader = new rpc.StreamMessageReader(process.stdout);
@@ -23,7 +62,7 @@ async function initialize(process,execPath){
     await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
     connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
 
-    listenerForNotification("textDocument/publishDiagnostics",connection)
+    OnNotification("textDocument/publishDiagnostics",connection)
     
     await connection.sendNotification(new rpc.NotificationType("initialized"), {});
     state.connection = connection
@@ -35,11 +74,11 @@ async function stopListening(id){
 }    
 
 
-async function listenerForNotification(notificationType,connection){
+async function OnNotification(notificationType,connection){
     try{
         connection.onNotification(notificationType, (res) => {
           try {
-            handlerForDiagnosticResponse(res)
+            handlerForNotifcation(res)
           } catch(e) {
             console.log(e);
           }
@@ -50,7 +89,7 @@ async function listenerForNotification(notificationType,connection){
     }
 }
 
-async function handlerForDiagnosticResponse(res){
+async function handlerForNotifcation(res){
     for(var i=0;i<listeners.length;i++){
         listeners[i].listener(res,listeners[i].expectedDiagnostics)
         if(await listeners[i].verifyIfDone())
@@ -104,7 +143,11 @@ function getInitializeParams(projectPath,process) {
 
 module.exports = {
     initialize:initialize,
-    getInitializeParams,getInitializeParams,
     registerForNotification:registerForNotification,
-    shutDown:shutDown
+    shutDown:shutDown,
+    openFile:openFile,
+    codeLens:codeLens,
+    codecomplete:codecomplete,
+    gotoDefinition:gotoDefinition,
+    formatFile:formatFile
 }

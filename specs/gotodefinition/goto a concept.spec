@@ -1,6 +1,6 @@
 Goto a concept
 ==============
-* start gauge daemon for project "testdata/gotodefinition"
+* start gauge daemon for project "data/gotodefinition"
 Go to the definition of a concept from the usage
 ------------------------------------------------
 * open file "/specs/concept_definition.spec"

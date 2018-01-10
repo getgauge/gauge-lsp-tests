@@ -1,6 +1,6 @@
 Run from Specification
 ======================
-* start gauge daemon for project "testdata/runFromSpecfication"
+* start gauge daemon for project "data/runFromSpecfication"
 Run Spec and Scenarios must be displayed for a Specification
 ------------------------------------------------------------
 * open file "/specs/simpleSpecification.spec"

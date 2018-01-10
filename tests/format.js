@@ -1,17 +1,12 @@
 "use strict";
 
 var assert = require('assert');
-const rpc = require('vscode-jsonrpc');
-var path = require('path');
 var daemon = require('./lsp/daemon');
-var request = require('./lsp/request');
-var table = require('./util/table');
-var string = require('./util/stringExtension');
-var builder = require('./lsp/util/dataBuilder');
+var languageclient = require('./lsp/languageclient');
 
 step("format file <filePath> and ensure formatted contents are <afterFormat>", async function(filePath, expected) {
     //const expected = afterFormat.join("\n")
-    var response = await request.formatFile(path.join(daemon.projectPath(),filePath), daemon.connection(), daemon.projectPath())
+    var response = await languageclient.formatFile(daemon.filePath(filePath), daemon.connection(), daemon.projectPath())
     await verifyFormattedDetails(response, expected)    
 });
 

@@ -6,7 +6,7 @@ Stub for unimplemented Steps
 
 Generate Code for Simple Unimplemented step
 -------------------------------------------
-* get stubs for unimplemented steps project "testdata/generatestubs" in language 
+* get stubs for unimplemented steps project "data/generatestubs" in language 
 
    |message                      |code                                                                         |uri                           |
    |-----------------------------|-----------------------------------------------------------------------------|------------------------------|

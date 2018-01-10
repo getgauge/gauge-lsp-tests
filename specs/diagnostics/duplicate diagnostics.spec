@@ -2,7 +2,7 @@ Duplicate diagnostics
 =====================
 Get all parse errors
 -----------------------------
-* open "testdata/parse-errors-duplicate" and verify diagnostics
+* open "data/parse-errors-duplicate" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                         |uri                                               |
    |----|-----------|---------|--------|------------------------------------------------|--------------------------------------------------|
