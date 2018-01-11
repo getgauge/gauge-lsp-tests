@@ -37,7 +37,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   gauge.dataStore.scenarioStore.put('expectedDiagnostics',expectedDiagnostics)  
 }
 
-async function verifyAllDone(){
+function verifyAllDone(){
   var expectedDiagnostics = gauge.dataStore.scenarioStore.get('expectedDiagnostics',expectedDiagnostics)
   if(expectedDiagnostics==null)
     return true    

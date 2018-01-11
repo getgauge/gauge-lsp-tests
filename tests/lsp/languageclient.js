@@ -1,13 +1,12 @@
 "use strict";
 const rpc = require('vscode-jsonrpc');
 const vscodeUri = require('vscode-uri').default;
-var path = require('path')
-
 const file = require('../util/fileExtension')
 const _request = require('./request')
+const _notification = require('./notfication')
 
 var state = {}
-var listeners = []
+var listeners = [];
 var listenerId = 0;
 
 async function shutDown(){
@@ -51,6 +50,21 @@ async function openFile(filePath,content, connection) {
 }  
 
 async function initialize(process,execPath){
+    var connection = getConnection(process)
+
+    const initializeParams = getInitializeParams(execPath, process);    
+    
+    await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
+    connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
+
+    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
+    
+    await connection.sendNotification(new rpc.NotificationType("initialized"), {});
+    state.connection = connection
+    return connection
+}
+
+function getConnection(process){
     var reader = new rpc.StreamMessageReader(process.stdout);
     var writer = new rpc.StreamMessageWriter(process.stdin);
 
@@ -58,54 +72,7 @@ async function initialize(process,execPath){
     connection = connection;
 
     connection.listen();
-
-    const initializeParams = getInitializeParams(execPath, process);    
-    await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
-    connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
-
-    OnNotification("textDocument/publishDiagnostics",connection)
-    
-    await connection.sendNotification(new rpc.NotificationType("initialized"), {});
-    state.connection = connection
-    return connection
-}
-
-async function stopListening(id){
-    listeners.pop()
-}    
-
-
-async function OnNotification(notificationType,connection){
-    try{
-        connection.onNotification(notificationType, (res) => {
-          try {
-            handlerForNotifcation(res)
-          } catch(e) {
-            console.log(e);
-          }
-        });
-    }
-    catch(err){
-        throw new Error("unable to handle notification "+notificationType+ ": Error"+err)
-    }
-}
-
-async function handlerForNotifcation(res){
-    for(var i=0;i<listeners.length;i++){
-        listeners[i].listener(res,listeners[i].expectedDiagnostics)
-        if(await listeners[i].verifyIfDone())
-        {
-            listeners[i].done()
-            stopListening(listeners[i].id)            
-        }
-    }
-}
-
-function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done){
-    var id = listenerId
-    listeners.push({id:listenerId, listener:listener, expectedDiagnostics:expectedDiagnostics,verifyIfDone:verifyIfDone,done:done})
-    listenerId++
-    return id
+    return connection;
 }
 
 // Return the parameters used to initialize a client - you may want to extend capabilities
@@ -139,9 +106,16 @@ function getInitializeParams(projectPath,process) {
         },
         trace: "off",
         experimental: {}
-        }
     }
+}
 
+function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done){
+    var id = listenerId
+    listeners.push({id:listenerId, listener:listener, expectedDiagnostics:expectedDiagnostics,verifyIfDone:verifyIfDone,done:done})
+    listenerId++
+    return id
+}
+    
 module.exports = {
     initialize:initialize,
     registerForNotification:registerForNotification,
