@@ -20,6 +20,7 @@ async function startGaugeDaemon(projectPath) {
     var use_working_directory = process.env.use_working_directory;
     var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
+    gauge.message("start daemon args "+args)
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     state.connection = await languageClient.initialize(state.gaugeDaemon,state.projectPath)
 };

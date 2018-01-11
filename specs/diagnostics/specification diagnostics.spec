@@ -2,7 +2,7 @@ Diagnostics on spec file
 ========================
 Get all parse errors
 ----------------------
-* open "data/parse-errors-specs" and verify diagnostics
+* open "data/parse-errors/specs" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                                  |uri                                |
    |----|-----------|---------|--------|---------------------------------------------------------|-----------------------------------|
