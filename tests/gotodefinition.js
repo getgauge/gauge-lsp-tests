@@ -10,7 +10,7 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
             {
                 lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
             },
-            languageclient.filePath(file));
+            file);
     
         verifyDefinitionResponse(response,details)     
     }

@@ -21,7 +21,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     };
 
     try{
-        var responseMessage = await languageclient.codecomplete(position, languageclient.filePath(filePath));
+        var responseMessage = await languageclient.codecomplete(position, filePath);
         verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){

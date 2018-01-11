@@ -5,7 +5,7 @@ var languageclient = require('./lsp/languageclient');
 
 step('open file <relativeFilePath>', async function (relativeFilePath) {    
     try{
-        await languageclient.openFile(languageclient.filePath(relativeFilePath), file.parseContent(languageclient.filePath(relativeFilePath)));
+        await languageclient.openFile(relativeFilePath);
     }
     catch(err){
         throw new Error("unable to open file "+err)
@@ -13,11 +13,8 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
 });
 
 step('open file <relativeFilePath> with content <content>', async function (relativeFilePath,beforeFormatFile) {
-    const filePath = languageclient.filePath(relativeFilePath)
-    const content = file.parseContent(languageclient.filePath(beforeFormatFile))
-    
     try{
-        await languageclient.openFile(relativeFilePath,content);    
+        await languageclient.openFile(relativeFilePath,beforeFormatFile);    
     }
     catch(err){
         throw new Error("unable to open file "+err)

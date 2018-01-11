@@ -18,19 +18,19 @@ async function shutDown(){
 }
 
 async function codeLens(fileUri) {
-    return await _request.request(fileUri,state.connection,'textDocument/codeLens')    
+    return await _request.request(filePath(fileUri),state.connection,'textDocument/codeLens')    
 }
   
-async function codecomplete(position, fileUri) {
-    return await _request.request(fileUri,state.connection,'textDocument/completion',position)
+async function codecomplete(position, relativeFilePath) {
+    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/completion',position)
 }
   
-async function gotoDefinition(position, fileUri) {
-    return await _request.request(fileUri,state.connection,'textDocument/definition',position)
+async function gotoDefinition(position, relativeFilePath) {
+    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/definition',position)
 }
   
-async function formatFile(fileUri) {  
-    return await _request.request(fileUri,state.connection,'textDocument/formatting',null,{
+async function formatFile(relativeFilePath) {  
+    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/formatting',null,{
         "tabSize":4,
         "insertSpaces":true
     })  
@@ -59,15 +59,17 @@ async function openProject(projectPath) {
 };
 
 
-async function openFile(filePath,content) {
+async function openFile(relativePath,contentFile) {
+    if(contentFile==null)
+        contentFile = relativePath
     return await _notification.sendNotification(state.connection,'textDocument/didOpen',
     {
         "textDocument":
         {
-            "uri": file.getUri(filePath),
+            "uri": file.getUri(filePath(relativePath)),
             "languageId": "markdown",
             "version": 1,
-            "text": content
+            "text": file.parseContent(filePath(contentFile))
         }
     });
 

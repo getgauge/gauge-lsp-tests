@@ -8,7 +8,7 @@ step('ensure code lens has details for <file> <details>', async function (file,d
     var expectedDetails = builder.buildExpectedCodeLens(details);  
     
     try{
-        var response = await languageclient.codeLens(languageclient.filePath(file))
+        var response = await languageclient.codeLens(file)
         handleCodeLensDetails(response,expectedDetails)    
     }
     catch(err){
