@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-var daemon = require('./lsp/daemon');
+var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
@@ -51,9 +51,9 @@ function verifyAllDone(){
 
 step(["open <projectPath> and verify diagnostics <diagnosticsList>","get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>"], async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
-  daemon.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
+  languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
   try{
-    await daemon.startGaugeDaemon(projectPath)
+    await languageclient.openProject(projectPath)
   }
   catch(err){
     throw new Error('Unable to perform operation '+err)

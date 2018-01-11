@@ -1,5 +1,4 @@
 'use strict';
-var daemon = require('./lsp/daemon');
 var languageclient = require('./lsp/languageclient');
 var table = require('./util/table');
 var assert = require('assert')
@@ -22,7 +21,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     };
 
     try{
-        var responseMessage = await languageclient.codecomplete(position, daemon.filePath(filePath), daemon.connection());
+        var responseMessage = await languageclient.codecomplete(position, languageclient.filePath(filePath));
         verifyAutocompleteResponse(responseMessage)                
     }
     catch(err){

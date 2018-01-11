@@ -2,12 +2,11 @@
 
 var assert = require('assert');
 
-var daemon = require('./lsp/daemon');
 var languageclient = require('./lsp/languageclient');
 
 step("format file <filePath> and ensure formatted contents are <afterFormat>", async function(filePath, expected) {
     try{
-        var response = await languageclient.formatFile(daemon.filePath(filePath), daemon.connection(), daemon.projectPath())
+        var response = await languageclient.formatFile(languageclient.filePath(filePath), languageclient.projectPath())
         verifyFormattedDetails(response, expected)        
     }
     catch(err){

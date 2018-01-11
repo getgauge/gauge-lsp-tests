@@ -23,6 +23,19 @@ async function request(fileUri, connection,requestType,position,options) {
   return await connection.sendRequest(request, messageParams, null);
 }
 
+async function sendRequest(connection,method,params,token){
+  if(token)
+    connection.sendRequest(new rpc.RequestType(method), params,token);
+  else    
+    connection.sendRequest(new rpc.RequestType(method), params);
+}
+
+function onRequest(connection,method,params){
+  connection.onRequest(new rpc.RequestType(method), params);
+}
+
 module.exports = {
-  request:request
-};  
+  request:request,
+  sendRequest:sendRequest,
+  onRequest:onRequest
+};

@@ -1,40 +1,65 @@
 "use strict";
-const rpc = require('vscode-jsonrpc');
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
-const _request = require('./request')
-const _notification = require('./notfication')
+const { spawn } = require('child_process');
+var path = require('path');
+
+const _request = require('./rpc/request')
+const _notification = require('./rpc/notfication')
+const _connection = require('./rpc/connection')
 
 var state = {}
 var listeners = [];
 var listenerId = 0;
 
 async function shutDown(){
-    await state.connection.sendRequest(new rpc.RequestType("shutdown"), undefined)
+    await _request.sendRequest(state.connection,"shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
 
-async function codeLens(fileUri, connection) {
-    return await _request.request(fileUri,connection,'textDocument/codeLens')    
+async function codeLens(fileUri) {
+    return await _request.request(fileUri,state.connection,'textDocument/codeLens')    
 }
   
-async function codecomplete(position, fileUri, connection) {
-    return await _request.request(fileUri,connection,'textDocument/completion',position)
+async function codecomplete(position, fileUri) {
+    return await _request.request(fileUri,state.connection,'textDocument/completion',position)
 }
   
-async function gotoDefinition(position, fileUri, connection) {
-    return await _request.request(fileUri,connection,'textDocument/definition',position)
+async function gotoDefinition(position, fileUri) {
+    return await _request.request(fileUri,state.connection,'textDocument/definition',position)
 }
   
-async function formatFile(fileUri, connection) {  
-    return await _request.request(fileUri,connection,'textDocument/formatting',null,{
+async function formatFile(fileUri) {  
+    return await _request.request(fileUri,state.connection,'textDocument/formatting',null,{
         "tabSize":4,
         "insertSpaces":true
     })  
 }
-  
 
-async function openFile(filePath,content, connection) {
+function filePath(relativePath){
+    return path.join(projectPath() , relativePath);
+}
+
+function projectPath() {
+    if (!state.gaugeDaemon)
+        throw ("Gauge Daemon not initialized");
+    return state.projectPath;
+}
+
+async function openProject(projectPath) {    
+    var property = process.env.language;
+    file.copyFile(path.join("data","manifest/manifest-"+property+".json"),path.join(projectPath,"manifest.json"))
+    state.projectPath = file.getFullPath(projectPath);
+
+    var use_working_directory = process.env.use_working_directory;
+    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+
+    state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
+    await initialize(state.gaugeDaemon,state.projectPath)
+};
+
+
+async function openFile(filePath,content) {
     return await _notification.sendNotification(state.connection,'textDocument/didOpen',
     {
         "textDocument":
@@ -45,31 +70,22 @@ async function openFile(filePath,content, connection) {
             "text": content
         }
     });
+
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => {});
 }  
 
 async function initialize(process,execPath){
-    var connection = getConnection(process)
+    var connection = _connection.newConnection(process)
 
     const initializeParams = getInitializeParams(execPath, process);    
     
-    await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
-    connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
+    await _request.sendRequest(connection, "initialize", initializeParams, null);
+    _request.onRequest(connection,"client/registerCapability",()=>{})
 
     await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)    
     await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
     return connection
-}
-
-function getConnection(process){
-    var reader = new rpc.StreamMessageReader(process.stdout);
-    var writer = new rpc.StreamMessageWriter(process.stdin);
-
-    let connection = rpc.createMessageConnection(reader, writer);
-    connection = connection;
-
-    connection.listen();
-    return connection;
 }
 
 // Return the parameters used to initialize a client - you may want to extend capabilities
@@ -114,12 +130,14 @@ function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done)
 }
     
 module.exports = {
-    initialize:initialize,
+    openProject:openProject,
     registerForNotification:registerForNotification,
     shutDown:shutDown,
     openFile:openFile,
     codeLens:codeLens,
     codecomplete:codecomplete,
     gotoDefinition:gotoDefinition,
-    formatFile:formatFile
+    formatFile:formatFile,
+    filePath:filePath,
+    projectPath:projectPath
 }

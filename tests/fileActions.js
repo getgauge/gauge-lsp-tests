@@ -1,16 +1,11 @@
 var assert = require('assert');
 
-var daemon = require('./lsp/daemon');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
 
-step('open file <relativeFilePath>', async function (relativeFilePath) {
-    const filePath = daemon.filePath(relativeFilePath)
-    const content = file.parseContent(filePath)
-    
+step('open file <relativeFilePath>', async function (relativeFilePath) {    
     try{
-        await languageclient.openFile(filePath, content, daemon.connection());    
-        await daemon.connection().onNotification("textDocument/publishDiagnostics", (res) => {});
+        await languageclient.openFile(languageclient.filePath(relativeFilePath), file.parseContent(languageclient.filePath(relativeFilePath)));
     }
     catch(err){
         throw new Error("unable to open file "+err)
@@ -18,12 +13,11 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
 });
 
 step('open file <relativeFilePath> with content <content>', async function (relativeFilePath,beforeFormatFile) {
-    const filePath = daemon.filePath(relativeFilePath)
-    const content = file.parseContent(daemon.filePath(beforeFormatFile))
+    const filePath = languageclient.filePath(relativeFilePath)
+    const content = file.parseContent(languageclient.filePath(beforeFormatFile))
     
     try{
-        await languageclient.openFile(relativeFilePath,content,daemon.connection());    
-        await daemon.connection().onNotification("textDocument/publishDiagnostics", (res) => {});
+        await languageclient.openFile(relativeFilePath,content);    
     }
     catch(err){
         throw new Error("unable to open file "+err)

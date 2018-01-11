@@ -1,6 +1,6 @@
 "use strict";
 
-var daemon = require('../daemon');
+var languageclient = require('../languageclient');
 var file = require('../../util/fileExtension');
 var path = require('path');
 var uri = require('vscode-uri').default;
@@ -53,12 +53,12 @@ function buildExpectedCodeLens(givenResult){
     var result = buildRange(expectedDiagnostic[lineIndex],
       expectedDiagnostic[rangeStartIndex],
       expectedDiagnostic[rangeEndIndex],
-      daemon.filePath(expectedDiagnostic[filePathIndex]));
+      languageclient.filePath(expectedDiagnostic[filePathIndex]));
 
     result.command = buildCommand(expectedDiagnostic[titleIndex],
       expectedDiagnostic[commandIndex],
       expectedDiagnostic[argumentsIndex],
-      daemon.projectPath(),expectedDiagnostic[filePathIndex]);
+      languageclient.projectPath(),expectedDiagnostic[filePathIndex]);
   
     expectedResult.push(result)
   }

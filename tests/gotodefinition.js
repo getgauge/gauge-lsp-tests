@@ -1,7 +1,6 @@
 "use strict";
 
 var assert = require('assert');
-var daemon = require('./lsp/daemon');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 step('goto definition of <element> in <file> at <lineNumber> and <characterNumber> should give details <details>',async function(element,file,lineNumber,characterNumber,details){
@@ -11,8 +10,7 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
             {
                 lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
             },
-            daemon.filePath(file), 
-            daemon.connection());
+            languageclient.filePath(file));
     
         verifyDefinitionResponse(response,details)     
     }
@@ -59,7 +57,7 @@ function verifyDefinitionResponse(resp,definitionDetails) {
             },
             "end": { "line": parseInt(definitionDetail[lineEndIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
         },
-        "uri": daemon.filePath(definitionDetail[uriIndex])
+        "uri": languageclient.filePath(definitionDetail[uriIndex])
         };
 
         var responseUri = builder.getResponseUri(responseMessage.uri)

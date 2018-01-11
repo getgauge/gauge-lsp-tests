@@ -1,8 +1,8 @@
-var daemon = require('./lsp/daemon');
+var languageclient = require('./lsp/languageclient');
 
 step('start gauge daemon for project <relativePath>', async function (relativePath) {
     try{
-        await daemon.startGaugeDaemon(relativePath);        
+        await languageclient.openProject(relativePath);        
     }
     catch(err){
         throw new Error("unable to start gauge daemon "+err)
@@ -11,7 +11,7 @@ step('start gauge daemon for project <relativePath>', async function (relativePa
 
 step("stop gauge daemon", async function() {
 	try{
-        await daemon.stopGaugeDaemon()
+        await languageclient.shutDown()
     }catch(err){
         throw new Error("trying to stop gauge daemon failed "+err)
     }
