@@ -31,10 +31,10 @@ step('open file <relativeFilePath> with content <content>', async function (rela
 });
 
 function handleCodeLensDetails(responseMessage,expectedDetails){
-for (var rowIndex = 0; rowIndex < expectedDetails.length; rowIndex++) {
-  var expectedDetail = expectedDetails[rowIndex]
-  gauge.message("verify code lens details")
+    for (var rowIndex = 0; rowIndex < expectedDetails.length; rowIndex++) {
+    var expectedDetail = expectedDetails[rowIndex]
+    gauge.message("verify code lens details")
 
-  assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
-}  
+    assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
+    }  
 }

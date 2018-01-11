@@ -49,14 +49,13 @@ function verifyAllDone(){
     return true  
 }
 
-step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+step(["open <projectPath> and verify diagnostics <diagnosticsList>","get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>"], async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
   daemon.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  await daemon.startGaugeDaemon(projectPath)
-});
-
-step("get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
-  daemon.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)  
-  await daemon.startGaugeDaemon(projectPath)
+  try{
+    await daemon.startGaugeDaemon(projectPath)
+  }
+  catch(err){
+    throw new Error('Unable to perform operation '+err)
+  }
 });

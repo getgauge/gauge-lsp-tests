@@ -6,12 +6,16 @@ var daemon = require('./lsp/daemon');
 var languageclient = require('./lsp/languageclient');
 
 step("format file <filePath> and ensure formatted contents are <afterFormat>", async function(filePath, expected) {
-    //const expected = afterFormat.join("\n")
-    var response = await languageclient.formatFile(daemon.filePath(filePath), daemon.connection(), daemon.projectPath())
-    await verifyFormattedDetails(response, expected)    
+    try{
+        var response = await languageclient.formatFile(daemon.filePath(filePath), daemon.connection(), daemon.projectPath())
+        verifyFormattedDetails(response, expected)        
+    }
+    catch(err){
+        throw new Error('unable to verify format '+err)
+    }
 });
 
-async function verifyFormattedDetails(actual,expected){        
+function verifyFormattedDetails(actual,expected){        
     if(!String.prototype.replaceAll){
         String.prototype.replaceAll = function(search, replacement) {
             var target = this;
