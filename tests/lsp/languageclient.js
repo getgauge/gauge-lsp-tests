@@ -11,7 +11,7 @@ var listenerId = 0;
 
 async function shutDown(){
     await state.connection.sendRequest(new rpc.RequestType("shutdown"), undefined)
-    state.connection.sendNotification(new rpc.RequestType("exit"));
+    _notification.sendNotification(state.connection, "exit");
 }
 
 async function codeLens(fileUri, connection) {
@@ -35,9 +35,7 @@ async function formatFile(fileUri, connection) {
   
 
 async function openFile(filePath,content, connection) {
-    var notification = new rpc.NotificationType('textDocument/didOpen')
-
-    return await state.connection.sendNotification(notification,
+    return await _notification.sendNotification(state.connection,'textDocument/didOpen',
     {
         "textDocument":
         {
@@ -57,9 +55,8 @@ async function initialize(process,execPath){
     await connection.sendRequest(new rpc.RequestType("initialize"), initializeParams, null);
     connection.onRequest(new rpc.RequestType("client/registerCapability"), () => {});
 
-    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
-    
-    await connection.sendNotification(new rpc.NotificationType("initialized"), {});
+    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)    
+    await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
     return connection
 }

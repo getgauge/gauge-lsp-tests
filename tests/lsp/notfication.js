@@ -1,3 +1,5 @@
+const rpc = require('vscode-jsonrpc');
+
 function handlerForNotifcation(res,registeredHandlers){
     for(var i=0;i<registeredHandlers.length;i++){
         if(registeredHandlers[i].unRegister)
@@ -26,4 +28,8 @@ async function OnNotification(notificationType,connection,registeredHandlers){
     }
 }
 
-module.exports = {OnNotification:OnNotification}
+async function sendNotification(connection,method,params){
+    connection.sendNotification(new rpc.NotificationType(method), params);
+}
+
+module.exports = {OnNotification:OnNotification,sendNotification:sendNotification}
