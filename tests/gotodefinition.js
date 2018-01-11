@@ -7,10 +7,10 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
     try
     {
         var response = await languageclient.gotoDefinition(
-            {
-                lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
-            },
-            file);
+        {
+            lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
+        },
+        file);
     
         verifyDefinitionResponse(response,details)     
     }

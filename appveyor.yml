@@ -19,7 +19,6 @@ build_script:
     gauge version
 cache:
 - packages
-- '%APPDATA%\gauge\plugins'
 notifications:
 - provider: Webhook
   url: https://webhooks.gitter.im/e/68b514dcb2c08a6a5809
