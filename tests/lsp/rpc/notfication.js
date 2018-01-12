@@ -13,9 +13,7 @@ function handlerForNotifcation(res,registeredHandlers){
     }
 }
 
-async function OnNotification(notificationType,connection,registeredHandlers){
-    setTimeout(function() {}, 500);
-
+async function OnNotification(notificationType,connection,registeredHandlers){  
     try{
         connection.onNotification(notificationType, (res) => {
           try {
@@ -31,6 +29,9 @@ async function OnNotification(notificationType,connection,registeredHandlers){
 }
 
 async function sendNotification(connection,method,params){
+    setTimeout(function() {}, 10);
+    console.log("notification "+method)  
+
     connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

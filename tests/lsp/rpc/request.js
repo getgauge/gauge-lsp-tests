@@ -19,18 +19,20 @@ async function request(fileUri, connection,requestType,position,options) {
     "uri": uri.file(fileUri).toString().replace('%25','%')
   };
 
-  console.log("request sent "+requestType+" params ")  
+  setTimeout(function() {}, 10);
+  console.log("request "+requestType)  
  
   return await connection.sendRequest(new rpc.RequestType(requestType), messageParams, null);
 }
 
 async function sendRequest(connection,method,params,token){
-  if(token)
-    await connection.sendRequest(new rpc.RequestType(method), params,token);
-  else    
-    await connection.sendRequest(new rpc.RequestType(method), params);
+  setTimeout(function() {}, 10);
+  console.log("request "+method+" params ")  
   
-    console.log("request sent "+method+" params ")  
+  if(token)
+    return await connection.sendRequest(new rpc.RequestType(method), params,token);
+  else    
+    return await connection.sendRequest(new rpc.RequestType(method), params);  
 }
 
 function onRequest(connection,method,params){
