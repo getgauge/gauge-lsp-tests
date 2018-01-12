@@ -27,7 +27,6 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
     }
-    console.log("verification complete")
 })
 
 function buildExpectedElements(expectedResult,element){

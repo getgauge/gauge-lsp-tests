@@ -30,8 +30,6 @@ async function OnNotification(notificationType,connection,registeredHandlers){
 
 async function sendNotification(connection,method,params){
     setTimeout(function() {}, 10);
-    console.log("notification "+method)  
-
     connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

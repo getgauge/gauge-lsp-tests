@@ -13,7 +13,6 @@ var listeners = [];
 var listenerId = 0;
 
 async function shutDown(){
-    console.log("shutDown")
     await _request.sendRequest(state.connection,"shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
