@@ -28,7 +28,7 @@ notifications:
   on_build_status_changed: true
 test_script:
 - ps: npm install
-- ps: gauge run specs
+- ps: gauge run specs -v
 artifacts:
 - path: ./reports/html-report
   name: gauge-reports
