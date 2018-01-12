@@ -10,7 +10,7 @@ var responseType = {
 };
   
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
-async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
+async function (filePath,lineNumber, characterNumber,element, expectedResult,done) {    
     expected = buildExpectedElements(expectedResult,element)
     if(expected.kind==null)
         throw new Error("unknown type "+element)
@@ -22,10 +22,11 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
 
     try{
         var responseMessage = await languageclient.codecomplete(position, filePath);
-        verifyAutocompleteResponse(responseMessage)                
+        verifyAutocompleteResponse(responseMessage,done)                
     }
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
+        done()
     }
 }); 
 
@@ -40,7 +41,7 @@ function buildExpectedElements(expectedResult,element){
     return {elements:elements,kind:kind}
 }
 
-function verifyAutocompleteResponse(responseMessage) {
+function verifyAutocompleteResponse(responseMessage,done) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
     var actualNumberOfItems = responseMessage.items.length;
@@ -57,5 +58,7 @@ function verifyAutocompleteResponse(responseMessage) {
     
     assert.equal(actualNumberOfItems, expected.elements.label.length, 
     JSON.stringify(actualNumberOfItems) + " not equal to " 
-    + JSON.stringify(expected.elements.label.length));            
+    + JSON.stringify(expected.elements.label.length));  
+    
+    done()
 }

@@ -3,7 +3,7 @@
 var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-step('goto definition of <element> in <file> at <lineNumber> and <characterNumber> should give details <details>',async function(element,file,lineNumber,characterNumber,details){
+step('goto definition of <element> in <file> at <lineNumber> and <characterNumber> should give details <details>',async function(element,file,lineNumber,characterNumber,details,done){
     try
     {
         var response = await languageclient.gotoDefinition(
@@ -12,11 +12,12 @@ step('goto definition of <element> in <file> at <lineNumber> and <characterNumbe
         },
         file);
     
-        verifyDefinitionResponse(response,details)     
+        verifyDefinitionResponse(response,details,done)
     }
     catch(err)
     {
         verifyRejection(err,details)
+        done()
     }
 });
 
@@ -28,7 +29,7 @@ function verifyRejection(err,details){
         throw new Error('error not expected '+err)
 }
 
-function verifyDefinitionResponse(resp,definitionDetails) {
+function verifyDefinitionResponse(resp,definitionDetails,done) {
     if(resp==null)
         throw new Error("response message should not be null ")
     if(resp.message){
@@ -65,4 +66,6 @@ function verifyDefinitionResponse(resp,definitionDetails) {
         assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
         assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
     }
+
+    done()
 }
