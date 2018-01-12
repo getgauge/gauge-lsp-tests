@@ -1,8 +1,8 @@
 Go to definition of concepts
 ============================
-A Concept with definition
--------------------------
-* Concept2
+Another scenario
+----------------
+* another scenario
 A Concept without a definition
 -------------------------
 * undefined Concept
