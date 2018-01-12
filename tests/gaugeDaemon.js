@@ -10,7 +10,7 @@ step('start gauge daemon for project <relativePath> with no runner', async funct
 });
 
 step('start gauge daemon for project <relativePath>', async function (relativePath) {
-    try{
+    try{        
         await languageclient.openProject(relativePath,process.env.language);        
     }
     catch(err){

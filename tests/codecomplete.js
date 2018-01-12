@@ -10,7 +10,7 @@ var responseType = {
 };
   
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
-async function (filePath,lineNumber, characterNumber,element, expectedResult,done) {    
+async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
     expected = buildExpectedElements(expectedResult,element)
     if(expected.kind==null)
         throw new Error("unknown type "+element)
@@ -22,13 +22,13 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult,don
 
     try{
         var responseMessage = await languageclient.codecomplete(position, filePath);
-        verifyAutocompleteResponse(responseMessage,done)                
+        verifyAutocompleteResponse(responseMessage)
+        console.log("finished")
     }
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
-        done()
     }
-}); 
+})
 
 function buildExpectedElements(expectedResult,element){
     elements = table.tableToArray(expectedResult);
@@ -41,24 +41,22 @@ function buildExpectedElements(expectedResult,element){
     return {elements:elements,kind:kind}
 }
 
-function verifyAutocompleteResponse(responseMessage,done) {
+function verifyAutocompleteResponse(responseMessage) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
     var actualNumberOfItems = responseMessage.items.length;
 
     for (var index = 0; index < actualNumberOfItems; index++) {
         var item = responseMessage.items[index];
-        
+
+        console.log(item.label)
+
         assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);    
         if(expected.elements.detail)
             assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
     }
-
-    gauge.message("verify code complete")     
     
     assert.equal(actualNumberOfItems, expected.elements.label.length, 
     JSON.stringify(actualNumberOfItems) + " not equal to " 
     + JSON.stringify(expected.elements.label.length));  
-    
-    done()
 }

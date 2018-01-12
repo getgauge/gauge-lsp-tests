@@ -19,7 +19,7 @@ async function request(fileUri, connection,requestType,position,options) {
     "uri": uri.file(fileUri).toString().replace('%25','%')
   };
   setTimeout(function() {}, 500);
-
+ 
   return await connection.sendRequest(new rpc.RequestType(requestType), messageParams, null);
 }
 

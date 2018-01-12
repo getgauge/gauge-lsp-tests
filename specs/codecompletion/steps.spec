@@ -2,7 +2,7 @@ Steps code completion
 =====================
 
 * start gauge daemon for project "data/codecomplete-steps"
-Steps list for codeomplete
+Steps list for codecomplete
 --------------------------
 * open file "/specs/codecomplete_step.spec"
 * codecomplete in "/specs/codecomplete_step.spec" at line "4" character "7" should give "steps" 
