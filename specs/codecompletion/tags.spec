@@ -3,8 +3,8 @@ Tag completion
 * start gauge daemon for project "data/codecomplete" with no runner
 Tag list for codecomplete
 -------------------------
-* open file "/specs/someTags/tocodecomplete.spec" 
-* codecomplete in "/specs/someTags/tocodecomplete.spec" at line "4" character "7" should give "tags" 
+* open file "/specs/someTags/tagCompletion.spec" 
+* codecomplete in "/specs/someTags/tagCompletion.spec" at line "4" character "7" should give "tags" 
 
    |label         |
    |--------------|
