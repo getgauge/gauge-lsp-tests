@@ -1,7 +1,7 @@
 Steps code completion
 =====================
 
-* start gauge daemon for project "data/codecomplete"
+* start gauge daemon for project "data/codecomplete-steps"
 Steps list for codeomplete
 --------------------------
 * open file "/specs/codecomplete_step.spec"

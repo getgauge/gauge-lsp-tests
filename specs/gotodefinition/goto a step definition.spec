@@ -1,7 +1,8 @@
 Goto a step definition
 ======================
+tags:runner-dependent
 
-* start gauge daemon for project "data/gotodefinition"
+* start gauge daemon for project "data/gotodefinition-steps"
 Goto definition to the implementation of a step from the specification
 ----------------------------------------------------------------------
 * open file "/specs/concept_definition.spec"
@@ -13,6 +14,8 @@ Goto definition to the implementation of a step from the specification
 
 Goto definition of undefined element should give a suitable message
 -------------------------------------------------------------------
+tags:runner-dependent
+
 * open file "/specs/concept_definition.spec"
 * goto definition of "undefined Concept" in "/specs/concept_definition.spec" at "7" and "4" should give details 
 

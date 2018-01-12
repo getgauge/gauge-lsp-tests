@@ -46,9 +46,10 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function openProject(projectPath) {    
-    var property = process.env.language;
-    file.copyFile(path.join("data","manifest/manifest-"+property+".json"),path.join(projectPath,"manifest.json"))
+async function openProject(projectPath,runner) {    
+    var language = (runner==null)?"nolang":runner;
+    
+    file.copyFile(path.join("data","manifest/manifest-"+language+".json"),path.join(projectPath,"manifest.json"))
     state.projectPath = file.getFullPath(projectPath);
 
     var use_working_directory = process.env.use_working_directory;

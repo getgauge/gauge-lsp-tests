@@ -6,16 +6,24 @@ var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
-step(["open <projectPath> and verify diagnostics <diagnosticsList>","get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>"], async function (projectPath, diagnosticsList,done) {
+step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+  invokeDiagnostics(projectPath,diagnosticsList,null,done)
+});
+
+step("get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+  invokeDiagnostics(projectPath,diagnosticsList,process.env.language,done)
+});
+
+async function invokeDiagnostics(projectPath, diagnosticsList,runner,done){
   var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
   try{
-    await languageclient.openProject(projectPath)
+    await languageclient.openProject(projectPath,runner)
   }
   catch(err){
     throw new Error('Unable to perform operation '+err)
   }
-});
+}
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   var responseUri = builder.getResponseUri(responseMessage.uri)

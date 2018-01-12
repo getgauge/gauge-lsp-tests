@@ -1,6 +1,6 @@
 Tag completion
 ===============
-* start gauge daemon for project "data/codecomplete"
+* start gauge daemon for project "data/codecomplete" with no runner
 Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tocodecomplete.spec" 
