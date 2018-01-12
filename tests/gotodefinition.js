@@ -3,14 +3,12 @@
 var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-step('goto definition of <element> in <file> at <lineNumber> and <characterNumber> should give details <details>',async function(element,file,lineNumber,characterNumber,details,done){
+step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give details <details>',async function(element,relativeFilePath,lineNumber,characterNumber,details,done){
     try
     {
-        var response = await languageclient.gotoDefinition(
-        {
-            lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)
-        },
-        file);
+        var response = await languageclient.gotoDefinition({
+            lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
+            relativeFilePath);
     
         verifyDefinitionResponse(response,details,done)
     }
@@ -31,7 +29,7 @@ function verifyRejection(err,details){
 
 function verifyDefinitionResponse(resp,definitionDetails,done) {
     if(resp==null)
-        throw new Error("response message should not be null ")
+        return
     if(resp.message){
         var messageIndex = definitionDetails.headers.cells.indexOf('message')        
         assert.equal(resp.message,definitionDetails[0][messageIndex])        
