@@ -23,11 +23,11 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
     try{
         var responseMessage = await languageclient.codecomplete(position, filePath);
         verifyAutocompleteResponse(responseMessage)
-        console.log("finished")
     }
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
     }
+    console.log("verification complete")
 })
 
 function buildExpectedElements(expectedResult,element){
@@ -49,8 +49,7 @@ function verifyAutocompleteResponse(responseMessage) {
     for (var index = 0; index < actualNumberOfItems; index++) {
         var item = responseMessage.items[index];
 
-        console.log(item.label)
-
+        gauge.message("verified "+item.label)
         assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);    
         if(expected.elements.detail)
             assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
