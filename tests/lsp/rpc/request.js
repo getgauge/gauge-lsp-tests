@@ -18,16 +18,18 @@ async function request(fileUri, connection,requestType,position,options) {
   messageParams.textDocument = { 
     "uri": uri.file(fileUri).toString().replace('%25','%')
   };
-  var request = new rpc.RequestType(requestType)
+  setTimeout(function() {}, 500);
 
-  return await connection.sendRequest(request, messageParams, null);
+  return await connection.sendRequest(new rpc.RequestType(requestType), messageParams, null);
 }
 
 async function sendRequest(connection,method,params,token){
+  setTimeout(function() {}, 500);
+
   if(token)
-    connection.sendRequest(new rpc.RequestType(method), params,token);
+    await connection.sendRequest(new rpc.RequestType(method), params,token);
   else    
-    connection.sendRequest(new rpc.RequestType(method), params);
+    await connection.sendRequest(new rpc.RequestType(method), params);
 }
 
 function onRequest(connection,method,params){

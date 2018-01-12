@@ -14,6 +14,8 @@ function handlerForNotifcation(res,registeredHandlers){
 }
 
 async function OnNotification(notificationType,connection,registeredHandlers){
+    setTimeout(function() {}, 500);
+
     try{
         connection.onNotification(notificationType, (res) => {
           try {
