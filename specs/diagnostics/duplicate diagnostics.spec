@@ -1,5 +1,6 @@
 Duplicate diagnostics
 =====================
+tags: no-lang-runner
 Get all parse errors
 -----------------------------
 * open "data/parse-errors/duplicate-concepts" and verify diagnostics

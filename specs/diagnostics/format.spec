@@ -1,5 +1,6 @@
 Format
 ============
+tags: no-lang-runner
 * start gauge daemon for project "data/format"
 Should format a Specification
 -----------------------------

@@ -1,5 +1,6 @@
 Diagnostics on concept file
 ===========================
+tags: no-lang-runner
 Get all parse errors
 -----------------------------
 * open "data/parse-errors/concepts" and verify diagnostics

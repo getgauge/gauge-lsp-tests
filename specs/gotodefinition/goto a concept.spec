@@ -1,5 +1,6 @@
 Goto a concept
 ==============
+tags: no-lang-runner
 * start gauge daemon for project "data/gotodefinition"
 Go to the definition of a concept from the usage
 ------------------------------------------------

@@ -1,5 +1,6 @@
 Circular references
 ===================
+tags: no-lang-runner
 Get all parse errors
 -----------------------------
 * open "data/parse-errors/circular-references" and verify diagnostics

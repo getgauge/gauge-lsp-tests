@@ -1,8 +1,10 @@
-Run from Specification
-======================
+Display Run links
+==================
+tags: no-lang-runner
+
 * start gauge daemon for project "data/runFromSpecfication"
-Run Spec and Scenarios must be displayed for a Specification
-------------------------------------------------------------
+Run links must be dispalyed at Spec and Scenarios levels
+---------------------------------------------------------
 * open file "/specs/simpleSpecification.spec"
 * ensure code lens has details for "/specs/simpleSpecification.spec"
 
@@ -11,8 +13,8 @@ Run Spec and Scenarios must be displayed for a Specification
    |Run Scenario|2   |0          |12       |gauge.execute|%project_path%%file_path%:3|/specs/simpleSpecification.spec|
    |Run Spec    |0   |0          |8        |gauge.execute|%project_path%%file_path%  |/specs/simpleSpecification.spec|
 
-Run Spec, Scenarios and run in parallel must be displayed for a Specification with test cases
----------------------------------------------------------------------------------------------
+Run links must be dispalyed for Specification with test cases in a Specification
+---------------------------------------------------------------------------------
 * open file "/specs/specWithTestCases.spec"
 * ensure code lens has details for "/specs/specWithTestCases.spec"
 

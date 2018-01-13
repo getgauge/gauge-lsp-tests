@@ -1,5 +1,6 @@
 Tag completion
 ===============
+tags: no-lang-runner
 * start gauge daemon for project "data/codecomplete" with no runner
 Tag list for codecomplete
 -------------------------
