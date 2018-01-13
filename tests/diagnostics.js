@@ -6,7 +6,7 @@ var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
-step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+step("open <projectPath> and verify diagnostics with no runner <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   invokeDiagnostics(projectPath,diagnosticsList,null,done)
 });
 

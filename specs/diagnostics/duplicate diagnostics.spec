@@ -3,7 +3,7 @@ Duplicate diagnostics
 tags: no-lang-runner
 Get all parse errors
 -----------------------------
-* open "data/parse-errors/duplicate-concepts" and verify diagnostics
+* open "data/parse-errors/duplicate-concepts" and verify diagnostics with no runner
 
    |line|range_start|range_end|severity|message                                         |uri                                               |
    |----|-----------|---------|--------|------------------------------------------------|--------------------------------------------------|

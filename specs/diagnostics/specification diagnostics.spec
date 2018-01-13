@@ -3,7 +3,7 @@ Diagnostics on spec file
 tags: no-lang-runner
 Get all parse errors
 ----------------------
-* open "data/parse-errors/specs" and verify diagnostics
+* open "data/parse-errors/specs" and verify diagnostics with no runner
 
    |line|range_start|range_end|severity|message                                                  |uri                                |
    |----|-----------|---------|--------|---------------------------------------------------------|-----------------------------------|
