@@ -7,9 +7,6 @@
 			"path": "generatestubs"
 		},
 		{
-			"path": "find-usages"
-		},
-		{
 			"path": "gotodefinition-steps"
 		},
 		{
@@ -17,6 +14,24 @@
 		},
 		{
 			"path": "format"
+		},
+		{
+			"path": "parse-errors\\circular-references"
+		},
+		{
+			"path": "parse-errors\\concepts"
+		},
+		{
+			"path": "parse-errors\\duplicate-concepts"
+		},
+		{
+			"path": "parse-errors\\specs"
+		},
+		{
+			"path": "codecomplete-steps"
+		},
+		{
+			"path": "find-usages"
 		}
 	],
 	"settings": {}
