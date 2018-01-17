@@ -1,4 +1,4 @@
-Spec Heading
-=====================
+Without Scenario Heading
+========================
 
 ---------

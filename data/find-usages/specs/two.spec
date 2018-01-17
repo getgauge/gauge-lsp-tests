@@ -1,5 +1,5 @@
-Specification Heading
-=====================
+Find Usages with dynamic parameter
+=================================
 
 * Vowels in English language are "aeiou".
 

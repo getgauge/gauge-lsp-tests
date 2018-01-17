@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "codecomplete"
+		},
+		{
+			"path": "generatestubs"
+		},
+		{
+			"path": "find-usages"
+		},
+		{
+			"path": "gotodefinition-steps"
+		},
+		{
+			"path": "displaylink-torun"
+		},
+		{
+			"path": "format"
+		}
+	],
+	"settings": {}
+}

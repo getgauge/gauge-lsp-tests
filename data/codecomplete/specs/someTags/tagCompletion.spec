@@ -1,5 +1,5 @@
-Specification Heading
-=====================
+Tag Completion
+==============
 Gauge LSP 2
 ------------
 tags:

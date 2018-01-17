@@ -1,2 +1,2 @@
-Spec Heading
+Spec No Elements
 =====================

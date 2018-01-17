@@ -1,5 +1,5 @@
-Specification Heading
+Display Run Spec link
 =====================
-Scenario
---------
+Display Scenario link
+---------------------
 * step

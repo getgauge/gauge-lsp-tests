@@ -1,4 +1,4 @@
-# Spec Heading
+# Tear Down Three Underscores
 
 Scenario
 --------

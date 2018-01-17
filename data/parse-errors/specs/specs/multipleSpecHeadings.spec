@@ -1,4 +1,4 @@
-Spec Heading
+Multi Heading
 =============
 One
 ====

@@ -1,4 +1,4 @@
-Specification Heading
+Tag At Scenario Level
 =====================
 Gauge LSP 2
 -----------
