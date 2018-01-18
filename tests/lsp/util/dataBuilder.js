@@ -35,6 +35,25 @@ function buildExpectedRange(givenResult,projectPath){
     return expectedResult
 }  
 
+function buildRangeFromYAML(givenResult,projectPath){
+  var expectedResult = [];
+  
+  for (var rowIndex = 0; rowIndex < givenResult.length; rowIndex++) {
+    var expectedDiagnostic = givenResult[rowIndex]
+      
+    var result = buildRange(expectedDiagnostic.line,
+      expectedDiagnostic.rangeStart,
+      expectedDiagnostic.rangeEnd,
+      path.join(projectPath, expectedDiagnostic.uri),
+      expectedDiagnostic.severity,
+      expectedDiagnostic.message);
+
+      expectedResult.push(result)
+    }
+
+    return expectedResult
+}  
+
 function buildExpectedCodeLens(givenResult){
   var expectedResult = [];
   
@@ -105,6 +124,7 @@ function buildRange(line,rangeStart,rangeEnd,filePath,severity,message){
 }
     
 module.exports={
+  buildRangeFromYAML:buildRangeFromYAML,
   buildExpectedRange:buildExpectedRange,
   buildExpectedCodeLens:buildExpectedCodeLens,
   getResponseUri:getResponseUri

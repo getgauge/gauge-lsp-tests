@@ -8,7 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "vscode-jsonrpc": "^3.4.1",
-    "vscode-uri": "^1.0.1"
+    "vscode-uri": "^1.0.1",
+    "yamljs": "^0.3.0"
   },
   "repository": {
     "type": "git",

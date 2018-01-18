@@ -5,17 +5,20 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
+var YAML = require('yamljs');
 
 step("open <projectPath> and verify diagnostics with no runner <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  invokeDiagnostics(projectPath,diagnosticsList,null,done)
+  var expectedDiagnostics = builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
+  invokeDiagnostics(projectPath,expectedDiagnostics,null,done)
 });
 
-step("get stubs for unimplemented steps project <projectPath> in language <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  invokeDiagnostics(projectPath,diagnosticsList,process.env.language,done)
+step("get stubs for unimplemented steps project <projectPath> in language", async function (projectPath,done) {
+  diagnosticsList = YAML.load("specs/generateStubs/"+process.env.language+"_impl.yaml");
+  var expectedDiagnostics = builder.buildRangeFromYAML(diagnosticsList, file.getFullPath(projectPath));
+  invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
 });
 
-async function invokeDiagnostics(projectPath, diagnosticsList,runner,done){
-  var expectedDiagnostics = await builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
+async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
   try{
     await languageclient.openProject(projectPath,runner)
