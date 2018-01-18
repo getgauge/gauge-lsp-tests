@@ -4,34 +4,16 @@
 			"path": "codecomplete"
 		},
 		{
-			"path": "generatestubs"
+			"path": "steps-codecomplete"
 		},
 		{
-			"path": "gotodefinition-steps"
-		},
-		{
-			"path": "displaylink-torun"
-		},
-		{
-			"path": "format"
+			"path": "gotodefinition"
 		},
 		{
 			"path": "parse-errors\\circular-references"
 		},
 		{
-			"path": "parse-errors\\concepts"
-		},
-		{
-			"path": "parse-errors\\duplicate-concepts"
-		},
-		{
-			"path": "parse-errors\\specs"
-		},
-		{
-			"path": "codecomplete-steps"
-		},
-		{
-			"path": "find-usages"
+			"path": "steps-gotodefinition"
 		}
 	],
 	"settings": {}

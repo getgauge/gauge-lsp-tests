@@ -1,7 +1,7 @@
-Specification Heading
+Steps code complete
 =====================
 Gauge LSP 2
------------------------------
+-----------
 * one
 * start
 * two
