@@ -5,7 +5,7 @@ tags: no-lang-runner
 Go to the definition of a concept from the usage
 ------------------------------------------------
 * open file "/specs/concept_definition.spec"
-* goto definition of "Concept2" in "/specs/concept_definition.spec" at "4" and "4" should give details 
+* goto definition of "Concept2" in "/specs/concept_definition.spec" at "4" and "4" should give "concept" for 
 
    |uri                       |line|range_start|range_end|
    |--------------------------|----|-----------|---------|

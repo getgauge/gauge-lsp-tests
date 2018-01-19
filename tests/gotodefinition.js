@@ -5,30 +5,30 @@ var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var YAML = require('yamljs');
 
-step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give <type> for <details>',async function(element,relativeFilePath,lineNumber,characterNumber,type,details,done){
+step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give <type> for <details>',async function(element,relativeFilePath,lineNumber,characterNumber,type,definitionDetails){
     var response;
-    
+    var expectedError;
+
     try
     {
         response = await languageclient.gotoDefinition({
             lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-            relativeFilePath);            
+            relativeFilePath);       
     }
     catch(err)
     {
-        if(type=="error")
-        {
-            verifyRejection(err,details)            
-            done()            
-        }
-        else
+        if(type!="error")
             throw new Error('Unable to goto definition '+err)
+        expectedError =err
     }
 
-    assert.ok((type=="error")? response==null:response!=null,"Expected response type "+type)
+    if(type=="error")
+    {
+        assert.ok(expectedError!=null,"Expected error")
+        verifyRejection(expectedError,definitionDetails)
+    }
 
     if(type!="error"){
-        var responseMessage = resp    
         var lineIndex = definitionDetails.headers.cells.indexOf('line')
         var lineEndIndex = definitionDetails.headers.cells.indexOf('line_end')
         if(lineEndIndex==-1)
@@ -40,17 +40,17 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
         var definitionDetail = definitionDetails.rows[0].cells
     
         var result = {
-        "range": {
-            "start": {
-            "line": parseInt(definitionDetail[lineIndex]),
-            "character": parseInt(definitionDetail[rangeStartIndex])
+            "range": {
+                "start": {
+                "line": parseInt(definitionDetail[lineIndex]),
+                "character": parseInt(definitionDetail[rangeStartIndex])
+                },
+                "end": { "line": parseInt(definitionDetail[lineEndIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
             },
-            "end": { "line": parseInt(definitionDetail[lineEndIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
-        },
-        "uri": languageclient.filePath(definitionDetail[uriIndex])
+            "uri": languageclient.filePath(definitionDetail[uriIndex])
         };
     
-        verifyDefinitionResponse(response,details,done)        
+        verifyDefinitionResponse(response,result)        
     }
 });
 
@@ -86,10 +86,11 @@ step('goto definition of step <element> in <relativeFilePath> at <lineNumber> an
 
 function verifyRejection(err,details){
     var errorIndex = details.headers.cells.indexOf('error')
+    var expected = details.rows[0].cells[errorIndex]
 
     if(errorIndex<0)
         throw new Error('error not expected '+err)
-    assert.equal(err.message,details.rows[0].cells[errorIndex])        
+    assert.equal(err.message,expected,"Expected "+expected+" Actual "+err.message)
 }
 
 function verifyGotoDefinitionResponse(expected,actual){
@@ -99,13 +100,11 @@ function verifyGotoDefinitionResponse(expected,actual){
     assert.deepEqual(actual.range, expected.range, JSON.stringify(actual.range) + " not equal to " + JSON.stringify(expected.range));    
 }
 
-function verifyDefinitionResponse(resp,definitionDetails,done) {
+function verifyDefinitionResponse(actual,expected) {
     gauge.message("verify definition")
 
-    var responseUri = builder.getResponseUri(responseMessage.uri)
+    var responseUri = builder.getResponseUri(actual.uri)
     
-    assert.equal(responseUri,result.uri,("response Message uri %s should be equal to %s",responseUri,result.uri))        
-    assert.deepEqual(responseMessage.range, result.range, JSON.stringify(responseMessage.range) + " not equal to " + JSON.stringify(result.range));      
-
-    done()
+    assert.equal(responseUri,expected.uri,("response Message uri %s should be equal to %s",responseUri,expected.uri))        
+    assert.deepEqual(actual.range, expected.range, JSON.stringify(actual.range) + " not equal to " + JSON.stringify(expected.range));
 }
