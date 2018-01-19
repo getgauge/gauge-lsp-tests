@@ -4,9 +4,11 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 
-step('ensure code lens has details for <file> <details>', async function (file,details) {
+step('ensure code lens has details <details>', async function (details) {
     var expectedDetails = builder.buildExpectedCodeLens(details);  
-    
+    var uriIndex = details.headers.cells.indexOf('uri')
+    var file = details.rows[0].cells[uriIndex]
+
     try{
         var response = await languageclient.codeLens(file)
         handleCodeLensDetails(response,expectedDetails)    

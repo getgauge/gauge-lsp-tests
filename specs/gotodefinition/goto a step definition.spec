@@ -11,7 +11,7 @@ Goto definition of undefined element should give a suitable message
 -------------------------------------------------------------------
 
 * open file "/specs/concept_definition.spec"
-* goto definition of undefined "undefined Concept" in "/specs/concept_definition.spec" at "7" and "4" should give details 
+* goto definition of "undefined Concept" in "/specs/concept_definition.spec" at "7" and "4" should give "error" for 
 
    |error                                                     |
    |----------------------------------------------------------|

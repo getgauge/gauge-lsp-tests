@@ -1,6 +1,5 @@
 require 'test/unit'
 include Test::Unit::Assertions
 
-step 'step1' do
-
+step 'step1' do |vowels|
 end

@@ -5,7 +5,7 @@ Find usages
 
 Should find usages
 ------------------
-* ensure code lens has details for "/tests/step_implementation.js" 
+* ensure code lens has details
 
    |title         |line|range_start|range_end|command             |arguments                                            |uri                          |
    |--------------|----|-----------|---------|--------------------|-----------------------------------------------------|-----------------------------|
