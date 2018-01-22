@@ -5,7 +5,7 @@ var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var YAML = require('yamljs');
 
-step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give <type> for <details>',async function(element,relativeFilePath,lineNumber,characterNumber,type,definitionDetails){
+step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give error for <details>',async function(element,relativeFilePath,lineNumber,characterNumber,definitionDetails){
     var response;
     var expectedError;
 
@@ -17,46 +17,20 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
     }
     catch(err)
     {
-        if(type!="error")
-            throw new Error('Unable to goto definition '+err)
         expectedError =err
     }
 
-    if(type=="error")
-    {
-        assert.ok(expectedError!=null,"Expected error")
-        verifyRejection(expectedError,definitionDetails)
-    }
-
-    if(type!="error"){
-        var lineIndex = definitionDetails.headers.cells.indexOf('line')
-        var lineEndIndex = definitionDetails.headers.cells.indexOf('line_end')
-        if(lineEndIndex==-1)
-            lineEndIndex = lineIndex
-    
-        var rangeStartIndex = definitionDetails.headers.cells.indexOf('range_start')
-        var rangeEndIndex = definitionDetails.headers.cells.indexOf('range_end')
-        var uriIndex = definitionDetails.headers.cells.indexOf('uri')
-        var definitionDetail = definitionDetails.rows[0].cells
-    
-        var result = {
-            "range": {
-                "start": {
-                "line": parseInt(definitionDetail[lineIndex]),
-                "character": parseInt(definitionDetail[rangeStartIndex])
-                },
-                "end": { "line": parseInt(definitionDetail[lineEndIndex]), "character": parseInt(definitionDetail[rangeEndIndex]) }
-            },
-            "uri": languageclient.filePath(definitionDetail[uriIndex])
-        };
-    
-        verifyDefinitionResponse(response,result)        
-    }
+    assert.ok(expectedError!=null,"Expected error")
+    verifyRejection(expectedError,definitionDetails)
 });
 
 step('goto definition of step <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>',async function(element,relativeFilePath,lineNumber,characterNumber,data){
     var response;
-    var details = YAML.load("specs/gotodefinition/"+data+"/"+process.env.language+"_impl.yaml");      
+    var details;
+    if(!data.endsWith('.yaml'))
+        details = YAML.load(data+"/"+process.env.language+"_impl.yaml");      
+    else
+        details = YAML.load(data)
 
     try
     {
@@ -70,6 +44,10 @@ step('goto definition of step <element> in <relativeFilePath> at <lineNumber> an
     }
     assert.ok(response!=null,"Response of a defined step should not be null")
     var definitionDetail = details[0]
+
+    if(definitionDetail.line_end==null)
+        definitionDetail.line_end = definitionDetail.line
+
     var expected = {
     "range": {
         "start": {
@@ -98,13 +76,4 @@ function verifyGotoDefinitionResponse(expected,actual){
     
     assert.equal(actualUri,expected.uri,("response Message uri %s should be equal to %s",actualUri,expected.uri))            
     assert.deepEqual(actual.range, expected.range, JSON.stringify(actual.range) + " not equal to " + JSON.stringify(expected.range));    
-}
-
-function verifyDefinitionResponse(actual,expected) {
-    gauge.message("verify definition")
-
-    var responseUri = builder.getResponseUri(actual.uri)
-    
-    assert.equal(responseUri,expected.uri,("response Message uri %s should be equal to %s",responseUri,expected.uri))        
-    assert.deepEqual(actual.range, expected.range, JSON.stringify(actual.range) + " not equal to " + JSON.stringify(expected.range));
 }
