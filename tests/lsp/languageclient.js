@@ -75,19 +75,25 @@ async function openFile(relativePath,contentFile) {
     });
 
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => {});
-}  
+}
+
+function sleep(ms){
+    var waitTill = new Date(new Date().getTime() + ms);
+    while(waitTill > new Date()){};
+}
 
 async function initialize(process,execPath){
     var connection = _connection.newConnection(process)
 
-    const initializeParams = getInitializeParams(execPath, process);    
-    
-    await _request.sendRequest(connection, "initialize", initializeParams, null);
-    _request.onRequest(connection,"client/registerCapability",()=>{})
+    const initializeParams = getInitializeParams(execPath, process);
 
-    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)    
+    await _request.sendRequest(connection, "initialize", initializeParams, null);
+    await _request.onRequest(connection,"client/registerCapability",()=>{})
+
+    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
     await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
+    sleep(1000)
     return connection
 }
 
