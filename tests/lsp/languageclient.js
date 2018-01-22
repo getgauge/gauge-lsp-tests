@@ -93,7 +93,7 @@ async function initialize(process,execPath){
     await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
     await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
-    sleep(2000)
+    sleep(3000)
     return connection
 }
 
