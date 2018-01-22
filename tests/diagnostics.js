@@ -9,64 +9,87 @@ var YAML = require('yamljs');
 
 step("open <projectPath> and verify diagnostics with no runner <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
-  invokeDiagnostics(projectPath,expectedDiagnostics,null,done)
+  try{
+    await invokeDiagnostics(projectPath,expectedDiagnostics,null,done)
+  }
+  catch(err){
+    throw new Error('Unable to open project '+err)    
+  }
 });
 
 step("get stubs for unimplemented steps project <projectPath> in language", async function (projectPath,done) {
   diagnosticsList = YAML.load("specs/generateStubs/"+process.env.language+"_impl.yaml");
   var expectedDiagnostics = builder.buildRangeFromYAML(diagnosticsList, file.getFullPath(projectPath));
-  invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+  try{
+    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+  }
+  catch(err){
+    throw new Error('Unable to generate steps '+err)
+  }
 });
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  try{
-    await languageclient.openProject(projectPath,runner)
-  }
-  catch(err){
-    throw new Error('Unable to perform operation '+err)
-  }
+  await languageclient.openProject(projectPath,runner)
 }
 
 async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
-  var responseUri = builder.getResponseUri(responseMessage.uri)
+  try{
+    var responseUri = builder.getResponseUri(responseMessage.uri)
       
-  for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
-    var expectedDiagnostic = expectedDiagnostics[rowIndex]
-   
-    if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
-      continue  
-
-    gauge.message("verified "+responseUri)
-    var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
-      return elem.message === expectedDiagnostic.message;
-    });              
-
-    expectedDiagnostic.isValidated = true
-    
-    if(allDiagnosticsForFile.length==0)
-      throw new Error(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))      
-    
-    var diagnostic = allDiagnosticsForFile[0]
-    if(expectedDiagnostic.severity)
-    {
-      assert.equal(diagnostic.severity, expectedDiagnostic.severity, 
-        JSON.stringify(diagnostic.severity) + " not equal to " 
-        + JSON.stringify(expectedDiagnostic.severity));        
-    }
+    for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
+      var expectedDiagnostic = expectedDiagnostics[rowIndex]
+      
+      if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
+        continue  
+  
+      var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
+        return elem.message === expectedDiagnostic.message;
+      });              
+  
+      expectedDiagnostic.isValidated = true
+      expectedDiagnostic.error = []
+      if(allDiagnosticsForFile.length==0)
+      {
+        expectedDiagnostic.error.push(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))
+        return expectedDiagnostics
+      }
+      else{
+        var diagnostic = allDiagnosticsForFile[0]
+        // if(diagnostic.code){
+        //   if(diagnostic.code!=expectedDiagnostic.code)
+        //   {
+        //     expectedDiagnostic.error.push(JSON.stringify(diagnostic.severity) + " not equal to " 
+        //     + JSON.stringify(expectedDiagnostic.severity));  
+        //   }
+        // }
+        if(expectedDiagnostic.severity)
+        {
+          if(diagnostic.severity!=expectedDiagnostic.severity)
+            expectedDiagnostic.error.push(JSON.stringify(diagnostic.severity) + " not equal to " 
+            + JSON.stringify(expectedDiagnostic.severity));        
+        }  
+      }            
+    }  
+  }finally{
+    return expectedDiagnostics
   }
-
-  gauge.dataStore.scenarioStore.put('expectedDiagnostics',expectedDiagnostics)  
 }
 
-function verifyAllDone(){
-  var expectedDiagnostics = gauge.dataStore.scenarioStore.get('expectedDiagnostics',expectedDiagnostics)
+function verifyAllDone(expectedDiagnostics){
   if(expectedDiagnostics==null)
-    return true    
+    return {errors:null,done:true}
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
   });
 
   if(validated.length == expectedDiagnostics.length)
-    return true  
+  {
+    var errors = expectedDiagnostics.filter(function(elem, i, array) {
+      return elem.error;
+    });
+
+    return {errors:errors,done:true}
+  }
+  return {done:false}  
 }

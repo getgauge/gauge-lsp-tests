@@ -1,30 +1,33 @@
 const rpc = require('vscode-jsonrpc');
+var assert = require('assert');
 
-function handlerForNotifcation(res,registeredHandlers){
+async function handlerForNotifcation(res,registeredHandlers){
+    var results = []
     for(var i=0;i<registeredHandlers.length;i++){
         if(registeredHandlers[i].unRegister)
             continue
-        registeredHandlers[i].listener(res,registeredHandlers[i].expectedDiagnostics)
-        if(registeredHandlers[i].verifyIfDone())
+        var expectedDiagnostics = await registeredHandlers[i].listener(res,registeredHandlers[i].expectedDiagnostics)
+        var result = registeredHandlers[i].verifyIfDone(expectedDiagnostics);
+        if(result.done)
         {
             registeredHandlers[i].done()
-            registeredHandlers[i].unRegister = true
-        }
+            registeredHandlers[i].unRegister = true    
+        }    
+        results.push(result)
     }
+    return results;
 }
 
 async function OnNotification(notificationType,connection,registeredHandlers){  
-    try{
-        connection.onNotification(notificationType, (res) => {
-          try {
-            handlerForNotifcation(res,registeredHandlers)
-          } catch(e) {
-            console.log(e);
-          }
+    var results = await connection.onNotification(notificationType, async (res) => {
+        return await handlerForNotifcation(res,registeredHandlers)
+    });
+
+    if(results!=null && results.length>0 && results[0].errors!=null){
+        var errors = results[0].errors.filter(function(elem, i, array) {
+            return elem.error.length>0;
         });
-    }
-    catch(err){
-        throw new Error("unable to handle notification "+notificationType+ ": Error"+err)
+        assert.ok(errors.length==0,"errors in validating diagnostics "+JSON.stringify(errors))
     }
 }
 
