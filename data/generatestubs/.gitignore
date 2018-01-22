@@ -4,9 +4,9 @@
 # Gauge - log files dir
 logs
 
-# Gauge - reports dir
-reports
+# Gauge - java class output directory
+gauge_bin
 
-# Gauge - JavaScript node dependencies
-node_modules
+# Gauge - ruby dependencies dir
+vendor
 

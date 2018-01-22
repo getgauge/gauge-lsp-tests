@@ -1,6 +1,7 @@
 require 'test/unit'
 include Test::Unit::Assertions
 
-step 'start' do
+@vowels = nil
 
+step 'start' do 
 end

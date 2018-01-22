@@ -2,7 +2,6 @@
 var languageclient = require('./lsp/languageclient');
 var table = require('./util/table');
 var assert = require('assert')
-var expected = {}
 
 var responseType = {
     Function: 3,
@@ -11,7 +10,7 @@ var responseType = {
   
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
 async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
-    expected = buildExpectedElements(expectedResult,element)
+    var expected = buildExpectedElements(expectedResult,element)
     if(expected.kind==null)
         throw new Error("unknown type "+element)
     
@@ -20,13 +19,14 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
         characterNumber: characterNumber
     };
 
+    var responseMessage;
     try{
-        var responseMessage = await languageclient.codecomplete(position, filePath);
-        verifyAutocompleteResponse(responseMessage)
+        responseMessage = await languageclient.codecomplete(position, filePath);
     }
     catch(err){
         throw new Error("unable to verify Auto complete response "+err)
     }
+    verifyAutocompleteResponse(responseMessage,expected)
 })
 
 function buildExpectedElements(expectedResult,element){
@@ -40,7 +40,7 @@ function buildExpectedElements(expectedResult,element){
     return {elements:elements,kind:kind}
 }
 
-function verifyAutocompleteResponse(responseMessage) {
+function verifyAutocompleteResponse(responseMessage,expected) {
     if (responseMessage.method=="textDocument/publishDiagnostics")
         return        
     var actualNumberOfItems = responseMessage.items.length;
