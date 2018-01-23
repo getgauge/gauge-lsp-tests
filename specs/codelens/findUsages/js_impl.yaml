@@ -1,0 +1,28 @@
+- title: 2 reference(s)
+  line: 13
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$Vowels in English language are {}.
+  uri: tests/step_implementation.js
+- title: 1 reference(s)
+  line: 17
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$The word {} has {} vowels.
+  uri: tests/step_implementation.js
+- title: 1 reference(s)
+  line: 21
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$Almost all words have vowels {}
+  uri: tests/step_implementation.js
+- title: 0 reference(s)
+  line: 27
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$Zero references {}
+  uri: tests/step_implementation.js

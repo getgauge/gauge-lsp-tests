@@ -3,7 +3,6 @@
 var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-var YAML = require('yamljs');
 
 step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give error for <details>',async function(element,relativeFilePath,lineNumber,characterNumber,definitionDetails){
     var response;
@@ -26,11 +25,7 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
 
 step('goto definition of step <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>',async function(element,relativeFilePath,lineNumber,characterNumber,data){
     var response;
-    var details;
-    if(!data.endsWith('.yaml'))
-        details = YAML.load(data+"/"+process.env.language+"_impl.yaml");      
-    else
-        details = YAML.load(data)
+    var details = builder.loadData(data)
 
     try
     {

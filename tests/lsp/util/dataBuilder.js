@@ -4,6 +4,14 @@ var languageclient = require('../languageclient');
 var file = require('../../util/fileExtension');
 var path = require('path');
 var uri = require('vscode-uri').default;
+var YAML = require('yamljs');
+
+function loadData(data){
+  if(!data.endsWith('.yaml'))
+    return YAML.load(data+"/"+process.env.language+"_impl.yaml");      
+  else
+    return YAML.load(data)
+}
 
 function getResponseUri(original){
   return uri.parse(original).fsPath
@@ -57,27 +65,18 @@ function buildRangeFromYAML(givenResult,projectPath){
 function buildExpectedCodeLens(givenResult){
   var expectedResult = [];
   
-  var lineIndex = givenResult.headers.cells.indexOf('line')
-  var rangeStartIndex = givenResult.headers.cells.indexOf('range_start')
-  var rangeEndIndex = givenResult.headers.cells.indexOf('range_end')
+  for (var rowIndex = 0; rowIndex < givenResult.length; rowIndex++) {
+    var expectedDiagnostic = givenResult[rowIndex]
 
-  var titleIndex = givenResult.headers.cells.indexOf('title')
-  var commandIndex = givenResult.headers.cells.indexOf('command')
-  var argumentsIndex = givenResult.headers.cells.indexOf('arguments')
-  var filePathIndex = givenResult.headers.cells.indexOf('uri')
+    var result = buildRange(expectedDiagnostic.line,
+      expectedDiagnostic.range_start,
+      expectedDiagnostic.range_end,
+      languageclient.filePath(expectedDiagnostic.uri));
 
-  for (var rowIndex = 0; rowIndex < givenResult.rows.length; rowIndex++) {
-    var expectedDiagnostic = givenResult.rows[rowIndex].cells
-
-    var result = buildRange(expectedDiagnostic[lineIndex],
-      expectedDiagnostic[rangeStartIndex],
-      expectedDiagnostic[rangeEndIndex],
-      languageclient.filePath(expectedDiagnostic[filePathIndex]));
-
-    result.command = buildCommand(expectedDiagnostic[titleIndex],
-      expectedDiagnostic[commandIndex],
-      expectedDiagnostic[argumentsIndex],
-      languageclient.projectPath(),expectedDiagnostic[filePathIndex]);
+    result.command = buildCommand(expectedDiagnostic.title,
+      expectedDiagnostic.command,
+      expectedDiagnostic.arguments,
+      languageclient.projectPath(),expectedDiagnostic.uri);
   
     expectedResult.push(result)
   }
@@ -127,5 +126,6 @@ module.exports={
   buildRangeFromYAML:buildRangeFromYAML,
   buildExpectedRange:buildExpectedRange,
   buildExpectedCodeLens:buildExpectedCodeLens,
-  getResponseUri:getResponseUri
+  getResponseUri:getResponseUri,
+  loadData:loadData
 }

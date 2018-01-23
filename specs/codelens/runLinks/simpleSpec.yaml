@@ -1,0 +1,14 @@
+- title: Run Scenario
+  line: 2
+  range_start: 0
+  range_end: 12
+  command: gauge.execute
+  arguments: %project_path%%file_path%:3
+  uri: /specs/simpleSpecification.spec
+- title: Run Spec
+  line: 0
+  range_start: 0
+  range_end: 8
+  command: gauge.execute
+  arguments: %project_path%%file_path%
+  uri: /specs/simpleSpecification.spec
