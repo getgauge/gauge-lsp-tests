@@ -60,7 +60,6 @@ async function openProject(projectPath,runner) {
 
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     await initialize(state.gaugeDaemon,state.projectPath)
-    timer.sleep(3000)
 };
 
 function verificationFailures(){
@@ -92,13 +91,17 @@ async function initialize(process,execPath){
 
     const initializeParams = getInitializeParams(execPath, process);
 
-    await _request.sendRequest(connection, "initialize", initializeParams, null);
-    await _request.onRequest(connection,"client/registerCapability",()=>{})
+    await _request.sendRequest(connection, "initialize", initializeParams, null)
+    .then((res)=> {
+        _notification.sendNotification(connection, "initialized",{})
+        .then(
+            ()=>{
+                // _request.onRequest(connection,"client/registerCapability")
+            _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
+        })
+    })
 
-    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
-    await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
-
     return connection
 }
 

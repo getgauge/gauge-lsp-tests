@@ -2,7 +2,7 @@ const rpc = require('vscode-jsonrpc');
 var assert = require('assert');
 const timer = require('../../util/timer')
 
-function handlerForNotifcation(res,registeredHandlers){
+function handleNotifcation(res,registeredHandlers){
     var results = []
     for(var i=0;i<registeredHandlers.length;i++){
         if(registeredHandlers[i].unRegister)
@@ -20,8 +20,9 @@ function handlerForNotifcation(res,registeredHandlers){
 }
 
 async function OnNotification(notificationType,connection,registeredHandlers,done){
+    console.log(notificationType)
     await connection.onNotification(notificationType, (res) => {
-        var results = handlerForNotifcation(res,registeredHandlers)
+        var results = handleNotifcation(res,registeredHandlers)
 
         if(results!=null && results.length>0 && results[0].errors!=null){
             var errors = [];
@@ -38,7 +39,8 @@ async function OnNotification(notificationType,connection,registeredHandlers,don
 
 async function sendNotification(connection,method,params){
     timer.sleep(10)
-    connection.sendNotification(new rpc.NotificationType(method), params);
+    console.log(method)
+    return connection.sendNotification(new rpc.NotificationType(method), params);
 }
 
 module.exports = {OnNotification:OnNotification,sendNotification:sendNotification}

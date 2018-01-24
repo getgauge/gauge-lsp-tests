@@ -1,3 +1,3 @@
 - message: Step implementation not found
-  code: step 'undefined step' do |arg0|\n        raise 'Unimplemented Step';\nend
+  code: step 'undefined step' do ||\n\traise 'Unimplemented Step';\nend
   uri: /specs/concept_definition.spec
