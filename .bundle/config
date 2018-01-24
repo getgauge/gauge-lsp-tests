@@ -1,0 +1,3 @@
+---
+BUNDLE_BIN: ".\\\\data\\\\find-usages\\\\"
+BUNDLE_PATH: "./data/find-usages"

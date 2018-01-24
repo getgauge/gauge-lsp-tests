@@ -2,7 +2,7 @@
 
 const rpc = require('vscode-jsonrpc');
 const uri = require('vscode-uri').default;
-
+const timer = require('../../util/timer')
 async function request(fileUri, connection,requestType,position,options) {
   var messageParams = {}
   if(position){
@@ -22,9 +22,7 @@ async function request(fileUri, connection,requestType,position,options) {
   return await sendRequest(connection,requestType, messageParams);
 }
 
-async function sendRequest(connection,method,params,token){
-  setTimeout(function() {}, 10);
-    
+async function sendRequest(connection,method,params,token){    
   if(token)
     return await connection.sendRequest(new rpc.RequestType(method), params,token);
   else    
@@ -32,6 +30,7 @@ async function sendRequest(connection,method,params,token){
 }
 
 function onRequest(connection,method,params){
+  timer.sleep(10)
   connection.onRequest(new rpc.RequestType(method), params);
 }
 

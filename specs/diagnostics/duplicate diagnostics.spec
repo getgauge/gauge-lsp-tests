@@ -8,5 +8,6 @@ Get all parse errors
    |line|range_start|range_end|severity|message                                         |uri                                               |
    |----|-----------|---------|--------|------------------------------------------------|--------------------------------------------------|
    |3   |0          |10000    |1       |Duplicate concept definition found              |/specs/concepts/duplicateConcepts.cpt             |
+* ensure diagnostics verified
 ___
 * stop gauge daemon

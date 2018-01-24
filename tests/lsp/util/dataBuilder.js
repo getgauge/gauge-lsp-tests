@@ -54,7 +54,8 @@ function buildRangeFromYAML(givenResult,projectPath){
       expectedDiagnostic.rangeEnd,
       path.join(projectPath, expectedDiagnostic.uri),
       expectedDiagnostic.severity,
-      expectedDiagnostic.message);
+      expectedDiagnostic.message,
+    expectedDiagnostic.code);
 
       expectedResult.push(result)
     }
@@ -104,9 +105,13 @@ function buildPosition(line,index){
   "character": parseInt(index)}
 }
 
-function buildRange(line,rangeStart,rangeEnd,filePath,severity,message){
+function buildRange(line,rangeStart,rangeEnd,filePath,severity,message,code){
   var result = {}
-  
+
+  if(code){
+    result.code = code
+  }
+
   if(severity){
     result.severity = parseInt(severity)
   }

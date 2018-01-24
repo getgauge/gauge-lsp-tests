@@ -3,10 +3,6 @@ var assert = require('assert');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
 
-step("aaa", async function() {
-	throw 'Unimplemented Step';
-});
-
 step('open file <relativeFilePath>', async function (relativeFilePath) {    
     try{
         await languageclient.openFile(relativeFilePath);

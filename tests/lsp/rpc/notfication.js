@@ -1,12 +1,13 @@
 const rpc = require('vscode-jsonrpc');
 var assert = require('assert');
+const timer = require('../../util/timer')
 
-async function handlerForNotifcation(res,registeredHandlers){
+function handlerForNotifcation(res,registeredHandlers){
     var results = []
     for(var i=0;i<registeredHandlers.length;i++){
         if(registeredHandlers[i].unRegister)
             continue
-        var expectedDiagnostics = await registeredHandlers[i].listener(res,registeredHandlers[i].expectedDiagnostics)
+        var expectedDiagnostics = registeredHandlers[i].listener(res,registeredHandlers[i].expectedDiagnostics)
         var result = registeredHandlers[i].verifyIfDone(expectedDiagnostics);
         if(result.done)
         {
@@ -18,21 +19,25 @@ async function handlerForNotifcation(res,registeredHandlers){
     return results;
 }
 
-async function OnNotification(notificationType,connection,registeredHandlers){  
-    var results = await connection.onNotification(notificationType, async (res) => {
-        return await handlerForNotifcation(res,registeredHandlers)
-    });
+async function OnNotification(notificationType,connection,registeredHandlers,done){
+    await connection.onNotification(notificationType, (res) => {
+        var results = handlerForNotifcation(res,registeredHandlers)
 
-    if(results!=null && results.length>0 && results[0].errors!=null){
-        var errors = results[0].errors.filter(function(elem, i, array) {
-            return elem.error.length>0;
-        });
-        assert.ok(errors.length==0,"errors in validating diagnostics "+JSON.stringify(errors))
-    }
+        if(results!=null && results.length>0 && results[0].errors!=null){
+            var errors = [];
+            for(var index=0;index<results.length;index++){
+                for(var errorIndex=0;errorIndex<results[index].errors.length;errorIndex++){
+                    errors.push(results[index].errors[errorIndex])
+                }                
+            }
+
+            assert.ok(errors.length==0,"diagnostics has errors "+JSON.stringify(errors))
+        }
+    });
 }
 
 async function sendNotification(connection,method,params){
-    setTimeout(function() {}, 10);
+    timer.sleep(10)
     connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

@@ -1,8 +1,11 @@
 "use strict";
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
+const timer = require('../util/timer')
+
 const { spawn } = require('child_process');
 var path = require('path');
+var assert = require('assert');
 
 const _request = require('./rpc/request')
 const _notification = require('./rpc/notfication')
@@ -57,8 +60,13 @@ async function openProject(projectPath,runner) {
 
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     await initialize(state.gaugeDaemon,state.projectPath)
+    timer.sleep(3000)
 };
 
+function verificationFailures(){
+    var errorMessage = state.logger.getErrorMessage()
+    return errorMessage
+}
 
 async function openFile(relativePath,contentFile) {
     if(contentFile==null)
@@ -77,13 +85,10 @@ async function openFile(relativePath,contentFile) {
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => {});
 }
 
-function sleep(ms){
-    var waitTill = new Date(new Date().getTime() + ms);
-    while(waitTill > new Date()){};
-}
-
 async function initialize(process,execPath){
-    var connection = _connection.newConnection(process)
+    var result = _connection.newConnection(process)
+    var connection = result.connection
+    state.logger = result.logger
 
     const initializeParams = getInitializeParams(execPath, process);
 
@@ -93,7 +98,7 @@ async function initialize(process,execPath){
     await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
     await _notification.sendNotification(connection, "initialized",{})
     state.connection = connection
-    sleep(3000)
+
     return connection
 }
 
@@ -148,5 +153,6 @@ module.exports = {
     gotoDefinition:gotoDefinition,
     formatFile:formatFile,
     filePath:filePath,
-    projectPath:projectPath
+    projectPath:projectPath,
+    verificationFailures:verificationFailures
 }

@@ -12,5 +12,6 @@ Get all parse errors
    |5   |0          |10000    |1       |Teardown should have at least three underscore characters|/specs/tearDownThreeUnderscore.spec|
    |2   |0          |10000    |1       |Scenario heading should have at least one character      |/specs/withoutScenarioHeading.spec |
    |1   |0          |10000    |1       |Scenario should have atleast one step                    |/specs/withoutScenarioHeading.spec |
+* ensure diagnostics verified
 ___
 * stop gauge daemon

@@ -17,9 +17,12 @@ step("open <projectPath> and verify diagnostics with no runner <diagnosticsList>
   }
 });
 
-step("get stubs for unimplemented steps project <projectPath> in language", async function (projectPath,done) {
-  diagnosticsList = YAML.load("specs/generateStubs/"+process.env.language+"_impl.yaml");
-  var expectedDiagnostics = builder.buildRangeFromYAML(diagnosticsList, file.getFullPath(projectPath));
+step("ensure diagnostics verified", async function() {
+  var errors =languageclient.verificationFailures() 
+  assert.ok(errors==null || errors.length==0,errors)
+});
+step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
+  var expectedDiagnostics = builder.buildRangeFromYAML(builder.loadData(details), file.getFullPath(projectPath));
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
@@ -33,7 +36,9 @@ async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   await languageclient.openProject(projectPath,runner)
 }
 
-async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
+function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
+  if(responseMessage==null)
+    return expectedDiagnostics
   try{
     var responseUri = builder.getResponseUri(responseMessage.uri)
       
@@ -42,31 +47,32 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
       
       if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
         continue  
-  
+
       var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
         return elem.message === expectedDiagnostic.message;
       });              
   
       expectedDiagnostic.isValidated = true
-      expectedDiagnostic.error = []
+      expectedDiagnostic.errors = []
       if(allDiagnosticsForFile.length==0)
       {
-        expectedDiagnostic.error.push(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))
+        expectedDiagnostic.errors.push(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))
         return expectedDiagnostics
       }
       else{
         var diagnostic = allDiagnosticsForFile[0]
-        // if(diagnostic.code){
-        //   if(diagnostic.code!=expectedDiagnostic.code)
-        //   {
-        //     expectedDiagnostic.error.push(JSON.stringify(diagnostic.severity) + " not equal to " 
-        //     + JSON.stringify(expectedDiagnostic.severity));  
-        //   }
-        // }
+        if(diagnostic.code){
+          expectedDiagnostic.code.replace("\\\\","\\",g)
+          if(diagnostic.code!=expectedDiagnostic.code)
+          {
+            expectedDiagnostic.errors.push(JSON.stringify(diagnostic.code) + " not equal to " 
+            + JSON.stringify(expectedDiagnostic.code));  
+          }
+        }
         if(expectedDiagnostic.severity)
         {
           if(diagnostic.severity!=expectedDiagnostic.severity)
-            expectedDiagnostic.error.push(JSON.stringify(diagnostic.severity) + " not equal to " 
+            expectedDiagnostic.errors.push(JSON.stringify(diagnostic.severity) + " not equal to " 
             + JSON.stringify(expectedDiagnostic.severity));        
         }  
       }            
@@ -79,6 +85,7 @@ async function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
 function verifyAllDone(expectedDiagnostics){
   if(expectedDiagnostics==null)
     return {errors:null,done:true}
+  
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
   });
@@ -86,10 +93,11 @@ function verifyAllDone(expectedDiagnostics){
   if(validated.length == expectedDiagnostics.length)
   {
     var errors = expectedDiagnostics.filter(function(elem, i, array) {
-      return elem.error;
+      return (elem.errors && elem.errors.length>0);
     });
 
     return {errors:errors,done:true}
   }
+
   return {done:false}  
 }
