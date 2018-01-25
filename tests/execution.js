@@ -25,5 +25,14 @@ function handleCodeLensDetails(responseMessage,expectedDetails){
       gauge.message("verify code lens details")
 
       assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
+
+      assert.equal(responseMessage[rowIndex].command.title, expectedDetail.command.title)
+      assert.equal(responseMessage[rowIndex].command.command, expectedDetail.command.command)
+
+      // Todo refactor the way arguments are asserted
+      //      assert.equal(responseMessage[rowIndex].command.arguments[0], expectedDetail.command.arguments[0])
+      if(responseMessage[rowIndex].command.arguments[1])
+          assert.deepEqual(responseMessage[rowIndex].command.arguments[1], expectedDetail.command.arguments[1])
+      assert.equal(responseMessage[rowIndex].command.arguments[2], expectedDetail.command.arguments[2])    
     }  
 }

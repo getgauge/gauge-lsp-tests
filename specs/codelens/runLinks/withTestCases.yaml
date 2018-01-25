@@ -5,10 +5,17 @@
   command: gauge.execute
   arguments: %project_path%%file_path%:3
   uri: /specs/specWithTestCases.spec
-- title: Run Spec|Run in parallel
+- title: Run Spec
   line: 0
   range_start: 0
   range_end: 8
   command: gauge.execute
+  arguments: %project_path%%file_path%
+  uri: /specs/specWithTestCases.spec
+- title: Run in parallel
+  line: 0
+  range_start: 0
+  range_end: 15
+  command: gauge.execute.inParallel
   arguments: %project_path%%file_path%
   uri: /specs/specWithTestCases.spec

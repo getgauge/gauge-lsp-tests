@@ -74,24 +74,24 @@ function buildExpectedCodeLens(givenResult){
       expectedDiagnostic.range_end,
       languageclient.filePath(expectedDiagnostic.uri));
 
-    result.command = buildCommand(expectedDiagnostic.title,
-      expectedDiagnostic.command,
-      expectedDiagnostic.arguments,
-      languageclient.projectPath(),expectedDiagnostic.uri);
-  
+      result.command = {}
+      result.command.title = expectedDiagnostic.title
+      result.command.command = expectedDiagnostic.command
+      result.command.arguments = buildArguments(file.getFullPath(languageclient.projectPath(),expectedDiagnostic.uri),
+      {line:expectedDiagnostic.line,character:expectedDiagnostic.range_start},
+      expectedDiagnostic.stepname);
+
     expectedResult.push(result)
   }
   return expectedResult
 }
 
-function buildCommand(title,command,args,projectPath,filePath){
-  var result = {}
-
-  result.title = title
-  result.command = command
-  result.arguments = [];
-  result.arguments.push(args.replace('%project_path%',projectPath)
-  .replace('%file_path%',filePath))
+function buildArguments(filePath,range,stepname){
+  var result = [];
+  
+  result.push(filePath)
+  result.push(range)
+  result.push(stepname)
 
   return result;
 }
