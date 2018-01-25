@@ -1,8 +1,24 @@
 Find usages
 ===========
 
-* start gauge daemon for project "data/find-usages"
+* open project "data/find-usages"
 
-Should find usages
-------------------
+Should find usages of a step
+----------------------------
 * ensure code lens has details "specs/codelens/findUsages"
+
+Should find usages of a step alias
+----------------------------------
+* ensure code lens has details "specs/codelens/findAliasUsages"
+
+Should find usages of a concept
+-------------------------------
+* Feature yet to be implemented
+
+Should find usages of a dynamic parameter
+-----------------------------------------
+* Feature yet to be implemented
+
+Should find usages of a special parameter
+-----------------------------------------
+* Feature yet to be implemented

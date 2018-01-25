@@ -1,0 +1,14 @@
+- title: 2 reference(s)
+  line: 4
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$alias1
+  uri: tests/with_alias.rb
+- title: 1 reference(s)
+  line: 4
+  range_start: 0
+  range_end: 14
+  command: gauge.showReferences
+  arguments: %full_file_path%$%$alias2
+  uri: tests/with_alias.rb

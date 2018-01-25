@@ -1,7 +1,7 @@
 Parameter code completion
 =========================
 tags: no-lang-runner
-* start gauge daemon for project "data/codecomplete" with no runner
+* open project "data/codecomplete" with no runner
 Static Parameter list for codecomplete
 --------------------------------------
 

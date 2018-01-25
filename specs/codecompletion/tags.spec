@@ -1,7 +1,7 @@
 Tag completion
 ===============
 tags: no-lang-runner
-* start gauge daemon for project "data/codecomplete" with no runner
+* open project "data/codecomplete" with no runner
 Tag list for codecomplete
 -------------------------
 * open file "/specs/someTags/tagCompletion.spec" 

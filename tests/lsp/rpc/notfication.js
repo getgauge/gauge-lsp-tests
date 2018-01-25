@@ -20,7 +20,6 @@ function handleNotifcation(res,registeredHandlers){
 }
 
 async function OnNotification(notificationType,connection,registeredHandlers,done){
-    console.log(notificationType)
     await connection.onNotification(notificationType, (res) => {
         var results = handleNotifcation(res,registeredHandlers)
 
@@ -39,7 +38,6 @@ async function OnNotification(notificationType,connection,registeredHandlers,don
 
 async function sendNotification(connection,method,params){
     timer.sleep(10)
-    console.log(method)
     return connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

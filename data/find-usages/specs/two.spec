@@ -3,6 +3,10 @@ Find Usages with dynamic parameter
 
 * Vowels in English language are "aeiou".
 
+Another scenario
+----------------
+* alias1
+
 Vowel counts in multiple word
 -----------------------------
 
@@ -14,3 +18,5 @@ Vowel counts in multiple word
      |Snap  |1          |
      |GoCD  |1          |
      |Rhythm|0          |
+
+* alias2

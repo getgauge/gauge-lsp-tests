@@ -1,7 +1,7 @@
 Format
 ============
 tags: no-lang-runner
-* start gauge daemon for project "data/format" with no runner
+* open project "data/format" with no runner
 Should format a Specification
 -----------------------------
 * open file "/specs/toBeFormatted.spec" with content "/specs/beforeFormat.spec"

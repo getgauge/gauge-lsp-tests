@@ -1,7 +1,7 @@
 Goto a concept
 ==============
 tags: no-lang-runner
-* start gauge daemon for project "data/gotodefinition"
+* open project "data/gotodefinition"
 Go to the definition of a concept from the usage
 ------------------------------------------------
 * open file "/specs/concept_definition.spec"
