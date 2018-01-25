@@ -92,14 +92,8 @@ async function initialize(process,execPath){
     const initializeParams = getInitializeParams(execPath, process);
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
-    .then((res)=> {
-        _notification.sendNotification(connection, "initialized",{})
-        .then(
-            ()=>{
-                // _request.onRequest(connection,"client/registerCapability")
-            _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
-        })
-    })
+    await _notification.sendNotification(connection, "initialized",{})
+    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
 
     state.connection = connection
     return connection

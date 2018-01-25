@@ -6,7 +6,3 @@ logs
 
 # Gauge - java class output directory
 gauge_bin
-
-# Gauge - ruby dependencies dir
-vendor
-
