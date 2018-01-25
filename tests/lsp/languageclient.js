@@ -60,7 +60,6 @@ async function openProject(projectPath,runner) {
 
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     await initialize(state.gaugeDaemon,state.projectPath)
-    timer.sleep(3000)
 };
 
 function verificationFailures(){
