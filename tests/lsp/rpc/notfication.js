@@ -9,7 +9,7 @@ function handleNotifcation(res,registeredHandlers){
             continue
         var expectedDiagnostics = registeredHandlers[i].listener(res,registeredHandlers[i].expectedDiagnostics)
         var result = registeredHandlers[i].verifyIfDone(expectedDiagnostics);
-        if(result.done)
+        if(result.isValidated)
         {
             registeredHandlers[i].done()
             registeredHandlers[i].unRegister = true    

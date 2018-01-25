@@ -84,7 +84,7 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
 
 function verifyAllDone(expectedDiagnostics){
   if(expectedDiagnostics==null)
-    return {errors:null,done:true}
+    return {errors:null,isValidated:true}
   
   var validated = expectedDiagnostics.filter(function(elem, i, array) {
     return elem.isValidated;
@@ -96,8 +96,8 @@ function verifyAllDone(expectedDiagnostics){
       return (elem.errors && elem.errors.length>0);
     });
 
-    return {errors:errors,done:true}
+    return {errors:errors,isValidated:true}
   }
 
-  return {done:false}  
+  return {isValidated:false}  
 }
