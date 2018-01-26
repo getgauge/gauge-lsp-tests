@@ -20,6 +20,9 @@ step 'Almost all words have vowels <table>' do |words_table|
   end
 end
 
+step 'Zero references <table>' do |table|
+end
+
 def count_vowels(string)
   string.count(@vowels.to_s)
 end
