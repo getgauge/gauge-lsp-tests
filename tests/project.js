@@ -1,14 +1,5 @@
 var languageclient = require('./lsp/languageclient');
 
-step('open project <relativePath> with no runner', async function (relativePath) {
-    try{
-        await languageclient.openProject(relativePath,null);        
-    }
-    catch(err){
-        throw new Error("unable to start gauge daemon "+err)
-    }    
-});
-
 step('open project <relativePath>', async function (relativePath) {
     try{        
         await languageclient.openProject(relativePath,process.env.language);        

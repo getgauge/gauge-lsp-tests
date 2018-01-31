@@ -16,7 +16,7 @@ var listeners = [];
 var listenerId = 0;
 
 async function shutDown(){
-    await _request.sendRequest(state.connection,"shutdown", undefined)
+    _request.sendRequest(state.connection,"shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
 
@@ -84,21 +84,30 @@ async function openFile(relativePath,contentFile) {
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => {});
 }
 
-async function initialize(process,execPath){
-    var result = _connection.newConnection(process)
+async function initialize(gaugeProcess,execPath){
+    var result = _connection.newConnection(gaugeProcess)
     var connection = result.connection
     state.logger = result.logger
 
-    const initializeParams = getInitializeParams(execPath, process);
+    const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
     await _notification.sendNotification(connection, "initialized",{})
     
-    _request.onRequest(connection,"client/registerCapability",()=>{})
+    var registerCapabilityPromise = new Promise(async function (resolve, reject) {
+        if (process.env.lsp_supported) {
+            _request.onRequest(connection, "client/registerCapability", async () => {
+                resolve()
+            })
+        } else {
+            resolve()
+        }
+    });
+
     await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
 
     state.connection = connection
-    return connection
+    return registerCapabilityPromise
 }
 
 // Return the parameters used to initialize a client - you may want to extend capabilities

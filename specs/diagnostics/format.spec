@@ -1,7 +1,7 @@
 Format
 ============
 tags: no-lang-runner
-* open project "data/format" with no runner
+* open project "data/format"
 Should format a Specification
 -----------------------------
 * open file "/specs/toBeFormatted.spec" with content "/specs/beforeFormat.spec"

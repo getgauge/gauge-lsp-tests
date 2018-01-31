@@ -1,6 +1,6 @@
 {
-    "Plugins": [
-      "html-report"
-    ]
-  }
-  
+  "Language": "js",
+  "Plugins": [
+    "html-report"
+  ]
+}
