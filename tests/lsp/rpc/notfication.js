@@ -1,6 +1,5 @@
 const rpc = require('vscode-jsonrpc');
 var assert = require('assert');
-const timer = require('../../util/timer')
 
 function handleNotifcation(res,registeredHandlers){
     var results = []
@@ -37,7 +36,6 @@ async function OnNotification(notificationType,connection,registeredHandlers,don
 }
 
 async function sendNotification(connection,method,params){
-    timer.sleep(10)
     return connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

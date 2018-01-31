@@ -1,7 +1,6 @@
 "use strict";
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
-const timer = require('../util/timer')
 
 const { spawn } = require('child_process');
 var path = require('path');
@@ -92,7 +91,7 @@ async function initialize(gaugeProcess,execPath){
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
-    await _notification.sendNotification(connection, "initialized",{})
+    _notification.sendNotification(connection, "initialized",{})
     
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
         if (process.env.lsp_supported) {
@@ -104,7 +103,8 @@ async function initialize(gaugeProcess,execPath){
         }
     });
 
-    await _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
+    if(listeners!=null && listeners.length>0)
+        _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
 
     state.connection = connection
     return registerCapabilityPromise
