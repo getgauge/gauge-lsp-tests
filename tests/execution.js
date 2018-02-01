@@ -18,8 +18,8 @@ step("should be able to find usages in <details> second(s) for data <data>", asy
     }
     finally{
         var end = Date.now()
-        gauge.writeMessage(end-start+" milliseconds")
-        gauge.writeMessage(response)
+        console.log(end-start+" milliseconds")
+        // console.log(response)
     }
 });
 
