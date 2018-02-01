@@ -4,6 +4,25 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 
+step("should be able to find usages in <details> second(s) for data <data>", async function(details, data) {
+    var details = builder.loadData(data)
+    var file = details[0].uri
+    var start = Date.now()  
+    var response;
+
+    try{
+        response = await languageclient.codeLens(file)
+    }
+    catch(err){
+        throw new Error("unable to verify code lens details "+err)
+    }
+    finally{
+        var end = Date.now()
+        gauge.writeMessage(end-start+" milliseconds")
+        gauge.writeMessage(response)
+    }
+});
+
 step('ensure code lens has details <data>', async function (data) {
     var details = builder.loadData(data)
 

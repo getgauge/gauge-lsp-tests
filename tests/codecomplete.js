@@ -7,7 +7,27 @@ var responseType = {
     Function: 3,
     Parameter:6
 };
-  
+
+step("codecomplete in <filePath> at line <lineNumber> character <characterNumber> should be performant", async function(filePath,lineNumber, characterNumber) {    
+    var position = {
+        lineNumber: lineNumber,
+        characterNumber: characterNumber
+    };
+
+    var responseMessage;
+    var start = Date.now()
+    try{
+        responseMessage = await languageclient.codecomplete(position, filePath);
+    }
+    catch(err){
+        throw new Error("unable to verify Auto complete response "+err)
+    }
+    finally{
+        var end = Date.now()
+        console.log(end-start+" milliseconds")
+        console.log(responseMessage)
+    }
+});
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
 async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
     var expected = buildExpectedElements(expectedResult,element)

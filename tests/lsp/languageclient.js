@@ -49,11 +49,8 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function openProject(projectPath,runner) {    
-    var language = (runner==null)?"nolang":runner;
-    
-    file.copyFile(path.join("data","manifest/manifest-"+language+".json"),path.join(projectPath,"manifest.json"))
-    state.projectPath = file.getFullPath(projectPath);
+async function openProject(projectPath,runner,isTestData) {        
+    state.projectPath = (isTestData)? file.getFullPath(projectPath): projectPath
 
     var use_working_directory = process.env.use_working_directory;
 
@@ -76,6 +73,13 @@ async function openProject(projectPath,runner) {
     }
         
     var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+    if(isTestData)
+    {
+        var language = (runner==null)?"nolang":runner;
+        file.copyFile(path.join("data","manifest/manifest-"+language+".json"),path.join(projectPath,"manifest.json"))            
+    }
+
+    var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
     await initialize(state.gaugeDaemon,state.projectPath)
@@ -85,6 +89,18 @@ function verificationFailures(){
     var errorMessage = state.logger.getErrorMessage()
     return errorMessage
 }
+
+async function playBack(lspRequests){
+    for(i=0; i<lspRequests.length;i++){
+        if(lspRequests[i].direction=='-->'){
+            if(lspRequests[i].requestType=='notif')
+                _notfication.sendNotification(state.connection, lspRequests[i].method,lspRequests[i].params)
+            else
+                _request.sendRequest(state.connection, lspRequests[i].method,lspRequests[i].params)
+        }
+    }
+}
+
 
 async function openFile(relativePath,contentFile) {
     if(contentFile==null)
@@ -111,6 +127,8 @@ async function initialize(gaugeProcess,execPath){
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
+    console.log("here")
+    
     _notification.sendNotification(connection, "initialized",{})
     
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
@@ -182,5 +200,6 @@ module.exports = {
     formatFile:formatFile,
     filePath:filePath,
     projectPath:projectPath,
-    verificationFailures:verificationFailures
+    verificationFailures:verificationFailures,
+    playBack:playBack
 }
