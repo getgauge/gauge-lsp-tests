@@ -2,8 +2,9 @@
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
 
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 var path = require('path');
+var fs = require('fs');
 var assert = require('assert');
 
 const _request = require('./rpc/request')
@@ -55,6 +56,25 @@ async function openProject(projectPath,runner) {
     state.projectPath = file.getFullPath(projectPath);
 
     var use_working_directory = process.env.use_working_directory;
+
+    if (process.env.language == "ruby") {
+        var filePath = state.projectPath+path.sep+"Gemfile"
+        var command = 'bundle install --gemfile='+ filePath
+
+        var execPromise = new Promise(async function (resolve, reject) {
+            if (fs.existsSync(filePath)) {
+                exec(command).on("exit", (c, d) => {
+                    resolve()
+                })
+
+            } else {
+                resolve()
+            }   
+        })
+
+        await execPromise 
+    }
+        
     var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
     state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
