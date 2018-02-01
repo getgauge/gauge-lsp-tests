@@ -1,7 +1,11 @@
 var languageclient = require('./lsp/languageclient');
 
-step('open project <relativePath>', async function (relativePath) {
-    try{        
+step("pre-requisite <relativePath>", async function(relativePath) {
+	await languageclient.prerequisite(relativePath,process.env.language)
+});
+
+step('open the project <relativePath>', async function (relativePath) {
+    try{
         await languageclient.openProject(relativePath,process.env.language);        
     }
     catch(err){

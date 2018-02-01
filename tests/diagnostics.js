@@ -7,7 +7,7 @@ var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 var YAML = require('yamljs');
 
-step("open <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)

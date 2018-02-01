@@ -49,12 +49,8 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function openProject(projectPath,runner,isTestData) {        
-    state.projectPath = (isTestData)? projectPath:file.getFullPath(projectPath)
-
-    var use_working_directory = process.env.use_working_directory;
-
-    if (process.env.language == "ruby") {
+async function prerequisite(projectPath,language){
+    if (language == "ruby") {
         var filePath = state.projectPath+path.sep+"Gemfile"
         var command = 'bundle install --gemfile='+ filePath
 
@@ -71,9 +67,14 @@ async function openProject(projectPath,runner,isTestData) {
 
         await execPromise 
     }
-        
+}
+
+async function openProject(projectPath,runner,isTestData) {      
+    state.projectPath = (isTestData)? projectPath:file.getFullPath(projectPath)
+
+    var use_working_directory = process.env.use_working_directory;        
     var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
-    if(isTestData)
+    if(!isTestData)
     {
         var language = (runner==null)?"nolang":runner;
         file.copyFile(path.join("data","manifest/manifest-"+language+".json"),path.join(projectPath,"manifest.json"))            
@@ -233,5 +234,6 @@ module.exports = {
     filePath:filePath,
     projectPath:projectPath,
     verificationFailures:verificationFailures,
-    playBack:playBack
+    playBack:playBack,
+    prerequisite:prerequisite
 }

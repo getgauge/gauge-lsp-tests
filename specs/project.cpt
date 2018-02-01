@@ -1,0 +1,7 @@
+# open project <projectPath>
+* pre-requisite <projectPath>
+* open the project <projectPath>
+
+# open <projectPath> and verify diagnostics <diagnostics>
+* pre-requisite <projectPath>
+* open the project <projectPath> and verify diagnostics <diagnostics>
