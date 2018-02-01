@@ -6,3 +6,6 @@ logs
 
 # Gauge - java class output directory
 gauge_bin
+
+vendor
+Gemfile.lock
