@@ -25,7 +25,6 @@ step("codecomplete in <filePath> at line <lineNumber> character <characterNumber
     finally{
         var end = Date.now()
         console.log(end-start+" milliseconds")
-        console.log(responseMessage)
     }
 });
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 

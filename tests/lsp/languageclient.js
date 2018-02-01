@@ -91,12 +91,14 @@ function verificationFailures(){
 }
 
 async function playBack(lspRequests){
-    for(i=0; i<lspRequests.length;i++){
+    for(var i=0; i<lspRequests.length;i++){
         if(lspRequests[i].direction=='-->'){
             if(lspRequests[i].requestType=='notif')
-                _notfication.sendNotification(state.connection, lspRequests[i].method,lspRequests[i].params)
+                _notification.sendNotification(state.connection, lspRequests[i].method,lspRequests[i].params)
             else
-                _request.sendRequest(state.connection, lspRequests[i].method,lspRequests[i].params)
+            {
+                var response = await _request.sendRequest(state.connection, lspRequests[i].method,lspRequests[i].params)
+            }
         }
     }
 }
@@ -126,9 +128,7 @@ async function initialize(gaugeProcess,execPath){
 
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
-    await _request.sendRequest(connection, "initialize", initializeParams, null)
-    console.log("here")
-    
+    await _request.sendRequest(connection, "initialize", initializeParams, null)    
     _notification.sendNotification(connection, "initialized",{})
     
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
