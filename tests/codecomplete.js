@@ -51,7 +51,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
 
 function buildExpectedElements(expectedResult,element){
     var elements = table.tableToArray(expectedResult);
-    kind = null;
+    var kind = null;
     
     if("steps"==element)
         kind = responseType.Function
