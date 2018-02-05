@@ -161,6 +161,9 @@ async function initialize(gaugeProcess,execPath){
 
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
+    connection.onNotification("window/logMessage",(message) => {
+        console.log("here")
+        throw new Error(message)});
     await _request.sendRequest(connection, "initialize", initializeParams, null)    
     _notification.sendNotification(connection, "initialized",{})
     
