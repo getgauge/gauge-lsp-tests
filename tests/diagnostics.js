@@ -48,6 +48,7 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
       if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
         continue  
 
+      gauge.message("verified "+expectedDiagnostic.uri)
       var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
         return elem.message === expectedDiagnostic.message;
       });              

@@ -68,7 +68,8 @@ function verifyRejection(err,details){
 
 function verifyGotoDefinitionResponse(expected,actual){
     var actualUri = builder.getResponseUri(actual.uri)
-    
+    gauge.message("verified "+actual.uri)
+
     assert.equal(actualUri,expected.uri,("response Message uri %s should be equal to %s",actualUri,expected.uri))            
     assert.deepEqual(actual.range, expected.range, JSON.stringify(actual.range) + " not equal to " + JSON.stringify(expected.range));    
 }

@@ -27,6 +27,7 @@ step("codecomplete in <filePath> at line <lineNumber> character <characterNumber
         console.log(end-start+" milliseconds")
     }
 });
+
 step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
 async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
     var expected = buildExpectedElements(expectedResult,element)
@@ -49,7 +50,7 @@ async function (filePath,lineNumber, characterNumber,element, expectedResult) {
 })
 
 function buildExpectedElements(expectedResult,element){
-    elements = table.tableToArray(expectedResult);
+    var elements = table.tableToArray(expectedResult);
     kind = null;
     
     if("steps"==element)
