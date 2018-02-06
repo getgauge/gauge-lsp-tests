@@ -10,8 +10,11 @@ step('initialize test explorer and verify spec details <details>', async functio
     verifySpecificationList(JSON.parse(details), response);
 });
 async function verifySpecificationList(expected, actual) {
-    assert.equal(expected.heading,actual.heading)
-    assert.ok(expected.executionIdentifier,file.getFullPath(actual))
+    for(var i=0;i<expected.length;i++){
+        assert.equal(expected[i].heading,actual[i].heading)
+        assert.equal(languageclient.filePath(expected[i].executionIdentifier),actual[i].executionIdentifier)
+    }
+    //assert.ok(expected.executionIdentifier,file.getFullPath(actual))
 }
 step('select specification <spec> and verify scenario details <details>', async function (spec, details) {
 });

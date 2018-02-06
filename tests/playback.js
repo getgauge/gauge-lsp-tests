@@ -1,6 +1,6 @@
 var fs=require('fs')
-var _languageclient = require('./lsp/languageclient')
+var _playback = require('./lsp/playback')
 step("playback <filePath>", async function(filePath) {
     var contents= fs.readFileSync(filePath, "utf-8");
-    _languageclient.playBack(contents)
+    _playback.playBack(contents)
 });
