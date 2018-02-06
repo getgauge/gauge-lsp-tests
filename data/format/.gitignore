@@ -10,3 +10,5 @@ reports
 # Gauge - JavaScript node dependencies
 node_modules
 
+vendor
+Gemfile.lock

@@ -61,3 +61,6 @@ typings/
 .gauge/
 package-lock.json
 reports
+
+vendor
+Gemfile.lock
