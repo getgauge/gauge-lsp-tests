@@ -1,0 +1,30 @@
+{
+  "input":{"uri":"tests/with_alias.js"},
+  "result":[
+    {
+      "range":
+      {
+        "start":{"line":4,"character":0},
+        "end":{"line":4,"character":14}
+      },
+      "command":
+      {
+        "title":"2 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["tests/with_alias.js",{"line":4,"character":0},"alias1"]
+      }
+    },
+    {
+      "range":
+      {
+        "start":{"line":4,"character":0},
+        "end":{"line":4,"character":14}
+      },
+      "command":
+      {
+        "title":"1 reference(s)","command":"gauge.showReferences",
+        "arguments":["tests/with_alias.js",{"line":4,"character":0},"alias2"]
+      }
+    }
+  ]
+}

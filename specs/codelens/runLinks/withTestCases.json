@@ -1,0 +1,45 @@
+{
+  "input":{"uri":"specs/specWithTestCases.spec"},
+  "result":[
+    {
+      "range":{"start":{"line":3,"character":0},"end":{"line":3,"character":12}},
+      "command":{
+        "title":"Run Scenario",
+        "command":"gauge.execute",
+        "arguments":["specs/specWithTestCases.spec:4"]
+      }
+    },
+    {
+      "range":{"start":{"line":3,"character":0},"end":{"line":3,"character":14}},
+      "command":{
+        "title":"Debug Scenario",
+        "command":"gauge.debug",
+        "arguments":["specs/specWithTestCases.spec:4"]
+      }
+    },
+    {
+      "range":{"start":{"line":0,"character":0},"end":{"line":0,"character":8}},
+      "command":{
+        "title":"Run Spec",
+        "command":"gauge.execute",
+        "arguments":["specs/specWithTestCases.spec"]
+      }
+    },
+    {
+      "range":{"start":{"line":0,"character":0},"end":{"line":0,"character":10}},
+      "command":{
+        "title":"Debug Spec",
+        "command":"gauge.debug",
+        "arguments":["specs/specWithTestCases.spec"]
+      }
+    },
+    {
+      "range":{"start":{"line":0,"character":0},"end":{"line":0,"character":15}},
+      "command":{
+        "title":"Run in parallel",
+        "command":"gauge.execute.inParallel",
+        "arguments":["specs/specWithTestCases.spec"]
+      }
+    }
+  ]
+}

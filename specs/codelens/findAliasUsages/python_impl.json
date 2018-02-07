@@ -1,0 +1,21 @@
+{
+    "input":{"uri":"step_impl/with_alias.py"},
+    "result":[
+        {
+            "range":{"start":{"line":2,"character":0},"end":{"line":2,"character":14}},
+            "command":{"title":"2 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/with_alias.py",
+                    {"line":2,"character":0},
+                    "alias1"]
+            }
+        },
+        {
+            "range":{"start":{"line":2,"character":0},"end":{"line":2,"character":14}},
+            "command":{"title":"1 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/with_alias.py",
+                    {"line":2,"character":0},
+                    "alias2"]
+            }
+        }
+    ]
+}

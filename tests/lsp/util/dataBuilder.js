@@ -13,6 +13,13 @@ function loadData(data){
     return YAML.load(data)
 }
 
+function loadJSON(data){
+  if(!data.endsWith('.json'))
+    return JSON.parse(file.parseContent(data+"/"+process.env.language+"_impl.json"));      
+  else
+    return JSON.parse(file.parseContent(data))
+}
+
 function getResponseUri(original){
   return uri.parse(original).fsPath
 }
@@ -63,29 +70,6 @@ function buildRangeFromYAML(givenResult,projectPath){
     return expectedResult
 }  
 
-function buildExpectedCodeLens(givenResult){
-  var expectedResult = [];
-  
-  for (var rowIndex = 0; rowIndex < givenResult.length; rowIndex++) {
-    var expectedDiagnostic = givenResult[rowIndex]
-
-    var result = buildRange(expectedDiagnostic.line,
-      expectedDiagnostic.range_start,
-      expectedDiagnostic.range_end,
-      languageclient.filePath(expectedDiagnostic.uri));
-
-      result.command = {}
-      result.command.title = expectedDiagnostic.title
-      result.command.command = expectedDiagnostic.command
-      result.command.arguments = buildArguments(file.getFullPath(languageclient.projectPath(),expectedDiagnostic.uri),
-      {line:expectedDiagnostic.line,character:expectedDiagnostic.range_start},
-      expectedDiagnostic.stepname);
-
-    expectedResult.push(result)
-  }
-  return expectedResult
-}
-
 function buildArguments(filePath,range,stepname){
   var result = [];
   
@@ -130,7 +114,7 @@ function buildRange(line,rangeStart,rangeEnd,filePath,severity,message,code){
 module.exports={
   buildRangeFromYAML:buildRangeFromYAML,
   buildExpectedRange:buildExpectedRange,
-  buildExpectedCodeLens:buildExpectedCodeLens,
   getResponseUri:getResponseUri,
-  loadData:loadData
+  loadData:loadData,
+  loadJSON:loadJSON
 }
