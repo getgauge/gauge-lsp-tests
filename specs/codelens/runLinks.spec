@@ -6,11 +6,11 @@ tags: no-lang-runner
 Display links to run Spec and Scenario in a Specification
 ---------------------------------------------------------
 * open file "/specs/simpleSpecification.spec"
-* ensure code lens has details "specs/codelens/runLinks/simpleSpec.yaml"
+* ensure code lens has details "specs/codelens/runLinks/simpleSpec.json"
 
 Display links to run Specification with test cases in a Specification
 -----------------------------------------------------------------------
 * open file "/specs/specWithTestCases.spec"
-* ensure code lens has details "specs/codelens/runLinks/withTestCases.yaml"
+* ensure code lens has details "specs/codelens/runLinks/withTestCases.json"
 ___
 * stop gauge daemon
