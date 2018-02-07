@@ -95,6 +95,18 @@ async function gaugeSpecs(){
     return await _request.sendRequest(state.connection,'gauge/specs',{})
 }
 
+async function gaugeScenarios(spec){
+    return await _request.sendRequest(state.connection,'gauge/scenarios',{
+        "textDocument":{
+            "uri":filePath(spec),
+            "position":{
+                "line":1,
+                "character":1
+            }
+        }
+    })
+}
+
 async function openFile(relativePath,contentFile) {
     if(contentFile==null)
         contentFile = relativePath
@@ -120,7 +132,9 @@ async function initialize(gaugeProcess,execPath){
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     connection.onNotification("window/logMessage",(message) => {
-        console.log(JSON.stringify(message))});
+        console.log(JSON.stringify(message))
+    });
+    
     await _request.sendRequest(connection, "initialize", initializeParams, null)    
     _notification.sendNotification(connection, "initialized",{})
     
@@ -195,5 +209,6 @@ module.exports = {
     projectPath:projectPath,
     verificationFailures:verificationFailures,
     gaugeSpecs:gaugeSpecs,
+    gaugeScenarios:gaugeScenarios,
     prerequisite:prerequisite
 }
