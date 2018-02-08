@@ -10,3 +10,8 @@ reports
 # Gauge - JavaScript node dependencies
 node_modules
 
+
+*.pyc
+
+vendor/
+data/**/manifest.json

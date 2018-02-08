@@ -30,7 +30,8 @@ def assert_words_vowel_count(table):
 
 
 @step("Zero references <table>'") 
-def print("Zero references")
+def print(refernces):
+    pass
 
 # ---------------
 # Execution Hooks
