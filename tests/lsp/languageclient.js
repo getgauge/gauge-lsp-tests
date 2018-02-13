@@ -82,8 +82,21 @@ async function openProject(projectPath,runner,isTestData) {
 
     var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
-    state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
-    await initialize(state.gaugeDaemon,state.projectPath)
+    var daemon = spawn('gauge', args,{cwd:state.projectPath});
+    daemon.stdout.on('data', (data) => {
+        gauge.message(`stdout: ${data}`);
+    });
+
+    daemon.stderr.on('data', (data) => {
+        gauge.message(`stderr: ${data}`);
+        console.error(`stderr: ${data}`);
+    });
+
+    daemon.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+    });
+    state.gaugeDaemon = daemon;
+    await initialize(state.gaugeDaemon, state.projectPath)
 };
 
 function verificationFailures(){
