@@ -2,7 +2,7 @@
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
 
-const { spawn, exec } = require('child_process');
+const { spawn, execSync } = require('child_process');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
@@ -15,32 +15,32 @@ var state = {}
 var listeners = [];
 var listenerId = 0;
 
-async function shutDown(){
-    _request.sendRequest(state.connection,"shutdown", undefined)
+async function shutDown() {
+    _request.sendRequest(state.connection, "shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
 
 async function codeLens(fileUri) {
-    return await _request.request(filePath(fileUri),state.connection,'textDocument/codeLens')    
-}
-  
-async function codecomplete(position, relativeFilePath) {
-    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/completion',position)
-}
-  
-async function gotoDefinition(position, relativeFilePath) {
-    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/definition',position)
-}
-  
-async function formatFile(relativeFilePath) {  
-    return await _request.request(filePath(relativeFilePath),state.connection,'textDocument/formatting',null,{
-        "tabSize":4,
-        "insertSpaces":true
-    })  
+    return await _request.request(filePath(fileUri), state.connection, 'textDocument/codeLens')
 }
 
-function filePath(relativePath){
-    return path.join(projectPath() , relativePath);
+async function codecomplete(position, relativeFilePath) {
+    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/completion', position)
+}
+
+async function gotoDefinition(position, relativeFilePath) {
+    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
+}
+
+async function formatFile(relativeFilePath) {
+    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/formatting', null, {
+        "tabSize": 4,
+        "insertSpaces": true
+    })
+}
+
+function filePath(relativePath) {
+    return path.join(projectPath(), relativePath);
 }
 
 function projectPath() {
@@ -49,95 +49,79 @@ function projectPath() {
     return state.projectPath;
 }
 
-async function prerequisite(projectPath,language){
+function prerequisite(projectPath, language) {
     if (language == "ruby") {
-        var filePath = state.projectPath+path.sep+"Gemfile"
-        var command = 'bundle install --gemfile='+ filePath
-
-        var execPromise = new Promise(async function (resolve, reject) {
-            if (fs.existsSync(filePath)) {
-                exec(command).on("exit", (c, d) => {
-                    resolve()
-                })
-
-            } else {
-                resolve()
-            }   
-        })
-
-        await execPromise 
+        execSync('bundle install', {encoding: 'utf8', cwd: file.getFullPath(projectPath) })
     }
 }
 
-async function openProject(projectPath,runner,isTestData) {      
-    state.projectPath = (isTestData)? projectPath:file.getFullPath(projectPath)
-
-    var use_working_directory = process.env.use_working_directory;        
-    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
-    if(!isTestData)
-    {
-        var language = (runner==null)?"nolang":runner;
-        file.copyFile(path.join("data","manifest/manifest-"+language+".json"),path.join(projectPath,"manifest.json"))            
+async function openProject(projectPath, runner, isTestData) {
+    state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
+    var use_working_directory = process.env.use_working_directory;
+    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+    if (!isTestData) {
+        var language = (runner == null) ? "nolang" : runner;
+        file.copyFile(path.join("data", "manifest/manifest-" + language + ".json"), path.join(projectPath, "manifest.json"))
     }
 
-    var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir="+state.projectPath ,"-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+    var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
-    state.gaugeDaemon = spawn('gauge', args,{cwd:state.projectPath});
+    state.gaugeDaemon = spawn('gauge', args, { cwd: state.projectPath });
     await initialize(state.gaugeDaemon, state.projectPath)
 };
 
-function verificationFailures(){
+function verificationFailures() {
     var errorMessage = state.logger.getErrorMessage()
     return errorMessage
 }
 
-async function gaugeSpecs(){
-    return await _request.sendRequest(state.connection,'gauge/specs',{})
+async function gaugeSpecs() {
+    return await _request.sendRequest(state.connection, 'gauge/specs', {})
 }
 
-async function gaugeScenarios(spec){
-    return await _request.sendRequest(state.connection,'gauge/scenarios',{
-        "textDocument":{
-            "uri":filePath(spec),
-            "position":{
-                "line":1,
-                "character":1
+async function gaugeScenarios(spec) {
+    return await _request.sendRequest(state.connection, 'gauge/scenarios', {
+        "textDocument": {
+            "uri": filePath(spec),
+            "position": {
+                "line": 1,
+                "character": 1
             }
         }
     })
 }
 
-async function openFile(relativePath,contentFile) {
-    if(contentFile==null)
+async function openFile(relativePath, contentFile) {
+    if (contentFile == null)
         contentFile = relativePath
-    return await _notification.sendNotification(state.connection,'textDocument/didOpen',
-    {
-        "textDocument":
+    return await _notification.sendNotification(state.connection, 'textDocument/didOpen',
         {
-            "uri": file.getUri(filePath(relativePath)),
-            "languageId": "markdown",
-            "version": 1,
-            "text": file.parseContent(filePath(contentFile))
-        }
-    });
+            "textDocument":
+                {
+                    "uri": file.getUri(filePath(relativePath)),
+                    "languageId": "markdown",
+                    "version": 1,
+                    "text": file.parseContent(filePath(contentFile))
+                }
+        });
 
-    state.connection.onNotification("textDocument/publishDiagnostics", (res) => {});
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
 }
 
-async function initialize(gaugeProcess,execPath){
+async function initialize(gaugeProcess, execPath) {
     var result = _connection.newConnection(gaugeProcess)
     var connection = result.connection
     state.logger = result.logger
 
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
-    connection.onNotification("window/logMessage",(message) => {
+    connection.onNotification("window/logMessage", (message) => {
         console.log(JSON.stringify(message))
     });
-    
-    await _request.sendRequest(connection, "initialize", initializeParams, null)    
-    _notification.sendNotification(connection, "initialized",{})
-    
+
+    await _request.sendRequest(connection, "initialize", initializeParams, null)
+    _notification.sendNotification(connection, "initialized", {})
+
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
         if (process.env.lsp_supported) {
             _request.onRequest(connection, "client/registerCapability", async () => {
@@ -148,26 +132,27 @@ async function initialize(gaugeProcess,execPath){
         }
     });
 
-    if(listeners!=null && listeners.length>0)
-        _notification.OnNotification("textDocument/publishDiagnostics",connection,listeners)
+    if (listeners != null && listeners.length > 0)
+        _notification.OnNotification("textDocument/publishDiagnostics", connection, listeners)
 
     state.connection = connection
     return registerCapabilityPromise
 }
 
 // Return the parameters used to initialize a client - you may want to extend capabilities
-function getInitializeParams(projectPath,process) {
+function getInitializeParams(projectPath, process) {
     return {
         processId: process.pid,
         rootPath: projectPath,
         rootUri: vscodeUri.file(projectPath).toString(),
         capabilities: {
-        workspace: {
-            applyEdit: true,
-            didChangeConfiguration: { dynamicRegistration: true },
-            didChangeWatchedFiles: { dynamicRegistration: true },
-            symbol: { dynamicRegistration: true },
-            executeCommand: { dynamicRegistration: true } },
+            workspace: {
+                applyEdit: true,
+                didChangeConfiguration: { dynamicRegistration: true },
+                didChangeWatchedFiles: { dynamicRegistration: true },
+                symbol: { dynamicRegistration: true },
+                executeCommand: { dynamicRegistration: true }
+            },
             textDocument: {
                 synchronization: { dynamicRegistration: true, willSave: true, willSaveWaitUntil: true, didSave: true },
                 completion: { dynamicRegistration: true, completionItem: { snippetSupport: true, commitCharactersSupport: true } },
@@ -189,26 +174,26 @@ function getInitializeParams(projectPath,process) {
     }
 }
 
-function registerForNotification(listener,expectedDiagnostics,verifyIfDone,done){
+function registerForNotification(listener, expectedDiagnostics, verifyIfDone, done) {
     var id = listenerId
-    listeners.push({id:listenerId, listener:listener, expectedDiagnostics:expectedDiagnostics,verifyIfDone:verifyIfDone,done:done})
+    listeners.push({ id: listenerId, listener: listener, expectedDiagnostics: expectedDiagnostics, verifyIfDone: verifyIfDone, done: done })
     listenerId++
     return id
 }
-    
+
 module.exports = {
-    openProject:openProject,
-    registerForNotification:registerForNotification,
-    shutDown:shutDown,
-    openFile:openFile,
-    codeLens:codeLens,
-    codecomplete:codecomplete,
-    gotoDefinition:gotoDefinition,
-    formatFile:formatFile,
-    filePath:filePath,
-    projectPath:projectPath,
-    verificationFailures:verificationFailures,
-    gaugeSpecs:gaugeSpecs,
-    gaugeScenarios:gaugeScenarios,
-    prerequisite:prerequisite
+    openProject: openProject,
+    registerForNotification: registerForNotification,
+    shutDown: shutDown,
+    openFile: openFile,
+    codeLens: codeLens,
+    codecomplete: codecomplete,
+    gotoDefinition: gotoDefinition,
+    formatFile: formatFile,
+    filePath: filePath,
+    projectPath: projectPath,
+    verificationFailures: verificationFailures,
+    gaugeSpecs: gaugeSpecs,
+    gaugeScenarios: gaugeScenarios,
+    prerequisite: prerequisite
 }
