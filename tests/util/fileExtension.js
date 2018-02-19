@@ -11,7 +11,7 @@ function getUri(filePath){
 function getFullPath(relativePath, file){
     if(file)
         return vscodeUri.file(path.join(cwd, relativePath,file)).fsPath;
-    return vscodeUri.file(path.join(cwd, relativePath)).fsPath;        
+    return vscodeUri.file(path.join(cwd, relativePath)).fsPath;
 }
 
 function getPath(path1, file){

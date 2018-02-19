@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "find-usages"
+		},
+		{
+			"path": "steps-gotodefinition"
+		},
+		{
+			"path": "steps-codecomplete"
+		}
+	],
+	"settings": {}
+}

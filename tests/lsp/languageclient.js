@@ -55,6 +55,14 @@ function prerequisite(projectPath, language) {
     }
 }
 
+async function refactor(uri,position,newName){
+    return await _request.sendRequest(state.connection, "textDocument/rename",{
+        "textDocument":{"uri": file.getUri(filePath(uri))},
+        "position":position,
+        "newName":newName
+    })
+}
+
 async function openProject(projectPath, runner, isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     var use_working_directory = process.env.use_working_directory;
@@ -195,5 +203,6 @@ module.exports = {
     verificationFailures: verificationFailures,
     gaugeSpecs: gaugeSpecs,
     gaugeScenarios: gaugeScenarios,
-    prerequisite: prerequisite
+    prerequisite: prerequisite,
+    refactor:refactor
 }

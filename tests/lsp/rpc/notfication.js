@@ -36,9 +36,6 @@ async function OnNotification(notificationType,connection,registeredHandlers,don
 }
 
 async function sendNotification(connection,method,params){
-    // console.log(method)
-    // console.log(params)
-  
     return connection.sendNotification(new rpc.NotificationType(method), params);
 }
 

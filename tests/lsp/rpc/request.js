@@ -22,7 +22,7 @@ async function request(fileUri, connection,requestType,position,options) {
   return await sendRequest(connection,requestType, messageParams);
 }
 
-async function sendRequest(connection,method,params,token){    
+async function sendRequest(connection,method,params,token){
   if(token)
     return await connection.sendRequest(new rpc.RequestType(method), params,token);
   else    
