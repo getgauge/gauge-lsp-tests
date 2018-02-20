@@ -10,5 +10,3 @@ Should format a Specification
 Should format a Concept
 -----------------------
 * Feature yet to be implemented
-___
-* stop gauge daemon

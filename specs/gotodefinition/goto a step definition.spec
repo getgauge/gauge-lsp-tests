@@ -15,5 +15,3 @@ Goto definition of undefined element should give a suitable message
    |error                                                     |
    |----------------------------------------------------------|
    |Step implementation not found for step : undefined Concept|
-___
-* stop gauge daemon

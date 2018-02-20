@@ -13,5 +13,3 @@ Get all parse errors
    |0   |0          |10000    |1       |Concept heading can have only Dynamic Parameters|/specs/concepts/headingToHaveOnlyDynamicParams.cpt|
    |1   |0          |10000    |1       |Table doesn't belong to any step                |/specs/concepts/tableDoesNotBelongToAnyStep.cpt   |
 * ensure diagnostics verified
-___
-* stop gauge daemon

@@ -23,6 +23,11 @@ step('open project with full path <fullPath>', async function (fullPath) {
 });
 
 step("stop gauge daemon", async function() {
+    console.log("here")
+});
+
+
+afterScenario(async function () {
 	try{
         await languageclient.shutDown()
     }catch(err){

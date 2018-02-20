@@ -9,5 +9,3 @@ Get all parse errors
    |----|-----------|---------|--------|------------------------------------------------|--------------------------------------------------|
    |3   |0          |10000    |1       |Duplicate concept definition found              |/specs/concepts/duplicateConcepts.cpt             |
 * ensure diagnostics verified
-___
-* stop gauge daemon

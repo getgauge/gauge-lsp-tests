@@ -24,5 +24,3 @@ Dynamic Parameter list for codecomplete
    |label|detail |
    |-----|-------|
    |one  |dynamic|
-___
-* stop gauge daemon

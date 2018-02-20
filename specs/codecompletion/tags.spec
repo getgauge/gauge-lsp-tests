@@ -17,5 +17,3 @@ Tag list for codecomplete
    |SpecLevel1    |
    |SpecLevel2    |
    |with space    |
-___
-* stop gauge daemon

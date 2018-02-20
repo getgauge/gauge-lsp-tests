@@ -33,5 +33,3 @@ Should list steps implemented but not used
    |start one                |
    |two <another> <parameter>|
    |start                    |
-___
-* stop gauge daemon
