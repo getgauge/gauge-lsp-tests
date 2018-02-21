@@ -3,5 +3,8 @@ include Test::Unit::Assertions
 
 @vowels = nil
 
-step 'start' do 
+step 'implemented step one' do 
+end
+
+step 'implemented step two' do 
 end
