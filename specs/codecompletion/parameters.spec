@@ -40,3 +40,4 @@ A newly added parameter appears in the list after file save
    |more     |static|
    |another  |static|
    |parameter|static|
+* restore file "/specs/edit_codecomplete_param.spec" with content "/specs/codecomplete_param.txt"
