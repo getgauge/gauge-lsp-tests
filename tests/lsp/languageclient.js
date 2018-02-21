@@ -99,6 +99,35 @@ async function gaugeScenarios(spec) {
     })
 }
 
+async function saveFile(relativePath,version) {
+    return await _notification.sendNotification(state.connection, 'textDocument/didSave',
+        {
+            "textDocument":
+                {
+                    "uri": file.getUri(filePath(relativePath))
+                }
+        });
+}
+
+
+async function editFile(relativePath, contentFile) {
+    if (contentFile == null)
+        contentFile = relativePath
+
+    return await _notification.sendNotification(state.connection, 'textDocument/didChange',
+        {
+            "textDocument":
+                {
+                    "uri": file.getUri(filePath(relativePath))
+                },
+            "contentChanges":[{
+                "text": file.parseContent(filePath(contentFile)),
+            }]
+        });
+
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
+}
+
 async function openFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
@@ -194,6 +223,8 @@ module.exports = {
     registerForNotification: registerForNotification,
     shutDown: shutDown,
     openFile: openFile,
+    editFile:editFile,
+    saveFile:saveFile,
     codeLens: codeLens,
     codecomplete: codecomplete,
     gotoDefinition: gotoDefinition,

@@ -1,4 +1,4 @@
-Parameter Code complete
+Parameter Code Complete
 =======================
 table:./csv.csv
 Gauge LSP 2
@@ -7,4 +7,3 @@ Gauge LSP 2
 * start "s"
 * two "another" "parameter"
 * start one <one>
-* unimplemented step three

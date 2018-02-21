@@ -4,6 +4,10 @@
 
 var assert = require("assert");
 
-step('start',function(){
+step('implemented step one',function(){
+
+});
+
+step('implemented step two',function(){
 
 });

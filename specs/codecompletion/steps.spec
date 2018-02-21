@@ -2,34 +2,23 @@ Steps code completion
 =====================
 
 * open project "data/steps-codecomplete"
-Steps list for codecomplete
---------------------------
+Steps list steps that are unimplemented but used
+------------------------------------------------
 * open file "/specs/codecomplete_step.spec"
-* codecomplete in "/specs/codecomplete_step.spec" at line "4" character "7" should give "steps" 
+* codecomplete in "/specs/codecomplete_step.spec" for subText "unimplemented s" at line "4" character "18" should give "steps" 
 
-   |label                    |
-   |-------------------------|
-   |one                      |
-   |two                      |
-   |one <something>          |
-   |start <s>                |
-   |start one <one>          |
-   |start one                |
-   |two <another> <parameter>|
-   |start                    |
+   |label                   |
+   |------------------------|
+   |unimplemented step one  |
+   |unimplemented step two  |
+   |unimplemented step three|
 
-Should list steps implemented but not used
-------------------------------------------
+Should list steps implemented but unused steps
+----------------------------------------------
 * open file "/specs/codecomplete_step.spec"
-* codecomplete in "/specs/codecomplete_step.spec" at line "4" character "7" should give "steps" 
+* codecomplete in "/specs/codecomplete_step.spec" for subText "implemented step" at line "5" character "18" should give "steps" 
 
-   |label                    |
-   |-------------------------|
-   |one                      |
-   |two                      |
-   |one <something>          |
-   |start <s>                |
-   |start one <one>          |
-   |start one                |
-   |two <another> <parameter>|
-   |start                    |
+   |label               |
+   |--------------------|
+   |implemented step one|
+   |implemented step two|

@@ -1,80 +1,78 @@
 'use strict';
 var languageclient = require('./lsp/languageclient');
 var table = require('./util/table');
-var assert = require('assert')
-
+var assert = require('assert');
 var responseType = {
     Function: 3,
-    Parameter:6
+    Parameter: 6
 };
-
-step("codecomplete in <filePath> at line <lineNumber> character <characterNumber> should be performant", async function(filePath,lineNumber, characterNumber) {    
+step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should be performant', async function (filePath, lineNumber, characterNumber) {
     var position = {
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-
     var responseMessage;
-    var start = Date.now()
-    try{
+    var start = Date.now();
+    try {
         responseMessage = await languageclient.codecomplete(position, filePath);
-    }
-    catch(err){
-        throw new Error("unable to verify Auto complete response "+err)
-    }
-    finally{
-        var end = Date.now()
-        console.log(end-start+" milliseconds")
+    } catch (err) {
+        throw new Error('unable to verify Auto complete response ' + err);
+    } finally {
+        var end = Date.now();
+        console.log(end - start + ' milliseconds');
     }
 });
-
-step('codecomplete in <filePath> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', 
-async function (filePath,lineNumber, characterNumber,element, expectedResult) {    
-    var expected = buildExpectedElements(expectedResult,element)
-    if(expected.kind==null)
-        throw new Error("unknown type "+element)
-    
+step('codecomplete in <filePath> for subText <subText> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', async function (filePath, argSubText, lineNumber, characterNumber, element, expectedResult) {
+    var expected = buildExpectedElements(expectedResult, element,argSubText);
+    if (expected.kind == null)
+        throw new Error('unknown type ' + element);
     var position = {
         lineNumber: lineNumber,
         characterNumber: characterNumber
     };
-
     var responseMessage;
-    try{
+    try {
         responseMessage = await languageclient.codecomplete(position, filePath);
+    } catch (err) {
+        throw new Error('unable to complete action Auto complete ' + err);
     }
-    catch(err){
-        throw new Error("unable to verify Auto complete response "+err)
-    }
-    verifyAutocompleteResponse(responseMessage,expected)
-})
-
-function buildExpectedElements(expectedResult,element){
+    verifyAutocompleteResponse(responseMessage, expected,argSubText);
+});
+function buildExpectedElements(expectedResult, element,subText) {
     var elements = table.tableToArray(expectedResult);
     var kind = null;
-    
-    if("steps"==element)
-        kind = responseType.Function
-    if(("parameters"==element)||("tags"==element))
-        kind = responseType.Parameter
-    return {elements:elements,kind:kind}
-}
-
-function verifyAutocompleteResponse(responseMessage,expected) {
-    if (responseMessage.method=="textDocument/publishDiagnostics")
-        return        
-    var actualNumberOfItems = responseMessage.items.length;
-
-    for (var index = 0; index < actualNumberOfItems; index++) {
-        var item = responseMessage.items[index];
-
-        gauge.message("verified "+item.label)
-        assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);    
-        if(expected.elements.detail)
-            assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);            
+    if ('steps' == element){
+        return {
+            elements: elements,
+            kind: responseType.Function,
+            subText:subText
+        }
     }
-    
-    assert.equal(actualNumberOfItems, expected.elements.label.length, 
-    JSON.stringify(actualNumberOfItems) + " not equal to " 
-    + JSON.stringify(expected.elements.label.length));  
+    if ('parameters' == element || 'tags' == element)
+        kind = responseType.Parameter;
+    return {
+            elements: elements,
+            kind: kind,
+        };
+}
+function verifyAutocompleteResponse(responseMessage, expected,subText) {
+    if (responseMessage.method == 'textDocument/publishDiagnostics')
+        return;
+
+    var actualItems = responseMessage.items;
+    if(subText){
+        actualItems = responseMessage.items.filter(function(elem, i, array) {
+            return elem.label.startsWith(subText)
+          });
+    }
+
+    var actualNumberOfItems = actualItems.length;
+    for (var index = 0; index < actualNumberOfItems; index++) {
+        var item = actualItems[index];
+        gauge.message('verified ' + item.label);
+        assert.ok(expected.elements.label.indexOf(item.label) > -1, 'label not found ' + item.label);
+        if (expected.elements.detail)
+            assert.ok(expected.elements.detail.indexOf(item.detail) > -1, 'detail not found ' + item.detail);
+    }
+    assert.equal(actualNumberOfItems, expected.elements.label.length, JSON.stringify(actualNumberOfItems) + ' not equal to ' + JSON.stringify(expected.elements.label.length));
 }

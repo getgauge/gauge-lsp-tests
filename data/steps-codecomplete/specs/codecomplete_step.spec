@@ -2,7 +2,6 @@ Steps code complete
 =====================
 Gauge LSP 2
 -----------
-* one
-* start
-* two
-* start one
+* unimplemented step one
+* implemented step one
+* unimplemented step two
