@@ -1,7 +1,7 @@
 {
   "input":{
     "uri":"specs/example.spec",
-    "position":{"line":11,"character":13},
+    "position":{"line":3,"character":13},
     "newName":"* Vowels in English language are \"aeiou\"",
     "spec":{
       "restoreFrom":"specs/example.txt",
@@ -17,8 +17,8 @@
     "changes":
     {
       "specs/example.spec":[
-        {"range":{"start":{"line":0,"character":0},"end":{"line":36,"character":0}},
-        "newText":"Specification Heading\n=====================\n\nThis is an executable specification file. This file follows markdown syntax.\nEvery heading in this file denotes a scenario. Every bulleted point denotes a step.\n\nTo execute this specification, run\n\n    gauge specs\n\n\n* Vowels in English language are \"aeiou\"\n\nVowel counts in single word\n---------------------------\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n\nVowel counts in multiple word\n-----------------------------\n\nThis is the second scenario in this specification\n\nHere's a step that takes a table\n\n* Almost all words have vowels \n\n   |Word  |Vowel Count|\n   |------|-----------|\n   |Gauge |3          |\n   |Mingle|2          |\n   |Snap  |1          |\n   |GoCD  |1          |\n   |Rhythm|0          |\n"
+        {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":0}},
+        "newText":"Specification Heading\n=====================\n\n* Vowels in English language are \"aeiou\"\n\nVowel counts in single word\n---------------------------\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n"
         }],
       "step_implementations/step_implementation.rb":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":25,"character":0}},
