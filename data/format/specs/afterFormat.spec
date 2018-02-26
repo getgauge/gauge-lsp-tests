@@ -1,5 +1,4 @@
-Format Data
-===========
+# Format Data
 
    |Vowels|
    |------|
@@ -7,8 +6,7 @@ Format Data
 
 * Vowels in English language are <Vowels>.
 
-Vowel counts in single word
----------------------------
+## Vowel counts in single word
 
 tags: single word
 

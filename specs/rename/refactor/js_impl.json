@@ -18,7 +18,7 @@
     {
       "specs/example.spec":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":0}},
-        "newText":"Specification Heading\n=====================\n\n* Vowels in English language are \"aeiou\"\n\nVowel counts in single word\n---------------------------\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n"
+        "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\"\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n"
         }],
       "tests/step_implementation.js":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":41,"character":0}},
