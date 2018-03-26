@@ -66,7 +66,7 @@ async function refactor(uri,position,newName){
 async function openProject(projectPath, runner, isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     var use_working_directory = process.env.use_working_directory;
-    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
+    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath] : ['daemon', '--lsp'];
     if (!isTestData) {
         var language = (runner == null) ? "nolang" : runner;
         file.copyFile(path.join("data", "manifest/manifest-" + language + ".json"), path.join(projectPath, "manifest.json"))
