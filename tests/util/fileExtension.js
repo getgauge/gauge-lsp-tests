@@ -25,7 +25,7 @@ function parseContent(file) {
 }
 
 function save(file,contentFile){
-    return fs.writeFileSync(file,parseContent(contentFile))
+    fs.writeFileSync(file,parseContent(contentFile))
 }
 
 function copyFile(from, to){

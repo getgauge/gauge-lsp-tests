@@ -16,24 +16,24 @@ var listeners = [];
 var listenerId = 0;
 
 async function shutDown() {
-    _request.sendRequest(state.connection, "shutdown", undefined)
+    await _request.sendRequest(state.connection, "shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
 
 async function codeLens(fileUri) {
-    return await _request.request(filePath(fileUri), state.connection, 'textDocument/codeLens')
+    return _request.request(filePath(fileUri), state.connection, 'textDocument/codeLens')
 }
 
 async function codecomplete(position, relativeFilePath) {
-    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/completion', position)
+    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/completion', position)
 }
 
 async function gotoDefinition(position, relativeFilePath) {
-    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
+    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
 }
 
 async function formatFile(relativeFilePath) {
-    return await _request.request(filePath(relativeFilePath), state.connection, 'textDocument/formatting', null, {
+    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/formatting', null, {
         "tabSize": 4,
         "insertSpaces": true
     })
@@ -56,7 +56,7 @@ function prerequisite(projectPath, language) {
 }
 
 async function refactor(uri,position,newName){
-    return await _request.sendRequest(state.connection, "textDocument/rename",{
+    return _request.sendRequest(state.connection, "textDocument/rename",{
         "textDocument":{"uri": file.getUri(filePath(uri))},
         "position":position,
         "newName":newName
@@ -75,7 +75,7 @@ async function openProject(projectPath, runner, isTestData) {
     var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
 
     state.gaugeDaemon = spawn('gauge', args, { cwd: state.projectPath });
-    await initialize(state.gaugeDaemon, state.projectPath)
+    return initialize(state.gaugeDaemon, state.projectPath)
 };
 
 function verificationFailures() {
@@ -84,11 +84,11 @@ function verificationFailures() {
 }
 
 async function gaugeSpecs() {
-    return await _request.sendRequest(state.connection, 'gauge/specs', {})
+    return _request.sendRequest(state.connection, 'gauge/specs', {})
 }
 
 async function gaugeScenarios(spec) {
-    return await _request.sendRequest(state.connection, 'gauge/scenarios', {
+    return _request.sendRequest(state.connection, 'gauge/scenarios', {
         "textDocument": {
             "uri": filePath(spec),
             "position": {
@@ -99,8 +99,8 @@ async function gaugeScenarios(spec) {
     })
 }
 
-async function saveFile(relativePath,version) {
-    return await _notification.sendNotification(state.connection, 'textDocument/didSave',
+function saveFile(relativePath,version) {
+    _notification.sendNotification(state.connection, 'textDocument/didSave',
         {
             "textDocument":
                 {
@@ -110,11 +110,13 @@ async function saveFile(relativePath,version) {
 }
 
 
-async function editFile(relativePath, contentFile) {
+function editFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
-
-    return await _notification.sendNotification(state.connection, 'textDocument/didChange',
+    
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
+    
+    _notification.sendNotification(state.connection, 'textDocument/didChange',
         {
             "textDocument":
                 {
@@ -124,14 +126,14 @@ async function editFile(relativePath, contentFile) {
                 "text": file.parseContent(filePath(contentFile)),
             }]
         });
-
-    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
 }
 
-async function openFile(relativePath, contentFile) {
+function openFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
-    return await _notification.sendNotification(state.connection, 'textDocument/didOpen',
+    
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
+    _notification.sendNotification(state.connection, 'textDocument/didOpen',
         {
             "textDocument":
                 {
@@ -141,8 +143,6 @@ async function openFile(relativePath, contentFile) {
                     "text": file.parseContent(filePath(contentFile))
                 }
         });
-
-    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
 }
 
 async function initialize(gaugeProcess, execPath) {
@@ -154,6 +154,10 @@ async function initialize(gaugeProcess, execPath) {
 
     connection.onNotification("window/logMessage", (message) => {
         console.log(JSON.stringify(message))
+    });
+
+    connection.onError((e) => {
+        console.log(JSON.stringify(message));
     });
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)

@@ -19,14 +19,14 @@ async function request(fileUri, connection,requestType,position,options) {
   };
  
   
-  return await sendRequest(connection,requestType, messageParams);
+  return sendRequest(connection,requestType, messageParams);
 }
 
 async function sendRequest(connection,method,params,token){
   if(token)
-    return await connection.sendRequest(new rpc.RequestType(method), params,token);
+    return connection.sendRequest(new rpc.RequestType(method), params,token);
   else    
-    return await connection.sendRequest(new rpc.RequestType(method), params);  
+    return connection.sendRequest(new rpc.RequestType(method), params);  
 }
 
 function onRequest(connection,method,params){

@@ -35,8 +35,8 @@ async function OnNotification(notificationType,connection,registeredHandlers,don
     });
 }
 
-async function sendNotification(connection,method,params){
-    return connection.sendNotification(new rpc.NotificationType(method), params);
+function sendNotification(connection,method,params){
+    connection.sendNotification(new rpc.NotificationType(method), params);
 }
 
 module.exports = {OnNotification:OnNotification,sendNotification:sendNotification}
