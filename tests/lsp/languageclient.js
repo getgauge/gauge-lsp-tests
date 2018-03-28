@@ -39,6 +39,10 @@ async function formatFile(relativeFilePath) {
     })
 }
 
+async function getImplFiles() {
+    return _request.sendRequest(state.connection, "gauge/getImplFiles", {});
+}
+
 function filePath(relativePath) {
     return path.join(projectPath(), relativePath);
 }
@@ -239,5 +243,6 @@ module.exports = {
     gaugeSpecs: gaugeSpecs,
     gaugeScenarios: gaugeScenarios,
     prerequisite: prerequisite,
-    refactor:refactor
+    refactor:refactor,
+    getImplFiles:getImplFiles
 }
