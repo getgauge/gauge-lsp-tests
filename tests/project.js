@@ -1,6 +1,7 @@
 var languageclient = require('./lsp/languageclient');
 
 step("pre-requisite <relativePath>", function(relativePath) {
+    console.log("LSP tests will run for language "+process.env.language)
 	languageclient.prerequisite(relativePath,process.env.language)
 });
 
