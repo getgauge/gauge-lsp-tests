@@ -39,18 +39,6 @@ async function formatFile(relativeFilePath) {
     })
 }
 
-async function getImplFiles() {
-    return _request.sendRequest(state.connection, "gauge/getImplFiles", {});
-}
-
-function conceptTemplate(name){
-    return "# "+name+"\n* ";
-}
-
-function newConceptFile(relativePath) {
-    return path.join(filePath(relativePath),"concept1.cpt")
-}
-
 function filePath(relativePath) {
     return path.join(projectPath(), relativePath);
 }
@@ -95,21 +83,10 @@ function verificationFailures() {
     return errorMessage
 }
 
-async function gaugeSpecs() {
-    return _request.sendRequest(state.connection, 'gauge/specs', {})
+async function sendRequest(method, params) {
+    return _request.sendRequest(state.connection, method, params)
 }
 
-async function gaugeScenarios(spec) {
-    return _request.sendRequest(state.connection, 'gauge/scenarios', {
-        "textDocument": {
-            "uri": filePath(spec),
-            "position": {
-                "line": 1,
-                "character": 1
-            }
-        }
-    })
-}
 
 function saveFile(relativePath,version) {
     _notification.sendNotification(state.connection, 'textDocument/didSave',
@@ -234,14 +211,6 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
     return id
 }
 
-async function generateNewConcept(name,path){
-    return _request.sendRequest(state.connection, 'gauge/generateConcept', {
-        "conceptName":conceptTemplate(name),
-        "conceptFile":"New File",
-        "dir":filePath(path)
-    })
-}
-
 module.exports = {
     openProject: openProject,
     registerForNotification: registerForNotification,
@@ -256,12 +225,7 @@ module.exports = {
     filePath: filePath,
     projectPath: projectPath,
     verificationFailures: verificationFailures,
-    gaugeSpecs: gaugeSpecs,
-    gaugeScenarios: gaugeScenarios,
     prerequisite: prerequisite,
     refactor:refactor,
-    getImplFiles:getImplFiles,
-    generateNewConcept:generateNewConcept,
-    conceptTemplate:conceptTemplate,
-    newConceptFile:newConceptFile
+    sendRequest:sendRequest
 }

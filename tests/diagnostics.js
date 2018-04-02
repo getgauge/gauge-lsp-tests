@@ -31,11 +31,6 @@ step("get stubs for unimplemented steps project <projectPath> with details <deta
   }
 });
 
-step("get implementation files for project <projectPath>", async function(projectPath) {
-  var files = await languageclient.getImplFiles();
-  assert.ok(files.length >= 1);
-});
-
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
   languageclient.prerequisite(projectPath,runner)
