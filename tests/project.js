@@ -30,7 +30,6 @@ step('open project with full path <fullPath>', async function (fullPath) {
 
 beforeScenario(async function(context){
    currentScenario = context.currentScenario.name
-    // process.env.logs_directory = customLogPath
 })
 
 afterScenario(async function () {

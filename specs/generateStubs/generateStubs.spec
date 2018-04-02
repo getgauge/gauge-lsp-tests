@@ -11,3 +11,8 @@ Get Implementation Files
 ------------------------
 * open project "data/generatestubs"
 * get implementation files for project "data/generatestubs"
+
+Should generate new Concept files
+---------------------------------
+* open project "data/generatestubs"
+* generate concept "name" in "specs"

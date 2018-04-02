@@ -43,6 +43,14 @@ async function getImplFiles() {
     return _request.sendRequest(state.connection, "gauge/getImplFiles", {});
 }
 
+function conceptTemplate(name){
+    return "# "+name+"\n* ";
+}
+
+function newConceptFile(relativePath) {
+    return path.join(filePath(relativePath),"concept1.cpt")
+}
+
 function filePath(relativePath) {
     return path.join(projectPath(), relativePath);
 }
@@ -117,9 +125,9 @@ function saveFile(relativePath,version) {
 function editFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
-    
+
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
-    
+
     _notification.sendNotification(state.connection, 'textDocument/didChange',
         {
             "textDocument":
@@ -135,7 +143,7 @@ function editFile(relativePath, contentFile) {
 function openFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
-    
+
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
     _notification.sendNotification(state.connection, 'textDocument/didOpen',
         {
@@ -226,6 +234,14 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
     return id
 }
 
+async function generateNewConcept(name,path){
+    return _request.sendRequest(state.connection, 'gauge/generateConcept', {
+        "conceptName":conceptTemplate(name),
+        "conceptFile":"New File",
+        "dir":filePath(path)
+    })
+}
+
 module.exports = {
     openProject: openProject,
     registerForNotification: registerForNotification,
@@ -244,5 +260,8 @@ module.exports = {
     gaugeScenarios: gaugeScenarios,
     prerequisite: prerequisite,
     refactor:refactor,
-    getImplFiles:getImplFiles
+    getImplFiles:getImplFiles,
+    generateNewConcept:generateNewConcept,
+    conceptTemplate:conceptTemplate,
+    newConceptFile:newConceptFile
 }
