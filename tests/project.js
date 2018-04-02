@@ -1,8 +1,13 @@
 var languageclient = require('./lsp/languageclient');
+var fileExtension = require('./util/fileExtension');
+var path = require('path');
+var currentScenario;
 
 step("pre-requisite <relativePath>", function(relativePath) {
-    console.log("LSP tests will run for language "+process.env.language)
-	languageclient.prerequisite(relativePath,process.env.language)
+    var customLogPath =  path.relative(relativePath,'logs');
+    process.env.logs_directory = customLogPath+"/lsp-tests/"+currentScenario;
+
+    languageclient.prerequisite(relativePath,process.env.language);
 });
 
 step('open the project <relativePath>', async function (relativePath) {
@@ -22,6 +27,11 @@ step('open project with full path <fullPath>', async function (fullPath) {
         throw new Error("unable to start gauge daemon "+err)
     }
 });
+
+beforeScenario(async function(context){
+   currentScenario = context.currentScenario.name
+    // process.env.logs_directory = customLogPath
+})
 
 afterScenario(async function () {
     try{
