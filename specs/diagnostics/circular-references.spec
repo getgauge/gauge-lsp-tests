@@ -3,7 +3,7 @@ Circular references
 tags: no-lang-runner
 Get all parse errors
 -----------------------------
-* open "data/parse-errors/circular-references" and verify diagnostics
+* open "data/diagnostics/circular-references" and verify diagnostics
 
    |line|range_start|range_end|severity|message                                                                                     |uri                                               |
    |----|-----------|---------|--------|--------------------------------------------------------------------------------------------|--------------------------------------------------|

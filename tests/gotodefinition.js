@@ -12,7 +12,7 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
     {
         response = await languageclient.gotoDefinition({
             lineNumber:parseInt(lineNumber),characterNumber:parseInt(characterNumber)},
-            relativeFilePath);       
+            relativeFilePath);
     }
     catch(err)
     {

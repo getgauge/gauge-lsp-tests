@@ -2,6 +2,10 @@ const path = require('path');
 const _languageClient = require('./languageclient');
 const _request = require('./rpc/request');
 
+async function getRunnerLanguage(){
+    return _languageClient.sendRequest('gauge/getRunnerLanguage', undefined);
+}
+
 async function generateInExistingConcept(name,fileName,relativePath){
     var dirName = _languageClient.filePath(relativePath)
     return _languageClient.sendRequest('gauge/generateConcept', {
@@ -55,5 +59,6 @@ module.exports = {
     conceptTemplate:conceptTemplate,
     getImplFiles:getImplFiles,
     gaugeSpecs:gaugeSpecs,
-    gaugeScenarios: gaugeScenarios
+    gaugeScenarios: gaugeScenarios,
+    getRunnerLanguage:getRunnerLanguage
 }

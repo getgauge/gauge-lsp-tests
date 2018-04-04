@@ -1,6 +1,7 @@
 # open project <projectPath>
 * pre-requisite <projectPath>
 * open the project <projectPath>
+* verify gauge runner
 
 # open <projectPath> and verify diagnostics <diagnostics>
 * pre-requisite <projectPath>
