@@ -22,4 +22,3 @@ step("get implementation files for project <projectPath>", async function(projec
 	var files = await _customLSP.getImplFiles();
 	_assert.ok(files.length >= 1);
   });
-  

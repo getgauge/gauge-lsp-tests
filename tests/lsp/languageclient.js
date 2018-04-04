@@ -2,7 +2,7 @@
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension')
 
-const { spawn, execSync } = require('child_process');
+const _lspServer = require('./gauge');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
@@ -30,6 +30,10 @@ async function codecomplete(position, relativeFilePath) {
 
 async function gotoDefinition(position, relativeFilePath) {
     return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
+}
+
+async function documentSymbol(relativeFilePath) {
+    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/documentSymbol')
 }
 
 async function formatFile(relativeFilePath) {
@@ -65,16 +69,11 @@ async function refactor(uri,position,newName){
 
 async function openProject(projectPath, runner, isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
-    var use_working_directory = process.env.use_working_directory;
-    var args = (use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath] : ['daemon', '--lsp'];
     if (!isTestData) {
         var language = (runner == null) ? "nolang" : runner;
         file.copyFile(path.join("data", "manifest/manifest-" + language + ".json"), path.join(projectPath, "manifest.json"))
     }
-
-    var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir=" + state.projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
-
-    state.gaugeDaemon = spawn('gauge', args, { cwd: state.projectPath });
+    state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };
 
@@ -227,5 +226,6 @@ module.exports = {
     verificationFailures: verificationFailures,
     prerequisite: prerequisite,
     refactor:refactor,
-    sendRequest:sendRequest
+    sendRequest:sendRequest,
+    documentSymbol:documentSymbol
 }

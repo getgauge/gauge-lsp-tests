@@ -2,6 +2,10 @@ const path = require('path');
 const _languageClient = require('./languageclient');
 const _request = require('./rpc/request');
 
+async function getExecutionStatus(){
+    return _languageClient.sendRequest('gauge/executionStatus', {});
+}
+
 async function getRunnerLanguage(){
     return _languageClient.sendRequest('gauge/getRunnerLanguage', undefined);
 }
