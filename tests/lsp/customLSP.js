@@ -64,5 +64,6 @@ module.exports = {
     getImplFiles:getImplFiles,
     gaugeSpecs:gaugeSpecs,
     gaugeScenarios: gaugeScenarios,
-    getRunnerLanguage:getRunnerLanguage
+    getRunnerLanguage:getRunnerLanguage,
+    getExecutionStatus:getExecutionStatus
 }

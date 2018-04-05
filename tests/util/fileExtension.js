@@ -28,6 +28,10 @@ function save(file,contentFile){
     fs.writeFileSync(file,parseContent(contentFile))
 }
 
+function openFile(file){
+    return fs.openSync(file,'r')
+}
+
 function copyFile(from, to){
     fs.createReadStream(from).pipe(fs.createWriteStream(to));
 }
@@ -52,5 +56,6 @@ module.exports={
     parseContent:parseContent,
     copyFile:copyFile,
     save:save,
-    rmContentsOfDir:rmContentsOfDir
+    rmContentsOfDir:rmContentsOfDir,
+    openFile:openFile
 }

@@ -1,16 +1,15 @@
 "use strict";
 const vscodeUri = require('vscode-uri').default;
 const file = require('../util/fileExtension');
-const { execSync } = require('child_process');
 
 const _lspServer = require('./gauge');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
-
-const _request = require('./rpc/request')
-const _notification = require('./rpc/notfication')
-const _connection = require('./rpc/connection')
+const execSync = require('child_process');
+const _request = require('./rpc/request');
+const _notification = require('./rpc/notfication');
+const _connection = require('./rpc/connection');
 
 var state = {}
 var listeners = [];

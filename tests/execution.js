@@ -2,7 +2,10 @@
 var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-
+var _gauge = require('./lsp/gauge');
+var _customLSP = require('./lsp/customLSP');
+var _fileExtension = require('./util/fileExtension');
+var path = require('path');
 
 step('ensure spec code lens has details <data>', async function (data) {
     var details = builder.loadJSON(data)
@@ -50,3 +53,19 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
         assert.equal(responseMessage[rowIndex].command.arguments[2], expectedDetail.command.arguments[2], message)
     }
 }
+
+step("run all specifications <relativeProjectPath>", async function(relativeProjectPath) {
+	_gauge.runSpecs(relativeProjectPath)
+});
+
+step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
+    _customLSP.getExecutionStatus();
+    var executionStatusFile = languageclient.filePath(".gauge/executionStatus.json");
+    var expected = JSON.parse(expectedDetails)
+    var actual = JSON.parse(_fileExtension.parseContent(executionStatusFile))
+    assert.deepEqual(actual,expected)
+});
+
+step("remove the <directory> folder", async function(directory) {
+	_fileExtension.rmContentsOfDir(directory)
+});

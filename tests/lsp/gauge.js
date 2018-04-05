@@ -10,5 +10,6 @@ async function runSpecs(projectPath){
 }
 
 module.exports = {
-    startLSP:startLSP
+    startLSP:startLSP,
+    runSpecs:runSpecs
 }
