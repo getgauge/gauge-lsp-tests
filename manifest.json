@@ -1,6 +1,4 @@
 {
   "Language": "js",
-  "Plugins": [
-    "xml-report"
-  ]
+  "Plugins": []
 }

@@ -2,7 +2,7 @@
 ## Refactor step in a specification
 * restore file in project "data/refactor" with details "specs/rename/refactor"
 * open project "data/refactor"
-* print file content "data/refactor/specs/example.spec"
+* wait for "0.1" seconds
 * open file with details "specs/rename/refactor"
 * refactor step "specs/rename/refactor" for project "data/refactor"
 

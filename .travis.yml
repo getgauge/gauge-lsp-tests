@@ -17,4 +17,4 @@ install:
 
 script:
   - gauge version
-  - gauge run specs -v
+  - gauge run --tags=!knownIssue -v
