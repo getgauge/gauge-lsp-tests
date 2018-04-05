@@ -32,6 +32,10 @@ async function gotoDefinition(position, relativeFilePath) {
     return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
 }
 
+async function workspaceSymbol(params){
+    return _request.sendRequest(state.connection, 'workspace/symbol',params)
+}
+
 async function documentSymbol(relativeFilePath) {
     return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/documentSymbol')
 }
@@ -227,5 +231,6 @@ module.exports = {
     prerequisite: prerequisite,
     refactor:refactor,
     sendRequest:sendRequest,
-    documentSymbol:documentSymbol
+    documentSymbol:documentSymbol,
+    workspaceSymbol:workspaceSymbol
 }

@@ -13,19 +13,19 @@ async function request(fileUri, connection,requestType,position,options) {
 
   if(options)
     messageParams.options = options
-  
-  messageParams.textDocument = { 
+
+  messageParams.textDocument = {
     "uri": uri.file(fileUri).toString().replace('%25','%')
   };
- 
-  
+
+
   return sendRequest(connection,requestType, messageParams);
 }
 
 async function sendRequest(connection,method,params,token){
   if(token)
     return connection.sendRequest(new rpc.RequestType(method), params,token);
-  else    
+  else
     return connection.sendRequest(new rpc.RequestType(method), params);  
 }
 
