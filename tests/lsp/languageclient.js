@@ -1,6 +1,7 @@
 "use strict";
 const vscodeUri = require('vscode-uri').default;
-const file = require('../util/fileExtension')
+const file = require('../util/fileExtension');
+const { execSync } = require('child_process');
 
 const _lspServer = require('./gauge');
 var path = require('path');
