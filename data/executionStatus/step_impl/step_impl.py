@@ -6,4 +6,4 @@ def a_step_that_passes():
 
 @step("A Step to fail")
 def a_step_to_fail():
-    assert 1, 2
+    raise Exception('A Step to fail')

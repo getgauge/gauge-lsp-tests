@@ -59,7 +59,7 @@ step("run all specifications <relativeProjectPath>", async function(relativeProj
 });
 
 step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
-    await _customLSP.getExecutionStatus();
+    _customLSP.getExecutionStatus();
     var executionStatusFile = languageclient.filePath(".gauge/executionStatus.json");
     var expected = JSON.parse(expectedDetails)
     var actual = JSON.parse(_fileExtension.parseContent(executionStatusFile))
