@@ -66,6 +66,6 @@ step("the execution status of <directoryPath> should be <expectedDetails>", asyn
     assert.deepEqual(actual,expected)
 });
 
-step("remove the <directory> folder", async function(directory) {
-	_fileExtension.rmContentsOfDir(directory)
+step("remove the <directory> folder of <projectPath>", async function(directory,projectPath) {
+	_fileExtension.rmContentsOfDir(path.join(projectPath, directory))
 });
