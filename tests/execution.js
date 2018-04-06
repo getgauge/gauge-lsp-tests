@@ -55,11 +55,11 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
 }
 
 step("run all specifications <relativeProjectPath>", async function(relativeProjectPath) {
-	await _gauge.runSpecs(relativeProjectPath)
+	_gauge.runSpecs(relativeProjectPath)
 });
 
 step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
-    _customLSP.getExecutionStatus();
+    await _customLSP.getExecutionStatus();
     var executionStatusFile = languageclient.filePath(".gauge/executionStatus.json");
     var expected = JSON.parse(expectedDetails)
     var actual = JSON.parse(_fileExtension.parseContent(executionStatusFile))

@@ -1,4 +1,4 @@
-const { spawn, execSync } = require('child_process');
+const { spawn,spawnSync, execSync } = require('child_process');
 
 async function startLSP(projectPath) {
     var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir=" + projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
@@ -6,7 +6,7 @@ async function startLSP(projectPath) {
 }
 
 async function runSpecs(projectPath){
-    return spawn('gauge', ['run'], { cwd: projectPath });
+    return spawnSync('gauge', ['run'], { cwd: projectPath });
 }
 
 module.exports = {
