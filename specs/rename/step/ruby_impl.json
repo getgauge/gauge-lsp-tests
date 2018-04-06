@@ -17,8 +17,8 @@
     "changes":
     {
       "specs/example.spec":[
-        {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":0}},
-        "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\"\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n"
+        {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":9}},
+        "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\"\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n Concept\n"
         }],
       "step_implementations/step_implementation.rb":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":25,"character":0}},

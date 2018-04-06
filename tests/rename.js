@@ -12,18 +12,21 @@ step("refactor step <details> for project <project>", async function (jsonDetail
 function verifyRefactorResult(expected, actual) {
 	for (k in expected.changes) {
 		var fileUri = file.getUri(languageclient.filePath(k));
-		assert.deepEqual(expected.changes[k], actual.changes[fileUri]);
+		assert.deepEqual(expected.changes[k].range, actual.changes[fileUri].range);
+		assert.deepEqual(expected.changes[k].newText, actual.changes[fileUri].newText);
 	}
 };
 
 step("restore file in project <projectPath> with details <jsonDetails>", async function (projectPath, jsonDetails) {
 	var details = builder.loadJSON(jsonDetails)
-	restore(details.input.gaugeFile)
-	restore(details.input.code);
+	restore(projectPath, details.input.gaugeFile)
+	restore(projectPath,details.input.code);
 });
 
-function restore(items){
+function restore(projectPath, items){
 	if(items!=null){
-		file.copyFile(items.forEachfile.getFullPath(projectPath, item.restoreFrom), file.getFullPath(projectPath, item.toBeRestored)())
+		items.forEach(function(item){
+			file.copyFile(file.getFullPath(projectPath, item.restoreFrom), file.getFullPath(projectPath, item.toBeRestored))
+		})
 	}
 }
