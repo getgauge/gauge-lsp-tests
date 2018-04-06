@@ -15,6 +15,9 @@ def number_of_vowels(word):
 def assert_no_of_vowels_in(word, number):
     assert str(number) == str(number_of_vowels(word))
 
+@step("something")
+def assert_no_of_vowels_in(word, number):
+    assert 1 == 1
 
 @step("Vowels in English language are <vowels>.")
 def assert_default_vowels(given_vowels):

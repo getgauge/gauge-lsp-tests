@@ -18,6 +18,12 @@ function verifyRefactorResult(expected, actual) {
 
 step("restore file in project <projectPath> with details <jsonDetails>", async function (projectPath, jsonDetails) {
 	var details = builder.loadJSON(jsonDetails)
-	file.copyFile(file.getFullPath(projectPath, details.input.spec.restoreFrom), file.getFullPath(projectPath, details.input.spec.toBeRestored))
-	file.copyFile(file.getFullPath(projectPath, details.input.code.restoreFrom), file.getFullPath(projectPath, details.input.code.toBeRestored))
+	restore(details.input.gaugeFile)
+	restore(details.input.code);
 });
+
+function restore(items){
+	if(items!=null){
+		file.copyFile(items.forEachfile.getFullPath(projectPath, item.restoreFrom), file.getFullPath(projectPath, item.toBeRestored)())
+	}
+}

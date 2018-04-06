@@ -39,3 +39,7 @@ beforeScenario(function () {
 beforeScenario(function () {
   assert.equal(vowels[0], "a");
 }, { tags: [ "single word" ]});
+
+step("something", function(vowelsGiven) {
+  assert.equal(vowelsGiven, vowels.join(""));
+});

@@ -23,3 +23,6 @@ end
 def count_vowels(string)
   string.count(@vowels.to_s)
 end
+
+step 'something' do |vowels|
+end

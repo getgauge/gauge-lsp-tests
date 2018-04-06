@@ -4,9 +4,9 @@
 * open project "data/refactor"
 * wait for "0.1" seconds
 * open file with details "specs/rename/refactor"
-* refactor step "specs/rename/refactor" for project "data/refactor"
+* refactor step "specs/rename/step" for project "data/refactor"
 
 ## Refactor concept used in a specification
+* Work in progress
 * open project "data/refactor"
-* refactor step "Vowels in English language are \"aeiou\"."
-* verify sucessful refactor
+* refactor step "specs/rename/concept/concept_impl.json" for project "data/refactor"

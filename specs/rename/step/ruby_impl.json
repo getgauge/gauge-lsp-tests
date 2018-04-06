@@ -3,14 +3,14 @@
     "uri":"specs/example.spec",
     "position":{"line":3,"character":13},
     "newName":"* Vowels in English language are \"aeiou\"",
-    "spec":{
+    "gaugeFile":[{
       "restoreFrom":"specs/example.txt",
       "toBeRestored":"specs/example.spec"
-    },
-    "code":{
+    }],
+    "code":[{
       "restoreFrom":"step_implementations/step_implementation.txt",
       "toBeRestored":"step_implementations/step_implementation.rb"
-    }
+    }]
   },
   "result":
   {
