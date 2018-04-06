@@ -34,7 +34,7 @@ beforeScenario(async function(context){
 
 afterScenario(async function () {
     try{
-        await languageclient.shoutDown()
+        await languageclient.shutDown()
     }catch(err){
         throw new Error("trying to stop gauge daemon failed "+err)
     }
