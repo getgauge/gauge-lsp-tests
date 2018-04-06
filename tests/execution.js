@@ -55,7 +55,7 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
 }
 
 step("run all specifications <relativeProjectPath>", async function(relativeProjectPath) {
-	_gauge.runSpecs(relativeProjectPath)
+	await _gauge.runSpecs(relativeProjectPath)
 });
 
 step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
