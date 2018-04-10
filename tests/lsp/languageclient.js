@@ -32,8 +32,8 @@ async function gotoDefinition(position, relativeFilePath) {
     return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
 }
 
-async function workspaceSymbol(params){
-    return _request.sendRequest(state.connection, 'workspace/symbol',params)
+async function workspaceSymbol(params) {
+    return _request.sendRequest(state.connection, 'workspace/symbol', params)
 }
 
 async function documentSymbol(relativeFilePath) {
@@ -59,15 +59,21 @@ function projectPath() {
 
 function prerequisite(projectPath, language) {
     if (language == "ruby") {
-        execSync('bundle install', {encoding: 'utf8', cwd: file.getFullPath(projectPath) })
+        var output = execSync('gauge version -m');
+        var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
+        var gemFilePath = file.getFullPath(path.join(projectPath, "Gemfile"));
+        var fileContent = file.parseContent(gemFilePath);
+        var result = fileContent.replace(/\${ruby-version}/, version);
+        file.write(gemFilePath, result);
+        execSync('bundle install', { encoding: 'utf8', cwd: file.getFullPath(projectPath)});
     }
 }
 
-async function refactor(uri,position,newName){
-    return _request.sendRequest(state.connection, "textDocument/rename",{
-        "textDocument":{"uri": file.getUri(filePath(uri))},
-        "position":position,
-        "newName":newName
+async function refactor(uri, position, newName) {
+    return _request.sendRequest(state.connection, "textDocument/rename", {
+        "textDocument": { "uri": file.getUri(filePath(uri)) },
+        "position": position,
+        "newName": newName
     })
 }
 
@@ -91,7 +97,7 @@ async function sendRequest(method, params) {
 }
 
 
-function saveFile(relativePath,version) {
+function saveFile(relativePath, version) {
     _notification.sendNotification(state.connection, 'textDocument/didSave',
         {
             "textDocument":
@@ -114,7 +120,7 @@ function editFile(relativePath, contentFile) {
                 {
                     "uri": file.getUri(filePath(relativePath))
                 },
-            "contentChanges":[{
+            "contentChanges": [{
                 "text": file.parseContent(filePath(contentFile)),
             }]
         });
@@ -219,8 +225,8 @@ module.exports = {
     registerForNotification: registerForNotification,
     shutDown: shutDown,
     openFile: openFile,
-    editFile:editFile,
-    saveFile:saveFile,
+    editFile: editFile,
+    saveFile: saveFile,
     codeLens: codeLens,
     codecomplete: codecomplete,
     gotoDefinition: gotoDefinition,
@@ -229,8 +235,8 @@ module.exports = {
     projectPath: projectPath,
     verificationFailures: verificationFailures,
     prerequisite: prerequisite,
-    refactor:refactor,
-    sendRequest:sendRequest,
-    documentSymbol:documentSymbol,
-    workspaceSymbol:workspaceSymbol
+    refactor: refactor,
+    sendRequest: sendRequest,
+    documentSymbol: documentSymbol,
+    workspaceSymbol: workspaceSymbol
 }
