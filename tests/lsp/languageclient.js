@@ -57,8 +57,10 @@ function projectPath() {
     return state.projectPath;
 }
 
-function prerequisite(projectPath, language) {
-    if (language == "ruby") {
+function prerequisite(projectPath, runner) {
+    file.copyFile(path.join("data", "manifest/manifest-" + runner + ".json"), path.join(projectPath, "manifest.json"))
+    
+    if (runner == "ruby") {
         var output = execSync('gauge version -m');
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
         var gemFilePath = file.getFullPath(path.join(projectPath, "Gemfile"));
@@ -77,12 +79,8 @@ async function refactor(uri, position, newName) {
     })
 }
 
-async function openProject(projectPath, runner, isTestData) {
+async function openProject(projectPath,isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
-    if (!isTestData) {
-        var language = (runner == null) ? "nolang" : runner;
-        file.copyFile(path.join("data", "manifest/manifest-" + language + ".json"), path.join(projectPath, "manifest.json"))
-    }
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };

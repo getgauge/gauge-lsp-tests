@@ -12,16 +12,7 @@ step("pre-requisite <relativePath>", function(relativePath) {
 
 step('open the project <relativePath>', async function (relativePath) {
     try{
-        await languageclient.openProject(relativePath,process.env.language);
-    }
-    catch(err){
-        throw new Error("unable to start gauge daemon "+err)
-    }
-});
-
-step('open project with full path <fullPath>', async function (fullPath) {
-    try{
-        await languageclient.openProject(fullPath,null);
+        await languageclient.openProject(relativePath);
     }
     catch(err){
         throw new Error("unable to start gauge daemon "+err)
