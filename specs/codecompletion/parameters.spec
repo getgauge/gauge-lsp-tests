@@ -29,9 +29,10 @@ Dynamic Parameter list for codecomplete
 
 A newly added parameter appears in the list after file save
 -----------------------------------------------------------
+* Work in progress
 * open file "/specs/edit_codecomplete_param.spec"
 * edit file content "/specs/edit_codecomplete_param.spec" to "/specs/more_codecomplete_param.txt" and save
-* wait for "0.1" seconds
+* wait for "0.1" secondsF
 * codecomplete in "/specs/edit_codecomplete_param.spec" for subText "" at line "5" character "15" should give "parameters" 
 
    |label    |detail|
