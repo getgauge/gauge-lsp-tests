@@ -67,7 +67,8 @@ function prerequisite(projectPath, runner) {
         var fileContent = file.parseContent(gemFilePath);
         var result = fileContent.replace(/\${ruby-version}/, version);
         file.write(gemFilePath, result);
-        execSync('bundle install', { encoding: 'utf8', cwd: file.getFullPath(projectPath)});
+        var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
+        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath)});
     }
 }
 
