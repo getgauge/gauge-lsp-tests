@@ -13,12 +13,12 @@
       "changes":
       {
         "specs/example.spec":[
-          {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":0}},
-          "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\"\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n"
+          {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":9}},
+          "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\".\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n* Concept1\n"
           }],
-        "tests/step_implementation.js":[
-          {"range":{"start":{"line":0,"character":0},"end":{"line":41,"character":0}},
-          "newText":"'use strict';\nvar assert = require('assert');\nvar vowels = [\n    'a',\n    'e',\n    'i',\n    'o',\n    'u'\n];\nvar numberOfVowels = function (word) {\n    var vowelArr = word.split('').filter(function (elem) {\n        return vowels.indexOf(elem) \u003e -1;\n    });\n    return vowelArr.length;\n};\nstep('Vowels in English language are \u003cvowels\u003e', function (vowelsGiven) {\n    assert.equal(vowelsGiven, vowels.join(''));\n});\nstep('The word \u003cword\u003e has \u003cnumber\u003e vowels.', function (word, number) {\n    assert.equal(number, numberOfVowels(word));\n});\nstep('Almost all words have vowels \u003ctable\u003e', function (table) {\n    table.rows.forEach(function (row) {\n        assert.equal(numberOfVowels(row.cells[0]), parseInt(row.cells[1]));\n    });\n});\nstep('Zero references \u003ctable\u003e', function (table) {\n    table.rows.forEach(function (row) {\n        assert.equal(numberOfVowels(row.cells[0]), parseInt(row.cells[1]));\n    });\n});\nbeforeScenario(function () {\n    assert.equal(vowels.join(''), 'aeiou');\n});\nbeforeScenario(function () {\n    assert.equal(vowels[0], 'a');\n}, { tags: ['single word'] });"
+        "specs/concept.cpt":[
+          {"range":{"start":{"line":0,"character":0},"end":{"line":1,"character":11}},
+          "newText":"# Concept1\n* something\n"
           }]
       }
     }

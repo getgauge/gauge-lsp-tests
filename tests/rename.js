@@ -9,11 +9,13 @@ step("refactor step <details> for project <project>", async function (jsonDetail
 	verifyRefactorResult(details.result, result);
 });
 
-function verifyRefactorResult(expected, actual) {
-	for (k in expected.changes) {
+function verifyRefactorResult(expectedResults, actualResults) {
+	for (k in expectedResults.changes) {
 		var fileUri = file.getUri(languageclient.filePath(k));
-		assert.deepEqual(expected.changes[k].range, actual.changes[fileUri].range);
-		assert.deepEqual(expected.changes[k].newText, actual.changes[fileUri].newText);
+		var expected = expectedResults.changes[k][0]
+		var actual = actualResults.changes[fileUri][0]
+		assert.deepEqual(expected.range, actual.range);
+		assert.deepEqual(expected.newText, actual.newText,"expected \n"+expected.newText+" but was \n"+actual.newText);
 	}
 };
 
