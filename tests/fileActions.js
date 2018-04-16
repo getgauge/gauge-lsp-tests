@@ -23,7 +23,7 @@ function handleCodeLensDetails(responseMessage, expectedDetails) {
         assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }
 }
-step('open file with details <jsonDetails>', async function (jsonDetails) {
+step('open file with details <jsonDetails>', function (jsonDetails) {
     var details = builder.loadJSON(jsonDetails);
     try {
         languageclient.openFile(details.input.uri);
