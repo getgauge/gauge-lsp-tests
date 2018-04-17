@@ -1,11 +1,9 @@
 var languageclient = require('./lsp/languageclient');
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
-var currentScenario;
-
+var customLogPath;
 step("pre-requisite <relativePath>", function(relativePath) {
-    var customLogPath =  path.relative(relativePath,'logs');
-    process.env.logs_directory = customLogPath+"/lsp-tests/"+currentScenario;
+    process.env.logs_directory = path.relative(relativePath,'logs')+"/lsp-tests/"+customLogPath;
 
     languageclient.prerequisite(relativePath,process.env.language);
 });
@@ -20,7 +18,7 @@ step('open the project <relativePath>', async function (relativePath) {
 });
 
 beforeScenario(async function(context){
-   currentScenario = context.currentScenario.name
+    customLogPath = context.currentSpec.name+"/"+context.currentScenario.name;
 })
 
 afterScenario(async function () {
