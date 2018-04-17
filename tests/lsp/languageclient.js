@@ -59,7 +59,7 @@ function projectPath() {
 
 function prerequisite(projectPath, runner) {
     file.copyFile(path.join("data", "manifest/manifest-" + runner + ".json"), path.join(projectPath, "manifest.json"))
-    
+
     if (runner == "ruby") {
         var output = execSync('gauge version -m');
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
@@ -68,7 +68,7 @@ function prerequisite(projectPath, runner) {
         var result = fileContent.replace(/\${ruby-version}/, version);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
-        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath)});
+        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath) });
     }
 }
 
@@ -80,7 +80,7 @@ async function refactor(uri, position, newName) {
     })
 }
 
-async function openProject(projectPath,isTestData) {
+async function openProject(projectPath, isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
@@ -160,10 +160,16 @@ async function initialize(gaugeProcess, execPath) {
     await _request.sendRequest(connection, "initialize", initializeParams, null)
     _notification.sendNotification(connection, "initialized", {})
 
+    var expectedCapabilityIds = ["gauge-fileWatcher", "gauge-runner-didOpen", "gauge-runner-didClose", "gauge-runner-didChange", "gauge-runner-didChange", "gauge-runner-fileWatcher"];
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
         if (process.env.lsp_supported) {
-            _request.onRequest(connection, "client/registerCapability", async () => {
-                resolve()
+            _request.onRequest(connection, "client/registerCapability", async (data) => {
+                data.registrations.forEach(registration => {
+                    expectedCapabilityIds = expectedCapabilityIds.filter(id => registration.id !== id);
+                });
+                if (expectedCapabilityIds.length == 0) {
+                    resolve()
+                }
             })
         } else {
             resolve()
