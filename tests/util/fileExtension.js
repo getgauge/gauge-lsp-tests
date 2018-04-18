@@ -37,7 +37,7 @@ function openFile(file){
 }
 
 function copyFile(from, to){
-    fs.createReadStream(from).pipe(fs.createWriteStream(to));
+    fs.copyFileSync(from, to);
 }
 
 function rmContentsOfDir(dirPath) {
