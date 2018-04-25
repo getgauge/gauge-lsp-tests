@@ -107,7 +107,7 @@ function saveFile(relativePath, version) {
 }
 
 
-function editFile(relativePath, contentFile) {
+async function editFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
 
