@@ -37,6 +37,7 @@ step('edit file content <arg0> to <arg1> and save', async function (relativeFile
         var filePath = languageclient.filePath(relativeFilePath)
         var contentFilePath = languageclient.filePath(contentFile)
         file.save(filePath,contentFilePath)
+        console.log("\n"+file.parseContent(filePath))
         languageclient.saveFile(relativeFilePath);
     } catch (err) {
         throw new Error('unable to open file ' + err);

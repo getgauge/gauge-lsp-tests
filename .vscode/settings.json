@@ -1,3 +1,7 @@
 {
-    "gauge.launch.enableDebugLogs": true
+    "gauge.launch.enableDebugLogs": true,
+    "files.associations": {
+        "*.spec": "gauge",
+        "*.cpt": "gauge"
+    }
 }

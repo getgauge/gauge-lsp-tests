@@ -1,0 +1,7 @@
+[
+  {
+  "message": "Step implementation not found",
+  "code":"@step(\"undefined step\")\n\tdef raise ValueError('Unimplemented Step')",
+  "uri": "/specs/concept_definition.spec"
+  }
+]
