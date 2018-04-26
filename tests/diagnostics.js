@@ -5,30 +5,30 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
+var YAML = require('yamljs');
 
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  var expectedDiagnostics = builder.loadJSON(diagnosticsList);
+  var expectedDiagnostics = builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
-    throw new Error('Unable to perform operation '+err)    
-  }
-});
-
-step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath, diagnosticsList,done) {
-  var expectedDiagnostics = builder.loadJSON(diagnosticsList);
-  try{
-    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
-  }
-  catch(err){
-    throw new Error('Unable to perform operation '+err)    
+    throw new Error('Unable to open project '+err)    
   }
 });
 
 step("ensure diagnostics verified", async function() {
   var errors =languageclient.verificationFailures() 
   assert.ok(errors==null || errors.length==0,errors)
+});
+step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
+  var expectedDiagnostics = builder.buildRangeFromYAML(builder.loadData(details), file.getFullPath(projectPath));
+  try{
+    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+  }
+  catch(err){
+    throw new Error('Unable to generate steps '+err)
+  }
 });
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
@@ -46,12 +46,11 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
       var expectedDiagnostic = expectedDiagnostics[rowIndex]
       
-      if(file.getPath(responseUri)!=languageclient.filePath(expectedDiagnostic.uri))
+      if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
         continue  
 
       gauge.message("verified "+expectedDiagnostic.uri)
       var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
-        expectedDiagnostic.message =  expectedDiagnostic.message.replace('%project_path%%file_path%',languageclient.filePath(expectedDiagnostic.uri))
         return elem.message === expectedDiagnostic.message;
       });              
   

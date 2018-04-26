@@ -25,7 +25,7 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
 
 step('goto definition of step <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>',async function(element,relativeFilePath,lineNumber,characterNumber,data){
     var response;
-    var details = builder.loadJSON(data)
+    var details = builder.loadData(data)
 
     try
     {

@@ -1,5 +1,5 @@
 {
-  "Language": "ruby",
+  "Language": "js",
   "Plugins": [
     "html-report"
   ]

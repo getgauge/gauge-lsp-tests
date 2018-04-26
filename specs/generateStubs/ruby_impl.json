@@ -1,7 +1,0 @@
-[
-  {
-    "message": "Step implementation not found",
-    "code":"step 'undefined step' do ||\n\traise 'Unimplemented Step';\nend",
-    "uri": "/specs/concept_definition.spec"
-  }
-]
