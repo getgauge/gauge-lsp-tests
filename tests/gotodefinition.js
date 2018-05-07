@@ -16,8 +16,8 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
     var expectedError;
     try {
         response = await languageclient.gotoDefinition({
-            lineNumber: parseInt(lineNumber),
-            characterNumber: parseInt(characterNumber)
+            line: parseInt(lineNumber),
+            character: parseInt(characterNumber)
         }, relativeFilePath);
     } catch (err) {
         expectedError = err;
@@ -32,8 +32,8 @@ step('goto definition of step <element> in project <project> <relativeFilePath> 
     addProjectPath(details, project);
     try {
         response = await languageclient.gotoDefinition({
-            lineNumber: parseInt(lineNumber),
-            characterNumber: parseInt(characterNumber)
+            line: parseInt(lineNumber),
+            character: parseInt(characterNumber)
         }, relativeFilePath);
     } catch (err) {
         throw new Error('Unable to goto definition ' + err);

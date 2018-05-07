@@ -20,16 +20,44 @@ async function shutDown() {
     _notification.sendNotification(state.connection, "exit");
 }
 
+function getRange(position){
+    return {
+        "line": parseInt(position.line),
+        "character": parseInt(position.character)        
+    }
+}
+
+function getMessageParams(fileUri,keyValues) {
+    if(keyValues==null)
+        return null
+    var messageParams = {}
+    for (var index = 0; index < Object.keys(keyValues).length; ++index) {
+        messageParams[Object.keys(keyValues)[index]] = (keyValues[Object.keys(keyValues)[index]]);
+    }
+
+    messageParams.textDocument = {
+        "uri": vscodeUri.file(fileUri).toString().replace('%25','%')
+    };
+
+    return messageParams;
+}
+
+async function codeAction(fileUri,range,diagnostics) {
+    return _request.sendRequest(state.connection,'textDocument/codeAction',getMessageParams(fileUri,
+        {"range":range,"context":{"diagnostics":diagnostics}}
+    ));
+}
+
 async function codeLens(fileUri) {
-    return _request.request(filePath(fileUri), state.connection, 'textDocument/codeLens')
+    return _request.sendRequest(state.connection, 'textDocument/codeLens',getMessageParams(filePath(fileUri),{}))
 }
 
 async function codecomplete(position, relativeFilePath) {
-    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/completion', position)
+    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
 async function gotoDefinition(position, relativeFilePath) {
-    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/definition', position)
+    return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
 async function workspaceSymbol(params) {
@@ -37,14 +65,14 @@ async function workspaceSymbol(params) {
 }
 
 async function documentSymbol(relativeFilePath) {
-    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/documentSymbol')
+    return _request.sendRequest(state.connection, 'textDocument/documentSymbol',getMessageParams(filePath(relativeFilePath),{}))
 }
 
 async function formatFile(relativeFilePath) {
-    return _request.request(filePath(relativeFilePath), state.connection, 'textDocument/formatting', null, {
+    return _request.sendRequest(state.connection, 'textDocument/formatting',getMessageParams(filePath(relativeFilePath),{"options":{
         "tabSize": 4,
         "insertSpaces": true
-    })
+    }}))
 }
 
 function filePath(relativePath) {
@@ -75,7 +103,7 @@ function prerequisite(projectPath, runner) {
 async function refactor(uri, position, newName) {
     return _request.sendRequest(state.connection, "textDocument/rename", {
         "textDocument": { "uri": file.getUri(filePath(uri)) },
-        "position": position,
+        "position": getRange(position),
         "newName": newName
     })
 }

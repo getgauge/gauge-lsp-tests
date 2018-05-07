@@ -11,8 +11,8 @@ step('codecomplete in <filePath> for subText <subText> at line <lineNumber> char
     if (expected.kind == null)
         throw new Error('unknown type ' + element);
     var position = {
-        lineNumber: lineNumber,
-        characterNumber: characterNumber
+        line: lineNumber,
+        character: characterNumber
     };
     var responseMessage;
     try {
