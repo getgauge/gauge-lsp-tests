@@ -31,18 +31,26 @@ step('open file with details <jsonDetails>', function (jsonDetails) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('edit file content <arg0> to <arg1> and save', async function (relativeFilePath, contentFile) {
-    try {
-        languageclient.editFile(relativeFilePath, contentFile);
-        var filePath = languageclient.filePath(relativeFilePath)
-        var contentFilePath = languageclient.filePath(contentFile)
-        file.save(filePath,contentFilePath)
-        languageclient.saveFile(relativeFilePath);
-    } catch (err) {
-        throw new Error('unable to open file ' + err);
-    }
-});
-
+step('change content <relativeFilePath> to <contentFile> and save', async function (relativeFilePath, contentFile) { 
+        try { 
+            var filePath = languageclient.filePath(relativeFilePath) 
+            var contentFilePath = languageclient.filePath(contentFile) 
+            file.save(filePath,contentFilePath)     
+            console.log("\n"+file.parseContent(filePath)) 
+        } catch (err) { 
+        throw new Error('unable to save file ' + err); 
+    }      
+}); 
+    
+step('edit file content <arg0> to <arg1> and save', async function (relativeFilePath, contentFile) { 
+    try { 
+            languageclient.editFile(relativeFilePath, contentFile); 
+            languageclient.saveFile(relativeFilePath); 
+        } catch (err) { 
+        throw new Error('unable to edit file ' + err); 
+    }  
+}); 
+        
 step('restore file <arg0> with content <arg1>', async function (relativeFilePath, contentFile) {
     try {
         var filePath = languageclient.filePath(relativeFilePath)
