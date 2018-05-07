@@ -1,0 +1,18 @@
+[ 
+    { 
+        "line":"3", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "message":"Circular reference found in concept. \"Concept2\" => %project_path%%file_path%:2", 
+        "uri":"/specs/concepts/duplicateConcepts.cpt" 
+    },  
+    { 
+        "line":"0", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "message":"Circular reference found in concept. \"Concept1\" => %project_path%%file_path%:5", 
+        "uri":"/specs/concepts/duplicateConcepts.cpt" 
+    } 
+]
