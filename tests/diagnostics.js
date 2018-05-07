@@ -5,10 +5,18 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
-var YAML = require('yamljs');
+
+function addProjectPath(expectedDiagnostics,projectPath){
+  for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
+    var expectedDiagnostic = expectedDiagnostics[rowIndex];
+    expectedDiagnostic.uri = file.getFullPath(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
+  }
+}
 
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
-  var expectedDiagnostics = builder.buildExpectedRange(diagnosticsList, file.getFullPath(projectPath));
+  var expectedDiagnostics = builder.loadJSON(diagnosticsList);
+  addProjectPath(expectedDiagnostics,projectPath)
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
@@ -22,7 +30,9 @@ step("ensure diagnostics verified", async function() {
   assert.ok(errors==null || errors.length==0,errors)
 });
 step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
-  var expectedDiagnostics = builder.buildRangeFromYAML(builder.loadData(details), file.getFullPath(projectPath));
+  var expectedDiagnostics = builder.loadJSON(details);
+  addProjectPath(expectedDiagnostics,projectPath)
+
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
