@@ -43,7 +43,7 @@ function getMessageParams(fileUri,keyValues) {
 }
 
 async function codeAction(fileUri,range,diagnostics) {
-    return _request.sendRequest(state.connection,'textDocument/codeAction',getMessageParams(fileUri,
+    return _request.sendRequest(state.connection,'textDocument/codeAction',getMessageParams(filePath(fileUri),
         {"range":range,"context":{"diagnostics":diagnostics}}
     ));
 }
@@ -260,6 +260,7 @@ module.exports = {
     openFile: openFile,
     editFile: editFile,
     saveFile: saveFile,
+    codeAction:codeAction,
     codeLens: codeLens,
     codecomplete: codecomplete,
     gotoDefinition: gotoDefinition,
