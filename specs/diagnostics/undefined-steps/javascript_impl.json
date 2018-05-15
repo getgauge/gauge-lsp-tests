@@ -1,0 +1,47 @@
+[ 
+    { 
+        "line":"5", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
+        "message":"Step implementation not found",
+        "uri":"/specs/concepts/conceptsWithUndefinedSteps.cpt" 
+    },
+    { 
+        "line":"6", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
+        "message":"Step implementation not found",
+        "uri":"/specs/concepts/conceptsWithUndefinedSteps.cpt" 
+    }, 
+    { 
+        "line":"5", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
+        "message":"Step implementation not found",
+        "uri":"/specs/specsWithUndefinedSteps.spec" 
+    },
+    { 
+        "line":"6", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
+        "message":"Step implementation not found",
+        "uri":"/specs/specsWithUndefinedSteps.spec" 
+    },
+    { 
+        "line":"7", 
+        "range_start":"0", 
+        "range_end":"10000", 
+        "severity":"1", 
+        "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
+        "message":"Step implementation not found",
+        "uri":"/specs/specsWithUndefinedSteps.spec" 
+    }
+]
