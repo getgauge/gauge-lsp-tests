@@ -3,6 +3,8 @@
 var assert = require('assert');
 
 var languageclient = require('./lsp/languageclient');
+var _runner = require('./lsp/runner');
+
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
@@ -43,7 +45,8 @@ step("get stubs for unimplemented steps project <projectPath> with details <deta
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  languageclient.prerequisite(projectPath,runner)
+  _runner.copyManifest(projectPath,runner)
+  _runner.bundleInstall(projectPath,runner)
   await languageclient.openProject(projectPath)
 }
 

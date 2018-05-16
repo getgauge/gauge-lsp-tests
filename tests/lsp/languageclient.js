@@ -85,21 +85,6 @@ function projectPath() {
     return state.projectPath;
 }
 
-function prerequisite(projectPath, runner) {
-    file.copyFile(path.join("data", "manifest/manifest-" + runner + ".json"), path.join(projectPath, "manifest.json"))
-
-    if (runner == "ruby") {
-        var output = execSync('gauge version -m');
-        var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
-        var gemFilePath = file.getFullPath(path.join(projectPath, "Gemfile"));
-        var fileContent = file.parseContent(gemFilePath);
-        var result = fileContent.replace(/\${ruby-version}/, version);
-        file.write(gemFilePath, result);
-        var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
-        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath) });
-    }
-}
-
 async function refactor(uri, position, newName) {
     return _request.sendRequest(state.connection, "textDocument/rename", {
         "textDocument": { "uri": file.getUri(filePath(uri)) },
@@ -268,7 +253,6 @@ module.exports = {
     filePath: filePath,
     projectPath: projectPath,
     verificationFailures: verificationFailures,
-    prerequisite: prerequisite,
     refactor: refactor,
     sendRequest: sendRequest,
     documentSymbol: documentSymbol,

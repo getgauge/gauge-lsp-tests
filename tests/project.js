@@ -1,11 +1,13 @@
 var languageclient = require('./lsp/languageclient');
+var _runner = require('./lsp/runner')
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
 var customLogPath;
 step("pre-requisite <relativePath>", function(relativePath) {
     process.env.logs_directory = path.relative(relativePath,'logs')+"/lsp-tests/"+customLogPath;
 
-    languageclient.prerequisite(relativePath,process.env.language);
+    _runner.copyManifest(relativePath,process.env.language);
+    _runner.bundleInstall(relativePath,process.env.language);
 });
 
 step('open the project <relativePath>', async function (relativePath) {
