@@ -52,29 +52,29 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     return expectedDiagnostics
   try{
     var responseUri = builder.getResponseUri(responseMessage.uri)
-      
-    for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
-      var expectedDiagnostic = expectedDiagnostics[rowIndex]
-      
-      if(file.getPath(responseUri)!=file.getPath(expectedDiagnostic.uri))
-        continue  
 
+    var expectedDiagnosticsForFile = expectedDiagnostics.filter(function(elem, i, array) {
+      return (file.getPath(responseUri)===file.getPath(elem.uri))
+    });
+    
+    for (var rowIndex = 0; rowIndex < expectedDiagnosticsForFile.length; rowIndex++) {
+      var expectedDiagnostic = expectedDiagnosticsForFile[rowIndex]
+      
       gauge.message("verified "+expectedDiagnostic.uri)
       var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem, i, array) {
-        return elem.message === expectedDiagnostic.message;
-      });              
-  
+        return (elem.message === expectedDiagnostic.message) && ((expectedDiagnostic.line==null || expectedDiagnostic.line=="NA") || (expectedDiagnostic.line == elem.range.start.line));
+      });
+
       expectedDiagnostic.isValidated = true
       expectedDiagnostic.errors = []
       if(allDiagnosticsForFile.length==0)
-      {
+      {        
         expectedDiagnostic.errors.push(expectedDiagnostic.message+" not found in "+JSON.stringify(responseMessage))
-        return expectedDiagnostics
       }
       else{
         var diagnostic = allDiagnosticsForFile[0]
         if(diagnostic.code){
-          expectedDiagnostic.code.replace("\\\\","\\",g)
+          expectedDiagnostic.code.replace(/\\\\/g,"\\")
           if(diagnostic.code!=expectedDiagnostic.code)
           {
             expectedDiagnostic.errors.push(JSON.stringify(diagnostic.code) + " not equal to " 
@@ -88,8 +88,12 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
             + JSON.stringify(expectedDiagnostic.severity));        
         }  
       }            
-    }  
-  }finally{
+    }
+  }
+  catch(err){
+    console.log("error"+err)
+  }
+  finally {
     return expectedDiagnostics
   }
 }

@@ -32,7 +32,7 @@
         "uri":"/specs/concepts/headingToHaveOnlyDynamicParams.cpt" 
     }, 
     { 
-        "line":"0",  
+        "line":"NA",  
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 

@@ -1,6 +1,6 @@
 [ 
     { 
-        "line":"1", 
+        "line":"NA", 
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 
@@ -24,7 +24,7 @@
         "uri":"/specs/tearDownThreeUnderscore.spec" 
     }, 
     { 
-        "line":"2", 
+        "line":"NA", 
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 
@@ -32,7 +32,7 @@
         "uri":"/specs/withoutScenarioHeading.spec" 
     }, 
     { 
-        "line":"1", 
+        "line":"NA", 
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 

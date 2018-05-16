@@ -1,6 +1,6 @@
 [ 
     { 
-        "line":"5", 
+        "line":"1", 
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 
@@ -9,7 +9,7 @@
         "uri":"/specs/concepts/conceptsWithUndefinedSteps.cpt" 
     },
     { 
-        "line":"6", 
+        "line":"4", 
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 
@@ -42,6 +42,6 @@
         "severity":"1", 
         "code":"step 'step' do ||\n\traise 'Unimplemented Step'\nend",
         "message":"Step implementation not found",
-        "uri":"/specs/specsWithUndefinedSteps.spec" 
+        "uri":"/specs/specification.spec" 
     }
 ]
