@@ -22,8 +22,8 @@
           }],
         "step_impl/step_impl.py":[
           {
-            "range":{"start":{"line":0,"character":0},"end":{"line":45,"character":17}},
-            "newText":"from getgauge.python import step, before_scenario, Messages\n\nvowels = [\"a\", \"e\", \"i\", \"o\", \"u\"]\n\n\ndef number_of_vowels(word):\n    return len([elem for elem in list(word) if elem in vowels])\n\n\n# --------------------------\n# Gauge step implementations\n# --------------------------\n\n@step(\"The word <word> has <number> vowels.\")\ndef assert_no_of_vowels_in(word, number):\n    assert str(number) == str(number_of_vowels(word))\n\n\n@step(\"Vowels in English language are <vowels>\")\ndef assert_default_vowels(given_vowels):\n    Messages.write_message(\"Given vowels are {0}\".format(given_vowels))\n    assert given_vowels == \"\".join(vowels)\n\n\n@step(\"Almost all words have vowels <table>\")\ndef assert_words_vowel_count(table):\n    actual = [str(number_of_vowels(word)) for word in table.get_column_values_with_name(\"Word\")]\n    expected = [str(count) for count in table.get_column_values_with_name(\"Vowel Count\")]\n    assert expected == actual\n\n\n@step(\"Zero references <table>'\") \ndef print(refernces):\n    pass\n\n# ---------------\n# Execution Hooks\n# ---------------\n\n@before_scenario()\ndef before_scenario_hook():\n    assert \"\".join(vowels) == \"aeiou\"\n\n@step(\"something\")\ndef assert_no_of_vowels_in(word, number):\n    assert 1 == 1\n"
+            "range":{"start":{"line":18,"character":5},"end":{"line":18,"character":49}},
+            "newText":"(\"Vowels in English language are <vowels>\")"
           }
         ]
       }
