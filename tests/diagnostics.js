@@ -58,13 +58,6 @@ async function invokeDiagnostics_tempPath(projectPath, expectedDiagnostics,runne
   await languageclient.openProject_fullPath(projectPath)
 }
 
-async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
-  languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  _runner.copyManifest(projectPath,runner)
-  _runner.bundleInstall(projectPath,runner)
-  await languageclient.openProject(projectPath)
-}
-
 function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   if(responseMessage==null)
     return expectedDiagnostics

@@ -4,12 +4,6 @@ var _runner = require('./lsp/runner')
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
 var customLogPath;
-step("pre-requisite <relativePath>", function(relativePath) {
-    process.env.logs_directory = path.relative(relativePath,'logs')+"/lsp-tests/"+customLogPath;
-
-    _runner.copyManifest(relativePath,process.env.language);
-    _runner.bundleInstall(relativePath,process.env.language);
-});
 
 step("create project <relativePath> in a temporary Directory", async function(relativePath,done) {
     var dataprojectPath = await tmpDirectory.createTempDirectory(relativePath,done);
