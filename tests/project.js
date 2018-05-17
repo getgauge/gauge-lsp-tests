@@ -24,7 +24,7 @@ step("setup data required by runner", async function() {
     _runner.bundleInstall(dataprojectPath,process.env.language);
 });
 
-step('open the project1', async function () {
+step('open the project in the temporary directory', async function () {
     try{
         dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
         await languageclient.openProject_fullPath(dataprojectPath);

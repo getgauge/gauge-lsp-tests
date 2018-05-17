@@ -33,6 +33,17 @@ function handleCodeLensDetails(responseMessage, expectedDetails) {
         assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }
 }
+
+step('open file with details <jsonDetails> in temporary directory', function (jsonDetails) {
+    var details = builder.loadJSON(jsonDetails);
+    try {
+        dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+        languageclient.openFile_fullPath(details.input.uri,dataprojectPath);
+    } catch (err) {
+        throw new Error('unable to open file ' + err);
+    }
+});
+
 step('open file with details <jsonDetails>', function (jsonDetails) {
     var details = builder.loadJSON(jsonDetails);
     try {
