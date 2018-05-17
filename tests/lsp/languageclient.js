@@ -56,7 +56,7 @@ async function codecomplete(position, relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
-async function gotoDefinition(position, relativeFilePath) {
+async function gotoDefinition(position,relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 

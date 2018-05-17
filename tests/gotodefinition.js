@@ -3,12 +3,12 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var file = require('./util/fileExtension');
-function addProjectPath(expectedDiagnostics, projectPath) {
+function addTempProjectPath(expectedDiagnostics,projectPath){
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
-        expectedDiagnostic.uri = file.getFullPath(projectPath, expectedDiagnostic.uri);
-        if (expectedDiagnostic.message)
-            expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%', expectedDiagnostic.uri);
+        expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
+        if(expectedDiagnostic.message)
+            expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
     }
 }
 step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give error for <details>', async function (element, relativeFilePath, lineNumber, characterNumber, definitionDetails) {
@@ -29,12 +29,13 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
 step('goto definition of step <element> in project <project> <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>', async function (element, project, relativeFilePath, lineNumber, characterNumber, data) {
     var response;
     var details = builder.loadJSON(data);
-    addProjectPath(details, project);
+    var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+    addTempProjectPath(details,dataprojectPath);
     try {
         response = await languageclient.gotoDefinition({
             line: parseInt(lineNumber),
             character: parseInt(characterNumber)
-        }, relativeFilePath);
+        },relativeFilePath);
     } catch (err) {
         throw new Error('Unable to goto definition ' + err);
     }

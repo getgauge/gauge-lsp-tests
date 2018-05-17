@@ -8,6 +8,14 @@ var _runner = require('./lsp/runner');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
+function addTempProjectPath(expectedDiagnostics,projectPath){
+  for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
+    var expectedDiagnostic = expectedDiagnostics[rowIndex];
+    expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
+  }
+}
+
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
@@ -33,15 +41,21 @@ step("ensure diagnostics verified", async function() {
 });
 step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
   var expectedDiagnostics = builder.loadJSON(details);
-  addProjectPath(expectedDiagnostics,projectPath)
+  var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+  addTempProjectPath(expectedDiagnostics,dataprojectPath)
 
   try{
-    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics_tempPath(dataprojectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to generate steps '+err)
   }
 });
+
+async function invokeDiagnostics_tempPath(projectPath, expectedDiagnostics,runner,done){
+  languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
+  await languageclient.openProject_fullPath(projectPath)
+}
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
