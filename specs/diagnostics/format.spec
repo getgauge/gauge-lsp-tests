@@ -1,7 +1,7 @@
 Format
 ============
 tags: no-lang-runner
-* open project "data/format"
+* open project "data/format" in temporary Directory
 Should format a Specification
 -----------------------------
 * open file "/specs/toBeFormatted.spec" with content "/specs/beforeFormat.spec"

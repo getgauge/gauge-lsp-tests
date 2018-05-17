@@ -21,7 +21,7 @@ step("setup data required by runner", async function() {
     
     process.env.logs_directory = path.relative(dataprojectPath,'logs')+"/lsp-tests/"+customLogPath;
     _runner.copyManifest(dataprojectPath,process.env.language);
-    _runner.bundleInstall(dataprojectPath,process.env.language);
+    _runner.bundleInstall_tmpDirectory(dataprojectPath,process.env.language);
 });
 
 step('open the project in the temporary directory', async function () {

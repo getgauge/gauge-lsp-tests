@@ -21,7 +21,7 @@ step('open file <relativeFilePath> in temporaryDirectory', async function (relat
 
 step('open file <relativeFilePath> with content <content>', async function (relativeFilePath, beforeFormatFile) {
     try {
-        languageclient.openFile(relativeFilePath, beforeFormatFile);
+        languageclient.openFile_fullPath(relativeFilePath, beforeFormatFile);
     } catch (err) {
         throw new Error('unable to open file ' + err);
     }
