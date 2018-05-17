@@ -16,14 +16,6 @@ function addTempProjectPath(expectedDiagnostics,projectPath){
   }
 }
 
-function addProjectPath(expectedDiagnostics,projectPath){
-  for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
-    var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.uri = file.getFullPath(projectPath,expectedDiagnostic.uri);
-    expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
-  }
-}
-
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
   var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');

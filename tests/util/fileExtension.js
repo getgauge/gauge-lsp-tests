@@ -8,12 +8,6 @@ function getUri(filePath){
     return vscodeUri.file(filePath).toString().replace('%25','%')
 }
 
-function getFullPath(relativePath, file){
-    if(file)
-        return vscodeUri.file(path.join(cwd, relativePath,file)).fsPath;
-    return vscodeUri.file(path.join(cwd, relativePath)).fsPath;
-}
-
 function getPath(path1, file){
     if(file)
         return vscodeUri.file(path.join(path1,file)).path;
@@ -84,7 +78,6 @@ function rmDir(dirPath) {
 
 module.exports={
     getUri:getUri,
-    getFullPath:getFullPath,
     getPath:getPath,
     parseContent:parseContent,
     copyFile:copyFile,

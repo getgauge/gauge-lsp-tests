@@ -6,6 +6,7 @@ var path = require('path');
 var customLogPath;
 step('create project <relativePath>', async function (relativePath, done) {
     var dataprojectPath = await tmpDirectory.createTempDirectory(relativePath, done);
+    console.log(dataprojectPath)
     gauge.dataStore.scenarioStore.put('dataprojectPath', dataprojectPath);
 });
 step('setup data required by runner', async function () {
