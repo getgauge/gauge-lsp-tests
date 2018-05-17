@@ -1,4 +1,5 @@
 "use strict"
+const { spawn,spawnSync, execSync } = require('child_process');
 const file = require('../util/fileExtension');
 var path = require('path');
 
