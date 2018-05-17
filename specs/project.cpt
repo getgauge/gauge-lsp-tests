@@ -3,6 +3,12 @@
 * open the project <projectPath>
 * verify gauge runner
 
+# open project <projectPath> in temporary Directory
+* create project <projectPath> in a temporary Directory
+* setup data required by runner
+* open the project1
+* verify gauge runner
+
 # open <projectPath> and verify diagnostics <diagnostics>
 * pre-requisite <projectPath>
 * open the project <projectPath> and verify diagnostics <diagnostics>

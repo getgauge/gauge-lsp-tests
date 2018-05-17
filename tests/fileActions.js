@@ -9,6 +9,16 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
         throw new Error('unable to open file ' + err);
     }
 });
+
+step('open file <relativeFilePath> in temporaryDirectory', async function (relativeFilePath) {
+    try {
+        dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+        languageclient.openFile_fullPath(relativeFilePath,dataprojectPath);
+    } catch (err) {
+        throw new Error('unable to open file ' + err);
+    }
+});
+
 step('open file <relativeFilePath> with content <content>', async function (relativeFilePath, beforeFormatFile) {
     try {
         languageclient.openFile(relativeFilePath, beforeFormatFile);

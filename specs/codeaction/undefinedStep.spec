@@ -1,7 +1,7 @@
 Code Actions
 ============
-* open project "data/code-action"
-* open file "/specs/undefined_step.spec"
+* open project "data/code-action" in temporary Directory
+* open file "/specs/undefined_step.spec" in temporaryDirectory
 
 Show code actions on undefined steps
 ------------------------------------

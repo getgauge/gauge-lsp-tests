@@ -93,6 +93,12 @@ async function refactor(uri, position, newName) {
     })
 }
 
+async function openProject_fullPath(projectPath, isTestData) {
+    state.projectPath = projectPath;
+    state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
+    return initialize(state.gaugeDaemon, state.projectPath)
+};
+
 async function openProject(projectPath, isTestData) {
     state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
@@ -135,6 +141,21 @@ function editFile(relativePath, contentFile) {
             "contentChanges": [{
                 "text": file.parseContent(filePath(contentFile)),
             }]
+        });
+}
+
+function openFile_fullPath(filePath,projectPath) {
+    var fullPath = this.filePath(filePath)
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
+    _notification.sendNotification(state.connection, 'textDocument/didOpen',
+        {
+            "textDocument":
+                {
+                    "uri": file.getUri(fullPath),
+                    "languageId": "markdown",
+                    "version": 1,
+                    "text": file.parseContent(fullPath)
+                }
         });
 }
 
@@ -240,6 +261,8 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
 
 module.exports = {
     openProject: openProject,
+    openProject_fullPath:openProject_fullPath,
+    openFile_fullPath: openFile_fullPath,
     registerForNotification: registerForNotification,
     shutDown: shutDown,
     openFile: openFile,
