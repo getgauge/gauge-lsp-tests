@@ -79,6 +79,10 @@ function filePath(relativePath) {
     return path.join(projectPath(), relativePath);
 }
 
+function killGaugeDaemon(){
+    state.gaugeDaemon.kill('SIGINT')
+}
+
 function projectPath() {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
@@ -188,7 +192,7 @@ async function initialize(gaugeProcess, execPath) {
     });
 
     connection.onError((e) => {
-        console.log(JSON.stringify(message));
+        console.log(JSON.stringify(e));
     });
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
@@ -279,5 +283,6 @@ module.exports = {
     refactor: refactor,
     sendRequest: sendRequest,
     documentSymbol: documentSymbol,
-    workspaceSymbol: workspaceSymbol
+    workspaceSymbol: workspaceSymbol,
+    killGaugeDaemon:killGaugeDaemon
 }

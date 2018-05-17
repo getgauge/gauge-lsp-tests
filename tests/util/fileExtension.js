@@ -41,16 +41,45 @@ function copyFile(from, to){
 }
 
 function rmContentsOfDir(dirPath) {
-    try { var files = fs.readdirSync(dirPath); }
-    catch(e) { return; }
+    try { 
+        var files = fs.readdirSync(dirPath); 
+    }
+    catch(e) { 
+        console.log("error occured"+ JSON.stringify(e))
+        return; 
+    }
     if (files.length > 0)
         for (var i = 0; i < files.length; i++) {
-        var filePath = path.join(dirPath , files[i]);
-        if (fs.statSync(filePath).isFile())
-            fs.unlinkSync(filePath);
-        else
-            rmDir(filePath);
+            var filePath = path.join(dirPath , files[i]);
+            if (fs.statSync(filePath).isFile())
+                fs.unlinkSync(filePath);
+            else
+            {
+                rmContentsOfDir(filePath);
+            }
         }
+};
+
+function rmDir(dirPath) {
+    try { 
+        var files = fs.readdirSync(dirPath); 
+    }
+    catch(e) { 
+        console.log("error occured"+ JSON.stringify(e))
+        return; 
+    }
+    if (files.length > 0)
+        for (var i = 0; i < files.length; i++) {
+            var filePath = path.join(dirPath , files[i]);
+            if (fs.statSync(filePath).isFile())
+                fs.unlinkSync(filePath);
+            else
+            {
+                rmDir(filePath);
+                fs.rmdirSync(filePath);
+            }
+        }
+    rmDir(dirPath);
 };
 
 module.exports={
@@ -62,5 +91,6 @@ module.exports={
     write: write,
     save:save,
     rmContentsOfDir:rmContentsOfDir,
+    rmDir:rmDir,
     openFile:openFile
 }

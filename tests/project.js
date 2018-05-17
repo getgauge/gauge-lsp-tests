@@ -50,8 +50,8 @@ beforeScenario(async function(context){
 afterScenario(async function () {
     try{
         await languageclient.shutDown()
-        //todo remove temporary Directory
-        //tmpDirectory.removeTempDirectory()
+        // languageclient.killGaugeDaemon()
+        // tmpDirectory.removeTempDirectory()
     }catch(err){
         throw new Error("trying to stop gauge daemon failed "+err)
     }
