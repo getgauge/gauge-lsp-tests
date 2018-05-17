@@ -97,14 +97,8 @@ async function refactor(uri, position, newName) {
     })
 }
 
-async function openProject_fullPath(projectPath, isTestData) {
-    state.projectPath = projectPath;
-    state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
-    return initialize(state.gaugeDaemon, state.projectPath)
-};
-
 async function openProject(projectPath, isTestData) {
-    state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
+    state.projectPath = projectPath;
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };
@@ -265,7 +259,6 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
 
 module.exports = {
     openProject: openProject,
-    openProject_fullPath:openProject_fullPath,
     openFile_fullPath: openFile_fullPath,
     registerForNotification: registerForNotification,
     shutDown: shutDown,

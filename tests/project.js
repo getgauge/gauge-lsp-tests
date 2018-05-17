@@ -9,7 +9,7 @@ step('create project <relativePath>', async function (relativePath, done) {
     gauge.dataStore.scenarioStore.put('dataprojectPath', dataprojectPath);
 });
 step('setup data required by runner', async function () {
-    var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath', dataprojectPath);
+    var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
     process.env.logs_directory = path.relative(dataprojectPath, 'logs') + '/lsp-tests/' + customLogPath;
     _runner.copyManifest(dataprojectPath, process.env.language);
     _runner.bundleInstall_tmpDirectory(dataprojectPath, process.env.language);
@@ -17,14 +17,7 @@ step('setup data required by runner', async function () {
 step('open the project in the temporary directory', async function () {
     try {
         dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-        await languageclient.openProject_fullPath(dataprojectPath);
-    } catch (err) {
-        throw new Error('unable to start gauge daemon ' + err);
-    }
-});
-step('open the project <relativePath>', async function (relativePath) {
-    try {
-        await languageclient.openProject(relativePath);
+        await languageclient.openProject(dataprojectPath);
     } catch (err) {
         throw new Error('unable to start gauge daemon ' + err);
     }

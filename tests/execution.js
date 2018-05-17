@@ -54,11 +54,12 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
     }
 }
 
-step("run all specifications <relativeProjectPath>", async function(relativeProjectPath) {
-	_gauge.runSpecs(relativeProjectPath)
+step("run all specifications", async function() {
+    var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+    _gauge.runSpecs(dataprojectPath)
 });
 
-step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
+step("the execution status should be <expectedDetails>", async function(expectedDetails) {
     _customLSP.getExecutionStatus();
     var executionStatusFile = languageclient.filePath(".gauge/executionStatus.json");
     var expected = JSON.parse(expectedDetails)

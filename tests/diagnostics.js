@@ -55,7 +55,7 @@ step("get stubs for unimplemented steps project <projectPath> with details <deta
 
 async function invokeDiagnostics_tempPath(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  await languageclient.openProject_fullPath(projectPath)
+  await languageclient.openProject(projectPath)
 }
 
 function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
