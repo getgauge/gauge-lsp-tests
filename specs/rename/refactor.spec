@@ -4,8 +4,8 @@
 
 ## Refactor step in a specification
 * open file with details "specs/rename/step"
-* refactor step "specs/rename/step" for project "data/refactor"
+* refactor step "specs/rename/step"
 
 ## Refactor concept used in a specification
 * open file with details "specs/rename/concept/concept_impl.json"
-* refactor step "specs/rename/concept/concept_impl.json" for project "data/refactor"
+* refactor step "specs/rename/concept/concept_impl.json"
