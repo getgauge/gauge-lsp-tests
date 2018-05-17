@@ -10,5 +10,6 @@
 * verify gauge runner
 
 # open <projectPath> and verify diagnostics <diagnostics>
-* pre-requisite <projectPath>
+* create project <projectPath> in a temporary Directory
+* setup data required by runner
 * open the project <projectPath> and verify diagnostics <diagnostics>

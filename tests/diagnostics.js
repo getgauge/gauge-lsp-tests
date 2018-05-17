@@ -26,9 +26,10 @@ function addProjectPath(expectedDiagnostics,projectPath){
 
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
-  addProjectPath(expectedDiagnostics,projectPath)
+  var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
+  addTempProjectPath(expectedDiagnostics,dataprojectPath)
   try{
-    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics_tempPath(dataprojectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to open project '+err)    
