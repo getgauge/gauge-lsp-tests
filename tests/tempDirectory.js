@@ -7,11 +7,12 @@ var cwd = process.cwd();
 var path = require('path')
 
 async function createTempDirectory(data,cb){
-    if(process.env.createTempDirectory){
+    if(!os.platform().startsWith("win") && process.env.createTempDirectory){
         tmpobj = tmp.dirSync();
         var response = await ncp(data, tmpobj.name,cb); 
         if(os.platform()=='darwin')
             return "/private"+tmpobj.name;    
+        console.log(tmpobj.name)
         return tmpobj.name;    
     }
     try{
