@@ -3,13 +3,23 @@ var ncp = require('ncp').ncp;
 var os = require('os');
 var file = require('./util/fileExtension')
 var tmpobj; 
+var cwd = process.cwd();
+var path = require('path')
 
 async function createTempDirectory(data,cb){
-    tmpobj = tmp.dirSync();
-    var response = await ncp(data, tmpobj.name,cb); 
-    if(os.platform()=='darwin')
-        return "/private"+tmpobj.name;    
-    return tmpobj.name;    
+    if(process.env.createTempDirectory){
+        tmpobj = tmp.dirSync();
+        var response = await ncp(data, tmpobj.name,cb); 
+        if(os.platform()=='darwin')
+            return "/private"+tmpobj.name;    
+        return tmpobj.name;    
+    }
+    try{
+        return path.join(cwd,data)
+    }
+    finally{
+        cb();
+    }
 }
 
 function getTempDirectoryName(){
