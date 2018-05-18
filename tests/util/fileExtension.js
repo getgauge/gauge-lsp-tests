@@ -8,8 +8,8 @@ function getUri(filePath){
 
 function getPath(path1, file){
     if(file)
-        return vscodeUri.file(path.join(path1,file)).path;
-    return vscodeUri.file(path1).path;
+        return vscodeUri.file(path.join(path1,file)).fsPath;
+    return vscodeUri.file(path1).fsPath;
 }
 
 function parseContent(file) {

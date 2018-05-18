@@ -5,14 +5,14 @@ var builder = require('./lsp/util/dataBuilder');
 step('open file <relativeFilePath>', async function (relativeFilePath) {
     try {
         dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-        languageclient.openFile_fullPath(relativeFilePath, dataprojectPath);
+        languageclient.openFile(relativeFilePath, dataprojectPath);
     } catch (err) {
         throw new Error('unable to open file ' + err);
     }
 });
 step('open file <relativeFilePath> with content <content>', async function (relativeFilePath, beforeFormatFile) {
     try {
-        languageclient.openFile_fullPath(relativeFilePath, beforeFormatFile);
+        languageclient.openFile(relativeFilePath, beforeFormatFile);
     } catch (err) {
         throw new Error('unable to open file ' + err);
     }
@@ -28,7 +28,7 @@ step('open file with details <jsonDetails>', function (jsonDetails) {
     var details = builder.loadJSON(jsonDetails);
     try {
         dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-        languageclient.openFile_fullPath(details.input.uri, dataprojectPath);
+        languageclient.openFile(details.input.uri, dataprojectPath);
     } catch (err) {
         throw new Error('unable to open file ' + err);
     }

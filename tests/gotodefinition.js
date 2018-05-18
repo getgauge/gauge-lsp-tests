@@ -3,7 +3,7 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var file = require('./util/fileExtension');
-function addTempProjectPath(expectedDiagnostics,projectPath){
+function addProjectPath(expectedDiagnostics,projectPath){
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
         expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
@@ -30,7 +30,7 @@ step('goto definition of step <element> in <relativeFilePath> at <lineNumber> an
     var response;
     var details = builder.loadJSON(data);
     var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-    addTempProjectPath(details,dataprojectPath);
+    addProjectPath(details,dataprojectPath);
     try {
         response = await languageclient.gotoDefinition({
             line: parseInt(lineNumber),

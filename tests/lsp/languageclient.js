@@ -142,7 +142,7 @@ function editFile(relativePath, contentFile) {
         });
 }
 
-function openFile_fullPath(filePath,projectPath) {
+function openFile(filePath,projectPath) {
     var fullPath = this.filePath(filePath)
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
     _notification.sendNotification(state.connection, 'textDocument/didOpen',
@@ -153,23 +153,6 @@ function openFile_fullPath(filePath,projectPath) {
                     "languageId": "markdown",
                     "version": 1,
                     "text": file.parseContent(fullPath)
-                }
-        });
-}
-
-function openFile(relativePath, contentFile) {
-    if (contentFile == null)
-        contentFile = relativePath
-
-    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
-    _notification.sendNotification(state.connection, 'textDocument/didOpen',
-        {
-            "textDocument":
-                {
-                    "uri": file.getUri(filePath(relativePath)),
-                    "languageId": "markdown",
-                    "version": 1,
-                    "text": file.parseContent(filePath(contentFile))
                 }
         });
 }
@@ -259,7 +242,7 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
 
 module.exports = {
     openProject: openProject,
-    openFile_fullPath: openFile_fullPath,
+    openFile: openFile,
     registerForNotification: registerForNotification,
     shutDown: shutDown,
     openFile: openFile,

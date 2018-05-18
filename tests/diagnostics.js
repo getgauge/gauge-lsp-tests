@@ -8,7 +8,7 @@ var _runner = require('./lsp/runner');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
-function addTempProjectPath(expectedDiagnostics,projectPath){
+function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
     expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
@@ -19,9 +19,9 @@ function addTempProjectPath(expectedDiagnostics,projectPath){
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
   var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-  addTempProjectPath(expectedDiagnostics,dataprojectPath)
+  addProjectPath(expectedDiagnostics,dataprojectPath)
   try{
-    await invokeDiagnostics_tempPath(dataprojectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(dataprojectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to open project '+err)    
@@ -35,17 +35,17 @@ step("ensure diagnostics verified", async function() {
 step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
   var expectedDiagnostics = builder.loadJSON(details);
   var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-  addTempProjectPath(expectedDiagnostics,dataprojectPath)
+  addProjectPath(expectedDiagnostics,dataprojectPath)
 
   try{
-    await invokeDiagnostics_tempPath(dataprojectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(dataprojectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to generate steps '+err)
   }
 });
 
-async function invokeDiagnostics_tempPath(projectPath, expectedDiagnostics,runner,done){
+async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
   await languageclient.openProject(projectPath)
 }
