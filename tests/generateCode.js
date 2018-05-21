@@ -1,7 +1,9 @@
 const _fileExtension = require('./util/fileExtension');
 const _customLSP = require('./lsp/customLSP');
 const _assert = require('assert');
-
+step('delete contents of folder <conceptPath>', async function (conceptPath) {
+	_fileExtension.rmContentsOfDir(_fileExtension.getFullPath(conceptPath));
+});
 step('generate concept <name> in new file under <path> and verify', async function (name, relativePath) {
 	var response = await _customLSP.generateNewConcept(name, relativePath);
 	var conceptFile = _fileExtension.getUri(_customLSP.conceptFilePath(relativePath))

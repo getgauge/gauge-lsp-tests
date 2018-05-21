@@ -1,6 +1,2 @@
 {
-    "files.associations": {
-        "*.spec": "gauge",
-        "*.cpt": "gauge"
-    }
 }

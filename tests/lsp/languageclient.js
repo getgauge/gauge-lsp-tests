@@ -6,10 +6,11 @@ const _lspServer = require('./gauge');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
-const { spawn } = require('child_process');
+const { spawn, execSync } = require('child_process');
 const _request = require('./rpc/request');
 const _notification = require('./rpc/notfication');
 const _connection = require('./rpc/connection');
+
 var state = {}
 var listeners = [];
 var listenerId = 0;
@@ -17,6 +18,13 @@ var listenerId = 0;
 async function shutDown() {
     await _request.sendRequest(state.connection, "shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
+}
+
+function getRange(position){
+    return {
+        "line": parseInt(position.line),
+        "character": parseInt(position.character)        
+    }
 }
 
 function getMessageParams(fileUri,keyValues) {
@@ -45,11 +53,11 @@ async function codeLens(fileUri) {
 }
 
 async function codecomplete(position, relativeFilePath) {
-    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":position}))
+    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
-async function gotoDefinition(position,relativeFilePath) {
-    return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":position}))
+async function gotoDefinition(position, relativeFilePath) {
+    return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
 async function workspaceSymbol(params) {
@@ -71,26 +79,37 @@ function filePath(relativePath) {
     return path.join(projectPath(), relativePath);
 }
 
-function killGaugeDaemon(){
-    state.gaugeDaemon.kill('SIGINT')
-}
-
 function projectPath() {
     if (!state.gaugeDaemon)
         throw ("Gauge Daemon not initialized");
     return state.projectPath;
 }
 
+function prerequisite(projectPath, runner) {
+    file.copyFile(path.join("data", "manifest/manifest-" + runner + ".json"), path.join(projectPath, "manifest.json"))
+
+    if (runner == "ruby") {
+        var output = execSync('gauge version -m');
+        var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
+        var gemFilePath = file.getFullPath(path.join(projectPath, "Gemfile"));
+        var fileContent = file.parseContent(gemFilePath);
+        var result = fileContent.replace(/\${ruby-version}/, version);
+        file.write(gemFilePath, result);
+        var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
+        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath) });
+    }
+}
+
 async function refactor(uri, position, newName) {
     return _request.sendRequest(state.connection, "textDocument/rename", {
         "textDocument": { "uri": file.getUri(filePath(uri)) },
-        "position": position,
+        "position": getRange(position),
         "newName": newName
     })
 }
 
 async function openProject(projectPath, isTestData) {
-    state.projectPath = projectPath;
+    state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };
@@ -134,17 +153,19 @@ function editFile(relativePath, contentFile) {
         });
 }
 
-function openFile(filePath,projectPath) {
-    var fullPath = this.filePath(filePath)
+function openFile(relativePath, contentFile) {
+    if (contentFile == null)
+        contentFile = relativePath
+
     state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
     _notification.sendNotification(state.connection, 'textDocument/didOpen',
         {
             "textDocument":
                 {
-                    "uri": file.getUri(fullPath),
+                    "uri": file.getUri(filePath(relativePath)),
                     "languageId": "markdown",
                     "version": 1,
-                    "text": file.parseContent(fullPath)
+                    "text": file.parseContent(filePath(contentFile))
                 }
         });
 }
@@ -161,7 +182,7 @@ async function initialize(gaugeProcess, execPath) {
     });
 
     connection.onError((e) => {
-        console.log(JSON.stringify(e));
+        console.log(JSON.stringify(message));
     });
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
@@ -234,7 +255,6 @@ function registerForNotification(listener, expectedDiagnostics, verifyIfDone, do
 
 module.exports = {
     openProject: openProject,
-    openFile: openFile,
     registerForNotification: registerForNotification,
     shutDown: shutDown,
     openFile: openFile,
@@ -248,9 +268,9 @@ module.exports = {
     filePath: filePath,
     projectPath: projectPath,
     verificationFailures: verificationFailures,
+    prerequisite: prerequisite,
     refactor: refactor,
     sendRequest: sendRequest,
     documentSymbol: documentSymbol,
-    workspaceSymbol: workspaceSymbol,
-    killGaugeDaemon:killGaugeDaemon
+    workspaceSymbol: workspaceSymbol
 }

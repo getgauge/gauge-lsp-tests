@@ -1,8 +1,7 @@
 # Stub for unimplemented Steps
 
 ## Generate Code for Simple Unimplemented step
-* create project "data/generatestubs"
-* setup data required by runner
+* pre-requisite "data/generatestubs"
 * get stubs for unimplemented steps project "data/generatestubs" with details "specs/generateStubs"
 * ensure diagnostics verified
 

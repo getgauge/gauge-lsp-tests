@@ -1,21 +1,23 @@
 var vscodeUri = require('vscode-uri').default
 var path = require('path')
+
+var cwd = process.cwd();
 var fs = require('fs');
 
 function getUri(filePath){
     return vscodeUri.file(filePath).toString().replace('%25','%')
 }
 
+function getFullPath(relativePath, file){
+    if(file)
+        return vscodeUri.file(path.join(cwd, relativePath,file)).fsPath;
+    return vscodeUri.file(path.join(cwd, relativePath)).fsPath;
+}
+
 function getPath(path1, file){
     if(file)
         return vscodeUri.file(path.join(path1,file)).path;
     return vscodeUri.file(path1).path;
-}
-
-function getFSPath(path1, file){
-    if(file)
-        return vscodeUri.file(path.join(path1,file)).fsPath;
-    return vscodeUri.file(path1).fsPath;
 }
 
 function parseContent(file) {
@@ -39,56 +41,26 @@ function copyFile(from, to){
 }
 
 function rmContentsOfDir(dirPath) {
-    try { 
-        var files = fs.readdirSync(dirPath); 
-    }
-    catch(e) { 
-        console.log("error occured"+ JSON.stringify(e))
-        return; 
-    }
+    try { var files = fs.readdirSync(dirPath); }
+    catch(e) { return; }
     if (files.length > 0)
         for (var i = 0; i < files.length; i++) {
-            var filePath = path.join(dirPath , files[i]);
-            if (fs.statSync(filePath).isFile())
-                fs.unlinkSync(filePath);
-            else
-            {
-                rmContentsOfDir(filePath);
-            }
+        var filePath = path.join(dirPath , files[i]);
+        if (fs.statSync(filePath).isFile())
+            fs.unlinkSync(filePath);
+        else
+            rmDir(filePath);
         }
-};
-
-function rmDir(dirPath) {
-    try { 
-        var files = fs.readdirSync(dirPath); 
-    }
-    catch(e) { 
-        console.log("error occured"+ JSON.stringify(e))
-        return; 
-    }
-    if (files.length > 0)
-        for (var i = 0; i < files.length; i++) {
-            var filePath = path.join(dirPath , files[i]);
-            if (fs.statSync(filePath).isFile())
-                fs.unlinkSync(filePath);
-            else
-            {
-                rmDir(filePath);
-                fs.rmdirSync(filePath);
-            }
-        }
-    rmDir(dirPath);
 };
 
 module.exports={
     getUri:getUri,
+    getFullPath:getFullPath,
     getPath:getPath,
-    getFSPath:getFSPath,    
     parseContent:parseContent,
     copyFile:copyFile,
     write: write,
     save:save,
     rmContentsOfDir:rmContentsOfDir,
-    rmDir:rmDir,
     openFile:openFile
 }

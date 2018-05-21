@@ -3,26 +3,22 @@
 var assert = require('assert');
 
 var languageclient = require('./lsp/languageclient');
-var _runner = require('./lsp/runner');
-var path = require('path')
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.path = path.join(projectPath,expectedDiagnostic.uri)
-    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.uri = file.getFullPath(projectPath,expectedDiagnostic.uri);
     expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
   }
 }
 
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
-  var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-  addProjectPath(expectedDiagnostics,dataprojectPath)
+  addProjectPath(expectedDiagnostics,projectPath)
   try{
-    await invokeDiagnostics(dataprojectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to open project '+err)    
@@ -35,11 +31,10 @@ step("ensure diagnostics verified", async function() {
 });
 step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
   var expectedDiagnostics = builder.loadJSON(details);
-  var dataprojectPath = gauge.dataStore.scenarioStore.get('dataprojectPath');
-  addProjectPath(expectedDiagnostics,dataprojectPath)
+  addProjectPath(expectedDiagnostics,projectPath)
 
   try{
-    await invokeDiagnostics(dataprojectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to generate steps '+err)
@@ -48,6 +43,7 @@ step("get stubs for unimplemented steps project <projectPath> with details <deta
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
+  languageclient.prerequisite(projectPath,runner)
   await languageclient.openProject(projectPath)
 }
 
@@ -58,7 +54,7 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     var responseUri = builder.getResponseUri(responseMessage.uri)
 
     var expectedDiagnosticsForFile = expectedDiagnostics.filter(function(elem, i, array) {
-      return (file.getFSPath(responseUri)===file.getFSPath(elem.path))
+      return (file.getPath(responseUri)===file.getPath(elem.uri))
     });
     
     for (var rowIndex = 0; rowIndex < expectedDiagnosticsForFile.length; rowIndex++) {

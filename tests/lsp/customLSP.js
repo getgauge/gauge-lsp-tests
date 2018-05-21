@@ -1,7 +1,6 @@
 const path = require('path');
 const _languageClient = require('./languageclient');
 const _request = require('./rpc/request');
-const builder = require('./util/dataBuilder')
 
 async function getExecutionStatus(){
     return _languageClient.sendRequest('gauge/executionStatus', {});
@@ -40,7 +39,10 @@ async function gaugeScenarios(spec) {
     return _languageClient.sendRequest('gauge/scenarios', {
         "textDocument": {
             "uri": _languageClient.filePath(spec),
-            "position": builder.getPosition(1,1)
+            "position": {
+                "line": 1,
+                "character": 1
+            }
         }
     })
 }

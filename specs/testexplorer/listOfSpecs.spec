@@ -1,5 +1,7 @@
-# Test explorer
-## Should list specs
+Test explorer
+=============
+Should list specs
+-----------------
 
 * open project "data/test-explorer"
 * initialize test explorer and verify spec details <file:specs/testexplorer/specList.json>
