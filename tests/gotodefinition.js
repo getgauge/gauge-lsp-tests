@@ -3,6 +3,8 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var file = require('./util/fileExtension');
+var path = require('path');
+
 function addProjectPath(expectedDiagnostics,projectPath){
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
@@ -55,7 +57,7 @@ step('goto definition of step <element> in <relativeFilePath> at <lineNumber> an
                 'character': parseInt(definitionDetail.range_end)
             }
         },
-        'uri': definitionDetail.uri
+        'uri': builder.getResponseUri(definitionDetail.uri)
     };
     verifyGotoDefinitionResponse(expected, response);
 });
