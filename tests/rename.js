@@ -15,10 +15,10 @@ function verifyRefactorResult(expectedResults, actualResults) {
 		var expected = expectedResults.changes[k][0]
 		var actual = actualResults.changes[fileUri][0]
 		assert.deepEqual(expected.range, actual.range);
-		assert.deepEqual(expected.newText, actual.newText,"expected \n"+expected.newText+" but was \n"+actual.newText);
+		assert.deepEqual(expected.newText, actual.newText, "expected \n" + expected.newText + " but was \n" + actual.newText);
 	}
-};
 
+};
 step("restore file in project <projectPath> with details <jsonDetails>", async function (projectPath, jsonDetails) {
 	var details = builder.loadJSON(jsonDetails)
 	restore(projectPath, details.input.gaugeFile)

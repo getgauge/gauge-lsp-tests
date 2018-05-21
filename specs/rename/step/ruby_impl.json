@@ -21,8 +21,8 @@
         "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\"\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n* Concept\n"
         }],
       "step_implementations/step_implementation.rb":[
-        {"range":{"start":{"line":0,"character":0},"end":{"line":28,"character":0}},
-        "newText":"require(\"test/unit\")\ninclude(Test::Unit::Assertions)\n@vowels = nil\nstep(\"Vowels in English language are <vowels>\") do |vowels|\n  @vowels = vowels.scan(/./)\nend\nstep(\"The word <word> has <count> vowels.\") do |word, expected_count|\n  assert_equal(expected_count.to_i, count_vowels(word))\nend\nstep(\"Almost all words have vowels <table>\") do |words_table|\n  words_table.rows.each do |row|\n    word = row[\"Word\"]\n    expected_count = row[\"Vowel Count\"].to_i\n    actual_count = count_vowels(word)\n    assert_equal(expected_count, actual_count)\n  end\nend\nstep(\"something\") do |vowels|\nend\ndef count_vowels(string)\n  string.count(@vowels.to_s)\nend"}
+        {"range":{"start":{"line":5,"character":6},"end":{"line":5,"character":46}},
+        "newText":"Vowels in English language are <vowels>"}
       ]
     }
   }
