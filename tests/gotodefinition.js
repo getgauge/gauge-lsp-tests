@@ -6,9 +6,10 @@ var file = require('./util/fileExtension');
 function addProjectPath(expectedDiagnostics,projectPath){
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
+        expectedDiagnostic.path = file.getPath(projectPath,expectedDiagnostic.uri)
         expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
         if(expectedDiagnostic.message)
-            expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
+            expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',file.getUri(expectedDiagnostic.uri));
     }
 }
 step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give error for <details>', async function (element, relativeFilePath, lineNumber, characterNumber, definitionDetails) {

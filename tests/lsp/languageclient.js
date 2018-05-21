@@ -10,7 +10,6 @@ const { spawn } = require('child_process');
 const _request = require('./rpc/request');
 const _notification = require('./rpc/notfication');
 const _connection = require('./rpc/connection');
-
 var state = {}
 var listeners = [];
 var listenerId = 0;
@@ -18,13 +17,6 @@ var listenerId = 0;
 async function shutDown() {
     await _request.sendRequest(state.connection, "shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
-}
-
-function getRange(position){
-    return {
-        "line": parseInt(position.line),
-        "character": parseInt(position.character)        
-    }
 }
 
 function getMessageParams(fileUri,keyValues) {
@@ -53,11 +45,11 @@ async function codeLens(fileUri) {
 }
 
 async function codecomplete(position, relativeFilePath) {
-    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
+    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":position}))
 }
 
 async function gotoDefinition(position,relativeFilePath) {
-    return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
+    return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":position}))
 }
 
 async function workspaceSymbol(params) {
@@ -92,7 +84,7 @@ function projectPath() {
 async function refactor(uri, position, newName) {
     return _request.sendRequest(state.connection, "textDocument/rename", {
         "textDocument": { "uri": file.getUri(filePath(uri)) },
-        "position": getRange(position),
+        "position": position,
         "newName": newName
     })
 }

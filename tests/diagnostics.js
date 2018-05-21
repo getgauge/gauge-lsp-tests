@@ -4,14 +4,15 @@ var assert = require('assert');
 
 var languageclient = require('./lsp/languageclient');
 var _runner = require('./lsp/runner');
-
+var path = require('path')
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
 
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.uri = file.getPath(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.path = path.join(projectPath,expectedDiagnostic.uri)
+    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri);
     expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
   }
 }
@@ -57,7 +58,7 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     var responseUri = builder.getResponseUri(responseMessage.uri)
 
     var expectedDiagnosticsForFile = expectedDiagnostics.filter(function(elem, i, array) {
-      return (file.getPath(responseUri)===file.getPath(elem.uri))
+      return (file.getFSPath(responseUri)===file.getFSPath(elem.path))
     });
     
     for (var rowIndex = 0; rowIndex < expectedDiagnosticsForFile.length; rowIndex++) {

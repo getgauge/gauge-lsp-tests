@@ -8,6 +8,12 @@ function getUri(filePath){
 
 function getPath(path1, file){
     if(file)
+        return vscodeUri.file(path.join(path1,file)).path;
+    return vscodeUri.file(path1).path;
+}
+
+function getFSPath(path1, file){
+    if(file)
         return vscodeUri.file(path.join(path1,file)).fsPath;
     return vscodeUri.file(path1).fsPath;
 }
@@ -77,6 +83,7 @@ function rmDir(dirPath) {
 module.exports={
     getUri:getUri,
     getPath:getPath,
+    getFSPath:getFSPath,    
     parseContent:parseContent,
     copyFile:copyFile,
     write: write,

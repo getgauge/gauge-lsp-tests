@@ -1,5 +1,6 @@
 'use strict';
 var languageclient = require('./lsp/languageclient');
+var builder = require('./lsp/util/dataBuilder')
 var table = require('./util/table');
 var assert = require('assert');
 var responseType = {
@@ -10,10 +11,7 @@ step('codecomplete in <filePath> for subText <subText> at line <lineNumber> char
     var expected = buildExpectedElements(expectedResult, element,argSubText);
     if (expected.kind == null)
         throw new Error('unknown type ' + element);
-    var position = {
-        line: lineNumber,
-        character: characterNumber
-    };
+    var position = builder.getPosition(lineNumber,characterNumber)
     var responseMessage;
     try {
         responseMessage = await languageclient.codecomplete(position, filePath);
