@@ -54,8 +54,8 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
     }
 }
 
-step("run all specifications <relativeProjectPath>", async function(relativeProjectPath) {
-	_gauge.runSpecs(relativeProjectPath)
+step("run all specifications", async function () {
+	await _gauge.runSpecs(languageclient.projectPath())
 });
 
 step("the execution status of <directoryPath> should be <expectedDetails>", async function(directoryPath,expectedDetails) {
@@ -64,8 +64,4 @@ step("the execution status of <directoryPath> should be <expectedDetails>", asyn
     var expected = JSON.parse(expectedDetails)
     var actual = JSON.parse(_fileExtension.parseContent(executionStatusFile))
     assert.deepEqual(actual,expected)
-});
-
-step("remove the <directory> folder of <projectPath>", async function(directory,projectPath) {
-	_fileExtension.rmContentsOfDir(path.join(projectPath, directory))
 });

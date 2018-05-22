@@ -1,8 +1,10 @@
 # open project <projectPath>
+* create Project in temporary directory <projectPath>
 * pre-requisite <projectPath>
 * open the project
 * verify gauge runner
 
 # open <projectPath> and verify diagnostics <diagnostics>
+* create Project in temporary directory <projectPath>
 * pre-requisite <projectPath>
 * open project and verify diagnostics <diagnostics>

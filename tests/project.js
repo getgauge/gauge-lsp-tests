@@ -1,11 +1,16 @@
 var languageclient = require('./lsp/languageclient');
+var _user = require('./user')
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
 var customLogPath;
-step("pre-requisite <relativePath>", function(relativePath) {
+var projectPath
+step("create Project in temporary directory <relativePath>", async function(relativePath,done) {
     process.env.logs_directory = path.relative(relativePath,'logs')+"/lsp-tests/"+customLogPath;
+    projectPath = await _user.createProjectInTemp(relativePath,done)
+});
 
-    languageclient.prerequisite(relativePath,process.env.language);
+step("pre-requisite <relativePath>", async function(relativePath) {
+    languageclient.prerequisite(projectPath,process.env.language);
 });
 
 step("open the project", async function () {

@@ -1,6 +1,7 @@
 # Stub for unimplemented Steps
 
 ## Generate Code for Simple Unimplemented step
+* create Project in temporary directory "data/generatestubs"
 * pre-requisite "data/generatestubs"
 * get stubs for unimplemented steps for project with details "specs/generateStubs"
 * ensure diagnostics verified
