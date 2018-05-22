@@ -109,7 +109,7 @@ async function refactor(uri, position, newName) {
     })
 }
 
-async function openProject(projectPath, isTestData) {
+async function openProject() {
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };

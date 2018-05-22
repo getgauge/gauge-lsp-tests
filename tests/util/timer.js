@@ -6,3 +6,7 @@ function sleep(ms){
 }
 
 module.exports = {sleep:sleep};  
+
+step("step1", async function() {
+	throw 'Unimplemented Step';
+});

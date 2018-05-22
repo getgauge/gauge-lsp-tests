@@ -2,12 +2,12 @@
 
 ## Generate Code for Simple Unimplemented step
 * pre-requisite "data/generatestubs"
-* get stubs for unimplemented steps project "data/generatestubs" with details "specs/generateStubs"
+* get stubs for unimplemented steps for project with details "specs/generateStubs"
 * ensure diagnostics verified
 
 ## Get Implementation Files
 * open project "data/generatestubs"
-* get implementation files for project "data/generatestubs"
+* get implementation files
 
 ## Should generate new Concept files
 * open project "data/generatestubs"

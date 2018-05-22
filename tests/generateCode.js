@@ -15,7 +15,7 @@ step("generate concept <name> in file <fileName> of <filePath> and verify", asyn
 	_assert.equal(response.changes[conceptFile][0].newText, _customLSP.conceptTemplate(name));
 });
 
-step("get implementation files for project <projectPath>", async function (projectPath) {
+step("get implementation files", async function () {
 	var files = await _customLSP.getImplFiles();
 	_assert.ok(files.length >= 1);
 });

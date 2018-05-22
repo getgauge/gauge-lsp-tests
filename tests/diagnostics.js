@@ -14,12 +14,11 @@ function addProjectPath(expectedDiagnostics,projectPath){
   }
 }
 
-step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
+step("open project and verify diagnostics <diagnosticsList>", async function (diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
-  var projectPath1 = languageclient.projectPath()
-  addProjectPath(expectedDiagnostics,projectPath1)
+  addProjectPath(expectedDiagnostics,languageclient.projectPath())
   try{
-    await invokeDiagnostics(projectPath1,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to open project '+err)    
@@ -30,21 +29,21 @@ step("ensure diagnostics verified", async function() {
   var errors =languageclient.verificationFailures() 
   assert.ok(errors==null || errors.length==0,errors)
 });
-step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
+step("get stubs for unimplemented steps for project with details <details>", async function (details, done) {
   var expectedDiagnostics = builder.loadJSON(details);
   addProjectPath(expectedDiagnostics,languageclient.projectPath())
 
   try{
-    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to generate steps '+err)
   }
 });
 
-async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
+async function invokeDiagnostics(expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  await languageclient.openProject(projectPath)
+  await languageclient.openProject()
 }
 
 function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {

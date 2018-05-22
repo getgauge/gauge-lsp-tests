@@ -8,9 +8,9 @@ step("pre-requisite <relativePath>", function(relativePath) {
     languageclient.prerequisite(relativePath,process.env.language);
 });
 
-step('open the project <relativePath>', async function (relativePath) {
+step("open the project", async function () {
     try{
-        await languageclient.openProject(relativePath);
+        await languageclient.openProject();
     }
     catch(err){
         throw new Error("unable to start gauge daemon "+err)
