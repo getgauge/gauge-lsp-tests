@@ -1,4 +1,4 @@
-const { spawn,spawnSync, execSync } = require('child_process');
+const { spawn,spawnSync } = require('child_process');
 
 async function startLSP(projectPath) {
     var args = (process.env.use_working_directory) ? ['daemon', '--lsp', "--dir=" + projectPath, "-l", "debug"] : ['daemon', '--lsp', "-l", "debug"];
