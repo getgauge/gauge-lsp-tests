@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert');
-
+var path = require('path');
 var languageclient = require('./lsp/languageclient');
 var file = require('./util/fileExtension');
 var builder = require('./lsp/util/dataBuilder');
@@ -9,16 +9,17 @@ var builder = require('./lsp/util/dataBuilder');
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.uri = file.getFullPath(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri);
     expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
   }
 }
 
 step("open the project <projectPath> and verify diagnostics <diagnosticsList>", async function (projectPath, diagnosticsList,done) {
   var expectedDiagnostics = builder.loadJSON(diagnosticsList);
-  addProjectPath(expectedDiagnostics,projectPath)
+  var projectPath1 = languageclient.projectPath()
+  addProjectPath(expectedDiagnostics,projectPath1)
   try{
-    await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
+    await invokeDiagnostics(projectPath1,expectedDiagnostics,process.env.language,done)
   }
   catch(err){
     throw new Error('Unable to open project '+err)    
@@ -31,7 +32,7 @@ step("ensure diagnostics verified", async function() {
 });
 step("get stubs for unimplemented steps project <projectPath> with details <details>", async function (projectPath,details,done) {
   var expectedDiagnostics = builder.loadJSON(details);
-  addProjectPath(expectedDiagnostics,projectPath)
+  addProjectPath(expectedDiagnostics,languageclient.projectPath())
 
   try{
     await invokeDiagnostics(projectPath,expectedDiagnostics,process.env.language,done)
@@ -43,7 +44,6 @@ step("get stubs for unimplemented steps project <projectPath> with details <deta
 
 async function invokeDiagnostics(projectPath, expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  languageclient.prerequisite(projectPath,runner)
   await languageclient.openProject(projectPath)
 }
 
@@ -54,7 +54,7 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     var responseUri = builder.getResponseUri(responseMessage.uri)
 
     var expectedDiagnosticsForFile = expectedDiagnostics.filter(function(elem, i, array) {
-      return (file.getPath(responseUri)===file.getPath(elem.uri))
+      return (file.getFSPath(responseUri)===file.getFSPath(elem.uri))
     });
     
     for (var rowIndex = 0; rowIndex < expectedDiagnosticsForFile.length; rowIndex++) {

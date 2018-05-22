@@ -10,7 +10,7 @@ const { spawn, execSync } = require('child_process');
 const _request = require('./rpc/request');
 const _notification = require('./rpc/notfication');
 const _connection = require('./rpc/connection');
-
+var cwd = process.cwd();
 var state = {}
 var listeners = [];
 var listenerId = 0;
@@ -80,8 +80,8 @@ function filePath(relativePath) {
 }
 
 function projectPath() {
-    if (!state.gaugeDaemon)
-        throw ("Gauge Daemon not initialized");
+    if (!state.projectPath)
+        throw ("Project path not set");
     return state.projectPath;
 }
 
@@ -91,13 +91,14 @@ function prerequisite(projectPath, runner) {
     if (runner == "ruby") {
         var output = execSync('gauge version -m');
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
-        var gemFilePath = file.getFullPath(path.join(projectPath, "Gemfile"));
+        var gemFilePath = file.getFSPath(path.join(projectPath, "Gemfile"));
         var fileContent = file.parseContent(gemFilePath);
         var result = fileContent.replace(/\${ruby-version}/, version);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
-        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFullPath(projectPath) });
+        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getFSPath(projectPath) });
     }
+    state.projectPath = file.getFSPath(path.join(cwd,projectPath));
 }
 
 async function refactor(uri, position, newName) {
@@ -109,7 +110,6 @@ async function refactor(uri, position, newName) {
 }
 
 async function openProject(projectPath, isTestData) {
-    state.projectPath = (isTestData) ? projectPath : file.getFullPath(projectPath);
     state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };

@@ -3,10 +3,11 @@ var assert = require('assert');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
 var file = require('./util/fileExtension');
+var path = require('path')
 function addProjectPath(expectedDiagnostics, projectPath) {
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
-        expectedDiagnostic.uri = file.getFullPath(projectPath, expectedDiagnostic.uri);
+        expectedDiagnostic.uri = file.getFSPath(projectPath, expectedDiagnostic.uri);
         if (expectedDiagnostic.message)
             expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%', expectedDiagnostic.uri);
     }
@@ -29,7 +30,7 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
 step('goto definition of step <element> in project <project> <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>', async function (element, project, relativeFilePath, lineNumber, characterNumber, data) {
     var response;
     var details = builder.loadJSON(data);
-    addProjectPath(details, project);
+    addProjectPath(details, languageclient.projectPath());
     try {
         response = await languageclient.gotoDefinition({
             line: parseInt(lineNumber),

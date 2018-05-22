@@ -8,10 +8,10 @@ function getUri(filePath){
     return vscodeUri.file(filePath).toString().replace('%25','%')
 }
 
-function getFullPath(relativePath, file){
+function getFSPath(relativePath, file){
     if(file)
-        return vscodeUri.file(path.join(cwd, relativePath,file)).fsPath;
-    return vscodeUri.file(path.join(cwd, relativePath)).fsPath;
+        return vscodeUri.file(path.join(relativePath,file)).fsPath;
+    return vscodeUri.file(path.join(relativePath,"")).fsPath;
 }
 
 function getPath(path1, file){
@@ -55,7 +55,7 @@ function rmContentsOfDir(dirPath) {
 
 module.exports={
     getUri:getUri,
-    getFullPath:getFullPath,
+    getFSPath:getFSPath,
     getPath:getPath,
     parseContent:parseContent,
     copyFile:copyFile,
