@@ -25,12 +25,11 @@ step("Almost all words have vowels <table>", function(table) {
   });
 });
 
-step("Zero references <table>", function(table) {
+step("something", function(table) {
   table.rows.forEach(function (row) {
     assert.equal(numberOfVowels(row.cells[0]), parseInt(row.cells[1]));
   });
 });
-
 
 beforeScenario(function () {
   assert.equal(vowels.join(""), "aeiou");

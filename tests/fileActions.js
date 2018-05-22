@@ -49,14 +49,4 @@ step('edit file content <arg0> to <arg1> and save', async function (relativeFile
         } catch (err) { 
         throw new Error('unable to edit file ' + err); 
     }  
-}); 
-        
-step('restore file <arg0> with content <arg1>', async function (relativeFilePath, contentFile) {
-    try {
-        var filePath = languageclient.filePath(relativeFilePath)
-        var contentFilePath = languageclient.filePath(contentFile)
-        file.save(filePath,contentFilePath)
-    } catch (err) {
-        throw new Error('unable to open file ' + err);
-    }
 });

@@ -1,0 +1,21 @@
+{
+  "input":{
+    "uri":"specs/concept.cpt",
+    "position":{"line":4,"character":5},
+    "newName":"* something else"
+  },
+  "result":
+  {
+    "changes":
+    {
+      "specs/concept.cpt":[
+        {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":9}},
+        "newText":"# Concept\n* something else\n\n# One more concept\n* something else\n\n# Concept with parameters\n* something else"
+        }],
+      "tests/step_implementation.js":[
+        {"range":{"start":{"line":13,"character":5},"end":{"line":13,"character":47}},
+        "newText":"\"something else\""
+        }]
+    }
+  }
+}

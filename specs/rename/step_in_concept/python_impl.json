@@ -1,7 +1,7 @@
 {
     "input":{
-      "uri":"specs/example.spec",
-      "position":{"line":3,"character":13},
+      "uri":"specs/concept.cpt",
+      "position":{"line":4,"character":5},
       "newName":"* Vowels in English language are \"aeiou\""
     },
     "result":

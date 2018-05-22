@@ -4,7 +4,7 @@ var builder = require('./lsp/util/dataBuilder')
 var path = require('path')
 var assert = require('assert')
 var cwd = process.cwd()
-step("refactor step <details> for project <project>", async function (jsonDetails, project) {
+step("refactor step <details>", async function (jsonDetails) {
 	var details = builder.loadJSON(jsonDetails)
 	var result = await languageclient.refactor(details.input.uri, details.input.position, details.input.newName)
 	verifyRefactorResult(details.result, result);
@@ -20,16 +20,3 @@ function verifyRefactorResult(expectedResults, actualResults) {
 	}
 
 };
-step("restore file in project <projectPath> with details <jsonDetails>", async function (projectPath, jsonDetails) {
-	var details = builder.loadJSON(jsonDetails)
-	restore(path.join(cwd, projectPath), details.input.gaugeFile)
-	restore(path.join(cwd, projectPath),details.input.code);
-});
-
-function restore(projectPath, items){
-	if(items!=null){
-		items.forEach(function(item){
-			file.copyFile(file.getFSPath(projectPath, item.restoreFrom), file.getFSPath(projectPath, item.toBeRestored))
-		})
-	}
-}
