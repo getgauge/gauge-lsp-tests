@@ -5,8 +5,8 @@ var path = require('path');
 var customLogPath;
 var projectPath
 step("create Project in temporary directory <relativePath>", async function(relativePath,done) {
-    process.env.logs_directory = path.relative(relativePath,'logs')+"/lsp-tests/"+customLogPath;
     projectPath = await _user.createProjectInTemp(relativePath,done)
+    process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
 step("pre-requisite <relativePath>", async function(relativePath) {
