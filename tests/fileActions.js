@@ -60,7 +60,3 @@ step('restore file <arg0> with content <arg1>', async function (relativeFilePath
         throw new Error('unable to open file ' + err);
     }
 });
-
-step("print file content <filePath>", async function(filePath) {
-	console.log(file.parseContent(filePath))
-});

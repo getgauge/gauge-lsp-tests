@@ -5,8 +5,4 @@ function sleep(ms){
     while(waitTill > new Date()){};
 }
 
-module.exports = {sleep:sleep};  
-
-step("step1", async function() {
-	throw 'Unimplemented Step';
-});
+module.exports = {sleep:sleep};
