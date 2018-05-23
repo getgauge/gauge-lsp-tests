@@ -17,8 +17,8 @@
           "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\".\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n* Concept1\n"
           }],
         "specs/concept.cpt":[
-          {"range":{"start":{"line":0,"character":0},"end":{"line":1,"character":11}},
-          "newText":"# Concept1\n* something\n"
+          {"range":{"start":{"line":0,"character":0},"end":{"line":7,"character":11}},
+          "newText":"# Concept1\n* something\n\n# One more concept\n* something\n\n# Concept with parameters\n* something\n"
           }]
       }
     }
