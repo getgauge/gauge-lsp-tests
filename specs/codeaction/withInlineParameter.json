@@ -1,0 +1,38 @@
+{
+    "input":
+    {
+        "uri":"/specs/withTableParameter.spec",
+        "range":{
+            "start":{"line":5,"character":0},
+            "end":{"line":5,"character":28}
+        },    
+        "diagnostics":[
+            {
+                "range":{
+                    "start":{
+                        "line":5,"character":0
+                        },
+                    "end":{
+                        "line":5,"character":28
+                    }
+                },
+                "message":"Step implementation not found",
+                "severity":1,
+                "code":"step(\"undefined step with param \u003carg0\u003e\", async function(arg0) {\n\tthrow 'Unimplemented Step';\n});"
+            }
+        ]
+    },
+    "result": 
+    [
+        {
+            "title":"Create step implementation",
+            "command":"gauge.generate.step",
+            "arguments":["step(\"undefined step with param \u003carg0\u003e\", async function(arg0) {\n\tthrow 'Unimplemented Step';\n});"]
+        },
+        {
+            "title":"Create concept",
+            "command":"gauge.generate.concept",
+            "arguments":[{"conceptName":"# undefined step with param \u003ctable\u003e\n* ","conceptFile":"","dir":""}]
+        }
+    ]
+}

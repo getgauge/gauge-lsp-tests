@@ -1,0 +1,38 @@
+{
+    "input":
+    {
+        "uri":"/specs/withTableParameter.spec",
+        "range":{
+            "start":{"line":2,"character":0},
+            "end":{"line":2,"character":41}
+        },    
+        "diagnostics":[
+            {
+                "range":{
+                    "start":{
+                        "line":2,"character":0
+                        },
+                    "end":{
+                        "line":2,"character":41
+                    }
+                },
+                "message":"Step implementation not found",
+                "severity":1,
+                "code":"step(\"another scenario \u003carg0\u003e\", async function(arg0) {\n\tthrow 'Unimplemented Step';\n});"
+            }
+        ]
+    },
+    "result": 
+    [
+        {
+            "title":"Create step implementation",
+            "command":"gauge.generate.step",
+            "arguments":["step(\"another scenario \u003carg0\u003e\", async function(arg0) {\n\tthrow 'Unimplemented Step';\n});"]
+        },
+        {
+            "title":"Create concept",
+            "command":"gauge.generate.concept",
+            "arguments":[{"conceptName":"# another scenario \u003ctable:specs/some.csv\u003e\n* ","conceptFile":"","dir":""}]
+        }
+    ]
+}
