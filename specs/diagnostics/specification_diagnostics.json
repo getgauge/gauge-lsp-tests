@@ -5,7 +5,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Multiple spec headings found in same file", 
-        "uri":"/specs/multipleSpecHeadings.spec" 
+        "uri":"/$specs/multipleSpecHeadings.spec" 
     }, 
     { 
         "line":"0", 
@@ -13,7 +13,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Spec does not have any elements", 
-        "uri":"/specs/specWithoutElements.spec" 
+        "uri":"/$specs/specWithoutElements.spec" 
     }, 
     { 
         "line":"5", 
@@ -21,7 +21,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Teardown should have at least three underscore characters", 
-        "uri":"/specs/tearDownThreeUnderscore.spec" 
+        "uri":"/$specs/tearDownThreeUnderscore.spec" 
     }, 
     { 
         "line":"NA", 
@@ -29,7 +29,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Scenario heading should have at least one character", 
-        "uri":"/specs/withoutScenarioHeading.spec" 
+        "uri":"/$specs/withoutScenarioHeading.spec" 
     }, 
     { 
         "line":"NA", 
@@ -37,6 +37,6 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Scenario should have atleast one step", 
-        "uri":"/specs/withoutScenarioHeading.spec" 
+        "uri":"/$specs/withoutScenarioHeading.spec" 
     } 
 ]

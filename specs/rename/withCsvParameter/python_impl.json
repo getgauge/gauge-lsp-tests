@@ -1,14 +1,14 @@
 {
   "input":{
-    "uri":"specs/basic.spec",
+    "uri":"$specs/basic.spec",
     "position":{"line":3,"character":3},
-    "newName":"* a basic step \u003ctable:specs/validTable.csv\u003e"
+    "newName":"* a basic step \u003ctable:validTable.csv\u003e"
   },
   "result":
   {
     "changes":
     {
-      "specs/basic.spec":[
+      "$specs/basic.spec":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":4,"character":0}},
         "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
         }],

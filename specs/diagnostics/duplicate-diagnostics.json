@@ -5,6 +5,6 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Duplicate concept definition found", 
-        "uri":"/specs/concepts/duplicateConcepts.cpt" 
+        "uri":"/$specs/concepts/duplicateConcepts.cpt" 
     } 
 ]

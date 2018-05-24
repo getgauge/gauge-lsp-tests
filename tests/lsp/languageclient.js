@@ -76,6 +76,7 @@ async function formatFile(relativeFilePath) {
 }
 
 function filePath(relativePath) {
+    relativePath = relativePath.replace('$specs',process.env.gauge_specs_dir)
     return path.join(projectPath(), relativePath);
 }
 

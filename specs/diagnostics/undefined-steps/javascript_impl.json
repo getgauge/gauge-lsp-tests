@@ -6,7 +6,7 @@
         "severity":"1", 
         "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
         "message":"Step implementation not found",
-        "uri":"/specs/concepts/conceptsWithUndefinedSteps.cpt" 
+        "uri":"/$specs/concepts/conceptsWithUndefinedSteps.cpt" 
     },
     { 
         "line":"4", 
@@ -15,7 +15,7 @@
         "severity":"1", 
         "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
         "message":"Step implementation not found",
-        "uri":"/specs/concepts/conceptsWithUndefinedSteps.cpt" 
+        "uri":"/$specs/concepts/conceptsWithUndefinedSteps.cpt" 
     }, 
     { 
         "line":"5", 
@@ -24,7 +24,7 @@
         "severity":"1", 
         "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
         "message":"Step implementation not found",
-        "uri":"/specs/specsWithUndefinedSteps.spec" 
+        "uri":"/$specs/specsWithUndefinedSteps.spec" 
     },
     { 
         "line":"6", 
@@ -33,7 +33,7 @@
         "severity":"1", 
         "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
         "message":"Step implementation not found",
-        "uri":"/specs/specsWithUndefinedSteps.spec" 
+        "uri":"/$specs/specsWithUndefinedSteps.spec" 
     },
     { 
         "line":"7", 
@@ -42,6 +42,6 @@
         "severity":"1", 
         "code":"step(\"step\", async function() {\n\tthrow 'Unimplemented Step';\n});",
         "message":"Step implementation not found",
-        "uri":"/specs/specification.spec" 
+        "uri":"/$specs/specification.spec" 
     }
 ]

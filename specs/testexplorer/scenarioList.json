@@ -2,11 +2,11 @@
     {
         "heading":"Vowel counts in single word",
         "lineNo":14,
-        "executionIdentifier":"specs/example.spec:14"
+        "executionIdentifier":"$specs/example.spec:14"
     },
     {
         "heading":"Vowel counts in multiple word",
         "lineNo":22,
-        "executionIdentifier":"specs/example.spec:22"
+        "executionIdentifier":"$specs/example.spec:22"
     }
 ]

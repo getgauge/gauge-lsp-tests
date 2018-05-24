@@ -5,7 +5,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Concept should have atleast one step", 
-        "uri":"/specs/concepts/conceptShouldHaveOneStep.cpt" 
+        "uri":"/$specs/concepts/conceptShouldHaveOneStep.cpt" 
     }, 
     { 
         "line":"0", 
@@ -13,7 +13,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Step is not defined inside a concept heading", 
-        "uri":"/specs/concepts/stepNotInConcept.cpt" 
+        "uri":"/$specs/concepts/stepNotInConcept.cpt" 
     }, 
     { 
         "line":"0", 
@@ -21,7 +21,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Scenario Heading is not allowed in concept file", 
-        "uri":"/specs/concepts/scenarioHeadingNotAllowed.cpt" 
+        "uri":"/$specs/concepts/scenarioHeadingNotAllowed.cpt" 
     }, 
     { 
         "line":"0", 
@@ -29,7 +29,7 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Concept heading can have only Dynamic Parameters", 
-        "uri":"/specs/concepts/headingToHaveOnlyDynamicParams.cpt" 
+        "uri":"/$specs/concepts/headingToHaveOnlyDynamicParams.cpt" 
     }, 
     { 
         "line":"NA",  
@@ -37,6 +37,6 @@
         "range_end":"10000", 
         "severity":"1", 
         "message":"Table doesn't belong to any step", 
-        "uri":"/specs/concepts/tableDoesNotBelongToAnyStep.cpt"  
+        "uri":"/$specs/concepts/tableDoesNotBelongToAnyStep.cpt"  
     } 
 ]

@@ -1,6 +1,6 @@
 {
     "input":{
-      "uri":"specs/example.spec",
+      "uri":"$specs/example.spec",
       "position":{"line":11,"character":13},
       "newName":"* Concept1",
       "gaugeFile":[{
@@ -12,11 +12,11 @@
     {
       "changes":
       {
-        "specs/example.spec":[
+        "$specs/example.spec":[
           {"range":{"start":{"line":0,"character":0},"end":{"line":11,"character":9}},
           "newText":"# Specification Heading\n\n* Vowels in English language are \"aeiou\".\n\n## Vowel counts in single word\n\ntags: single word\n\n* The word \"gauge\" has \"3\" vowels.\n* Concept1\n"
           }],
-        "specs/concept.cpt":[
+        "$specs/concept.cpt":[
           {"range":{"start":{"line":0,"character":0},"end":{"line":7,"character":11}},
           "newText":"# Concept1\n* something\n\n# One more concept\n* something\n\n# Concept with parameters\n* something\n"
           }]

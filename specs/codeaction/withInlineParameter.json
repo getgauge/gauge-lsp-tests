@@ -1,7 +1,7 @@
 {
     "input":
     {
-        "uri":"/specs/withTableParameter.spec",
+        "uri":"/$specs/withTableParameter.spec",
         "range":{
             "start":{"line":5,"character":0},
             "end":{"line":5,"character":28}

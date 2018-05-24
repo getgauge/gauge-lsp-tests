@@ -9,13 +9,13 @@ var builder = require('./lsp/util/dataBuilder');
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri);
+    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri).replace('$specs',process.env.gauge_specs_dir);
     expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
   }
 }
 
 step("open project and verify diagnostics <diagnosticsList>", async function (diagnosticsList,done) {
-  var expectedDiagnostics = builder.loadJSON(diagnosticsList);
+  var expectedDiagnostics = builder.buildDiagnostics(diagnosticsList);
   addProjectPath(expectedDiagnostics,languageclient.projectPath())
   try{
     await invokeDiagnostics(expectedDiagnostics,process.env.language,done)

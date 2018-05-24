@@ -1,7 +1,7 @@
 {
     "input":
     {
-        "uri":"/specs/withTableParameter.spec",
+        "uri":"/$specs/withTableParameter.spec",
         "range":{
             "start":{"line":2,"character":0},
             "end":{"line":2,"character":41}
@@ -32,7 +32,7 @@
         {
             "title":"Create concept",
             "command":"gauge.generate.concept",
-            "arguments":[{"conceptName":"# another scenario \u003ctable:specs/some.csv\u003e\n* ","conceptFile":"","dir":""}]
+            "arguments":[{"conceptName":"# another scenario \u003ctable:some.csv\u003e\n* ","conceptFile":"","dir":""}]
         }
     ]
 }

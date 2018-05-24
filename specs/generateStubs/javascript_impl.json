@@ -2,6 +2,6 @@
   { 
   "message": "Step implementation not found", 
   "code":"step(\"undefined step\", async function() {\n\tthrow 'Unimplemented Step';\n});", 
-  "uri": "/specs/concept_definition.spec" 
+  "uri": "/$specs/concept_definition.spec" 
   } 
 ]

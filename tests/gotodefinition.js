@@ -7,6 +7,7 @@ var path = require('path')
 function addProjectPath(expectedDiagnostics, projectPath) {
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
+        expectedDiagnostic.uri = expectedDiagnostic.uri.replace('$specs',process.env.gauge_specs_dir)
         expectedDiagnostic.uri = file.getFSPath(projectPath, expectedDiagnostic.uri);
         if (expectedDiagnostic.message)
             expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%', expectedDiagnostic.uri);
@@ -27,7 +28,7 @@ step('goto definition of <element> in <relativeFilePath> at <lineNumber> and <ch
     verifyRejection(expectedError, definitionDetails);
 });
 
-step("goto definition of step <element> in project <project> <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>", async function (element, project, relativeFilePath, lineNumber, characterNumber, data) {
+step("goto definition of step <element> in <relativeFilePath> at <lineNumber> and <characterNumber> should give details <data>", async function (element, relativeFilePath, lineNumber, characterNumber, data) {
     var response;
     var details = builder.loadJSON(data);
     addProjectPath(details, languageclient.projectPath());

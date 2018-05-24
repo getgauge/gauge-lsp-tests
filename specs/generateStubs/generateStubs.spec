@@ -12,8 +12,8 @@
 
 ## Should generate new Concept files
 * open project "data/generatestubs"
-* generate concept "name" in new file under "specs" and verify
+* generate concept "name" in new file under "$specs" and verify
 
 ## Should generate existing Concept files
 * open project "data/generatestubs"
-* generate concept "name" in file "conceptExample.cpt" of "specs" and verify
+* generate concept "name" in file "conceptExample.cpt" of "$specs" and verify

@@ -8,7 +8,7 @@ var _fileExtension = require('./util/fileExtension');
 var path = require('path');
 
 step("invoke code action details <details>", async function(details) {
-    var details = builder.loadJSON(details)
+    var details = builder.buildCodeAction(details)
 	var file = details.input.uri
 	var range = details.input.range
 	var diagnostics = details.input.diagnostics
