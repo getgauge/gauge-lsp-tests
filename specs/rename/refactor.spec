@@ -18,6 +18,7 @@
 * refactor step "specs/rename/concept/concept_impl.json"
 
 ## Refactor with csv parameter
+tags: knownIssue
 * open project "data/refactor"
 * wait for "0.1" seconds
 * open file with details "specs/rename/withCsvParameter"
