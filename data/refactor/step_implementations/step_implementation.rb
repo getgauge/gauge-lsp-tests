@@ -20,11 +20,11 @@ step 'Almost all words have vowels <table>' do |words_table|
   end
 end
 
-step 'something' do
+step 'something' do ||
   raise 'Unimplemented Step'
 end
 
-step 'a basic step' do
+step 'a basic step' do ||
 end
 
 def count_vowels(string)
