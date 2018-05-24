@@ -15,7 +15,10 @@
       "tests/step_implementation.js":[
         {"range":{"start":{"line":13,"character":5},"end":{"line":13,"character":47}},
         "newText":"\"Vowels in English language are <vowels>\""
-        }]
+        },
+        {"range":{"start":{"line":13,"character":49},"end":{"line":13,"character":71}},
+        "newText":"function (vowelsGiven) "}
+      ]
     }
   }
 }

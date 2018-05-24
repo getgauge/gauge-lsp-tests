@@ -16,6 +16,10 @@
           {
             "range":{"start":{"line":18,"character":5},"end":{"line":18,"character":49}},
             "newText":"(\"Vowels in English language are <vowels>\")"
+          },
+          {
+            "range":{"start":{"line":19,"character":26},"end":{"line":19,"character":38}},
+            "newText":"given_vowels"
           }
         ]
       }
