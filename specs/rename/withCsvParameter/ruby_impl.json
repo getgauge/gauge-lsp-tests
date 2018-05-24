@@ -13,7 +13,7 @@
         "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
         }],
       "step_implementations/step_implementation.rb":[
-        {"range":{"start":{"line":41,"character":5},"end":{"line":41,"character":19}},
+        {"range":{"start":{"line":27,"character":5},"end":{"line":41,"character":19}},
           "newText":"\"a basic step \u003ctable1\u003e\""}
       ]
     }
