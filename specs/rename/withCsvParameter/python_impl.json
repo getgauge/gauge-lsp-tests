@@ -1,0 +1,21 @@
+{
+  "input":{
+    "uri":"specs/basic.spec",
+    "position":{"line":3,"character":3},
+    "newName":"* a basic step \u003ctable:specs/validTable.csv\u003e"
+  },
+  "result":
+  {
+    "changes":
+    {
+      "specs/basic.spec":[
+        {"range":{"start":{"line":0,"character":0},"end":{"line":4,"character":0}},
+        "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
+        }],
+      "step_impl/step_impl.py":[
+        {"range":{"start":{"line":47,"character":5},"end":{"line":47,"character":21}},
+          "newText":"(\"a basic step \u003ctable1\u003e\")"}
+      ]
+    }
+  }
+}

@@ -38,3 +38,7 @@ beforeScenario(function () {
 beforeScenario(function () {
   assert.equal(vowels[0], "a");
 }, { tags: [ "single word" ]});
+
+step("a basic step", async function () {
+	throw 'Unimplemented Step';
+});

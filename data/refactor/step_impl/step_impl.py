@@ -44,3 +44,7 @@ def before_scenario_hook():
 @step("something")
 def assert_no_of_vowels_in(word, number):
     assert 1 == 1
+
+@step("a basic step")
+def a_basic_step():
+    assert False, "Add implementation code"

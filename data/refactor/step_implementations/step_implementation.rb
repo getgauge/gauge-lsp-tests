@@ -24,6 +24,9 @@ step 'something' do
   raise 'Unimplemented Step'
 end
 
+step 'a basic step' do
+end
+
 def count_vowels(string)
   string.count(@vowels.to_s)
 end

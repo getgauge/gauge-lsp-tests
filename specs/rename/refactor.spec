@@ -16,3 +16,9 @@
 * wait for "0.1" seconds
 * open file with details "specs/rename/concept/concept_impl.json"
 * refactor step "specs/rename/concept/concept_impl.json"
+
+## Refactor with csv parameter
+* open project "data/refactor"
+* wait for "0.1" seconds
+* open file with details "specs/rename/withCsvParameter"
+* refactor step "specs/rename/withCsvParameter"
