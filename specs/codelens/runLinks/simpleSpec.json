@@ -1,12 +1,12 @@
 {
-  "input":{"uri":"specs/simpleSpecification.spec"},
+  "input":{"uri":"$specs/simpleSpecification.spec"},
   "result":[
     {
       "range":{"start":{"line":2,"character":0},"end":{"line":2,"character":12}},
       "command":{
         "title":"Run Scenario",
         "command":"gauge.execute",
-        "arguments":["specs/simpleSpecification.spec:3"]
+        "arguments":["$specs/simpleSpecification.spec:3"]
       }
     },
     {
@@ -14,7 +14,7 @@
       "command":{
         "title":"Debug Scenario",
         "command":"gauge.debug",
-        "arguments":["specs/simpleSpecification.spec:3"]
+        "arguments":["$specs/simpleSpecification.spec:3"]
       }
     },
     {
@@ -22,7 +22,7 @@
       "command":{
         "title":"Run Spec",
         "command":"gauge.execute",
-        "arguments":["specs/simpleSpecification.spec"]
+        "arguments":["$specs/simpleSpecification.spec"]
       }
     },
     {
@@ -30,7 +30,7 @@
       "command":{
         "title":"Debug Spec",
         "command":"gauge.debug",
-        "arguments":["specs/simpleSpecification.spec"]
+        "arguments":["$specs/simpleSpecification.spec"]
       }
     }
   ]

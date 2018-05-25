@@ -10,6 +10,9 @@ step("format file <filePath> and ensure formatted contents are <afterFormat>", a
         verifyFormattedDetails(response, expected)        
     }
     catch(err){
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error('unable to verify format '+err)
     }
 });

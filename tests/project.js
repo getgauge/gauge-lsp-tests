@@ -18,6 +18,9 @@ step("open the project", async function () {
         await languageclient.openProject();
     }
     catch(err){
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error("unable to start gauge daemon "+err)
     }
 });
@@ -30,6 +33,9 @@ afterScenario(async function () {
     try{
         await languageclient.shutDown()
     }catch(err){
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error("trying to stop gauge daemon failed "+err)
     }
 });

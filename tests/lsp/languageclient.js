@@ -10,6 +10,7 @@ const { spawn } = require('child_process');
 const _request = require('./rpc/request');
 const _notification = require('./rpc/notfication');
 const _connection = require('./rpc/connection');
+var builder = require('./util/dataBuilder')
 var cwd = process.cwd();
 var state = {}
 var listeners = [];
@@ -76,8 +77,8 @@ async function formatFile(relativeFilePath) {
 }
 
 function filePath(relativePath) {
-    relativePath = relativePath.replace('$specs',process.env.gauge_specs_dir)
-    return path.join(projectPath(), relativePath);
+    console.log(path.join(projectPath(), builder.updateSpecsDir(relativePath)))
+    return path.join(projectPath(), builder.updateSpecsDir(relativePath));
 }
 
 function projectPath() {

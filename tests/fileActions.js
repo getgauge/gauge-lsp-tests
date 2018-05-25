@@ -6,6 +6,8 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
     try {
         languageclient.openFile(relativeFilePath);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
         throw new Error('unable to open file ' + err);
     }
 });
@@ -13,6 +15,8 @@ step('open file <relativeFilePath> with content <content>', async function (rela
     try {
         languageclient.openFile(relativeFilePath, beforeFormatFile);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
         throw new Error('unable to open file ' + err);
     }
 });
@@ -28,6 +32,9 @@ step('open file with details <jsonDetails>', function (jsonDetails) {
     try {
         languageclient.openFile(details.input.uri);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error('unable to open file ' + err);
     }
 });
@@ -38,7 +45,9 @@ step('change content <relativeFilePath> to <contentFile> and save', async functi
             file.save(filePath,contentFilePath)     
             console.log("\n"+file.parseContent(filePath)) 
         } catch (err) { 
-        throw new Error('unable to save file ' + err); 
+            console.log(err.stack)
+            gauge.message(err.stack)
+            throw new Error('unable to save file ' + err); 
     }      
 }); 
     
@@ -47,6 +56,9 @@ step('edit file content <arg0> to <arg1> and save', async function (relativeFile
             languageclient.editFile(relativeFilePath, contentFile); 
             languageclient.saveFile(relativeFilePath); 
         } catch (err) { 
-        throw new Error('unable to edit file ' + err); 
+            console.log(err.stack)
+            gauge.message(err.stack)
+    
+            throw new Error('unable to edit file ' + err); 
     }  
 });

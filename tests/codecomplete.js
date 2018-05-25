@@ -18,6 +18,8 @@ step('codecomplete in <filePath> for subText <subText> at line <lineNumber> char
     try {
         responseMessage = await languageclient.codecomplete(position, filePath);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
         throw new Error('unable to complete action Auto complete ' + err);
     }
     verifyAutocompleteResponse(responseMessage, expected,argSubText);

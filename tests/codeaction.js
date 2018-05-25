@@ -18,6 +18,8 @@ step("invoke code action details <details>", async function(details) {
         handleCodeActionDetails(response, details.result, (d, r) => d.title == r.title)
     }
     catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
         throw new Error("unable to verify code action details " + err)
     }
 });
@@ -26,6 +28,7 @@ function handleCodeActionDetails(responseMessage, expectedDetails, filterMethod)
     if(expectedDetails==null)
     {
         assert.equal(responseMessage, expectedDetail, "expected null but was "+responseMessage)
+        gauge.message("verify code action details is null")        
         return
     }
     for (var rowIndex = 0; rowIndex < responseMessage.length; rowIndex++) {

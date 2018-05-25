@@ -16,6 +16,8 @@ step('ensure spec code lens has details <data>', async function (data) {
         handleCodeLensDetails(response, details.result, (d, r) => d.command.title == r.command.title)
     }
     catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
         throw new Error("unable to verify code lens details " + err)
     }
 });
@@ -29,6 +31,9 @@ step('ensure reference code lens has details <data>', async function (data) {
         handleCodeLensDetails(response, details.result, (d, r) => d.command.arguments[2] == r.command.arguments[2])
     }
     catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error("unable to verify code lens details " + err)
     }
 });

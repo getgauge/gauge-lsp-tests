@@ -9,7 +9,7 @@ var builder = require('./lsp/util/dataBuilder');
 function addProjectPath(expectedDiagnostics,projectPath){
   for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
     var expectedDiagnostic = expectedDiagnostics[rowIndex];
-    expectedDiagnostic.uri = path.join(projectPath,expectedDiagnostic.uri).replace('$specs',process.env.gauge_specs_dir);
+    expectedDiagnostic.uri =  builder.updateSpecsDir(path.join(projectPath,expectedDiagnostic.uri));
     expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%',expectedDiagnostic.uri);
   }
 }
@@ -21,6 +21,8 @@ step("open project and verify diagnostics <diagnosticsList>", async function (di
     await invokeDiagnostics(expectedDiagnostics,process.env.language,done)
   }
   catch(err){
+    console.log(err.stack)
+    gauge.message(err.stack)
     throw new Error('Unable to open project '+err)    
   }
 });
@@ -37,6 +39,9 @@ step("get stubs for unimplemented steps for project with details <details>", asy
     await invokeDiagnostics(expectedDiagnostics,process.env.language,done)
   }
   catch(err){
+    console.log(err.stack)
+    gauge.message(err.stack)
+
     throw new Error('Unable to generate steps '+err)
   }
 });
@@ -90,7 +95,8 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
     }
   }
   catch(err){
-    console.log("error"+err)
+    console.log(err.stack)
+    gauge.message(err.stack)
   }
   finally {
     return expectedDiagnostics

@@ -7,7 +7,7 @@ var path = require('path')
 function addProjectPath(expectedDiagnostics, projectPath) {
     for (var rowIndex = 0; rowIndex < expectedDiagnostics.length; rowIndex++) {
         var expectedDiagnostic = expectedDiagnostics[rowIndex];
-        expectedDiagnostic.uri = expectedDiagnostic.uri.replace('$specs',process.env.gauge_specs_dir)
+        expectedDiagnostic.uri =  builder.updateSpecsDir(expectedDiagnostic.uri)
         expectedDiagnostic.uri = file.getFSPath(projectPath, expectedDiagnostic.uri);
         if (expectedDiagnostic.message)
             expectedDiagnostic.message = expectedDiagnostic.message.replace('%project_path%%file_path%', expectedDiagnostic.uri);
@@ -38,6 +38,9 @@ step("goto definition of step <element> in <relativeFilePath> at <lineNumber> an
             character: parseInt(characterNumber)
         }, relativeFilePath);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error('Unable to goto definition ' + err);
     }
     assert.ok(response != null, 'Response of a defined step should not be null');

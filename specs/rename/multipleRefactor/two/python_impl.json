@@ -2,7 +2,7 @@
   "input":{
     "uri":"$specs/basic.spec",
     "position":{"line":3,"character":3},
-    "newName":"* a basic step \u003ctable:validTable.csv\u003e"
+    "newName":"* a basic step \"before\" \"param\""
   },
   "result":
   {
@@ -10,12 +10,12 @@
     {
       "$specs/basic.spec":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":4,"character":0}},
-        "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
+        "newText":"# Specification\n\n## scenario\n* a basic step \"before\" \"param\"\n"
         }],
       "step_impl/step_impl.py":[
         {"range":{"start":{"line":47,"character":5},"end":{"line":47,"character":21}},
-          "newText":"(\"a basic step \u003ctable1\u003e\")"},
-        {"range":{"start":{"line":48,"character":17},"end":{"line":48,"character":17}},"newText":"arg0"}
+        "newText":"(\"a basic step \u003cbefore\u003e \u003cparam\u003e\")"},
+        {"range":{"start":{"line":48,"character":17},"end":{"line":48,"character":17}},"newText":"arg0, arg1"}
       ]
     }
   }

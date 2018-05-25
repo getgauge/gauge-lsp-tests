@@ -6,6 +6,9 @@ step('initialize test explorer and verify spec details <details>', async functio
     try {
         response = await _customLSP.gaugeSpecs();
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error('unable to verify spec details ' + err);
     }
     verifyExplorerList(JSON.parse(details), response);
@@ -25,6 +28,9 @@ step('select specification <spec> and verify scenario details <details>', async 
     try {
         response = await _customLSP.gaugeScenarios(spec);
     } catch (err) {
+        console.log(err.stack)
+        gauge.message(err.stack)
+
         throw new Error('unable to verify scenario details ' + err);
     }
     verifyExplorerList(JSON.parse(details), response);

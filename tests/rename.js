@@ -26,7 +26,8 @@ function verifyRefactorResult(expectedResults, actualResults) {
 				continue
 			}
 			assert.deepEqual(expected.range, actual.range);
-			assert.deepEqual(expected.newText, actual.newText, "expected \n" + expected.newText + " but was \n" + actual.newText);	
+			assert.deepEqual(expected.newText, actual.newText, "expected \n" + expected.newText + " but was \n" + actual.newText);
+			gauge.message("refactor verified")	
 		}
 	}
 

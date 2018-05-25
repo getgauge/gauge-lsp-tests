@@ -10,7 +10,7 @@
     {
       "$specs/basic.spec":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":4,"character":0}},
-        "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
+        "newText":"# Specification\n\n## scenario\n* a basic step <table:validTable.csv>\n"
         }],
       "step_implementations/step_implementation.rb":[
         {"range":{"start":{"line":27,"character":5},"end":{"line":41,"character":19}},
