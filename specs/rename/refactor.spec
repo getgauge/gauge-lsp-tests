@@ -15,12 +15,10 @@
 * refactor step "specs/rename/concept/concept_impl.json"
 
 ## Refactor with csv parameter
-tags: knownIssue
 * open file with details "specs/rename/withCsvParameter"
 * refactor step "specs/rename/withCsvParameter"
 
 ## Refactor multiple times should show usage statistics correctly
-tags: knownIssue
 * open file with details "specs/rename/multipleRefactor/one"
 * refactor step "specs/rename/multipleRefactor/one"
 * open file with details "specs/rename/multipleRefactor/two"

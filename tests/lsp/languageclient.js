@@ -77,7 +77,6 @@ async function formatFile(relativeFilePath) {
 }
 
 function filePath(relativePath) {
-    console.log(path.join(projectPath(), builder.updateSpecsDir(relativePath)))
     return path.join(projectPath(), builder.updateSpecsDir(relativePath));
 }
 
