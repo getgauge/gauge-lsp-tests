@@ -10,11 +10,13 @@
     {
       "$specs/concept.cpt":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":7,"character":11}},
-        "newText":"# Concept\n* something else\n\n# One more concept\n* something else\n\n# Concept with parameters\n* something else\n"
+          "newText":"# Concept\n* something else\n\n# One more concept\n* something else\n\n# Concept with parameters\n* something else\n"
         }],
       "step_implementations/step_implementation.rb":[
         {"range":{"start":{"line":22,"character":6},"end":{"line":22,"character":15}},
-        "newText":"something else"}
+          "newText":"something else"},
+        {"range":{"start":{"line":22,"character":17},"end":{"line":23,"character":2}},
+          "newText":"do\n\t"}
       ]
     }
   }

@@ -13,8 +13,10 @@
         "newText":"# Specification\n\n## scenario\n* a basic step \"param\"\n"
         }],
       "step_implementations/step_implementation.rb":[
-        {"range":{"start":{"line":27,"character":0},"end":{"line":27,"character":30}},
-          "newText":"step 'a basic step' do |param|"}
+        {"range":{"start":{"line":26,"character":6},"end":{"line":26,"character":18}},
+          "newText":"a basic step <param>"},
+        {"range":{"start":{"line":26,"character":20},"end":{"line":27,"character":2}},
+          "newText":"do |arg_0|\n\t"}  
       ]
     }
   }

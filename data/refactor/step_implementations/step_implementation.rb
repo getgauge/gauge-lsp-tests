@@ -25,6 +25,7 @@ step 'something' do ||
 end
 
 step 'a basic step' do ||
+  assert_equal(1+0,1)
 end
 
 def count_vowels(string)
