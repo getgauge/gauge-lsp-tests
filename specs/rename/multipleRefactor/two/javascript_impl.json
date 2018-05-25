@@ -16,7 +16,7 @@
         {"range":{"start":{"line":41,"character":5},"end":{"line":41,"character":19}},
           "newText":"\"a basic step \u003cbefore\u003e \u003cparam\u003e\""},
         {"range":{"start":{"line":41,"character":21},"end":{"line":41,"character":39}},
-          "newText":"async function (arg0, arg1) "}
+          "newText":"async function (arg1, arg0) "}
       ]
     }
   }
