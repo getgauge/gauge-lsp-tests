@@ -2,7 +2,7 @@
   "input":{
     "uri":"$specs/basic.spec",
     "position":{"line":3,"character":3},
-    "newName":"* a basic step \u003ctable:validTable.csv\u003e"
+    "newName":"* a basic step \"param\""
   },
   "result":
   {
@@ -10,11 +10,11 @@
     {
       "$specs/basic.spec":[
         {"range":{"start":{"line":0,"character":0},"end":{"line":4,"character":0}},
-        "newText":"# Specification\n\n## scenario\n* a basic step \"\"\n"
+        "newText":"# Specification\n\n## scenario\n* a basic step \"param\"\n"
         }],
       "step_implementations/step_implementation.rb":[
-        {"range":{"start":{"line":41,"character":5},"end":{"line":41,"character":19}},
-          "newText":"\"a basic step \u003cparam\u003e\""}
+        {"range":{"start":{"line":27,"character":0},"end":{"line":27,"character":30}},
+          "newText":"step 'a basic step' do |param|"}
       ]
     }
   }
