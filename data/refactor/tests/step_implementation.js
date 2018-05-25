@@ -42,3 +42,7 @@ beforeScenario(function () {
 step("a basic step", async function () {
 	throw 'Unimplemented Step';
 });
+
+step("a basic step <param>", async function (arg0) {
+	throw 'Unimplemented Step';
+});

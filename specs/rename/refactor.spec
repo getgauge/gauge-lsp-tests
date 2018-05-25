@@ -18,8 +18,6 @@
 * open file with details "specs/rename/withCsvParameter"
 * refactor step "specs/rename/withCsvParameter"
 
-## Refactor multiple times should show usage statistics correctly
-* open file with details "specs/rename/multipleRefactor/one"
-* refactor step "specs/rename/multipleRefactor/one"
-* open file with details "specs/rename/multipleRefactor/two"
-* refactor step "specs/rename/multipleRefactor/two"
+## Refactor to add a parameter before existing param
+* open file with details "specs/rename/beforeExistingParam"
+* refactor step "specs/rename/beforeExistingParam"

@@ -11,24 +11,30 @@ step("refactor step <details>", async function (jsonDetails) {
 });
 
 function verifyRefactorResult(expectedResults, actualResults) {
+	var errList = []
 	for (k in expectedResults.changes) {
 		var fileUri = file.getUri(languageclient.filePath(k));
 		var expectedList = expectedResults.changes[k]
 		var actualList = actualResults.changes[fileUri]
-
+		if(actualList==null)
+		{
+			errList.push('expected '+ JSON.stringify(expectedList) + ' not in '+JSON.stringify( actualResults.changes))
+			continue
+		}
 		for(i=0;i<actualList.length;i++){
 			var expected = expectedList[i]
 			var actual = actualList[i]
 
 			if(expected==null)
 			{
-				console.log(JSON.stringify(actualList[i]))
+				throw new Error(JSON.stringify(actualList[i]))
 				continue
 			}
 			assert.deepEqual(expected.range, actual.range);
 			assert.deepEqual(expected.newText, actual.newText, "expected \n" + expected.newText + " but was \n" + actual.newText);
 			gauge.message("refactor verified")	
-		}
+		}	
 	}
-
+	if(errList.length>0)
+		throw new Error(JSON.stringify(errList))
 };

@@ -48,3 +48,7 @@ def assert_no_of_vowels_in(word, number):
 @step("a basic step")
 def a_basic_step():
     assert False, "Add implementation code"
+
+@step("a basic step <param>")
+def a_basic_step(param):
+    assert False, "Add implementation code"
