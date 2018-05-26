@@ -3,8 +3,6 @@
 const rpc = require('vscode-jsonrpc');
 
 async function sendRequest(connection,method,params,token){
-  console.log(method)
-  console.log(JSON.stringify(params))
   if(token)
     return connection.sendRequest(new rpc.RequestType(method), params,token);
   else

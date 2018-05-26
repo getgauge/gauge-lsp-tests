@@ -13,9 +13,9 @@
         "newText":"# Specification\n\n## scenario\n* a basic step \"before\" \"param\"\n"
         }],
       "step_implementations/step_implementation.rb":[
-        {"range":{"start":{"line":26,"character":6},"end":{"line":26,"character":18}},
+        {"range":{"start":{"line":34,"character":6},"end":{"line":34,"character":26}},
           "newText":"a basic step \u003cbefore\u003e \u003cparam\u003e"},
-        {"range":{"start":{"line":26,"character":20},"end":{"line":27,"character":2}},"newText":"do |arg_1, arg_0|\n\t"}
+        {"range":{"start":{"line":34,"character":28},"end":{"line":35,"character":2}},"newText":"do |arg_1, arg_0|\n\t"}
       ]
     }
   }

@@ -50,5 +50,5 @@ def a_basic_step():
     assert False, "Add implementation code"
 
 @step("a basic step <param>")
-def a_basic_step(param):
+def a_basic_step(arg0):
     assert False, "Add implementation code"

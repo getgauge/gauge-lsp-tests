@@ -13,9 +13,9 @@
         "newText":"# Specification\n\n## scenario\n* a basic step \"before\" \"param\"\n"
         }],
       "step_impl/step_impl.py":[
-        {"range":{"start":{"line":47,"character":5},"end":{"line":47,"character":21}},
+        {"range":{"start":{"line":51,"character":5},"end":{"line":51,"character":29}},
         "newText":"(\"a basic step \u003cbefore\u003e \u003cparam\u003e\")"},
-        {"range":{"start":{"line":48,"character":17},"end":{"line":48,"character":17}},"newText":"arg1, arg0"}
+        {"range":{"start":{"line":52,"character":17},"end":{"line":52,"character":21}},"newText":"arg1, arg0"}
       ]
     }
   }

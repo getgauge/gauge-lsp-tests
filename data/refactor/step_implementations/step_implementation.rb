@@ -32,6 +32,6 @@ def count_vowels(string)
   string.count(@vowels.to_s)
 end
 
-step 'a basic step <param>' do |arg0|
-  assert_equal(1+0,1)
+step 'a basic step <param>' do |arg_0|
+	assert_equal(1+0,1)
 end
