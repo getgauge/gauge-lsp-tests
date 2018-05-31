@@ -8,12 +8,14 @@ var _fileExtension = require('./util/fileExtension');
 var path = require('path');
 
 step('ensure spec code lens has details <data>', async function (data) {
-    var details = builder.loadJSON(data)
+    var details = builder.buildCodeLens(data,languageclient.filePath)
     var file = details.input.uri
 
     try {
         var response = await languageclient.codeLens(file)
-        handleCodeLensDetails(response, details.result, (d, r) => d.command.title == r.command.title)
+        handleCodeLensDetails(response, details.result, (d, r) => d.command.title == r.command.title,(filePath)=>{
+            return path.join(languageclient.projectPath(),filePath)
+        })
     }
     catch (err) {
         console.log(err.stack)
@@ -23,12 +25,14 @@ step('ensure spec code lens has details <data>', async function (data) {
 });
 
 step('ensure reference code lens has details <data>', async function (data) {
-    var details = builder.loadJSON(data)
+    var details = builder.buildCodeLens(data,languageclient.filePath)
     var file = details.input.uri
 
     try {
         var response = await languageclient.codeLens(file)
-        handleCodeLensDetails(response, details.result, (d, r) => d.command.arguments[2] == r.command.arguments[2])
+        handleCodeLensDetails(response, details.result, (d, r) => d.command.arguments[2] == r.command.arguments[2],(filePath)=>{
+            return _fileExtension.getUri(path.join(languageclient.projectPath(),filePath))
+        })
     }
     catch (err) {
         console.log(err.stack)
@@ -39,10 +43,11 @@ step('ensure reference code lens has details <data>', async function (data) {
 });
 
 
-function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
+function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod,pathMethod) {
     for (var rowIndex = 0; rowIndex < responseMessage.length; rowIndex++) {
         var expectedDetail = expectedDetails.find((d) => filterMethod(d, responseMessage[rowIndex]))
         gauge.message("verify code lens details")
+        expectedDetail.command.arguments[0] =  pathMethod(expectedDetail.command.arguments[0])
         var message = "expected " + JSON.stringify(expectedDetail) + " actual " + JSON.stringify(responseMessage[rowIndex]);
 
         assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range, message);
@@ -51,8 +56,8 @@ function handleCodeLensDetails(responseMessage, expectedDetails, filterMethod) {
         assert.equal(responseMessage[rowIndex].command.command, expectedDetail.command.command, message)
 
         // TODO file path assertion
-        //   assert.ok(responseMessage[rowIndex].command.arguments[0].endsWith(expectedDetail.command.arguments[0]),
-        //   responseMessage[rowIndex].command.arguments[0]+" should end with "+expectedDetail.command.arguments[0])
+        assert.equal(responseMessage[rowIndex].command.arguments[0],expectedDetail.command.arguments[0],
+          responseMessage[rowIndex].command.arguments[0]+" should be "+expectedDetail.command.arguments[0])
         if (responseMessage[rowIndex].command.arguments[1])
             assert.deepEqual(responseMessage[rowIndex].command.arguments[1], expectedDetail.command.arguments[1], message)
         assert.equal(responseMessage[rowIndex].command.arguments[2], expectedDetail.command.arguments[2], message)

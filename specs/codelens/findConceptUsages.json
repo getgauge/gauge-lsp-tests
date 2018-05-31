@@ -31,7 +31,7 @@
     {
       "range":{"start":{"line":9,"character":0},
       "end":{"line":9,"character":14}},
-      "command":{"title":"2 reference(s)",
+      "command":{"title":"1 reference(s)",
         "command":"gauge.showReferences",
         "arguments":["$specs/concepts.cpt",
           {"line":9,"character":0},"concept in teardown {}"]

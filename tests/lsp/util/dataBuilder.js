@@ -37,6 +37,20 @@ function buildRefactor(data){
   return refactorDetails
 }
 
+function buildCodeLens(data){
+  var codeLensDetails = loadJSON(data)
+
+  codeLensDetails.result.forEach(result=>{
+    var keys = Object.keys(result.command.arguments)
+    keys.forEach(key=>{
+      var value = result.command.arguments[key]
+      if((typeof value)==='string')
+        result.command.arguments[key] = updateSpecsDir(value)
+    })  
+  })
+  return codeLensDetails
+}
+
 function loadJSON(data){
   if(!data.endsWith('.json'))
     return JSON.parse(file.parseContent(data+"/"+process.env.language+"_impl.json"));      
@@ -60,6 +74,7 @@ function updateSpecsDir(path){
 module.exports={
   getResponseUri:getResponseUri,
   loadJSON:loadJSON,
+  buildCodeLens:buildCodeLens,
   buildCodeAction:buildCodeAction,
   buildDiagnostics:buildDiagnostics,
   buildRefactor:buildRefactor,
