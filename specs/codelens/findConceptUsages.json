@@ -1,0 +1,41 @@
+{
+  "input":{"uri":"$specs/concepts.cpt"},
+  "result":[
+    {
+      "range":{"start":{"line":0,"character":0},
+      "end":{"line":0,"character":14}},
+      "command":{"title":"2 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["$specs/concepts.cpt",
+        {"line":0,"character":0},"concept in context {}"]
+      }
+    },
+    {
+      "range":{"start":{"line":3,"character":0},
+      "end":{"line":3,"character":14}},
+      "command":{"title":"2 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["$specs/concepts.cpt",
+        {"line":3,"character":0},"concept in scenario {}"]
+      }
+    },
+    {
+      "range":{"start":{"line":6,"character":0},
+      "end":{"line":6,"character":14}},
+      "command":{"title":"2 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["$specs/concepts.cpt",
+          {"line":6,"character":0},"nested concept {}"]
+      }
+    },
+    {
+      "range":{"start":{"line":9,"character":0},
+      "end":{"line":9,"character":14}},
+      "command":{"title":"2 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["$specs/concepts.cpt",
+          {"line":9,"character":0},"concept in teardown {}"]
+      }
+    }
+  ]
+}
