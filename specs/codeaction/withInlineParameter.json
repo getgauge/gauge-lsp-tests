@@ -32,7 +32,7 @@
         {
             "title":"Create concept",
             "command":"gauge.generate.concept",
-            "arguments":[{"conceptName":"# undefined step with param \u003ctable\u003e\n* ","conceptFile":"","dir":""}]
+            "arguments":[{"conceptName":"# undefined step with param \u003carg0\u003e\n* ","conceptFile":"","dir":""}]
         }
     ]
 }

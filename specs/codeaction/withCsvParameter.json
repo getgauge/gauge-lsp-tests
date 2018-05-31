@@ -32,7 +32,7 @@
         {
             "title":"Create concept",
             "command":"gauge.generate.concept",
-            "arguments":[{"conceptName":"# another scenario <table:some.csv> <file:something.txt>\n* ","conceptFile":"","dir":""}]
+            "arguments":[{"conceptName":"# another scenario <arg0> <arg1>\n* ","conceptFile":"","dir":""}]
         }
     ]
 }
