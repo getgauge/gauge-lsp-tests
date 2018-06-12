@@ -1,5 +1,5 @@
 var vscodeUri = require('vscode-uri').default
-var path = require('path')
+var _path = require('path')
 
 var cwd = process.cwd();
 var fs = require('fs');
@@ -10,13 +10,13 @@ function getUri(filePath){
 
 function getFSPath(relativePath, file){
     if(file)
-        return vscodeUri.file(path.join(relativePath,file)).fsPath;
-    return vscodeUri.file(path.join(relativePath,"")).fsPath;
+        return vscodeUri.file(_path.join(relativePath,file)).fsPath;
+    return vscodeUri.file(_path.join(relativePath,"")).fsPath;
 }
 
 function getPath(path1, file){
     if(file)
-        return vscodeUri.file(path.join(path1,file)).path;
+        return vscodeUri.file(_path.join(path1,file)).path;
     return vscodeUri.file(path1).path;
 }
 
@@ -40,12 +40,25 @@ function copyFile(from, to){
     fs.copyFileSync(from, to);
 }
 
+function exists(path){
+    return fs.existsSync(path);
+}
+
+function createDirIfNotPresent(path){
+    if(!exists(path))
+    {
+        fs.mkdirSync(path)
+        return true
+    }
+    return false
+}
+
 function rmContentsOfDir(dirPath) {
     try { var files = fs.readdirSync(dirPath); }
     catch(e) { return; }
     if (files.length > 0)
         for (var i = 0; i < files.length; i++) {
-        var filePath = path.join(dirPath , files[i]);
+        var filePath = _path.join(dirPath , files[i]);
         if (fs.statSync(filePath).isFile())
             fs.unlinkSync(filePath);
         else
@@ -62,5 +75,6 @@ module.exports={
     write: write,
     save:save,
     rmContentsOfDir:rmContentsOfDir,
-    openFile:openFile
+    openFile:openFile,
+    createDirIfNotPresent:createDirIfNotPresent
 }

@@ -6,9 +6,13 @@ var tmpobj;
 var cwd = process.cwd();
 var path = require('path')
 
+async function copyDataToDir(data,projectDir,cb){
+    await ncp(data, projectDir,cb); 
+}
+
 async function createProjectInTemp(data,cb){
     tmpobj = tmp.dirSync();
-    var response = await ncp(data, tmpobj.name,cb); 
+    await ncp(data, tmpobj.name,cb); 
     if(os.platform()=='darwin')
         return "/private"+tmpobj.name;    
     return tmpobj.name;    
@@ -32,6 +36,7 @@ function removeTempDirectory(){
 
 module.exports={
     createProjectInTemp:createProjectInTemp,
+    copyDataToDir:copyDataToDir,
     getProjectDirectory:getProjectDirectory,
     removeTempDirectory:removeTempDirectory,
     removeCallBack:removeCallback

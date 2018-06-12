@@ -9,7 +9,12 @@ async function runSpecs(projectPath){
     return spawnSync('gauge', ['run'], { cwd: projectPath });
 }
 
+async function initializeWithTemplate(projectPath,template){
+    return spawnSync('gauge', ['init',template], { cwd: projectPath });
+}
+
 module.exports = {
     startLSP:startLSP,
-    runSpecs:runSpecs
+    runSpecs:runSpecs,
+    initializeWithTemplate:initializeWithTemplate
 }

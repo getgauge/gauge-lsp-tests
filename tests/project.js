@@ -1,4 +1,5 @@
 var languageclient = require('./lsp/languageclient');
+const gaugeDaemon = require('./lsp/gauge');
 var _user = require('./user')
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
@@ -38,4 +39,17 @@ afterScenario(async function () {
 
         throw new Error("trying to stop gauge daemon failed "+err)
     }
+});
+
+step("initialize using the initialize template", async function() {
+    var runner = (process.env.language=='javascript')?'js':process.env.language
+    var resourcePath = path.join('./resources',runner)
+    if(fileExtension.createDirIfNotPresent(resourcePath))
+        gaugeDaemon.initializeWithTemplate(resourcePath, runner); 
+});
+
+step("copy template init from cache", async function(cb) {
+    var runner = (process.env.language=='javascript')?'js':process.env.language
+    var resourcePath = path.join('./resources',runner)
+    _user.copyDataToDir(resourcePath,projectPath,cb)
 });

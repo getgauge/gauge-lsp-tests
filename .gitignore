@@ -17,3 +17,4 @@ node_modules
 data/**/manifest.json
 data/**/Gemfile.lock
 data/vendor/**
+resources/js
