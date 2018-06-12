@@ -10,3 +10,8 @@
 * create Project in temporary directory <projectPath>
 * pre-requisite <projectPath>
 * open project and verify diagnostics <diagnostics>
+
+# create Project in temporary directory <projectPath>
+* create temporary directory
+* copy template init from cache
+* copy project details from <projectPath>

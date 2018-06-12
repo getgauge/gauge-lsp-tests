@@ -52,4 +52,16 @@ step("copy template init from cache", async function(cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
     _user.copyDataToDir(resourcePath,projectPath,cb)
+    fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
+    fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
+    fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
+});
+
+step("create temporary directory", async function() {
+    projectPath = await _user.createTempDirectory()
+    process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
+});
+
+step("copy project details from <data>", async function(data,done) {
+    _user.copyDataToDir(data,projectPath,done)
 });

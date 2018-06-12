@@ -10,9 +10,8 @@ async function copyDataToDir(data,projectDir,cb){
     await ncp(data, projectDir,cb); 
 }
 
-async function createProjectInTemp(data,cb){
+async function createTempDirectory(){
     tmpobj = tmp.dirSync();
-    await ncp(data, tmpobj.name,cb); 
     if(os.platform()=='darwin')
         return "/private"+tmpobj.name;    
     return tmpobj.name;    
@@ -35,7 +34,7 @@ function removeTempDirectory(){
 }
 
 module.exports={
-    createProjectInTemp:createProjectInTemp,
+    createTempDirectory:createTempDirectory,
     copyDataToDir:copyDataToDir,
     getProjectDirectory:getProjectDirectory,
     removeTempDirectory:removeTempDirectory,
