@@ -29,7 +29,7 @@ def assert_words_vowel_count(table):
     assert expected == actual
 
 
-@step("Zero references <table>'") 
+@step("Zero references <table>") 
 def print(refernces):
     pass
 

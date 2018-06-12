@@ -1,9 +1,9 @@
 from getgauge.python import step
 
 @step("implemented step one")
-def step_with_alias():
+def implementedStepOne():
     print("implemented step one")
 
 @step("implemented step two")
-def step_with_alias():
+def implementedStepTwo():
     print("implemented step two")
