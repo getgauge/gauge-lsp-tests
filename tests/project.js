@@ -52,6 +52,9 @@ step("copy template init from cache", async function(cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
     _user.copyDataToDir(resourcePath,projectPath,cb)
+});
+
+step("remove the env, specs and impl folders created by template", async function() {
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
     fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))

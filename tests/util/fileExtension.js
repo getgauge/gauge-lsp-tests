@@ -62,7 +62,7 @@ function rmContentsOfDir(dirPath) {
         if (fs.statSync(filePath).isFile())
             fs.unlinkSync(filePath);
         else
-            rmDir(filePath);
+            rmContentsOfDir(filePath);
         }
 };
 

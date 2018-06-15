@@ -14,4 +14,5 @@
 # create Project in temporary directory <projectPath>
 * create temporary directory
 * copy template init from cache
+* remove the env, specs and impl folders created by template
 * copy project details from <projectPath>
