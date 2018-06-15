@@ -6,11 +6,11 @@ var tmpobj;
 var cwd = process.cwd();
 var path = require('path')
 
-async function copyDataToDir(data,projectDir,cb){
-    await ncp(data, projectDir,cb); 
+function copyDataToDir(data,projectDir,cb){
+    ncp(data, projectDir,cb); 
 }
 
-async function createTempDirectory(){
+function createTempDirectory(){
     tmpobj = tmp.dirSync();
     if(os.platform()=='darwin')
         return "/private"+tmpobj.name;    

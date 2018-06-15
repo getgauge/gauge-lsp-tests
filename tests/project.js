@@ -5,12 +5,8 @@ var fileExtension = require('./util/fileExtension');
 var path = require('path');
 var customLogPath;
 var projectPath
-step("create Project in temporary directory <relativePath>", async function(relativePath,done) {
-    projectPath = await _user.createProjectInTemp(relativePath,done)
-    process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
-});
 
-step("pre-requisite <relativePath>", async function(relativePath) {
+step("pre-requisite <relativePath>", function(relativePath) {
     languageclient.prerequisite(projectPath,process.env.language);
 });
 
@@ -41,30 +37,30 @@ afterScenario(async function () {
     }
 });
 
-step("initialize using the initialize template", async function() {
+step("initialize using the initialize template", function() {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
     if(fileExtension.createDirIfNotPresent(resourcePath))
         gaugeDaemon.initializeWithTemplate(resourcePath, runner); 
 });
 
-step("copy template init from cache", async function(cb) {
+step("copy template init from cache", function(cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
     _user.copyDataToDir(resourcePath,projectPath,cb)
 });
 
-step("remove the env, specs and impl folders created by template", async function() {
+step("remove the env, specs and impl folders created by template", function() {
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
     fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
 });
 
-step("create temporary directory", async function() {
-    projectPath = await _user.createTempDirectory()
+step("create temporary directory", function() {
+    projectPath = _user.createTempDirectory()
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
-step("copy project details from <data>", async function(data,done) {
+step("copy project details from <data>", function(data,done) {
     _user.copyDataToDir(data,projectPath,done)
 });

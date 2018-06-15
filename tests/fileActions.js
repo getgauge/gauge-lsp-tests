@@ -11,7 +11,7 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('open file <relativeFilePath> with content <content>', async function (relativeFilePath, beforeFormatFile) {
+step('open file <relativeFilePath> with content <content>', function (relativeFilePath, beforeFormatFile) {
     try {
         languageclient.openFile(relativeFilePath, beforeFormatFile);
     } catch (err) {

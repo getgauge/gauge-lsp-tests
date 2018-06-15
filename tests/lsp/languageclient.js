@@ -101,7 +101,7 @@ async function refactor(uri, position, newName) {
 }
 
 async function openProject() {
-    state.gaugeDaemon = await _lspServer.startLSP(state.projectPath);
+    state.gaugeDaemon = _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };
 
@@ -181,18 +181,14 @@ async function initialize(gaugeProcess, execPath) {
 
     var expectedCapabilityIds = ["gauge-fileWatcher", "gauge-runner-didOpen", "gauge-runner-didClose", "gauge-runner-didChange", "gauge-runner-didChange", "gauge-runner-fileWatcher"];
     var registerCapabilityPromise = new Promise(async function (resolve, reject) {
-        if (process.env.lsp_supported) {
-            _request.onRequest(connection, "client/registerCapability", async (data) => {
-                data.registrations.forEach(registration => {
-                    expectedCapabilityIds = expectedCapabilityIds.filter(id => registration.id !== id);
-                });
-                if (expectedCapabilityIds.length == 0) {
-                    resolve()
-                }
-            })
-        } else {
-            resolve()
-        }
+        _request.onRequest(connection, "client/registerCapability", async (data) => {
+            data.registrations.forEach(registration => {
+                expectedCapabilityIds = expectedCapabilityIds.filter(id => registration.id !== id);
+            });
+            if (expectedCapabilityIds.length == 0) {
+                resolve()
+            }
+        })
     });
 
     if (listeners != null && listeners.length > 0)
