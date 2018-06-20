@@ -9,9 +9,10 @@
     "changes":
     {
       "$specs/concept.cpt":[
-        {"range":{"start":{"line":0,"character":0},"end":{"line":7,"character":11}},
-        "newText":"# Concept\n* something else\n\n# One more concept\n* something else\n\n# Concept with parameters\n* something else\n"
-        }],
+        {"range":{"start":{"line":1,"character":0},"end":{"line":1,"character":11}},"newText":"* something else"},
+        {"range":{"start":{"line":4,"character":0},"end":{"line":4,"character":11}},"newText":"* something else"},
+        {"range":{"start":{"line":7,"character":0},"end":{"line":7,"character":11}},"newText":"* something else"}
+      ],
       "tests/step_implementation.js":[
         {"range":{"start":{"line":27,"character":5},"end":{"line":27,"character":16}},
         "newText":"\"something else\""
