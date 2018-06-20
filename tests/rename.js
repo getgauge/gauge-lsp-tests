@@ -16,25 +16,19 @@ function verifyRefactorResult(expectedResults, actualResults) {
 		var fileUri = file.getUri(languageclient.filePath(k));
 		var expectedList = expectedResults.changes[k]
 		var actualList = actualResults.changes[fileUri]
-		if(actualList==null)
-		{
-			errList.push('expected '+ JSON.stringify(expectedList) + ' not in '+JSON.stringify( actualResults.changes))
+		if (actualList == null) {
+			errList.push('expected ' + JSON.stringify(expectedList) + ' not in ' + JSON.stringify(actualResults.changes))
 			continue
 		}
-		for(i=0;i<actualList.length;i++){
+		expectedList.sort(function (a, b) { return a.range.start.line - b.range.start.line });
+		actualList.sort(function (a, b) { return a.range.start.line - b.range.start.line });
+		for (i = 0; i < actualList.length; i++) {
 			var expected = expectedList[i]
 			var actual = actualList[i]
-
-			if(expected==null)
-			{
-				throw new Error(JSON.stringify(actualList[i]))
-				continue
-			}
 			assert.deepEqual(expected.range, actual.range);
 			assert.deepEqual(expected.newText, actual.newText, "expected \n" + expected.newText + " but was \n" + actual.newText);
-			gauge.message("refactor verified")	
-		}	
+		}
 	}
-	if(errList.length>0)
+	if (errList.length > 0)
 		throw new Error(JSON.stringify(errList))
 };
