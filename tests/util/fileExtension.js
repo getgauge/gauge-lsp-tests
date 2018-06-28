@@ -28,6 +28,12 @@ function write(file, content) {
     return fs.writeFileSync(file, content);
 }
 
+function rename(fromFile,toFile){
+    fs.rename(fromFile, toFile, function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+    });
+}
+
 function save(file,contentFile){
     fs.writeFileSync(file,parseContent(contentFile))
 }
@@ -74,6 +80,7 @@ module.exports={
     copyFile:copyFile,
     write: write,
     save:save,
+    rename:rename,
     rmContentsOfDir:rmContentsOfDir,
     openFile:openFile,
     createDirIfNotPresent:createDirIfNotPresent

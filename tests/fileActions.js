@@ -62,3 +62,17 @@ step('edit file content <arg0> to <arg1> and save', async function (relativeFile
             throw new Error('unable to edit file ' + err); 
     }  
 });
+
+step("rename file <arg0> to <arg1>", async function(fromPath, toPath) {
+    try { 
+        var fileFromPath = languageclient.filePath(fromPath) 
+        var fileToPath = languageclient.filePath(toPath) 
+
+        file.rename(fileFromPath,fileToPath)
+    } catch (err) { 
+        console.log(err.stack)
+        gauge.message(err.stack)
+
+        throw new Error('unable to rename file ' + err); 
+    }  
+});

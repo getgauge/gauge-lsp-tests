@@ -1,7 +1,7 @@
 Find Usages with simple parameter
 ================================
 
-* Vowels in English language are "aeiou".
+* concept in file to be renamed
 
 Vowel counts in single word
 ---------------------------
