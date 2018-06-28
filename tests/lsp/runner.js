@@ -12,12 +12,13 @@ function prerequisite(projectPath, runner) {
     if (runner == "ruby") {
         var output = execSync('gauge version -m');
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
-        var gemFilePath = file.getPath(path.join(projectPath, "Gemfile"));
+        var gemFilePath = path.join(projectPath, "Gemfile");
+        console.log(projectPath)
         var fileContent = file.parseContent(gemFilePath);
         var result = fileContent.replace(/\${ruby-version}/, version);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
-        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: file.getPath(projectPath) });
+        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: projectPath });
     }
 }
 
