@@ -61,7 +61,10 @@ function createDirIfNotPresent(path){
 
 function rmContentsOfDir(dirPath) {
     try { var files = fs.readdirSync(dirPath); }
-    catch(e) { return; }
+    catch(e) {
+        console.log("Error reading directory %s due to %s", dirPath, e);
+        return;
+    }
     if (files.length > 0)
         for (var i = 0; i < files.length; i++) {
         var filePath = _path.join(dirPath , files[i]);
@@ -70,6 +73,11 @@ function rmContentsOfDir(dirPath) {
         else
             rmContentsOfDir(filePath);
         }
+};
+
+function remove(file) {
+    try { fs.unlinkSync(file) }
+    catch(e) { console.log("Error removing file %s due to %s", file, e); }
 };
 
 module.exports={
@@ -82,6 +90,7 @@ module.exports={
     save:save,
     rename:rename,
     rmContentsOfDir:rmContentsOfDir,
+    remove: remove,
     openFile:openFile,
     createDirIfNotPresent:createDirIfNotPresent
 }

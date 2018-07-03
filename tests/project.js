@@ -51,6 +51,7 @@ step("copy template init from cache", function(cb) {
 });
 
 step("remove the env, specs and impl folders created by template", function() {
+    fileExtension.remove(path.join(projectPath, "manifest.json"));
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
     fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
