@@ -13,4 +13,5 @@ gauge install js
 
 # Execution
 * npm install
-* gauge run specs
+* gauge run specs --env=js-wd
+> Change the environment parameter as per the requirement
