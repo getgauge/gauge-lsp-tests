@@ -4,3 +4,6 @@
 * open project "data/executionStatus"
 * run all specifications
 * the execution status of "data/executionStatus" should be <file:specs/execution/executionStatus.json>
+
+___
+* close the project

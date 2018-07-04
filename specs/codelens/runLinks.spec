@@ -12,3 +12,6 @@ Display links to run Specification with test cases in a Specification
 -----------------------------------------------------------------------
 * open file "/$specs/specWithTestCases.spec"
 * ensure spec code lens has details "specs/codelens/runLinks/withTestCases.json"
+
+___
+* close the project

@@ -24,3 +24,6 @@ Should list steps implemented but unused steps
    |--------------------|
    |implemented step one|
    |implemented step two|
+
+___
+* close the project

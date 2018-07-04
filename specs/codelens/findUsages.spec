@@ -30,3 +30,6 @@ Should find usages of a concept
 * ensure reference code lens has details "specs/codelens/findConceptUsages_afterRename.json"
 * open file with details "specs/codelens/findUsages"
 * ensure reference code lens has details "specs/codelens/findUsages"
+
+___
+* close the project

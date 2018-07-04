@@ -7,8 +7,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "vscode-jsonrpc": "^3.4.1",
-    "vscode-uri": "^1.0.1",
+    "vscode-jsonrpc": "^3.6.2",
+    "vscode-uri": "^1.0.5",
     "tmp": "^0.0.33",
     "ncp": "^2.0.0"
   },

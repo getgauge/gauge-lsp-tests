@@ -17,3 +17,6 @@
 ## Should generate existing Concept files
 * open project "data/generatestubs"
 * generate concept "name" in file "conceptExample.cpt" of "$specs" and verify
+
+___
+* close the project

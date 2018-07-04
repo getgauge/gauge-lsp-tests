@@ -42,3 +42,6 @@ A newly added parameter appears in the list after file save
    |more     |static|
    |another  |static|
    |parameter|static|
+
+___
+* close the project

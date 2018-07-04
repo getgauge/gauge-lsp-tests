@@ -12,3 +12,6 @@ tags: knownIssue
 
 * open project "data/test-explorer"
 * the workspace symbols "Spe" shoud be <file:specs/documentSymbol/workspaceSymbols.json>
+
+___
+* close the project

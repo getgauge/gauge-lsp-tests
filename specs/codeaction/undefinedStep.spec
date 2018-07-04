@@ -13,3 +13,5 @@
 ## Show no action on defined steps
 * open file "/$specs/undefined_step.spec"
 * invoke code action details "specs/codeaction/definedStep.json"
+___
+* close the project

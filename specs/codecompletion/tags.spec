@@ -19,3 +19,6 @@ Tag list for codecomplete
    |SpecLevel1    |
    |SpecLevel2    |
    |with space    |
+
+___
+* close the project

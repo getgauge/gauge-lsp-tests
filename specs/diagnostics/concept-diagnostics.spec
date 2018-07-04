@@ -5,3 +5,6 @@ Get all parse errors
 -----------------------------
 * open "data/diagnostics/concepts" and verify diagnostics "specs/diagnostics/concept-diagnostics.json"
 * ensure diagnostics verified
+
+___
+* close the project

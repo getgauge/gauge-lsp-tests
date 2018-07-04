@@ -21,3 +21,6 @@
 ## Refactor to add a parameter before existing param
 * open file with details "specs/rename/beforeExistingParam"
 * refactor step "specs/rename/beforeExistingParam"
+
+___
+* close the project

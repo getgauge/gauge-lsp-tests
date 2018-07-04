@@ -26,7 +26,7 @@ beforeScenario(async function(context){
     customLogPath = context.currentSpec.name+"/"+context.currentScenario.name;
 })
 
-afterScenario(async function () {
+step("close the project", async function() {
     try{
         await languageclient.shutDown()
     }catch(err){
@@ -35,7 +35,7 @@ afterScenario(async function () {
 
         throw new Error("trying to stop gauge daemon failed "+err)
     }
-});
+})
 
 step("initialize using the initialize template", function() {
     var runner = (process.env.language=='javascript')?'js':process.env.language
