@@ -16,3 +16,7 @@
 * copy template init from cache
 * remove the env, specs and impl folders created by template
 * copy project details from <projectPath>
+
+# close the project
+* close project
+* remove the temporary directory

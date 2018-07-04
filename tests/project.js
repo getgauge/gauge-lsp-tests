@@ -26,7 +26,7 @@ beforeScenario(async function(context){
     customLogPath = context.currentSpec.name+"/"+context.currentScenario.name;
 })
 
-step("close the project", async function() {
+step("close project", async function() {
     try{
         await languageclient.shutDown()
     }catch(err){
@@ -59,9 +59,14 @@ step("remove the env, specs and impl folders created by template", function() {
 
 step("create temporary directory", function() {
     projectPath = _user.createTempDirectory()
+    process.env.projectPath = projectPath;
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
 step("copy project details from <data>", function(data,done) {
     _user.copyDataToDir(data,projectPath,done)
+});
+
+step("remove the temporary directory", async function() {
+	fileExtension.rmContentsOfDir(process.env.projectPath)
 });
