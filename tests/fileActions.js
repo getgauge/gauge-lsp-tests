@@ -2,7 +2,7 @@ var assert = require('assert');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-step('open file <relativeFilePath>', async function (relativeFilePath) {
+step('open the file <relativeFilePath>', async function (relativeFilePath) {
     try {
         languageclient.openFile(relativeFilePath);
     } catch (err) {
@@ -11,7 +11,7 @@ step('open file <relativeFilePath>', async function (relativeFilePath) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('open file <relativeFilePath> with content <content>', function (relativeFilePath, beforeFormatFile) {
+step('open the file <relativeFilePath> with content <content>', function (relativeFilePath, beforeFormatFile) {
     try {
         languageclient.openFile(relativeFilePath, beforeFormatFile);
     } catch (err) {
@@ -27,7 +27,7 @@ function handleCodeLensDetails(responseMessage, expectedDetails) {
         assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }
 }
-step('open file with details <jsonDetails>', function (jsonDetails) {
+step('open the file with details <jsonDetails>', function (jsonDetails) {
     var details = builder.loadJSON(jsonDetails);
     try {
         languageclient.openFile(details.input.uri);

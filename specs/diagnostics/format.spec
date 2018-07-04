@@ -5,7 +5,6 @@ tags: no-lang-runner
 Should format a Specification
 -----------------------------
 * open file "/$specs/toBeFormatted.spec" with content "/$specs/beforeFormat.spec"
-* wait for "1" seconds
 * format file "/$specs/toBeFormatted.spec" and ensure formatted contents are <file:data/format/specifications/afterFormat.spec>
 
 ___

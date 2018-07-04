@@ -1,0 +1,15 @@
+# edit content <relativeFilePath> to <contentFile> and save 
+* change content <relativeFilePath> to <contentFile> and save 
+* edit file content <relativeFilePath> to <contentFile> and save
+
+# open file <fileName>
+* open the file <fileName>
+* wait for "0.1" seconds
+
+# open file <file> with content <content>
+* open the file <file> with content <content>
+* wait for "1" seconds
+
+# open file with details <jsonDetails>
+* open the file with details <jsonDetails>
+* wait for "0.1" seconds
