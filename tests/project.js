@@ -54,7 +54,10 @@ step("remove the env, specs and impl folders created by template", function() {
     fileExtension.remove(path.join(projectPath, "manifest.json"));
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
-    fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
+    if(process.env.srcimplDirectory)
+        fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory,process.env.srcimplDirectory))
+    else
+        fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
 });
 
 step("create temporary directory", function() {
