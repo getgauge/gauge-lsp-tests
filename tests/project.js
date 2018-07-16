@@ -55,7 +55,7 @@ step("remove the env, specs and impl folders created by template", function() {
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
     if(process.env.srcimplDirectory)
-        fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory,process.env.srcimplDirectory))
+        fileExtension.rmContentsOfDir(path.join(projectPath,""),process.env.srcimplDirectory)
     else
         fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
 });
