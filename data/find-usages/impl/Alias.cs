@@ -9,7 +9,7 @@ namespace netcore.template
 {
     public class Alias
     {
-        [Step({"alias1","alias2"})]
+        [Step("alias1","alias2")]
         public void HelloWorld(string user_name) {
             // create user user_name
         }
