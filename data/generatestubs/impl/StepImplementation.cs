@@ -13,6 +13,5 @@ namespace netcore.template
         public void step1()
         {
         }
-
     }
 }

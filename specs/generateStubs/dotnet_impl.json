@@ -1,7 +1,7 @@
 [ 
   { 
   "message": "Step implementation not found", 
-  "code":"[Step(\"step1\")]\npublic void UndefinedStep()\\n\\t\\t{\\n\\t\\t\\tthrow new NotImplementedException();\\n\\t\\t}\\n\"", 
+  "code":"\t\t[Step(\"undefined step\")]\n\t\tpublic void UndefinedStep()\n\t\t{\n\t\t\tthrow new NotImplementedException();\n\t\t}\n",
   "uri": "/$specs/concept_definition.spec" 
   } 
 ]
