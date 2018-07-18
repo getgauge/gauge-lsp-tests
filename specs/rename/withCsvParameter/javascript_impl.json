@@ -13,8 +13,9 @@
         "newText":"* a basic step <table:validTable.csv>"
         }],
       "tests/step_implementation.js":[
-        {"range":{"start":{"line":41,"character":5},"end":{"line":41,"character":19}},
-          "newText":"\"a basic step \u003ctable1\u003e\""},{"range":{"start":{"line":41,"character":21},"end":{"line":41,"character":39}},"newText":"async function (arg0) "
+        {"range":{"start":{"line":38,"character":5},"end":{"line":38,"character":19}},
+          "newText":"\"a basic step \u003ctable1\u003e\""},
+        {"range":{"start":{"line":38,"character":21},"end":{"line":38,"character":39}},"newText":"async function (arg0) "
         }]
     }
   }

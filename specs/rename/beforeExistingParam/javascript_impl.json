@@ -14,11 +14,11 @@
         }],
       "tests/step_implementation.js":[
         {
-          "range":{"start":{"line":45,"character":5},"end":{"line":45,"character":27}},
+          "range":{"start":{"line":42,"character":5},"end":{"line":42,"character":27}},
           "newText":"\"a basic step \u003cbefore\u003e \u003cparam\u003e\""
         },
         {
-          "range":{"start":{"line":45,"character":29},"end":{"line":45,"character":51}},
+          "range":{"start":{"line":42,"character":29},"end":{"line":42,"character":51}},
           "newText":"async function (arg1, arg0) "
         }
       ]
