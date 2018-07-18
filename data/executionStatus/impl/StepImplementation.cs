@@ -14,9 +14,10 @@ namespace netcore.template
         {
         }
 
-        [Step("A step to fail")]
+        [Step("A Step to fail")]
         public void aStepToFail()
         {
-            throw new Exception("A Step to fail")
+            throw new Exception("A Step to fail");
         }
+    }
 }
