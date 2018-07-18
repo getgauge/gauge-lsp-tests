@@ -18,7 +18,7 @@
         "newText":"\"something else\""
         },
         {"range":{"start":{"line":27,"character":18},"end":{"line":27,"character":34}},
-        "newText":"function (table) "}]
+        "newText":"function () "}]
     }
   }
 }
