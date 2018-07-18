@@ -42,6 +42,7 @@
         "end":{"line":7,"character":10000},
         "severity":1,
         "code":"\t\t[Step(\"step\")]\n\t\tpublic void step()\n\t\t{\n\t\t\tthrow new NotImplementedException();\n\t\t}\n",
-        "message":"Step implementation not found"
+        "message":"Step implementation not found",
+        "uri":"/$specs/specification.spec" 
     }
 ]
