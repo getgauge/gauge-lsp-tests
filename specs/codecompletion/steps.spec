@@ -2,6 +2,7 @@ Steps code completion
 =====================
 
 * open project "data/steps-codecomplete"
+
 Steps list steps that are unimplemented but used
 ------------------------------------------------
 * open file "/$specs/codecomplete_step.spec"

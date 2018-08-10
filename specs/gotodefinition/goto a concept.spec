@@ -2,6 +2,7 @@ Goto a concept
 ==============
 tags: no-lang-runner
 * open project "data/gotodefinition"
+
 Go to the definition of a concept from the usage
 ------------------------------------------------
 * open file "/$specs/concept_definition.spec"

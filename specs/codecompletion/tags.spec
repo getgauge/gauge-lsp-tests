@@ -4,6 +4,7 @@ Tag completion
 tags: no-lang-runner
 
 * open project "data/codecomplete"
+
 Tag list for codecomplete
 -------------------------
 * open file "/$specs/someTags/tagCompletion.spec"
