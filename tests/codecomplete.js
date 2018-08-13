@@ -7,7 +7,7 @@ var responseType = {
     Parameter: 6
 };
 step('codecomplete in <filePath> for subText <subText> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', async function (filePath, argSubText, lineNumber, characterNumber, element, expectedResult) {
-    var expected = buildExpectedElements(expectedResult, element,argSubText);
+    var expected = buildExpectedElements(expectedResult, element, argSubText);
     if (expected.kind == null)
         throw new Error('unknown type ' + element);
     var position = {
@@ -22,17 +22,17 @@ step('codecomplete in <filePath> for subText <subText> at line <lineNumber> char
         gauge.message(err.stack)
         throw new Error('unable to complete action Auto complete ' + err);
     }
-    verifyAutocompleteResponse(responseMessage, expected,argSubText);
+    verifyAutocompleteResponse(responseMessage, expected, argSubText);
 });
 
-function buildExpectedElements(expectedResult, element,subText) {
+function buildExpectedElements(expectedResult, element, subText) {
     var elements = table.tableToArray(expectedResult);
     var kind = null;
-    if ('steps' == element){
+    if ('steps' == element) {
         return {
             elements: elements,
             kind: responseType.Function,
-            subText:subText
+            subText: subText
         }
     }
     if ('parameters' == element || 'tags' == element)
@@ -43,13 +43,13 @@ function buildExpectedElements(expectedResult, element,subText) {
         };
 }
 
-function verifyAutocompleteResponse(responseMessage, expected,subText) {
+function verifyAutocompleteResponse(responseMessage, expected, subText) {
     if (responseMessage.method == 'textDocument/publishDiagnostics')
         return;
 
     var actualItems = responseMessage.items;
-    if(subText){
-        actualItems = responseMessage.items.filter(function(elem, i, array) {
+    if (subText) {
+        actualItems = responseMessage.items.filter(function (elem, i, array) {
             return elem.label.startsWith(subText)
           });
     }
