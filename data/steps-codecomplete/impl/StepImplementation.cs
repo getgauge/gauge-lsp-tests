@@ -9,8 +9,6 @@ namespace netcore.template
 {
     public class StepImplementation
     {
-        private HashSet<char> _vowels;
-
         [Step("implemented step one")]
         public void implementedStepOne()
         {

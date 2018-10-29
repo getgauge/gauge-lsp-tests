@@ -13,4 +13,9 @@ public class StepImplementation {
     @Step("Almost all words have vowels <wordsTable>")
     public void verifyVowelsCountInMultipleWords(Table wordsTable) {
     }
+
+    @Step("Zero references <table>")
+    public void VerifyVowelsCountInWord(String word, int expectedCount)
+    {
+    }
 }
