@@ -1,0 +1,23 @@
+{
+    "input":{
+      "uri":"$specs/basic.spec",
+      "position":{"line":3,"character":3},
+      "newName":"* a basic step \u003ctable:validTable.csv\u003e"
+    },
+    "result":
+    {
+      "changes":
+      {
+        "$specs/basic.spec":[
+          {"range":{"start":{"line":3,"character":0},"end":{"line":3,"character":14}},
+          "newText":"* a basic step <table:validTable.csv>"
+          }],
+        "src/test/java/StepImplementation.java":[
+          {"range":{"start":{"line":58,"character":14},"end":{"line":58,"character":28}},
+            "newText":"\"a basic step \u003ctable1\u003e\""},
+          {"range":{"start":{"line":59,"character":30},"end":{"line":59,"character":32}},
+            "newText":"(string table1)"
+          }]
+      }
+    }
+  }

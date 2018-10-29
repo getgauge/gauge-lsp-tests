@@ -1,0 +1,22 @@
+{
+    "input":{
+      "uri":"$specs/example.spec",
+      "position":{"line":3,"character":13},
+      "newName":"* Vowels in English language are \"aeiou\""
+    },
+    "result":
+    {
+      "changes":
+      {
+        "$specs/example.spec":[
+          {"range":{"start":{"line":3,"character":0},"end":{"line":3,"character":41}},
+          "newText":"* Vowels in English language are \"aeiou\""}],
+        "src/test/java/StepImplementation.java":[
+          {"range":{"start":{"line":13,"character":14},"end":{"line":13,"character":61}},
+          "newText":"\"Vowels in English language are \u003cvowelString\u003e\""},
+          {"range":{"start":{"line":14,"character":37},"end":{"line":14,"character":57}},
+          "newText":"(string vowelString)"}
+        ]
+      }
+    }
+  }

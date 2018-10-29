@@ -1,0 +1,53 @@
+{
+    "input":{"uri":"src/test/java/StepImplementation.java"},
+    "result":[
+        {
+            "range":{"start":{"line":13,"character":0},
+            "end":{"line":13,"character":14}},
+            "command":{
+                "title":"2 reference(s)",
+                "command":"gauge.showReferences",
+                "arguments":["src/test/java/StepImplementation.java",
+                    {"line":13,"character":0},
+                    "Vowels in English language are {}."]
+            }
+        },
+        {
+            "range":
+            {
+                "start":{"line":23,"character":0},
+                "end":{"line":23,"character":14}
+            },
+            "command":{
+                "title":"1 reference(s)",
+                "command":"gauge.showReferences",
+                "arguments":["src/test/java/StepImplementation.java",
+                    {"line":23,"character":0},
+                    "The word {} has {} vowels."]}
+        },
+        {
+            "range":
+            {
+                "start":{"line":30,"character":0},
+                "end":{"line":30,"character":14}},
+                "command":{
+                    "title":"1 reference(s)",
+                    "command":"gauge.showReferences",
+                    "arguments":["src/test/java/StepImplementation.java",
+                        {"line":30,"character":0},
+                        "Almost all words have vowels {}"]
+            }
+        },
+        {
+            "range":
+            {
+                "start":{"line":44,"character":0},
+                "end":{"line":44,"character":14}},
+                "command":{
+                    "title":"0 reference(s)",
+                    "command":"gauge.showReferences",
+                    "arguments":["src/test/java/StepImplementation.java",
+                        {"line":44,"character":0},
+                        "Zero references {}"]}}
+    ]
+}

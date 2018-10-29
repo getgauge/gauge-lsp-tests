@@ -1,0 +1,27 @@
+{
+    "input":{
+      "uri":"$specs/withBasicParam.spec",
+      "position":{"line":3,"character":6},
+      "newName":"* a basic step \"before\" \"param\""
+    },
+    "result":
+    {
+      "changes":{
+        "$specs/withBasicParam.spec":[
+          {
+            "range":{"start":{"line":3,"character":0},"end":{"line":3,"character":22}},
+            "newText":"* a basic step \"before\" \"param\""
+          }],
+        "src/test/java/StepImplementation.java":[
+          {
+            "range":{"start":{"line":62,"character":14},"end":{"line":62,"character":36}},
+            "newText":"\"a basic step \u003cbefore\u003e \u003cparam\u003e\""
+          },
+          {
+            "range":{"start":{"line":63,"character":39},"end":{"line":63,"character":53}},
+            "newText":"(string before,string param)"
+          }
+        ]
+      }
+    }
+  }

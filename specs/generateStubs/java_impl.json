@@ -1,0 +1,7 @@
+[ 
+    { 
+    "message": "Step implementation not found", 
+    "code":"\t\t@Step(\"undefined step\")\n\t\tpublic void UndefinedStep() throws Exception\n\t\t{\n\t\t\tthrow new Exception();\n\t\t}\n",
+    "uri": "/$specs/concept_definition.spec" 
+    } 
+  ]
