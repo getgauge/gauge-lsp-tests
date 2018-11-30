@@ -62,6 +62,8 @@ step("remove the env, specs and impl folders created by template", function() {
 
 step("create temporary directory", function() {
     projectPath = _user.createTempDirectory()
+    process.env.use_test_ga=true
+
     process.env.projectPath = projectPath;
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });

@@ -173,7 +173,7 @@ async function initialize(gaugeProcess, execPath) {
     });
 
     connection.onError((e) => {
-        console.log(JSON.stringify(message));
+        console.log(JSON.stringify(e));
     });
 
     await _request.sendRequest(connection, "initialize", initializeParams, null)
