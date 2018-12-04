@@ -76,5 +76,5 @@ step("copy project details from <data>", function(data,done) {
 });
 
 step("remove the temporary directory", async function() {
-	//fileExtension.rmContentsOfDir(process.env.projectPath)
+	fileExtension.rmContentsOfDir(process.env.projectPath)
 });
