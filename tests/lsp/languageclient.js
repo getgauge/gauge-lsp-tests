@@ -54,7 +54,7 @@ async function codeLens(fileUri) {
 }
 
 async function codecomplete(position, relativeFilePath) {
-    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
+    return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position),"context":{"triggerKind":1}}))
 }
 
 async function gotoDefinition(position, relativeFilePath) {

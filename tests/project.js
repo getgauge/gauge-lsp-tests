@@ -12,7 +12,7 @@ step("pre-requisite <relativePath>", function(relativePath) {
 
 step("open the project", async function () {
     try{
-        await languageclient.openProject();
+        console.log(await languageclient.openProject());
     }
     catch(err){
         console.log(err.stack)
@@ -47,6 +47,9 @@ step("initialize using the initialize template", function() {
 step("copy template init from cache", function(cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
+    console.log(resourcePath)
+    console.log(projectPath)
+
     _user.copyDataToDir(resourcePath,projectPath,cb)
 });
 
@@ -73,5 +76,5 @@ step("copy project details from <data>", function(data,done) {
 });
 
 step("remove the temporary directory", async function() {
-	fileExtension.rmContentsOfDir(process.env.projectPath)
+	//fileExtension.rmContentsOfDir(process.env.projectPath)
 });
