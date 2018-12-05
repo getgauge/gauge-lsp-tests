@@ -1,9 +1,9 @@
 [ 
     { 
-      "line": "11", 
-      "line_end": "14", 
-      "range_start": "8", 
-      "range_end": "9", 
+      "line": "3", 
+      "line_end": "4", 
+      "range_start": "5", 
+      "range_end": "26", 
       "uri": "src/test/java/StepImplementation.java" 
     } 
   ]
