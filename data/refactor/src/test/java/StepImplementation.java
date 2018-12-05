@@ -61,7 +61,7 @@ public class StepImplementation {
     }
     
     @Step("a basic step <param>")
-    public void aBasicStepWithParam(string param)
+    public void aBasicStepWithParam(String param)
     {
     }
 }
