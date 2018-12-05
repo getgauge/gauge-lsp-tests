@@ -3,24 +3,24 @@
     "result":[
         {
           "range":{
-            "start":{"line":11,"character":0},
-            "end":{"line":11,"character":14}
+            "start":{"line":4,"character":0},
+            "end":{"line":4,"character":14}
           },
           "command":{
             "title":"2 reference(s)",
             "command":"gauge.showReferences",
-            "arguments":["src/test/java/Alias.java",{"line":11,"character":0},"alias1"]
+            "arguments":["src/test/java/Alias.java",{"line":4,"character":0},"alias1"]
           }
         },
         {
           "range":{
-            "start":{"line":11,"character":0},
-            "end":{"line":11,"character":14}
+            "start":{"line":4,"character":0},
+            "end":{"line":4,"character":14}
           },
           "command":{
             "title":"1 reference(s)",
             "command":"gauge.showReferences",
-            "arguments":["src/test/java/Alias.java",{"line":11,"character":0},"alias2"]
+            "arguments":["src/test/java/Alias.java",{"line":4,"character":0},"alias2"]
             }
           }  
     ]
