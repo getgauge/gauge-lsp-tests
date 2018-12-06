@@ -12,7 +12,7 @@ step("pre-requisite <relativePath>", function(relativePath) {
 
 step("open the project", async function () {
     try{
-        console.log(await languageclient.openProject());
+        await languageclient.openProject();
     }
     catch(err){
         console.log(err.stack)
@@ -47,8 +47,6 @@ step("initialize using the initialize template", function() {
 step("copy template init from cache", function(cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
-    console.log(resourcePath)
-    console.log(projectPath)
 
     _user.copyDataToDir(resourcePath,projectPath,cb)
 });

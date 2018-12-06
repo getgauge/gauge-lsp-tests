@@ -43,7 +43,6 @@ step('change content <relativeFilePath> to <contentFile> and save', async functi
             var filePath = languageclient.filePath(relativeFilePath) 
             var contentFilePath = languageclient.filePath(contentFile) 
             file.save(filePath,contentFilePath)     
-            console.log("\n"+file.parseContent(filePath)) 
         } catch (err) { 
             console.log(err.stack)
             gauge.message(err.stack)
