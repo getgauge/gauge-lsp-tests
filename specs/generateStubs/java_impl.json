@@ -1,7 +1,7 @@
 [ 
     { 
     "message": "Step implementation not found", 
-    "code":"\n\t@Step(\"step\")\n\tpublic void step(){\n\t\tthrow new UnsupportedOperationException(\"Provide custom implementation\");\n\t}", 
+    "code":"\n\t@Step(\"undefined step\")\n\tpublic void undefinedStep(){\n\t\tthrow new UnsupportedOperationException(\"Provide custom implementation\");\n\t}", 
     "uri": "/$specs/concept_definition.spec" 
     } 
   ]

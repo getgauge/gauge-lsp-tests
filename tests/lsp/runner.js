@@ -13,7 +13,6 @@ function prerequisite(projectPath, runner) {
         var output = execSync('gauge version -m');
         var version = JSON.parse(output.toString()).plugins.find(p => p.name == "ruby").version;
         var gemFilePath = path.join(projectPath, "Gemfile");
-        console.log(projectPath)
         var fileContent = file.parseContent(gemFilePath);
         var result = fileContent.replace(/\${ruby-version}/, version);
         file.write(gemFilePath, result);
