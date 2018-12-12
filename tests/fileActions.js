@@ -38,7 +38,7 @@ step('open the file with details <jsonDetails>', function (jsonDetails) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('change content <relativeFilePath> to <contentFile> and save', async function (relativeFilePath, contentFile) { 
+step('simulate user changing content on IDE <relativeFilePath> to <contentFile> and save', async function (relativeFilePath, contentFile) { 
         try { 
             var filePath = languageclient.filePath(relativeFilePath) 
             var contentFilePath = languageclient.filePath(contentFile) 
@@ -50,9 +50,19 @@ step('change content <relativeFilePath> to <contentFile> and save', async functi
     }      
 }); 
     
-step('edit file content <arg0> to <arg1> and save', async function (relativeFilePath, contentFile) { 
+step('edit file content <arg0> to <arg1>', async function (relativeFilePath, contentFile,done) { 
     try { 
-            languageclient.editFile(relativeFilePath, contentFile); 
+            await languageclient.editFile(relativeFilePath, contentFile,done); 
+        } catch (err) { 
+            console.log(err.stack)
+            gauge.message(err.stack)
+    
+            throw new Error('unable to edit file ' + err); 
+    }  
+});
+
+step('save file <relativeFilePath>', async function (relativeFilePath) { 
+    try { 
             languageclient.saveFile(relativeFilePath); 
         } catch (err) { 
             console.log(err.stack)

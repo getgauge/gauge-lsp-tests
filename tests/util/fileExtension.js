@@ -93,6 +93,5 @@ module.exports={
     rename:rename,
     rmContentsOfDir:rmContentsOfDir,
     remove: remove,
-    openFile:openFile,
     createDirIfNotPresent:createDirIfNotPresent
 }
