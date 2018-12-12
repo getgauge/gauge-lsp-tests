@@ -38,7 +38,7 @@ step('open the file with details <jsonDetails>', function (jsonDetails) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('simulate user changing content on IDE <relativeFilePath> to <contentFile> and save', async function (relativeFilePath, contentFile) { 
+step('simulate user changing content on IDE <relativeFilePath> to <contentFile> and save', function (relativeFilePath, contentFile) { 
         try { 
             var filePath = languageclient.filePath(relativeFilePath) 
             var contentFilePath = languageclient.filePath(contentFile) 
@@ -50,9 +50,9 @@ step('simulate user changing content on IDE <relativeFilePath> to <contentFile> 
     }      
 }); 
     
-step('edit file content <arg0> to <arg1>', async function (relativeFilePath, contentFile) { 
+step('edit file content <arg0> to <arg1>', function (relativeFilePath, contentFile) { 
     try { 
-            await languageclient.editFile(relativeFilePath, contentFile); 
+            languageclient.editFile(relativeFilePath, contentFile); 
         } catch (err) { 
             console.log(err.stack)
             gauge.message(err.stack)
@@ -61,7 +61,7 @@ step('edit file content <arg0> to <arg1>', async function (relativeFilePath, con
     }  
 });
 
-step('save file <relativeFilePath>', async function (relativeFilePath) { 
+step('save file <relativeFilePath>', function (relativeFilePath) { 
     try { 
             languageclient.saveFile(relativeFilePath); 
         } catch (err) { 
@@ -72,7 +72,7 @@ step('save file <relativeFilePath>', async function (relativeFilePath) {
     }  
 });
 
-step("rename file <arg0> to <arg1>", async function(fromPath, toPath) {
+step("rename file <arg0> to <arg1>", function(fromPath, toPath) {
     try { 
         var fileFromPath = languageclient.filePath(fromPath) 
         var fileToPath = languageclient.filePath(toPath) 
