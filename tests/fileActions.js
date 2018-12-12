@@ -50,9 +50,9 @@ step('simulate user changing content on IDE <relativeFilePath> to <contentFile> 
     }      
 }); 
     
-step('edit file content <arg0> to <arg1>', async function (relativeFilePath, contentFile,done) { 
+step('edit file content <arg0> to <arg1>', async function (relativeFilePath, contentFile) { 
     try { 
-            await languageclient.editFile(relativeFilePath, contentFile,done); 
+            await languageclient.editFile(relativeFilePath, contentFile); 
         } catch (err) { 
             console.log(err.stack)
             gauge.message(err.stack)
