@@ -14,7 +14,7 @@ step('initialize test explorer and verify spec details <details>', async functio
     verifyExplorerList(JSON.parse(details), response);
 });
 
-async function verifyExplorerList(expected, actual){
+function verifyExplorerList(expected, actual){
     assert.equal(expected.length,actual.length)    
     for(var i=0;i<expected.length;i++){
         assert.equal(expected[i].heading,actual[i].heading)

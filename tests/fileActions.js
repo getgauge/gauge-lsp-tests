@@ -2,7 +2,7 @@ var assert = require('assert');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-step('open the file <relativeFilePath>', async function (relativeFilePath) {
+step('open the file <relativeFilePath>', function (relativeFilePath) {
     try {
         languageclient.openFile(relativeFilePath);
     } catch (err) {

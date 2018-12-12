@@ -46,9 +46,9 @@ step("get stubs for unimplemented steps for project with details <details>", asy
   }
 });
 
-async function invokeDiagnostics(expectedDiagnostics,runner,done){
+function invokeDiagnostics(expectedDiagnostics,runner,done){
   languageclient.registerForNotification(verifyDiagnosticsResponse,expectedDiagnostics,verifyAllDone,done)
-  await languageclient.openProject()
+  return languageclient.openProject()
 }
 
 function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {

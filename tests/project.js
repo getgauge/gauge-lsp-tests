@@ -22,7 +22,7 @@ step("open the project", async function () {
     }
 });
 
-beforeScenario(async function(context){
+beforeScenario(function(context){
     customLogPath = context.currentSpec.name+"/"+context.currentScenario.name;
 })
 
@@ -73,6 +73,6 @@ step("copy project details from <data>", function(data,done) {
     _user.copyDataToDir(data,projectPath,done)
 });
 
-step("remove the temporary directory", async function() {
+step("remove the temporary directory", function() {
 	fileExtension.rmContentsOfDir(process.env.projectPath)
 });
