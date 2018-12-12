@@ -43,33 +43,33 @@ function getMessageParams(fileUri,keyValues) {
     return messageParams;
 }
 
-async function codeAction(fileUri,range,diagnostics) {
+function codeAction(fileUri,range,diagnostics) {
     return _request.sendRequest(state.connection,'textDocument/codeAction',getMessageParams(filePath(fileUri),
         {"range":range,"context":{"diagnostics":diagnostics}}
     ));
 }
 
-async function codeLens(fileUri) {
+function codeLens(fileUri) {
     return _request.sendRequest(state.connection, 'textDocument/codeLens',getMessageParams(filePath(fileUri),{}))
 }
 
-async function codecomplete(position, relativeFilePath) {
+function codecomplete(position, relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position),"context":{"triggerKind":1}}))
 }
 
-async function gotoDefinition(position, relativeFilePath) {
+function gotoDefinition(position, relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/definition',getMessageParams(filePath(relativeFilePath),{"position":getRange(position)}))
 }
 
-async function workspaceSymbol(params) {
+function workspaceSymbol(params) {
     return _request.sendRequest(state.connection, 'workspace/symbol', params)
 }
 
-async function documentSymbol(relativeFilePath) {
+function documentSymbol(relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/documentSymbol',getMessageParams(filePath(relativeFilePath),{}))
 }
 
-async function formatFile(relativeFilePath) {
+function formatFile(relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/formatting',getMessageParams(filePath(relativeFilePath),{"options":{
         "tabSize": 4,
         "insertSpaces": true
@@ -92,7 +92,7 @@ function prerequisite(projectPath, runner) {
     _runner.prerequisite(projectPath,runner)
 }
 
-async function refactor(uri, position, newName) {
+function refactor(uri, position, newName) {
     return _request.sendRequest(state.connection, "textDocument/rename", {
         "textDocument": { "uri": file.getUri(filePath(uri)) },
         "position": getRange(position),
@@ -100,7 +100,7 @@ async function refactor(uri, position, newName) {
     })
 }
 
-async function openProject() {
+function openProject() {
     state.gaugeDaemon = _lspServer.startLSP(state.projectPath);
     return initialize(state.gaugeDaemon, state.projectPath)
 };
@@ -110,7 +110,7 @@ function verificationFailures() {
     return errorMessage
 }
 
-async function sendRequest(method, params) {
+function sendRequest(method, params) {
     return _request.sendRequest(state.connection, method, params)
 }
 
