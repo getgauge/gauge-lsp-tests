@@ -4,8 +4,8 @@
       "position":{"line":11,"character":13},
       "newName":"* Concept1",
       "gaugeFile":[{
-        "restoreFrom":"specs/concept.txt",
-        "toBeRestored":"specs/concept.cpt"
+        "restoreFrom":"$specs/concept.txt",
+        "toBeRestored":"$specs/concept.cpt"
       }]
     },
     "result":

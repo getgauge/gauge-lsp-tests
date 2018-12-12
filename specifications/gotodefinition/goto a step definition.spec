@@ -3,7 +3,7 @@
 * open project "data/steps-gotodefinition"
 ## Goto definition to the implementation of a step from the specification
 * open file "/$specs/implementedStep.spec"
-* goto definition of step "step1" in "/$specs/implementedStep.spec" at "8" and "8" should give details "specs/gotodefinition/implementedStep"
+* goto definition of step "step1" in "/$specs/implementedStep.spec" at "8" and "8" should give details "$specs/gotodefinition/implementedStep"
 
 Goto definition of an alias
 

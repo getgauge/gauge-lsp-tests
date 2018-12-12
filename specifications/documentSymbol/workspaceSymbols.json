@@ -4,7 +4,7 @@
         "kind":3,
         "location":
         {
-            "uri":"specs/example.spec",
+            "uri":"$specs/example.spec",
             "range":{
                 "start":{
                     "line":0,

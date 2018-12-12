@@ -52,6 +52,7 @@ function buildCodeLens(data){
 }
 
 function loadJSON(data){
+  data = updateSpecsDir(data)
   if(!data.endsWith('.json'))
     return JSON.parse(file.parseContent(data+"/"+process.env.language+"_impl.json"));      
   else
