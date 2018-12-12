@@ -1,4 +1,4 @@
-step("wait for <secondCount> seconds", async function(secondCount) {
+step("wait for <secondCount> seconds", function(secondCount) {
 	sleep(secondCount*1000)
 });
 
