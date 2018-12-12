@@ -2,15 +2,15 @@ const path = require('path');
 const _languageClient = require('./languageclient');
 const _request = require('./rpc/request');
 
-async function getExecutionStatus(){
+function getExecutionStatus(){
     return _languageClient.sendRequest('gauge/executionStatus', {});
 }
 
-async function getRunnerLanguage(){
+function getRunnerLanguage(){
     return _languageClient.sendRequest('gauge/getRunnerLanguage', undefined);
 }
 
-async function generateInExistingConcept(name,fileName,relativePath){
+function generateInExistingConcept(name,fileName,relativePath){
     var dirName = _languageClient.filePath(relativePath)
     return _languageClient.sendRequest('gauge/generateConcept', {
         "conceptName":conceptTemplate(name),
@@ -19,7 +19,7 @@ async function generateInExistingConcept(name,fileName,relativePath){
     })
 }
 
-async function generateNewConcept(name,path){
+function generateNewConcept(name,path){
     return _languageClient.sendRequest('gauge/generateConcept', {
         "conceptName":conceptTemplate(name),
         "conceptFile":"New File",
@@ -27,15 +27,15 @@ async function generateNewConcept(name,path){
     })
 }
 
-async function getImplFiles() {
+function getImplFiles() {
     return _languageClient.sendRequest("gauge/getImplFiles", {});
 }
 
-async function gaugeSpecs() {
+function gaugeSpecs() {
     return _languageClient.sendRequest('gauge/specs', {})
 }
 
-async function gaugeScenarios(spec) {
+function gaugeScenarios(spec) {
     return _languageClient.sendRequest('gauge/scenarios', {
         "textDocument": {
             "uri": _languageClient.filePath(spec),
