@@ -1,6 +1,5 @@
 # edit content <relativeFilePath> to <contentFile> and save 
 * simulate user changing content on IDE <relativeFilePath> to <contentFile> and save
-* edit file content <relativeFilePath> to <contentFile>
 * save file <relativeFilePath>
 
 # open file <fileName>
