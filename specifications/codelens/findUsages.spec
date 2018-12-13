@@ -32,7 +32,7 @@ Usage of a renamed concept file should be same as before
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
 
-Usage of a step reduced by edit should be reflected
+Usage of a step removed by edit should be reflected
 ---------------------------------------------------
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findUsages"
@@ -41,5 +41,15 @@ Usage of a step reduced by edit should be reflected
 * edit content "/$specs/two.spec" to "/$specs/edit_removeStepfromFile_two.txt" and save 
 * open file with details "$specs/codelens/findUsagesAfterStepDeleted"
 * ensure reference code lens has details "$specs/codelens/findUsagesAfterStepDeleted"
+
+Usage of a concept removed by edit should be reflected
+------------------------------------------------------
+* initialize project "data/find-usages"
+* open file with details "$specs/codelens/findUsages"
+* ensure reference code lens has details "$specs/codelens/findUsages"
+* textDocument/didOpen for "/$specs/one.spec"
+* edit content "/$specs/one.spec" to "/$specs/edit_removeConceptFromFile_one.txt" and save 
+* open file with details "$specs/codelens/findConceptUsages_afterEdit.json"
+* ensure reference code lens has details "$specs/codelens/findConceptUsages_afterEdit.json"
 ___
 * close the project
