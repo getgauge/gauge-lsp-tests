@@ -1,0 +1,37 @@
+{
+    "input":{"uri":"step_impl/step_impl.py"},
+    "result":[
+        {
+            "range":{"start":{"line":18,"character":0},"end":{"line":18,"character":14}},
+            "command":{"title":"1 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/step_impl.py",
+                    {"line":18,"character":0},
+                    "Vowels in English language are {}."]
+            }
+        },
+        {
+            "range":{"start":{"line":13,"character":0},"end":{"line":13,"character":14}},
+            "command":{"title":"1 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/step_impl.py",
+                    {"line":13,"character":0},
+                    "The word {} has {} vowels."]
+            }
+        },
+        {
+            "range":{"start":{"line":24,"character":0},"end":{"line":24,"character":14}},
+            "command":{"title":"1 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/step_impl.py",
+                    {"line":24,"character":0},
+                    "Almost all words have vowels {}"]
+            }
+        },
+        {
+            "range":{"start":{"line":31,"character":0},"end":{"line":31,"character":14}},
+            "command":{"title":"0 reference(s)","command":"gauge.showReferences",
+                "arguments":["step_impl/step_impl.py",
+                    {"line":31,"character":0},
+                    "Zero references {}"]
+            }
+        }
+    ]
+}

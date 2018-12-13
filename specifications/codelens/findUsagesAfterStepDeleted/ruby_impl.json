@@ -1,0 +1,48 @@
+{
+  "input":{"uri":"step_implementations/step_implementation.rb"},
+  "result":[
+    {
+      "range":{"start":{"line":5,"character":0},"end":{"line":5,"character":14}},
+      "command":
+      {
+        "title":"1 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["step_implementations/step_implementation.rb",
+          {"line":5,"character":0},
+          "Vowels in English language are {}."]
+      }
+    },
+    {
+      "range":{"start":{"line":9,"character":0},"end":{"line":9,"character":14}},
+      "command":
+      {
+        "title":"1 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["step_implementations/step_implementation.rb",
+          {"line":9,"character":0},
+          "The word {} has {} vowels."]
+      }
+    },
+    {
+      "range":{"start":{"line":13,"character":0},"end":{"line":13,"character":14}},
+      "command":
+      {
+        "title":"1 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["step_implementations/step_implementation.rb",
+          {"line":13,"character":0},
+          "Almost all words have vowels {}"]
+      }
+    },
+    {
+      "range":{"start":{"line":22,"character":0},"end":{"line":22,"character":14}},
+      "command":
+      {
+        "title":"0 reference(s)",
+        "command":"gauge.showReferences",
+        "arguments":["step_implementations/step_implementation.rb",
+          {"line":22,"character":0},"Zero references {}"]
+      }
+    }
+  ]
+}
