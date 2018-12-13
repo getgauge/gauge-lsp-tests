@@ -6,7 +6,7 @@ var responseType = {
     Function: 3,
     Parameter: 6
 };
-step('codecomplete in <filePath> for subText <subText> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>', async function (filePath, argSubText, lineNumber, characterNumber, element, expectedResult) {
+step("textDocument/completion in <filePath> for subText <subText> at line <lineNumber> character <characterNumber> should give <element> <expectedResult>", async function (filePath, argSubText, lineNumber, characterNumber, element, expectedResult) {
     var expected = buildExpectedElements(expectedResult, element, argSubText);
     if (expected.kind == null)
         throw new Error('unknown type ' + element);

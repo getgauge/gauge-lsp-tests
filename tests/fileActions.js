@@ -2,7 +2,7 @@ var assert = require('assert');
 var file = require('./util/fileExtension');
 var languageclient = require('./lsp/languageclient');
 var builder = require('./lsp/util/dataBuilder');
-step('open the file <relativeFilePath>', function (relativeFilePath) {
+step("textDocument/didOpen <relativeFilePath>", function (relativeFilePath) {
     try {
         languageclient.openFile(relativeFilePath);
     } catch (err) {
@@ -11,7 +11,7 @@ step('open the file <relativeFilePath>', function (relativeFilePath) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('open the file <relativeFilePath> with content <content>', function (relativeFilePath, beforeFormatFile) {
+step("textDocument/didOpen <relativeFilePath> with content <content>", function (relativeFilePath, beforeFormatFile) {
     try {
         languageclient.openFile(relativeFilePath, beforeFormatFile);
     } catch (err) {
@@ -27,7 +27,7 @@ function handleCodeLensDetails(responseMessage, expectedDetails) {
         assert.deepEqual(responseMessage[rowIndex].range, expectedDetail.range);
     }
 }
-step('open the file with details <jsonDetails>', function (jsonDetails) {
+step("textDocument/didOpen details from <jsonDetails>", function (jsonDetails) {
     var details = builder.loadJSON(jsonDetails);
     try {
         languageclient.openFile(details.input.uri);
@@ -38,7 +38,7 @@ step('open the file with details <jsonDetails>', function (jsonDetails) {
         throw new Error('unable to open file ' + err);
     }
 });
-step('simulate user changing content on IDE <relativeFilePath> to <contentFile> and save', function (relativeFilePath, contentFile) { 
+step("simulate user changing content on file system <relativeFilePath> to <contentFile> and saving on disk", function (relativeFilePath, contentFile) { 
         try { 
             var filePath = languageclient.filePath(relativeFilePath) 
             var contentFilePath = languageclient.filePath(contentFile) 
@@ -50,7 +50,7 @@ step('simulate user changing content on IDE <relativeFilePath> to <contentFile> 
     }      
 }); 
     
-step('edit file content <arg0> to <arg1>', function (relativeFilePath, contentFile) { 
+step("textDocument/didChange event to change content from <arg0> to <arg1>", function (relativeFilePath, contentFile) { 
     try { 
             languageclient.editFile(relativeFilePath, contentFile); 
         } catch (err) { 
@@ -61,7 +61,7 @@ step('edit file content <arg0> to <arg1>', function (relativeFilePath, contentFi
     }  
 });
 
-step('save file <relativeFilePath>', function (relativeFilePath) { 
+step("textDocument/didSave - The document save notification is sent from the client to the server when the document <relativeFilePath> was saved in the client.", function (relativeFilePath) { 
     try { 
             languageclient.saveFile(relativeFilePath); 
         } catch (err) { 

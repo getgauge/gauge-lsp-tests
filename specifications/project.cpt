@@ -1,22 +1,22 @@
-# open project <projectPath>
-* initialize using the initialize template
-* create Project in temporary directory <projectPath>
-* pre-requisite <projectPath>
-* open the project
-* verify gauge runner
+# initialize project <dataProjectPath>
+* cache gauge init template if not already present
+* create data (gauge Project <dataProjectPath>) into the temporary directory
+* execute gauge language runner pre-requisite
+* Start LSP and initialize - This should be the first request from the client to the server
+* verify gauge runner with call gauge/getRunnerLanguage
 
 # open <projectPath> and verify diagnostics <diagnostics>
-* initialize using the initialize template
-* create Project in temporary directory <projectPath>
-* pre-requisite <projectPath>
+* cache gauge init template if not already present
+* create data (gauge Project <projectPath>) into the temporary directory
+* execute gauge language runner pre-requisite
 * open project and verify diagnostics <diagnostics>
 
-# create Project in temporary directory <projectPath>
+# create data (gauge Project <dataProjectPath>) into the temporary directory
 * create temporary directory
-* copy template init from cache
+* copy project template from cache
 * remove the env, specs and impl folders created by template
-* copy project details from <projectPath>
+* copy data - env, specifications and implementation folders from <dataProjectPath>
 
 # close the project
-* close project
+* invoke shutDown and exit of LSP
 * remove the temporary directory

@@ -1,15 +1,16 @@
 # edit content <relativeFilePath> to <contentFile> and save 
-* simulate user changing content on IDE <relativeFilePath> to <contentFile> and save
-* save file <relativeFilePath>
+* simulate user changing content on file system <relativeFilePath> to <contentFile> and saving on disk
+* textDocument/didChange event to change content from <relativeFilePath> to <contentFile>
+* textDocument/didSave - The document save notification is sent from the client to the server when the document <relativeFilePath> was saved in the client.
 
-# open file <fileName>
-* open the file <fileName>
+# textDocument/didOpen for <fileName>
+* textDocument/didOpen <fileName>
 * wait for "0.1" seconds
 
 # open file <file> with content <content>
-* open the file <file> with content <content>
+* textDocument/didOpen <file> with content <content>
 * wait for "1" seconds
 
 # open file with details <jsonDetails>
-* open the file with details <jsonDetails>
+* textDocument/didOpen details from <jsonDetails>
 * wait for "0.1" seconds

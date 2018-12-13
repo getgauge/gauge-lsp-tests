@@ -1,6 +1,6 @@
 const _customLSP = require('./lsp/customLSP');
 const _assert = require('assert');
-step("verify gauge runner", async function() {
+step("verify gauge runner with call gauge/getRunnerLanguage", async function () {
 	response = await _customLSP.getRunnerLanguage();
 	var language = process.env.language;
 

@@ -6,11 +6,11 @@ var path = require('path');
 var customLogPath;
 var projectPath
 
-step("pre-requisite <relativePath>", function(relativePath) {
+step("execute gauge language runner pre-requisite", function () {
     languageclient.prerequisite(projectPath,process.env.language);
 });
 
-step("open the project", async function () {
+step("Start LSP and initialize - This should be the first request from the client to the server", async function () {
     try{
         await languageclient.openProject();
     }
@@ -26,7 +26,7 @@ beforeScenario(function(context){
     customLogPath = context.currentSpec.name+"/"+context.currentScenario.name;
 })
 
-step("close project", async function() {
+step("invoke shutDown and exit of LSP", async function () {
     try{
         await languageclient.shutDown()
     }catch(err){
@@ -37,14 +37,14 @@ step("close project", async function() {
     }
 })
 
-step("initialize using the initialize template", function() {
+step("cache gauge init template if not already present", function () {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
     if(fileExtension.createDirIfNotPresent(resourcePath))
         gaugeDaemon.initializeWithTemplate(resourcePath, runner); 
 });
 
-step("copy template init from cache", function(cb) {
+step("copy project template from cache", function (cb) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
 
@@ -69,7 +69,7 @@ step("create temporary directory", function() {
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
-step("copy project details from <data>", function(data,done) {
+step("copy data - env, specifications and implementation folders from <data>", function (data, done) {
     _user.copyDataToDir(data,projectPath,done)
 });
 

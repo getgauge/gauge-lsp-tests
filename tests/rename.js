@@ -4,7 +4,7 @@ var builder = require('./lsp/util/dataBuilder')
 var path = require('path')
 var assert = require('assert')
 var cwd = process.cwd()
-step("refactor step <details>", async function (jsonDetails) {
+step("textDocument/rename with details <details>", async function (jsonDetails) {
 	var details = builder.buildRefactor(jsonDetails)
 	var result = await languageclient.refactor(details.input.uri, details.input.position, details.input.newName)
 	verifyRefactorResult(details.result, result);
