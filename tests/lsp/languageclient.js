@@ -53,7 +53,7 @@ function codeLens(fileUri) {
     return _request.sendRequest(state.connection, 'textDocument/codeLens',getMessageParams(filePath(fileUri),{}))
 }
 
-function codecomplete(position, relativeFilePath) {
+function codeComplete(position, relativeFilePath) {
     return _request.sendRequest(state.connection, 'textDocument/completion',getMessageParams(filePath(relativeFilePath),{"position":getRange(position),"context":{"triggerKind":1}}))
 }
 
@@ -249,7 +249,7 @@ module.exports = {
     saveFile: saveFile,
     codeAction:codeAction,
     codeLens: codeLens,
-    codecomplete: codecomplete,
+    codeComplete:codeComplete,
     gotoDefinition: gotoDefinition,
     formatFile: formatFile,
     filePath: filePath,

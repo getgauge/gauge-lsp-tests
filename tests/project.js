@@ -65,6 +65,7 @@ step("create temporary directory", function() {
     projectPath = _user.createTempDirectory()
     process.env.use_test_ga=true
 
+    console.log(projectPath)
     process.env.projectPath = projectPath;
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
@@ -74,5 +75,5 @@ step("copy data - env, specifications and implementation folders from <data>", f
 });
 
 step("remove the temporary directory", function() {
-	fileExtension.rmContentsOfDir(process.env.projectPath)
+	//fileExtension.rmContentsOfDir(process.env.projectPath)
 });

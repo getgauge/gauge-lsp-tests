@@ -24,5 +24,15 @@ Should list steps implemented but unused steps
    |implemented step one|
    |implemented step two|
 
+A newly added step appears in the list after file save
+-----------------------------------------------------------
+* textDocument/didOpen for "/$specs/codecomplete_step.spec"
+* edit content "/$specs/codecomplete_step.spec" to "/$specs/new_step_codecomplete_step.txt" and save 
+* wait for "1" seconds
+* textDocument/completion in "/$specs/codecomplete_step.spec" for subText "new" at line "7" character "5" should give "steps" 
+
+   |label    |
+   |---------|
+   |new unimplemented step|
 ___
 * close the project

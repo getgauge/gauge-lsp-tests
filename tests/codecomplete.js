@@ -16,7 +16,7 @@ step("textDocument/completion in <filePath> for subText <subText> at line <lineN
     };
     var responseMessage;
     try {
-        responseMessage = await languageclient.codecomplete(position, filePath);
+        responseMessage = await languageclient.codeComplete(position, filePath);
     } catch (err) {
         console.log(err.stack)
         gauge.message(err.stack)
