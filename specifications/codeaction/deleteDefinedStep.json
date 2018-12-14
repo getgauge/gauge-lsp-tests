@@ -1,0 +1,26 @@
+{
+    "input":
+    {
+        "uri":"/$specs/undefined_step.spec",
+        "range":{"start":{"line":8,"character":6},"end":{"line":8,"character":6}},    
+        "diagnostics":[
+            {"range":{"start":{"line":8,"character":0},"end":{"line":8,"character":6}},
+            "message":"Step implementation not found",
+            "severity":1,
+            "code":"step(\"step1\", async function() {\n\tthrow 'Unimplemented Step';\n});"}
+        ]
+    },
+    "result": 
+    [
+        {
+            "title":"Create step implementation",
+            "command":"gauge.generate.step",
+            "arguments":["step(\"step1\", async function() {\n\tthrow 'Unimplemented Step';\n});"]
+        },
+        {
+            "title":"Create concept",
+            "command":"gauge.generate.concept",
+            "arguments":[{"conceptName":"# step1\n* ","conceptFile":"","dir":""}]
+        }
+    ]
+}

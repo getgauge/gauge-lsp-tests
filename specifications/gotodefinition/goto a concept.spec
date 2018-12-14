@@ -1,6 +1,5 @@
 Goto a concept
 ==============
-tags: no-lang-runner
 * initialize project "data/gotodefinition"
 
 Go to the definition of a concept from the usage

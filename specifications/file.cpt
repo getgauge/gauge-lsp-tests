@@ -1,4 +1,4 @@
-# edit content <relativeFilePath> to <contentFile> and save 
+# edit content of file from <relativeFilePath> to <contentFile> and save 
 * simulate user changing content on file system <relativeFilePath> to <contentFile> and saving on disk
 * textDocument/didChange event to change content from <relativeFilePath> to <contentFile>
 * textDocument/didSave - The document save notification is sent from the client to the server when the document <relativeFilePath> was saved in the client.

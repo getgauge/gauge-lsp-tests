@@ -1,6 +1,5 @@
 Display Run links
 ==================
-tags: no-lang-runner
 
 * initialize project "data/displaylink-torun"
 

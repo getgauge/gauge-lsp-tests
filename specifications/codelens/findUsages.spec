@@ -43,7 +43,7 @@ tags: actions_on_file_edit
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
 * textDocument/didOpen for "/$specs/two.spec"
-* edit content "/$specs/two.spec" to "/$specs/edit_removeStepfromFile_two.txt" and save 
+* edit content of file from "/$specs/two.spec" to "/$specs/edit_removeStepfromFile_two.txt" and save 
 * open file with details "$specs/codelens/findUsagesAfterStepDeleted"
 * ensure reference code lens has details "$specs/codelens/findUsagesAfterStepDeleted"
 
@@ -54,7 +54,7 @@ tags: actions_on_project_load
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
 * textDocument/didOpen for "/$specs/one.spec"
-* edit content "/$specs/one.spec" to "/$specs/edit_removeConceptFromFile_one.txt" and save 
+* edit content of file from "/$specs/one.spec" to "/$specs/edit_removeConceptFromFile_one.txt" and save 
 * open file with details "$specs/codelens/findConceptUsages_afterEdit.json"
 * ensure reference code lens has details "$specs/codelens/findConceptUsages_afterEdit.json"
 ___

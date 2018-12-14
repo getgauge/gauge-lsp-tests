@@ -1,6 +1,5 @@
 Format
 ============
-tags: no-lang-runner
 * initialize project "data/format"
 
 Should format a Specification
