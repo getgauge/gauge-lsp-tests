@@ -65,7 +65,6 @@ step("create temporary directory", function() {
     projectPath = _user.createTempDirectory()
     process.env.use_test_ga=true
 
-    console.log(projectPath)
     process.env.projectPath = projectPath;
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });

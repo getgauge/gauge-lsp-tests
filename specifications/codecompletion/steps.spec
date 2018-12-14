@@ -5,6 +5,7 @@ Steps code completion
 
 Steps list steps that are unimplemented but used
 ------------------------------------------------
+tags: actions_on_project_load
 * textDocument/didOpen for "/$specs/codecomplete_step.spec"
 * textDocument/completion in "/$specs/codecomplete_step.spec" for subText "unimplemented s" at line "4" character "18" should give "steps" 
 
@@ -16,6 +17,7 @@ Steps list steps that are unimplemented but used
 
 Should list steps implemented but unused steps
 ----------------------------------------------
+tags: actions_on_project_load
 * textDocument/didOpen for "/$specs/codecomplete_step.spec"
 * textDocument/completion in "/$specs/codecomplete_step.spec" for subText "implemented step" at line "5" character "18" should give "steps" 
 
@@ -26,6 +28,7 @@ Should list steps implemented but unused steps
 
 A newly added step appears in the list after file save
 -----------------------------------------------------------
+tags: actions_on_file_edit
 * textDocument/didOpen for "/$specs/codecomplete_step.spec"
 * edit content "/$specs/codecomplete_step.spec" to "/$specs/new_step_codecomplete_step.txt" and save 
 * wait for "1" seconds

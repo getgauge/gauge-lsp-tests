@@ -3,24 +3,28 @@ Find usages
 
 Should find usages of a step
 ----------------------------
+tags: actions_on_project_load
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
 
 Should find usages of a step alias
 ----------------------------------
+tags: actions_on_project_load
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findAliasUsages"
 * ensure reference code lens has details "$specs/codelens/findAliasUsages"
 
 Should find usages of a concept
 ----------------------------------
+tags: actions_on_project_load
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findConceptUsages.json"
 * ensure reference code lens has details "$specs/codelens/findConceptUsages.json"
 
 Usage of a renamed concept file should be same as before
 --------------------------------------------------------
+tags: actions_on_project_load
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findConceptUsages.json"
 * ensure reference code lens has details "$specs/codelens/findConceptUsages.json"
@@ -34,6 +38,7 @@ Usage of a renamed concept file should be same as before
 
 Usage of a step removed by edit should be reflected
 ---------------------------------------------------
+tags: actions_on_file_edit
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
@@ -44,6 +49,7 @@ Usage of a step removed by edit should be reflected
 
 Usage of a concept removed by edit should be reflected
 ------------------------------------------------------
+tags: actions_on_project_load
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
