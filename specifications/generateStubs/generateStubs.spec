@@ -1,7 +1,7 @@
 # Stub for unimplemented Steps
 
 ## Generate Code for Simple Unimplemented step
-* create data (gauge Project "data/generatestubs") into the temporary directory
+* copy cached template + required data (specs,env,impl "data/generatestubs") into the temporary directory
 * execute gauge language runner pre-requisite
 * get stubs for unimplemented steps for project with details "$specs/generateStubs"
 * ensure diagnostics verified

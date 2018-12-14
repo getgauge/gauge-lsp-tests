@@ -51,7 +51,7 @@ step("copy project template from cache", function (cb) {
     _user.copyDataToDir(resourcePath,projectPath,cb)
 });
 
-step("remove the env, specs and impl folders created by template", function() {
+step("remove the env, specs and impl folders copied from the template", function () {
     fileExtension.remove(path.join(projectPath, "manifest.json"));
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
@@ -70,7 +70,7 @@ step("create temporary directory", function() {
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
-step("copy data - env, specifications and implementation folders from <data>", function (data, done) {
+step("copy data - env, specifications and implementation folders of required data from <data>", function (data, done) {
     _user.copyDataToDir(data,projectPath,done)
 });
 

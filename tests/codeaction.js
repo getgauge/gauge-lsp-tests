@@ -7,7 +7,7 @@ var _customLSP = require('./lsp/customLSP');
 var _fileExtension = require('./util/fileExtension');
 var path = require('path');
 
-step("invoke code action details <details>", async function(details) {
+step("textDocument/codeAction for <details>", async function (details) {
     var details = builder.buildCodeAction(details)
 	var file = details.input.uri
 	var range = details.input.range
