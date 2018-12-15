@@ -6,8 +6,15 @@ var tmpobj;
 var cwd = process.cwd();
 var path = require('path')
 
-function copyDataToDir(data,projectDir,cb){
-    ncp(data, projectDir,cb); 
+function copyDataToDir(data,projectDir,done){
+    ncp(data, projectDir, function (err) {
+        if (err) {
+            done()
+            return console.error(err);
+        }
+        done()
+       });
+//    ncp(data, projectDir,done); 
 }
 
 function createTempDirectory(){

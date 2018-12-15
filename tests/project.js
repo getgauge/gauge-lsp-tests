@@ -44,11 +44,11 @@ step("cache gauge init template if not already present", function () {
         gaugeDaemon.initializeWithTemplate(resourcePath, runner); 
 });
 
-step("copy project template from cache", function (cb) {
+step("copy project template from cache", function (done) {
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
 
-    _user.copyDataToDir(resourcePath,projectPath,cb)
+    _user.copyDataToDir(resourcePath,projectPath,done)
 });
 
 step("remove the env, specs and impl folders copied from the template", function () {
