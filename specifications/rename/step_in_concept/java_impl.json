@@ -14,11 +14,11 @@
           {"range":{"start":{"line":7,"character":0},"end":{"line":7,"character":11}},"newText":"* something else"}
         ],
         "src/test/java/StepImplementation.java":[
-          {"range":{"start":{"line":54,"character":14},"end":{"line":54,"character":25}},
+          {"range":{"start":{"line":52,"character":10},"end":{"line":52,"character":21}},
           "newText":"\"something else\""
           },
-          {"range":{"start":{"line":55,"character":29},"end":{"line":55,"character":31}},
-          "newText":"()"}]
+          {"range":{"start":{"line":53,"character":23},"end":{"line":53,"character":23}},
+          "newText":""}]
       }
     }
   }

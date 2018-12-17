@@ -14,12 +14,12 @@
           }],
         "src/test/java/StepImplementation.java":[
           {
-            "range":{"start":{"line":62,"character":14},"end":{"line":62,"character":36}},
+            "range":{"start":{"line":62,"character":10},"end":{"line":62,"character":32}},
             "newText":"\"a basic step \u003cbefore\u003e \u003cparam\u003e\""
           },
           {
-            "range":{"start":{"line":63,"character":39},"end":{"line":63,"character":53}},
-            "newText":"(string before,string param)"
+            "range":{"start":{"line":63,"character":36},"end":{"line":63,"character":48}},
+            "newText":"Object argBefore, String param"
           }
         ]
       }

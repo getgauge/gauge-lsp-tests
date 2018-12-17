@@ -13,10 +13,10 @@
           "newText":"* a basic step <table:validTable.csv>"
           }],
         "src/test/java/StepImplementation.java":[
-          {"range":{"start":{"line":58,"character":14},"end":{"line":58,"character":28}},
+          {"range":{"start":{"line":57,"character":10},"end":{"line":57,"character":24}},
             "newText":"\"a basic step \u003ctable1\u003e\""},
-          {"range":{"start":{"line":59,"character":30},"end":{"line":59,"character":32}},
-            "newText":"(string table1)"
+          {"range":{"start":{"line":58,"character":24},"end":{"line":58,"character":24}},
+            "newText":"Object argTable1"
           }]
       }
     }
