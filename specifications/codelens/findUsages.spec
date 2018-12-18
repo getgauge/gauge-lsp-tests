@@ -49,7 +49,7 @@ tags: actions_on_file_edit
 
 Usage of a concept removed by edit should be reflected
 ------------------------------------------------------
-tags: actions_on_project_load
+tags: actions_on_file_edit
 * initialize project "data/find-usages"
 * open file with details "$specs/codelens/findUsages"
 * ensure reference code lens has details "$specs/codelens/findUsages"
