@@ -72,12 +72,12 @@ step("textDocument/didSave - The document save notification is sent from the cli
     }  
 });
 
-step("rename file <arg0> to <arg1>", function(fromPath, toPath) {
+step("rename file <arg0> to <arg1>", function(fromPath, toPath,done) {
     try { 
         var fileFromPath = languageclient.filePath(fromPath) 
         var fileToPath = languageclient.filePath(toPath) 
 
-        file.rename(fileFromPath,fileToPath)
+        file.rename(fileFromPath,fileToPath,done)
     } catch (err) { 
         console.log(err.stack)
         gauge.message(err.stack)

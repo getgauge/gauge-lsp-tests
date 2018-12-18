@@ -28,9 +28,10 @@ function write(file, content) {
     return fs.writeFileSync(file, content);
 }
 
-function rename(fromFile,toFile){
+function rename(fromFile,toFile,done){
     fs.rename(fromFile, toFile, function(err) {
         if ( err ) console.log('ERROR: ' + err);
+        done()
     });
 }
 
