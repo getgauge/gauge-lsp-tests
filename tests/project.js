@@ -55,8 +55,10 @@ step("remove the env, specs and impl folders copied from the template", function
     fileExtension.remove(path.join(projectPath, "manifest.json"));
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
-    if(process.env.DummyDirectory)
-        fileExtension.rmContentsOfDir(path.join(projectPath,""),process.env.DummyDirectory)
+    if(process.env.noSrcImplDirectory)
+    {
+        fileExtension.remove(path.join(projectPath,process.env.defaultSourceFile+process.env.languageExtension))
+    }
     else
         fileExtension.rmContentsOfDir(path.join(projectPath,process.env.implDirectory))
 });
