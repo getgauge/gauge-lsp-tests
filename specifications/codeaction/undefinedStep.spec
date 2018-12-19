@@ -16,5 +16,20 @@ tags: actions_on_project_load
 tags: actions_on_project_load
 * textDocument/didOpen for "/$specs/undefined_step.spec"
 * textDocument/codeAction for "$specs/codeaction/definedStep.json"
+
+## Show no action on when new concept definition is added
+tags: actions_on_project_edit
+* textDocument/didOpen for "/$specs/undefined_step.spec"
+* textDocument/codeAction for "$specs/codeaction/undefinedStep.json"
+* generate concept "another scenario" in file "concept1.cpt" of "$specs" and verify
+* textDocument/codeAction for "$specs/codeaction/newDefinition.json"
+
+## Show no action on when new step definition is added
+tags: actions_on_project_edit, knownIssue
+* textDocument/didOpen for "/$specs/undefined_step.spec"
+* textDocument/codeAction for "$specs/codeaction/undefinedStep.json"
+Todo add generate new step definition
+* textDocument/codeAction for "$specs/codeaction/newDefinition.json"
+
 ___
 * close the project

@@ -1,0 +1,12 @@
+{
+    "input":
+    {
+        "uri":"/specs/undefined_step.spec",
+        "range":{
+            "start":{"line":4,"character":0},
+            "end":{"line":4,"character":18}
+        },
+        "diagnostics":[]
+    },
+    "result": null
+}
