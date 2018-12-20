@@ -4,9 +4,9 @@ var _user = require('./user')
 var fileExtension = require('./util/fileExtension');
 var path = require('path');
 var customLogPath;
-var projectPath
 
 step("execute gauge language runner pre-requisite", function () {
+    var projectPath = gauge.dataStore.scenarioStore.get('projectPath')
     languageclient.prerequisite(projectPath,process.env.language);
 });
 
@@ -45,6 +45,8 @@ step("cache gauge init template if not already present", function () {
 });
 
 step("copy project template from cache", function (done) {
+    var projectPath = gauge.dataStore.scenarioStore.get('projectPath')
+
     var runner = (process.env.language=='javascript')?'js':process.env.language
     var resourcePath = path.join('./resources',runner)
 
@@ -52,6 +54,8 @@ step("copy project template from cache", function (done) {
 });
 
 step("remove the env, specs and impl folders copied from the template", function () {
+    var projectPath = gauge.dataStore.scenarioStore.get('projectPath')
+
     fileExtension.remove(path.join(projectPath, "manifest.json"));
     fileExtension.rmContentsOfDir(path.join(projectPath,"specs"))
     fileExtension.rmContentsOfDir(path.join(projectPath,"env"))
@@ -64,17 +68,17 @@ step("remove the env, specs and impl folders copied from the template", function
 });
 
 step("create temporary directory", function() {
-    projectPath = _user.createTempDirectory()
+    var projectPath = _user.createTempDirectory();
+    gauge.dataStore.scenarioStore.put('projectPath', projectPath);
     process.env.use_test_ga=true
-
-    process.env.projectPath = projectPath;
     process.env.logs_directory = path.relative(projectPath,'logs')+"/lsp-tests/"+customLogPath;
 });
 
 step("copy data - env, specifications and implementation folders of required data from <data>", function (data, done) {
+    var projectPath = gauge.dataStore.scenarioStore.get('projectPath')
     _user.copyDataToDir(data,projectPath,done)
 });
 
 step("remove the temporary directory", function() {
-	fileExtension.rmContentsOfDir(process.env.projectPath)
+	fileExtension.rmContentsOfDir(gauge.dataStore.scenarioStore.get('projectPath'))
 });

@@ -12,6 +12,9 @@ step("textDocument/rename with details <details>", async function (jsonDetails) 
 
 function verifyRefactorResult(expectedResults, actualResults) {
 	var errList = []
+
+	if(process.env.debugLSPTest)
+		console.log(JSON.stringify(actualResults))
 	for (k in expectedResults.changes) {
 		var fileUri = file.getUri(languageclient.filePath(k));
 		var expectedList = expectedResults.changes[k]

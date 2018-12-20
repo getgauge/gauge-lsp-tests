@@ -19,3 +19,8 @@ step("get implementation files", async function () {
 	var files = await _customLSP.getImplFiles();
 	_assert.ok(files.length >= 1);
 });
+
+step("generate new step definition <name> in new file", async function(name) {
+	var files = await _customLSP.getImplFiles();
+	console.log(files[0])
+});
