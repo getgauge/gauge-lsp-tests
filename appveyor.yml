@@ -29,7 +29,7 @@ notifications:
   on_build_status_changed: true
 test_script:
 - ps: npm install
-- ps: gauge run specs -v
+- ps: gauge run --env=js-wd --tags=\!knownIssue
 artifacts:
 - path: ./reports/html-report
   name: gauge-reports
