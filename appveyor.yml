@@ -1,6 +1,6 @@
 environment:
   nodejs_version: "8"
-
+  GAUGE_PREFIX: C:\Program Files\Gauge\bin
 version: 1.0.{build}
 init:
 - ps: Install-Product node $env:nodejs_version
@@ -10,8 +10,6 @@ init:
 - ps: npm --version
 cache:
 - packages
-environment:
-    GAUGE_PREFIX: C:\Program Files\Gauge\bin
 build_script:
 - ps: |
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/getgauge/infrastructure/master/nightly_scripts/install_latest_gauge_nightly.ps1" -OutFile install_latest_gauge_nightly.ps1
