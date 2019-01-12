@@ -9,6 +9,9 @@ init:
 - ps: node --version
 - ps: npm --version
 
+environment:
+    GAUGE_PREFIX: C:\Program Files\Gauge\bin
+
 build_script:
 - ps: |
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/getgauge/infrastructure/master/nightly_scripts/install_latest_gauge_nightly.ps1" -OutFile install_latest_gauge_nightly.ps1
