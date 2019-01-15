@@ -28,8 +28,6 @@ tags: actions_on_project_edit
 tags: actions_on_project_edit, knownIssue
 * textDocument/didOpen for "/$specs/undefined_step.spec"
 * textDocument/codeAction for "$specs/codeaction/undefinedStep.json"
-Todo generate new step definition "another scenario" in new file
-* textDocument/codeAction for "$specs/codeaction/newDefinition.json"
-
+* generate new step definition "somecode" in new file
 ___
 * close the project

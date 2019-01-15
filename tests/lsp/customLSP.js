@@ -27,6 +27,13 @@ function generateNewConcept(name,path){
     })
 }
 
+function putStubImpl(fileName,userCode){
+    return _languageClient.sendRequest("gauge/putStubImpl",{
+        implementationFilePath:fileName,
+        codes:[userCode]
+    })
+}
+
 function getImplFiles() {
     return _languageClient.sendRequest("gauge/getImplFiles", {});
 }
@@ -62,6 +69,7 @@ module.exports = {
     conceptFilePath:conceptFilePath,
     conceptTemplate:conceptTemplate,
     getImplFiles:getImplFiles,
+    putStubImpl:putStubImpl,
     gaugeSpecs:gaugeSpecs,
     gaugeScenarios: gaugeScenarios,
     getRunnerLanguage:getRunnerLanguage,

@@ -20,7 +20,16 @@ step("get implementation files", async function () {
 	_assert.ok(files.length >= 1);
 });
 
-step("generate new step definition <name> in new file", async function(name) {
+step("generate new step definition <code> in new file", async function (code) {
 	var files = await _customLSP.getImplFiles();
-	console.log(files[0])
+
+	var result = await _customLSP.putStubImpl(files[0],code)
+	var fileURI = _fileExtension.getUri(files[0]);
+	var changesForFile = result.changes[fileURI]
+	_assert.ok(changesForFile!=null)
+
+	var changes = changesForFile.filter(function (elem, i, array) {
+		return elem.newText.endsWith(code)
+	  });
+	_assert.ok(changes.length>0)
 });

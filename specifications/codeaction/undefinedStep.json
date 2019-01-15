@@ -10,7 +10,7 @@
             {"range":{"start":{"line":4,"character":0},"end":{"line":4,"character":18}},
             "message":"Step implementation not found",
             "severity":1,
-            "code":"step(\"another scenario\", async function() {\n\tthrow 'Unimplemented Step';\n});"}
+            "code":"somecode"}
         ]
     },
     "result": 
@@ -18,7 +18,7 @@
         {
             "title":"Create step implementation",
             "command":"gauge.generate.step",
-            "arguments":["step(\"another scenario\", async function() {\n\tthrow 'Unimplemented Step';\n});"]
+            "arguments":["somecode"]
         },
         {
             "title":"Create concept",
