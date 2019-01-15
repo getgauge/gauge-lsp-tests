@@ -25,7 +25,7 @@ tags: actions_on_project_edit
 * textDocument/codeAction for "$specs/codeaction/newDefinition.json"
 
 ## Show no action on when new step definition is added
-tags: actions_on_project_edit, knownIssue
+tags: actions_on_project_edit
 * textDocument/didOpen for "/$specs/undefined_step.spec"
 * textDocument/codeAction for "$specs/codeaction/undefinedStep.json"
 * generate new step definition "somecode" in new file
