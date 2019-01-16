@@ -24,7 +24,13 @@ tags: actions_on_project_edit
 * generate concept "another scenario" in new file under "$specs" and verify
 * textDocument/codeAction for "$specs/codeaction/newDefinition.json"
 
-## Show no action on when new step definition is added
+## Show no action on when new step definition is added to existing file
+tags: actions_on_project_edit
+* textDocument/didOpen for "/$specs/undefined_step.spec"
+* textDocument/codeAction for "$specs/codeaction/undefinedStep.json"
+* generate new step definition "somecode" in existing file
+
+## Show no action on when new step definition is added to new file
 tags: actions_on_project_edit
 * textDocument/didOpen for "/$specs/undefined_step.spec"
 * textDocument/codeAction for "$specs/codeaction/undefinedStep.json"

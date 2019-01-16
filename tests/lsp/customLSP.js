@@ -28,6 +28,11 @@ function generateNewConcept(name,path){
 }
 
 function putStubImpl(fileName,userCode){
+    if(fileName==null)
+        return _languageClient.sendRequest("gauge/putStubImpl",{
+            codes:[userCode]
+        })
+
     return _languageClient.sendRequest("gauge/putStubImpl",{
         implementationFilePath:fileName,
         codes:[userCode]
