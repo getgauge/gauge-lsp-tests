@@ -1,5 +1,5 @@
 step("wait for <secondCount> seconds", function(secondCount) {
-	sleep(secondCount*1000)
+  sleep(secondCount*1000);
 });
 
 function sleep(ms)

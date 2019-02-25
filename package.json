@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "LSP tests for Gauge",
   "scripts": {
-    "test": "gauge run specs"
+    "test": "gauge run specs",
+    "lint": "eslint tests/*.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -11,6 +12,9 @@
     "vscode-uri": "^1.0.5",
     "tmp": "^0.0.33",
     "ncp": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1"
   },
   "repository": {
     "type": "git",
