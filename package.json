@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "LSP tests for Gauge",
   "scripts": {
-    "test": "gauge run specs",
-    "lint": "eslint tests/*.js"
+    "lint": "eslint tests/*.js",
+    "test": "npm run lint && gauge run specs "
   },
   "license": "MIT",
   "dependencies": {
