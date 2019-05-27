@@ -4,6 +4,7 @@ function newConnection(process){
     var reader = new rpc.StreamMessageReader(process.stdout);
     var writer = new rpc.StreamMessageWriter(process.stdin);
     var logger = new Logger();
+    process.stderr.on('data', () => { });
 
     let connection = rpc.createMessageConnection(reader, writer,logger);
     connection.onError()
