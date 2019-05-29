@@ -17,4 +17,4 @@ install:
 
 script:
   - gauge version
-  - gauge run specs --tags=!knownIssue -v --env=js-wd
+  - gauge run specifications --tags=\!knownIssue --env=js-wd
