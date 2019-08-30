@@ -24,31 +24,32 @@ step("get implementation files", async function () {
 step("generate new step definition <code> in existing file", async function (code) {
   var files = await _customLSP.getImplFiles();
 
-  var result = await _customLSP.putStubImpl(files[0],code);
+  var result = await _customLSP.putStubImpl(files[0], code);
   var fileURI = _fileExtension.getUri(files[0]);
   var changesForFile = result.changes[fileURI];
-  _assert.ok(changesForFile!=null);
+  _assert.ok(changesForFile != null);
 
   var changes = changesForFile.filter(function (elem) {
-    return elem.newText.endsWith(code);
+    return elem.newText.trim().includes(code);
   });
-  _assert.ok(changes.length>0);
+  _assert.ok(changes.length > 0);
 });
 
 step("generate new step definition <code> in new file", async function (code) {
   var files = await _customLSP.getImplFiles();
-
-  var result = await _customLSP.putStubImpl(null,code);
+  var result = await _customLSP.putStubImpl(null, code);
   var dirname = _path.dirname(files[0]);
   var extension = _path.extname(files[0]);
-  var basename = _path.basename(files[0],extension);
-
-  var fileURI = _fileExtension.getUri(_path.join(dirname,basename+"_1"+extension));
+  var basename = _path.basename(files[0], extension);
+  var sep = process.env.spec_impl_file_seperator || "";
+  var fileURI = _fileExtension.getUri(_path.join(dirname, basename + sep + "1" + extension));
+  console.log(result.changes);
+  console.log(fileURI);
   var changesForFile = result.changes[fileURI];
-  _assert.ok(changesForFile!=null);
+  _assert.ok(changesForFile != null);
 
   var changes = changesForFile.filter(function (elem) {
-    return elem.newText.endsWith(code);
+    return elem.newText.trim().includes(code);
   });
-  _assert.ok(changes.length>0);
+  _assert.ok(changes.length > 0);
 });
