@@ -43,8 +43,6 @@ step("generate new step definition <code> in new file", async function (code) {
   var basename = _path.basename(files[0], extension);
   var sep = process.env.spec_impl_file_seperator || "";
   var fileURI = _fileExtension.getUri(_path.join(dirname, basename + sep + "1" + extension));
-  console.log(result.changes);
-  console.log(fileURI);
   var changesForFile = result.changes[fileURI];
   _assert.ok(changesForFile != null);
 
