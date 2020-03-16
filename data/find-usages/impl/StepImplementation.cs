@@ -43,7 +43,7 @@ namespace netcore.template
         }
 
         [Step("Zero references <table>")]
-        public void VerifyVowelsCountInWord(string word, int expectedCount)
+        public void ZeroReferences(string word, int expectedCount)
         {
         }
 
