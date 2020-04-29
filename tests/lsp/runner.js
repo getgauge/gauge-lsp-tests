@@ -18,7 +18,7 @@ function prerequisite(projectPath, runner) {
         if(process.env.BUILD_FROM_COMMIT_HASH == "true" )
             newContent = `gem 'gauge-ruby', '~>${version}', :github => ENV['GITHUB_REPOSITORY'] || 'getgauge/gauge-ruby', :ref => '${process.env.LATEST_COMMIT_HASH}', :group => [:development, :test]`;
         else
-            newContent = `gem 'gauge-ruby', '~>${version}', :github => 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
+            newContent = `gem 'gauge-ruby', '~>${version}', :github => ENV['GITHUB_REPOSITORY'] || 'getgauge/gauge-ruby', :branch => ENV['RUBY_PLUGIN_BRANCH'] || 'master', :group => [:development, :test]`;
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
