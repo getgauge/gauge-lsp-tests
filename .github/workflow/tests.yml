@@ -1,0 +1,72 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lsp-tests:
+    name: LSP tests - java v${{ matrix.java_version }} & ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: test
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup go 1.13.1
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13.1
+
+      - name: Setup java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12'
+
+      - uses: bugdiver/setup-gauge@master
+        with:
+          gauge-version: master
+
+      - name: Install Gauge Java plugin from source
+        run: |
+          gauge install java
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+
+      - name: Prep gauge-js
+        run: |
+          git clone https://github.com/getgauge/gauge-js.git
+          cd gauge-js
+          npm install
+        shell: bash
+
+      - name: Install gauge-js
+        run: |
+          cd gauge-js
+          npm run installPlugin
+
+      - name: Prep LSP tests
+        run: |
+          npm install
+          gauge install
+          gauge -v
+
+      - name: Run LSP tests
+        shell: bash
+        run: |
+          gauge run --tags="!knownIssue & (actions_on_project_load | actions_on_file_edit)" --env=java-wd
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: lsp-logs-${{ matrix.os }}-${{ matrix.java_version }}
+          path: logs
+
+        
