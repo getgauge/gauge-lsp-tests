@@ -1,0 +1,27 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: Node ${{ matrix.node_version }} ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install Gauge
+        run: npm install -g @getgauge/cli
+
+      - name: unit-tests
+        run: |
+          npm install
+          npm test

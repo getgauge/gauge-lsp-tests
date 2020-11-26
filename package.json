@@ -4,7 +4,7 @@
   "description": "LSP tests for Gauge",
   "scripts": {
     "lint": "eslint tests/*.js",
-    "test": "npm run lint && gauge run specs "
+    "test": "npm install && npm run lint && gauge run --tags=\"!knownIssue & (actions_on_project_load | actions_on_file_edit)\" --env=js-wd"
   },
   "license": "MIT",
   "dependencies": {
@@ -14,6 +14,7 @@
     "ncp": "^2.0.0"
   },
   "devDependencies": {
+    "@getgauge/cli": "^1.1.5",
     "eslint": "^5.14.1"
   },
   "repository": {
