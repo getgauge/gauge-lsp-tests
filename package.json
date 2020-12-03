@@ -8,12 +8,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "vscode-jsonrpc": "^4.0.0",
-    "vscode-uri": "^1.0.5",
+    "ncp": "^2.0.0",
     "tmp": "^0.0.33",
-    "ncp": "^2.0.0"
+    "vscode-jsonrpc": "^4.0.0",
+    "vscode-uri": "^1.0.5"
   },
   "devDependencies": {
+    "@actions/artifact": "latest",
+    "@actions/core": "latest",
+    "@actions/exec": "latest",
     "@getgauge/cli": "^1.1.5",
     "eslint": "^5.14.1"
   },

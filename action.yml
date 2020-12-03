@@ -1,0 +1,14 @@
+name: 'Run LSP tests'
+description: 'Run LSP tests for plugins'
+author: 'Gauge'
+branding:
+  icon: 'play'
+  color: 'gray-dark'
+inputs:
+  env:
+    description: 'The Gauge LSP test environment to use'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'action.js'
