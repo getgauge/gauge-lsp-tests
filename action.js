@@ -1,13 +1,16 @@
-import {
+const {
   getInput,
   setFailed
-} from "@actions/core";
+} = require("@actions/core");
 
-import {
+const {
   exec
-} from "@actions/exec";
+} = require("@actions/exec");
 
-import { join } from "path";
+const {
+  join
+} = require("path");
+
 const artifact = require("@actions/artifact");
 
 (async function () {
@@ -25,11 +28,12 @@ const artifact = require("@actions/artifact");
     await exec("npm", ["install"]);
     await exec("gauge", ["install"]);
 
-    let failed = await exec("gauge", ["run", 
-      "--tags='!knownIssue & (actions_on_project_load | actions_on_file_edit)'", 
-      `--env=${env}`]);
+    let failed = await exec("gauge", ["run",
+      "--tags='!knownIssue & (actions_on_project_load | actions_on_file_edit)'",
+      `--env=${env}`
+    ]);
 
-    if(failed) {
+    if (failed) {
       let client = artifact.create();
       client.uploadArtifact(`lsp-logs-${ process.platform }`, ["logs"], gauge_lsp_dir);
     }
