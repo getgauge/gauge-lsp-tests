@@ -4,17 +4,16 @@
   "description": "LSP tests for Gauge",
   "scripts": {
     "lint": "eslint tests/*.js",
-    "test": "npm install && npm run lint && gauge run --tags=\"!knownIssue & (actions_on_project_load | actions_on_file_edit)\" --env=js-wd"
+    "test": "npm install && npm run lint && gauge run --tags=\"!knownIssue & (actions_on_project_load | actions_on_file_edit)\""
   },
   "license": "MIT",
   "dependencies": {
-    "vscode-jsonrpc": "^4.0.0",
-    "vscode-uri": "^1.0.5",
+    "ncp": "^2.0.0",
     "tmp": "^0.0.33",
-    "ncp": "^2.0.0"
+    "vscode-jsonrpc": "^4.0.0",
+    "vscode-uri": "^1.0.5"
   },
   "devDependencies": {
-    "@getgauge/cli": "^1.1.5",
     "eslint": "^5.14.1"
   },
   "repository": {
