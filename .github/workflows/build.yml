@@ -24,4 +24,4 @@ jobs:
       - name: unit-tests
         run: |
           npm install
-          npm test
+          gauge run --tags='!knownIssue & (actions_on_project_load | actions_on_file_edit)' --env=js-wd

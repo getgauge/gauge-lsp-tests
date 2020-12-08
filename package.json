@@ -4,7 +4,7 @@
   "description": "LSP tests for Gauge",
   "scripts": {
     "lint": "eslint tests/*.js",
-    "test": "npm install && npm run lint && gauge run --tags=\"!knownIssue & (actions_on_project_load | actions_on_file_edit)\""
+    "test": "npm install && npm run lint && gauge run --tags=\"!knownIssue & (actions_on_project_load | actions_on_file_edit)\" --env=js-wd"
   },
   "license": "MIT",
   "dependencies": {
