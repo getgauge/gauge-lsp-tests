@@ -1,9 +1,9 @@
-[ 
-  { 
-    "line": "2", 
-    "line_end": "4", 
-    "range_start": "0", 
-    "range_end": "18", 
-    "uri": "step_impl/step_impl.py" 
-  } 
+[
+  {
+    "line": "2",
+    "line_end": "5",
+    "range_start": "0",
+    "range_end": "0",
+    "uri": "step_impl/step_impl.py"
+  }
 ]
