@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "ncp": "^2.0.0",
-    "tmp": "^0.0.33",
+    "tmp": "^0.2.1",
     "vscode-jsonrpc": "^4.0.0",
     "vscode-uri": "^1.0.5"
   },
