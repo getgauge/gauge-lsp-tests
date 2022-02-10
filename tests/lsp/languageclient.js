@@ -163,7 +163,7 @@ async function initialize(gaugeProcess, execPath) {
     var connection = result.connection
     state.logger = result.logger
 
-    connection.onDispose(() => {state.connectionDisposed = true});
+    _connection.onDispose(() => {state.connectionDisposed = true});
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     connection.onNotification("window/logMessage", (message) => {
