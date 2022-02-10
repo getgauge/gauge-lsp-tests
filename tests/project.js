@@ -32,6 +32,7 @@ step("invoke shutDown and exit of LSP", async function () {
   }catch(err){
     console.log(err.stack);
     gauge.message(err.stack);
+
     throw new Error("trying to stop gauge daemon failed "+err);
   }
 });

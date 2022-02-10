@@ -4,16 +4,19 @@ const file = require('../util/fileExtension');
 const _runner = require('./runner')
 const _lspServer = require('./gauge');
 var path = require('path');
+var fs = require('fs');
+var assert = require('assert');
+const { spawn } = require('child_process');
 const _request = require('./rpc/request');
 const _notification = require('./rpc/notfication');
 const _connection = require('./rpc/connection');
 var builder = require('./util/dataBuilder')
+var cwd = process.cwd();
 var state = {}
 var listeners = [];
 var listenerId = 0;
 
 async function shutDown() {
-    if(!state.connectionDisposed) return;
     await _request.sendRequest(state.connection, "shutdown", undefined)
     _notification.sendNotification(state.connection, "exit");
 }
@@ -127,7 +130,7 @@ function editFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
 
-    state.connection.onNotification("textDocument/publishDiagnostics", () => { });
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
 
     _notification.sendNotification(state.connection, 'textDocument/didChange',
         {
@@ -145,7 +148,7 @@ function openFile(relativePath, contentFile) {
     if (contentFile == null)
         contentFile = relativePath
 
-    state.connection.onNotification("textDocument/publishDiagnostics", () => { });
+    state.connection.onNotification("textDocument/publishDiagnostics", (res) => { });
     _notification.sendNotification(state.connection, 'textDocument/didOpen',
         {
             "textDocument":
@@ -163,7 +166,6 @@ async function initialize(gaugeProcess, execPath) {
     var connection = result.connection
     state.logger = result.logger
 
-    _connection.onDispose(() => {state.connectionDisposed = true});
     const initializeParams = getInitializeParams(execPath, gaugeProcess);
 
     connection.onNotification("window/logMessage", (message) => {
@@ -178,7 +180,7 @@ async function initialize(gaugeProcess, execPath) {
     _notification.sendNotification(connection, "initialized", {})
 
     var expectedCapabilityIds = ["gauge-fileWatcher", "gauge-runner-didOpen", "gauge-runner-didClose", "gauge-runner-didChange", "gauge-runner-didChange", "gauge-runner-fileWatcher"];
-    var registerCapabilityPromise = new Promise(async function (resolve) {
+    var registerCapabilityPromise = new Promise(async function (resolve, reject) {
         _request.onRequest(connection, "client/registerCapability", async (data) => {
             data.registrations.forEach(registration => {
                 expectedCapabilityIds = expectedCapabilityIds.filter(id => registration.id !== id);
