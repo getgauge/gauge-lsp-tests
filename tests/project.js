@@ -44,13 +44,13 @@ step("cache gauge init template if not already present", function () {
     gaugeDaemon.initializeWithTemplate(resourcePath, runner); 
 });
 
-step("copy project template from cache", function (done) {
+step("copy project template from cache", function () {
   var projectPath = gauge.dataStore.scenarioStore.get("projectPath");
 
   var runner = (process.env.language=="javascript")?"js":process.env.language;
   var resourcePath = path.join("./resources",runner);
 
-  _user.copyDataToDir(resourcePath,projectPath,done);
+  _user.copyDataToDir(resourcePath, projectPath);
 });
 
 step("remove the env, specs and impl folders copied from the template", function () {
@@ -74,9 +74,9 @@ step("create temporary directory", function() {
   process.env.logs_directory = path.relative(projectPath,"logs")+"/lsp-tests/"+customLogPath;
 });
 
-step("copy data - env, specifications and implementation folders of required data from <data>", function (data, done) {
+step("copy data - env, specifications and implementation folders of required data from <data>", function (data) {
   var projectPath = gauge.dataStore.scenarioStore.get("projectPath");
-  _user.copyDataToDir(data,projectPath,done);
+  _user.copyDataToDir(data,projectPath);
 });
 
 step("remove the temporary directory", function() {
