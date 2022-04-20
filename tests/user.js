@@ -1,12 +1,12 @@
 var fs = require("fs");
-var ncp = require("ncp").ncp;
+var fse = require("fs-extra");
 var os = require("os");
 var file = require("./util/fileExtension");
 var path = require("path");
 var tmpDir;
 
-function copyDataToDir(data, projectDir, done) {
-  ncp(data, projectDir, done);
+function copyDataToDir(data, projectDir) {
+  fse.copySync(data, projectDir);
 }
 
 function createTempDirectory() {
