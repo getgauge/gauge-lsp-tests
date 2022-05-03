@@ -35,7 +35,7 @@ step("invoke shutDown and exit of LSP", async function () {
 
     // with .net 6, killprocessrequest causes runner to close immediately, preventing graceful shutdown of gRPC
     // see https://github.com/getgauge/gauge-dotnet/pull/186
-    if (process.platform === "linux" && process.env.language === "dotnet") {
+    if (err.code && err.code === 0 && process.platform === "linux" && process.env.language === "dotnet") {
       return;
     }
     throw new Error("trying to stop gauge daemon failed `" + JSON.stringify(err) + "`");
