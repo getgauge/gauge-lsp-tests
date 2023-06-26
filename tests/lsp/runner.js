@@ -22,7 +22,8 @@ function prerequisite(projectPath, runner) {
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
-        execSync('bundle install --path ' + vendorFolderPath, { encoding: 'utf8', cwd: projectPath });
+        execSync('bundle config set --local path ' + vendorFolderPath, { encoding: 'utf8', cwd: projectPath });
+        execSync('bundle install', { encoding: 'utf8', cwd: projectPath });
     }
 }
 
