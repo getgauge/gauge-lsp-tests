@@ -22,3 +22,6 @@ resources/ruby
 resources/python
 resources/dotnet
 resources/java
+
+.idea/
+*.iml
