@@ -1,8 +1,7 @@
 "use strict";
 
-var languageclient = require('../languageclient');
 var file = require('../../util/fileExtension');
-var uri = require('vscode-uri').default;
+var uri = require('vscode-uri').URI;
 
 function buildCodeAction(data){
   var codeActions = loadJSON(data)

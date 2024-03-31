@@ -1,7 +1,6 @@
-var vscodeUri = require("vscode-uri").default;
+var vscodeUri = require("vscode-uri").URI;
 var _path = require("path");
 
-var cwd = process.cwd();
 var fs = require("fs");
 
 function getUri(filePath){

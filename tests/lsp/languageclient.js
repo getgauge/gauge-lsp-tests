@@ -1,5 +1,5 @@
 "use strict";
-const vscodeUri = require("vscode-uri").default;
+const vscodeUri = require("vscode-uri").URI;
 const file = require("../util/fileExtension");
 const _runner = require("./runner");
 const _lspServer = require("./gauge");
