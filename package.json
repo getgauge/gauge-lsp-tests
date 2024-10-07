@@ -13,7 +13,7 @@
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
-    "eslint": "^9.11.1"
+    "eslint": "^9.12.0"
   },
   "repository": {
     "type": "git",
