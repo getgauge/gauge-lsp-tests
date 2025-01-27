@@ -8,12 +8,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.0",
     "vscode-jsonrpc": "^8.2.1",
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
-    "eslint": "^9.18.0"
+    "eslint": "^9.19.0"
   },
   "repository": {
     "type": "git",
