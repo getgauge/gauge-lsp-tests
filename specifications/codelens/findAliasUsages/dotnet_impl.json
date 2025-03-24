@@ -3,24 +3,24 @@
   "result":[
       {
         "range":{
-          "start":{"line":11,"character":0},
-          "end":{"line":11,"character":14}
+          "start":{"line":10,"character":0},
+          "end":{"line":10,"character":14}
         },
         "command":{
           "title":"2 reference(s)",
           "command":"gauge.showReferences",
-          "arguments":["impl/Alias.cs",{"line":11,"character":0},"alias1"]
+          "arguments":["impl/Alias.cs",{"line":10,"character":0},"alias1"]
         }
       },
       {
         "range":{
-          "start":{"line":11,"character":0},
-          "end":{"line":11,"character":14}
+          "start":{"line":10,"character":0},
+          "end":{"line":10,"character":14}
         },
         "command":{
           "title":"1 reference(s)",
           "command":"gauge.showReferences",
-          "arguments":["impl/Alias.cs",{"line":11,"character":0},"alias2"]
+          "arguments":["impl/Alias.cs",{"line":10,"character":0},"alias2"]
           }
         }  
   ]
