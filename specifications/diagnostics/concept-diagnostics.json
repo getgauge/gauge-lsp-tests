@@ -4,7 +4,7 @@
         "range_start":"0", 
         "range_end":"10000", 
         "severity":"1", 
-        "message":"Concept should have atleast one step", 
+        "message":"Concept should have at least one step",
         "uri":"/$specs/concepts/conceptShouldHaveOneStep.cpt" 
     }, 
     { 
