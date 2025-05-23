@@ -3,6 +3,9 @@
 * textDocument/didChange event to change content from <relativeFilePath> to <contentFile>
 * textDocument/didSave - The document save notification is sent from the client to the server when the document <relativeFilePath> was saved in the client.
 
+# edit content of file from <relativeFilePath> to <contentFile> without saving
+* textDocument/didChange event to change content from <relativeFilePath> to <contentFile>
+
 # textDocument/didOpen for <fileName>
 * textDocument/didOpen <fileName>
 * wait for "0.1" seconds
