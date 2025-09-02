@@ -31,7 +31,7 @@ A newly added step appears in the list after file save
 tags: actions_on_file_edit
 * textDocument/didOpen for "/$specs/codecomplete_step.spec"
 * edit content of file from "/$specs/codecomplete_step.spec" to "/$specs/new_step_codecomplete_step.txt" and save 
-* wait for "2" seconds
+* wait for "5" seconds
 * textDocument/completion in "/$specs/codecomplete_step.spec" for subText "new" at line "7" character "5" should give "steps" 
 
    |label    |
