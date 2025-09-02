@@ -8,7 +8,7 @@
 
 # textDocument/didOpen for <fileName>
 * textDocument/didOpen <fileName>
-* wait for "0.2" seconds
+* wait for "0.5" seconds
 
 # open file <file> with content <content>
 * textDocument/didOpen <file> with content <content>
@@ -16,4 +16,4 @@
 
 # open file with details <jsonDetails>
 * textDocument/didOpen details from <jsonDetails>
-* wait for "0.2" seconds
+* wait for "0.5" seconds
