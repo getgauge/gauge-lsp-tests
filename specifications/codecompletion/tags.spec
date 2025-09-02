@@ -28,7 +28,7 @@ tags: actions_on_file_edit
 * wait for "1" seconds
 * textDocument/didOpen for "/$specs/someTags/tagAtSpecLevel.spec"
 * edit content of file from "/$specs/someTags/tagAtSpecLevel.spec" to "/$specs/someTags/more_tagAtSpecLevel.txt" and save 
-* wait for "1" seconds
+* wait for "2" seconds
 * textDocument/didOpen for "/$specs/someTags/tagCompletion.spec"
 * textDocument/completion in "/$specs/someTags/tagCompletion.spec" for subText "" at line "4" character "15" should give "tags" 
 
