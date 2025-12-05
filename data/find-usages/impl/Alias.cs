@@ -4,7 +4,7 @@ using System.Linq;
 using Gauge.CSharp.Lib;
 using Gauge.CSharp.Lib.Attribute;
 
-namespace netcore.template
+namespace DotNet.Template
 {
     public class Alias
     {
