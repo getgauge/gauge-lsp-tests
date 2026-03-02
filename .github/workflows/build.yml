@@ -24,8 +24,6 @@ jobs:
           node-version: 24
 
       - uses: getgauge/setup-gauge@master
-        with:
-          gauge-version: latest
 
       - name: unit-tests
         run: |
