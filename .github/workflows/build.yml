@@ -25,7 +25,7 @@ jobs:
 
       - uses: getgauge/setup-gauge@master
         with:
-          gauge-version: master
+          gauge-version: latest
 
       - name: unit-tests
         run: |
