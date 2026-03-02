@@ -23,11 +23,12 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install Gauge
-        run: npm install -g @getgauge/cli
+      - uses: getgauge/setup-gauge@master
+        with:
+          gauge-version: master
 
       - name: unit-tests
         run: |
           npm install
-          gauge${{ startsWith(matrix.os, 'windows') && '.cmd' || ''}} install
-          gauge${{ startsWith(matrix.os, 'windows') && '.cmd' || ''}} run --tags='!knownIssue & (actions_on_project_load | actions_on_file_edit)' --env=js-wd
+          gauge install
+          gauge run --tags='!knownIssue & (actions_on_project_load | actions_on_file_edit)' --env=js-wd
