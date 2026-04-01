@@ -51,6 +51,12 @@ function invokeDiagnostics(expectedDiagnostics,runner,done){
   return languageclient.openProject();
 }
 
+function normalizeDiagnosticMessage(message) {
+  if (message == null)
+    return "";
+  return String(message).split(/\r?\n/)[0].trim();
+}
+
 function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
   if(responseMessage==null)
     return expectedDiagnostics;
@@ -66,7 +72,9 @@ function verifyDiagnosticsResponse(responseMessage,expectedDiagnostics) {
       
       gauge.message("verified "+expectedDiagnostic.uri);
       var allDiagnosticsForFile = responseMessage.diagnostics.filter(function(elem) {
-        return (elem.message === expectedDiagnostic.message) && ((expectedDiagnostic.line==null || expectedDiagnostic.line=="NA") || (expectedDiagnostic.line == elem.range.start.line));
+        var actualMessage = normalizeDiagnosticMessage(elem.message);
+        var expectedMessage = expectedDiagnostic.message.trim();
+        return (actualMessage === expectedMessage) && ((expectedDiagnostic.line==null || expectedDiagnostic.line=="NA") || (expectedDiagnostic.line == elem.range.start.line));
       });
 
       expectedDiagnostic.isValidated = true;
