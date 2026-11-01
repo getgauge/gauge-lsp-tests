@@ -2,4 +2,3 @@
 
     gem 'test-unit', :group => [:development, :test]
     gem 'gauge-ruby', '~>${ruby-version}', :github => 'getgauge/gauge-ruby', :branch => 'master', :group => [:development, :test]
-    gem 'grpc', '!= 1.85.0', :platforms => ['windows']
