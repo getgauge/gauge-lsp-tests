@@ -23,6 +23,8 @@ function prerequisite(projectPath, runner) {
         var result = fileContent.replace(/gem 'gauge-ruby'.*:group => \[:development, :test\]/, newContent);
         if (process.env.RUBY_PLUGIN_GRPC_SOURCE_BRANCH) {
             result += `\n    gem 'grpc', :github => 'grpc/grpc', :branch => '${process.env.RUBY_PLUGIN_GRPC_SOURCE_BRANCH}', :submodules => true, :group => [:development, :test]\n`;
+        } else {
+            result += "\n    gem 'grpc', '!= 1.85.0', :platforms => [:windows] # Not compiled for x64-mingw-ucrt";
         }
         file.write(gemFilePath, result);
         var vendorFolderPath = path.join(process.cwd(), "data", "vendor");
